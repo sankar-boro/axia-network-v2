@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Axia Systems, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package ids
@@ -95,7 +95,7 @@ func TestIDMarshalJSON(t *testing.T) {
 	}{
 		{"ID{}", ID{}, []byte("\"11111111111111111111111111111111LpoYY\""), nil},
 		{
-			"ID(\"ava labs\")",
+			"ID(\"axia systems\")",
 			ID{'a', 'v', 'a', ' ', 'l', 'a', 'b', 's'},
 			[]byte("\"jvYi6Tn9idMi7BaymUVi9zWjg5tpmW7trfKG1AYJLKZJ2fsU7\""),
 			nil,
@@ -122,7 +122,7 @@ func TestIDUnmarshalJSON(t *testing.T) {
 	}{
 		{"ID{}", []byte("null"), ID{}, nil},
 		{
-			"ID(\"ava labs\")",
+			"ID(\"axia systems\")",
 			[]byte("\"jvYi6Tn9idMi7BaymUVi9zWjg5tpmW7trfKG1AYJLKZJ2fsU7\""),
 			ID{'a', 'v', 'a', ' ', 'l', 'a', 'b', 's'},
 			nil,
