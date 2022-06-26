@@ -93,7 +93,7 @@ func NewContext(tb testing.TB) *snow.Context {
 	ctx.NetworkID = networkID
 	ctx.ChainID = chainID
 	ctx.AVAXAssetID = tx.ID()
-	ctx.XChainID = ids.Empty.Prefix(0)
+	ctx.SwapChainID = ids.Empty.Prefix(0)
 	aliaser := ctx.BCLookup.(ids.Aliaser)
 
 	errs := wrappers.Errs{}

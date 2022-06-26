@@ -46,7 +46,7 @@ type SerializerConfig struct {
 	VM                  vertex.DAGVM
 	DB                  database.Database
 	Log                 logging.Logger
-	XChainMigrationTime time.Time
+	SwapChainMigrationTime time.Time
 }
 
 func NewSerializer(config SerializerConfig) vertex.Manager {

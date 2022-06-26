@@ -37,7 +37,7 @@ func TestNewExportTx(t *testing.T) {
 	tests := []test{
 		{
 			description:        "P->X export",
-			destinationChainID: xChainID,
+			destinationChainID: swapChainID,
 			sourceKeys:         []*crypto.PrivateKeySECP256K1R{sourceKey},
 			timestamp:          defaultValidateStartTime,
 			shouldErr:          false,

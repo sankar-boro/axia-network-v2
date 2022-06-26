@@ -254,7 +254,7 @@ func (vtx *uniqueVertex) Verify() error {
 		if vtx.time != nil {
 			now = vtx.time()
 		}
-		allowed := vtx.serializer.XChainMigrationTime
+		allowed := vtx.serializer.SwapChainMigrationTime
 		if now.Before(allowed) {
 			return errStopVertexNotAllowedTimestamp
 		}

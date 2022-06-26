@@ -28,7 +28,7 @@ import (
 
 var keyFactory crypto.FactorySECP256K1R
 
-var _ = e2e.DescribeXChain("[WhitelistTx]", func() {
+var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 	ginkgo.It("can issue whitelist vtx", func() {
 		if !e2e.GetEnableWhitelistTxTests() {
 			ginkgo.Skip("whitelist vtx tests are disabled; skipping")

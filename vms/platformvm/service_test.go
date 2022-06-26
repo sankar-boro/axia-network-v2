@@ -194,7 +194,7 @@ func TestGetTxStatus(t *testing.T) {
 	}
 
 	sm := m.NewSharedMemory(service.vm.ctx.ChainID)
-	peerSharedMemory := m.NewSharedMemory(xChainID)
+	peerSharedMemory := m.NewSharedMemory(swapChainID)
 
 	// #nosec G404
 	utxo := &avax.UTXO{
@@ -231,7 +231,7 @@ func TestGetTxStatus(t *testing.T) {
 	newAtomicUTXOManager := avax.NewAtomicUTXOManager(sm, Codec)
 
 	service.vm.AtomicUTXOManager = newAtomicUTXOManager
-	tx, err := service.vm.newImportTx(xChainID, ids.ShortEmpty, []*crypto.PrivateKeySECP256K1R{recipientKey}, ids.ShortEmpty)
+	tx, err := service.vm.newImportTx(swapChainID, ids.ShortEmpty, []*crypto.PrivateKeySECP256K1R{recipientKey}, ids.ShortEmpty)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -325,7 +325,7 @@ func TestGetTx(t *testing.T) {
 			func(service *Service) (*Tx, error) {
 				return service.vm.newExportTx( // Test GetTx works for proposal blocks
 					100,
-					service.vm.ctx.XChainID,
+					service.vm.ctx.SwapChainID,
 					ids.GenerateTestShortID(),
 					[]*crypto.PrivateKeySECP256K1R{keys[0]},
 					keys[0].PublicKey().Address(), // change addr
