@@ -113,8 +113,8 @@ func TestNewImportTx(t *testing.T) {
 		},
 		{
 			description:   "attempting to import from C-chain",
-			sourceChainID: cChainID,
-			sharedMemory:  fundedSharedMemory(cChainID, vm.TxFee),
+			sourceChainID: axcChainID,
+			sharedMemory:  fundedSharedMemory(axcChainID, vm.TxFee),
 			sourceKeys:    []*crypto.PrivateKeySECP256K1R{sourceKey},
 			timestamp:     vm.ApricotPhase5Time,
 			shouldErr:     false,

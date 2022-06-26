@@ -45,7 +45,7 @@ func TestNewExportTx(t *testing.T) {
 		},
 		{
 			description:        "P->C export",
-			destinationChainID: cChainID,
+			destinationChainID: axcChainID,
 			sourceKeys:         []*crypto.PrivateKeySECP256K1R{sourceKey},
 			timestamp:          vm.ApricotPhase5Time,
 			shouldErr:          false,

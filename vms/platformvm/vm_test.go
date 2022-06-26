@@ -102,7 +102,7 @@ var (
 	testSubnet1ControlKeys = keys[0:3]
 
 	xChainID = ids.Empty.Prefix(0)
-	cChainID = ids.Empty.Prefix(1)
+	axcChainID = ids.Empty.Prefix(1)
 
 	// Used to create and use keys.
 	testKeyfactory crypto.FactorySECP256K1R
@@ -143,8 +143,8 @@ func defaultContext() *snow.Context {
 		aliaser.Alias(constants.PlatformChainID, constants.PlatformChainID.String()),
 		aliaser.Alias(xChainID, "X"),
 		aliaser.Alias(xChainID, xChainID.String()),
-		aliaser.Alias(cChainID, "C"),
-		aliaser.Alias(cChainID, cChainID.String()),
+		aliaser.Alias(axcChainID, "C"),
+		aliaser.Alias(axcChainID, axcChainID.String()),
 	)
 	if errs.Errored() {
 		panic(errs.Err)
@@ -155,7 +155,7 @@ func defaultContext() *snow.Context {
 		chainsToSubnet: map[ids.ID]ids.ID{
 			constants.PlatformChainID: constants.PrimaryNetworkID,
 			xChainID:                  constants.PrimaryNetworkID,
-			cChainID:                  constants.PrimaryNetworkID,
+			axcChainID:                  constants.PrimaryNetworkID,
 		},
 	}
 	return ctx

@@ -77,7 +77,7 @@ type Config struct {
 	InitialStakedFunds         []ids.ShortID `json:"initialStakedFunds"`
 	InitialStakers             []Staker      `json:"initialStakers"`
 
-	CChainGenesis string `json:"cChainGenesis"`
+	CChainGenesis string `json:"axcChainGenesis"`
 
 	Message string `json:"message"`
 }
