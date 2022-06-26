@@ -6,7 +6,7 @@ package x
 import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
@@ -52,7 +52,7 @@ func (b *builderWithOptions) GetImportableBalance(
 }
 
 func (b *builderWithOptions) NewBaseTx(
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (*txs.BaseTx, error) {
 	return b.Builder.NewBaseTx(
@@ -147,7 +147,7 @@ func (b *builderWithOptions) NewImportTx(
 
 func (b *builderWithOptions) NewExportTx(
 	chainID ids.ID,
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (*txs.ExportTx, error) {
 	return b.Builder.NewExportTx(

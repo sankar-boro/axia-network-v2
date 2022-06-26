@@ -8,7 +8,7 @@ import (
 	"github.com/sankar-boro/avalanchego/database"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var _ txs.Visitor = &executeTx{}
@@ -46,12 +46,12 @@ func (et *executeTx) ExportTx(t *txs.ExportTx) error {
 	elems := make([]*atomic.Element, len(t.ExportedOuts))
 	codec := et.parser.Codec()
 	for i, out := range t.ExportedOuts {
-		utxo := &avax.UTXO{
-			UTXOID: avax.UTXOID{
+		utxo := &axc.UTXO{
+			UTXOID: axc.UTXOID{
 				TxID:        txID,
 				OutputIndex: uint32(len(t.Outs) + i),
 			},
-			Asset: avax.Asset{ID: out.AssetID()},
+			Asset: axc.Asset{ID: out.AssetID()},
 			Out:   out.Out,
 		}
 
@@ -65,7 +65,7 @@ func (et *executeTx) ExportTx(t *txs.ExportTx) error {
 			Key:   inputID[:],
 			Value: utxoBytes,
 		}
-		if out, ok := utxo.Out.(avax.Addressable); ok {
+		if out, ok := utxo.Out.(axc.Addressable); ok {
 			elem.Traits = out.Addresses()
 		}
 

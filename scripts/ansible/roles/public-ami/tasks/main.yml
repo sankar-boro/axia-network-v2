@@ -1,11 +1,11 @@
 - name: Setup gpg key
   apt_key:
-    url: https://downloads.avax.network/avalanchego.gpg.key
+    url: https://downloads.axc.network/avalanchego.gpg.key
     state: present
 
 - name: Setup avalanchego repo
   apt_repository:
-    repo: deb https://downloads.avax.network/apt bionic main
+    repo: deb https://downloads.axc.network/apt bionic main
     state: present
 
 - name: Setup golang repo

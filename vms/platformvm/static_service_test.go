@@ -214,7 +214,7 @@ func TestBuildGenesisReturnsSortedValidators(t *testing.T) {
 	}
 
 	args := BuildGenesisArgs{
-		AvaxAssetID: ids.ID{'d', 'u', 'm', 'm', 'y', ' ', 'I', 'D'},
+		AxcAssetID: ids.ID{'d', 'u', 'm', 'm', 'y', ' ', 'I', 'D'},
 		UTXOs: []APIUTXO{
 			utxo,
 		},

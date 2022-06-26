@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/pubsub"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
@@ -28,8 +28,8 @@ func TestFilter(t *testing.T) {
 	assert := assert.New(t)
 
 	addrID := ids.ShortID{1}
-	tx := txs.Tx{UnsignedTx: &txs.BaseTx{BaseTx: avax.BaseTx{
-		Outs: []*avax.TransferableOutput{
+	tx := txs.Tx{UnsignedTx: &txs.BaseTx{BaseTx: axc.BaseTx{
+		Outs: []*axc.TransferableOutput{
 			{
 				Out: &secp256k1fx.TransferOutput{
 					OutputOwners: secp256k1fx.OutputOwners{

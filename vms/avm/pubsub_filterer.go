@@ -7,7 +7,7 @@ import (
 	"github.com/sankar-boro/avalanchego/api"
 	"github.com/sankar-boro/avalanchego/pubsub"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var _ pubsub.Filterer = &filterer{}
@@ -24,7 +24,7 @@ func NewPubSubFilterer(tx *txs.Tx) pubsub.Filterer {
 func (f *filterer) Filter(filters []pubsub.Filter) ([]bool, interface{}) {
 	resp := make([]bool, len(filters))
 	for _, utxo := range f.tx.UTXOs() {
-		addressable, ok := utxo.Out.(avax.Addressable)
+		addressable, ok := utxo.Out.(axc.Addressable)
 		if !ok {
 			continue
 		}

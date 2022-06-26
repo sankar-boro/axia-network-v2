@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/json"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
@@ -26,9 +26,9 @@ import (
 var (
 	errUnknownAssetType = errors.New("unknown asset type")
 
-	_ avax.TransferableIn  = &secp256k1fx.TransferInput{}
+	_ axc.TransferableIn  = &secp256k1fx.TransferInput{}
 	_ verify.State         = &secp256k1fx.MintOutput{}
-	_ avax.TransferableOut = &secp256k1fx.TransferOutput{}
+	_ axc.TransferableOut = &secp256k1fx.TransferOutput{}
 	_ fxs.FxOperation      = &secp256k1fx.MintOperation{}
 	_ verify.Verifiable    = &secp256k1fx.Credential{}
 
@@ -95,7 +95,7 @@ func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, r
 		asset := GenesisAsset{
 			Alias: assetAlias,
 			CreateAssetTx: txs.CreateAssetTx{
-				BaseTx: txs.BaseTx{BaseTx: avax.BaseTx{
+				BaseTx: txs.BaseTx{BaseTx: axc.BaseTx{
 					NetworkID:    uint32(args.NetworkID),
 					BlockchainID: ids.Empty,
 					Memo:         assetMemo,

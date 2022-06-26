@@ -63,7 +63,7 @@ type Client interface {
 	GetCurrentValidators(ctx context.Context, subnetID ids.ID, nodeIDs []ids.NodeID, options ...rpc.Option) ([]ClientPrimaryValidator, error)
 	// GetPendingValidators returns the list of pending validators for subnet with ID [subnetID]
 	GetPendingValidators(ctx context.Context, subnetID ids.ID, nodeIDs []ids.NodeID, options ...rpc.Option) ([]interface{}, []interface{}, error)
-	// GetCurrentSupply returns an upper bound on the supply of AVAX in the system
+	// GetCurrentSupply returns an upper bound on the supply of AXC in the system
 	GetCurrentSupply(ctx context.Context, options ...rpc.Option) (uint64, error)
 	// SampleValidators returns the nodeIDs of a sample of [sampleSize] validators from the current validator set for subnet with ID [subnetID]
 	SampleValidators(ctx context.Context, subnetID ids.ID, sampleSize uint16, options ...rpc.Option) ([]ids.NodeID, error)
@@ -120,8 +120,8 @@ type Client interface {
 		threshold uint32,
 		options ...rpc.Option,
 	) (ids.ID, error)
-	// ExportAVAX issues an ExportTx transaction and returns the txID
-	ExportAVAX(
+	// ExportAXC issues an ExportTx transaction and returns the txID
+	ExportAXC(
 		ctx context.Context,
 		user api.UserPass,
 		from []ids.ShortID,
@@ -131,8 +131,8 @@ type Client interface {
 		amount uint64,
 		options ...rpc.Option,
 	) (ids.ID, error)
-	// ImportAVAX issues an ImportTx transaction and returns the txID
-	ImportAVAX(
+	// ImportAXC issues an ImportTx transaction and returns the txID
+	ImportAXC(
 		ctx context.Context,
 		user api.UserPass,
 		from []ids.ShortID,
@@ -176,15 +176,15 @@ type Client interface {
 		freq time.Duration,
 		options ...rpc.Option,
 	) (*GetTxStatusResponse, error)
-	// GetStake returns the amount of nAVAX that [addrs] have cumulatively
+	// GetStake returns the amount of nAXC that [addrs] have cumulatively
 	// staked on the Primary Network.
 	GetStake(ctx context.Context, addrs []ids.ShortID, options ...rpc.Option) (uint64, [][]byte, error)
-	// GetMinStake returns the minimum staking amount in nAVAX for validators
+	// GetMinStake returns the minimum staking amount in nAXC for validators
 	// and delegators respectively
 	GetMinStake(ctx context.Context, options ...rpc.Option) (uint64, uint64, error)
-	// GetTotalStake returns the total amount (in nAVAX) staked on the network
+	// GetTotalStake returns the total amount (in nAXC) staked on the network
 	GetTotalStake(ctx context.Context, subnetID ids.ID, options ...rpc.Option) (uint64, error)
-	// GetMaxStakeAmount returns the maximum amount of nAVAX staking to the named
+	// GetMaxStakeAmount returns the maximum amount of nAXC staking to the named
 	// node during the time period.
 	GetMaxStakeAmount(
 		ctx context.Context,
@@ -529,7 +529,7 @@ func (c *client) CreateSubnet(
 	return res.TxID, err
 }
 
-func (c *client) ExportAVAX(
+func (c *client) ExportAXC(
 	ctx context.Context,
 	user api.UserPass,
 	from []ids.ShortID,
@@ -540,7 +540,7 @@ func (c *client) ExportAVAX(
 	options ...rpc.Option,
 ) (ids.ID, error) {
 	res := &api.JSONTxID{}
-	err := c.requester.SendRequest(ctx, "exportAVAX", &ExportAVAXArgs{
+	err := c.requester.SendRequest(ctx, "exportAXC", &ExportAXCArgs{
 		JSONSpendHeader: api.JSONSpendHeader{
 			UserPass:       user,
 			JSONFromAddrs:  api.JSONFromAddrs{From: ids.ShortIDsToStrings(from)},
@@ -553,7 +553,7 @@ func (c *client) ExportAVAX(
 	return res.TxID, err
 }
 
-func (c *client) ImportAVAX(
+func (c *client) ImportAXC(
 	ctx context.Context,
 	user api.UserPass,
 	from []ids.ShortID,
@@ -563,7 +563,7 @@ func (c *client) ImportAVAX(
 	options ...rpc.Option,
 ) (ids.ID, error) {
 	res := &api.JSONTxID{}
-	err := c.requester.SendRequest(ctx, "importAVAX", &ImportAVAXArgs{
+	err := c.requester.SendRequest(ctx, "importAXC", &ImportAXCArgs{
 		JSONSpendHeader: api.JSONSpendHeader{
 			UserPass:       user,
 			JSONFromAddrs:  api.JSONFromAddrs{From: ids.ShortIDsToStrings(from)},

@@ -9,7 +9,7 @@ import (
 	"github.com/sankar-boro/avalanchego/database"
 	"github.com/sankar-boro/avalanchego/database/prefixdb"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var (
@@ -24,16 +24,16 @@ var (
 // State persistently maintains a set of UTXOs, transaction, statuses, and
 // singletons.
 type State interface {
-	avax.UTXOState
-	avax.StatusState
-	avax.SingletonState
+	axc.UTXOState
+	axc.StatusState
+	axc.SingletonState
 	TxState
 }
 
 type state struct {
-	avax.UTXOState
-	avax.StatusState
-	avax.SingletonState
+	axc.UTXOState
+	axc.StatusState
+	axc.SingletonState
 	TxState
 }
 
@@ -43,12 +43,12 @@ func New(db database.Database, parser txs.Parser, metrics prometheus.Registerer)
 	singletonDB := prefixdb.New(singletonPrefix, db)
 	txDB := prefixdb.New(txPrefix, db)
 
-	utxoState, err := avax.NewMeteredUTXOState(utxoDB, parser.Codec(), metrics)
+	utxoState, err := axc.NewMeteredUTXOState(utxoDB, parser.Codec(), metrics)
 	if err != nil {
 		return nil, err
 	}
 
-	statusState, err := avax.NewMeteredStatusState(statusDB, metrics)
+	statusState, err := axc.NewMeteredStatusState(statusDB, metrics)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func New(db database.Database, parser txs.Parser, metrics prometheus.Registerer)
 	return &state{
 		UTXOState:      utxoState,
 		StatusState:    statusState,
-		SingletonState: avax.NewSingletonState(singletonDB),
+		SingletonState: axc.NewSingletonState(singletonDB),
 		TxState:        txState,
 	}, err
 }

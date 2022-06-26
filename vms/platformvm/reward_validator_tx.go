@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
 	"github.com/sankar-boro/avalanchego/utils/math"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
 )
@@ -29,13 +29,13 @@ var (
 //
 // If this transaction is accepted and the next block accepted is a Commit
 // block, the validator is removed and the address that the validator specified
-// receives the staked AVAX as well as a validating reward.
+// receives the staked AXC as well as a validating reward.
 //
 // If this transaction is accepted and the next block accepted is an Abort
 // block, the validator is removed and the address that the validator specified
-// receives the staked AVAX but no reward.
+// receives the staked AXC but no reward.
 type UnsignedRewardValidatorTx struct {
-	avax.Metadata
+	axc.Metadata
 
 	// ID of the tx that created the delegator/validator being removed/rewarded
 	TxID ids.ID `serialize:"true" json:"txID"`
@@ -141,12 +141,12 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 	case *UnsignedAddValidatorTx:
 		// Refund the stake here
 		for i, out := range uStakerTx.Stake {
-			utxo := &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxo := &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        tx.TxID,
 					OutputIndex: uint32(len(uStakerTx.Outs) + i),
 				},
-				Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
+				Asset: axc.Asset{ID: vm.ctx.AXCAssetID},
 				Out:   out.Output(),
 			}
 			onCommitState.AddUTXO(utxo)
@@ -164,12 +164,12 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 				return nil, nil, errInvalidState
 			}
 
-			utxo := &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxo := &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        tx.TxID,
 					OutputIndex: uint32(len(uStakerTx.Outs) + len(uStakerTx.Stake)),
 				},
-				Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
+				Asset: axc.Asset{ID: vm.ctx.AXCAssetID},
 				Out:   out,
 			}
 
@@ -183,12 +183,12 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 	case *UnsignedAddDelegatorTx:
 		// Refund the stake here
 		for i, out := range uStakerTx.Stake {
-			utxo := &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxo := &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        tx.TxID,
 					OutputIndex: uint32(len(uStakerTx.Outs) + i),
 				},
-				Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
+				Asset: axc.Asset{ID: vm.ctx.AXCAssetID},
 				Out:   out.Output(),
 			}
 			onCommitState.AddUTXO(utxo)
@@ -229,12 +229,12 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 			if !ok {
 				return nil, nil, errInvalidState
 			}
-			utxo := &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxo := &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        tx.TxID,
 					OutputIndex: uint32(len(uStakerTx.Outs) + len(uStakerTx.Stake)),
 				},
-				Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
+				Asset: axc.Asset{ID: vm.ctx.AXCAssetID},
 				Out:   out,
 			}
 
@@ -254,12 +254,12 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 			if !ok {
 				return nil, nil, errInvalidState
 			}
-			utxo := &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxo := &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        tx.TxID,
 					OutputIndex: uint32(len(uStakerTx.Outs) + len(uStakerTx.Stake) + offset),
 				},
-				Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
+				Asset: axc.Asset{ID: vm.ctx.AXCAssetID},
 				Out:   out,
 			}
 

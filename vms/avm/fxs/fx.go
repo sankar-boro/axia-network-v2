@@ -6,7 +6,7 @@ package fxs
 import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
@@ -52,7 +52,7 @@ type Fx interface {
 type FxOperation interface {
 	verify.Verifiable
 	snow.ContextInitializable
-	avax.Coster
+	axc.Coster
 
 	Outs() []verify.State
 }

@@ -138,7 +138,7 @@ var _ = ginkgo.Describe("[StaticHandlers]", func() {
 			addr, err := address.FormatBech32(hrp, id.Bytes())
 			gomega.Expect(err).Should(gomega.BeNil())
 			genesisUTXOs[i] = platformvm.APIUTXO{
-				Amount:  json.Uint64(50000 * units.MilliAvax),
+				Amount:  json.Uint64(50000 * units.MilliAxc),
 				Address: addr,
 			}
 		}
@@ -168,12 +168,12 @@ var _ = ginkgo.Describe("[StaticHandlers]", func() {
 
 		buildGenesisArgs := platformvm.BuildGenesisArgs{
 			NetworkID:     json.Uint32(constants.UnitTestID),
-			AvaxAssetID:   ids.ID{'a', 'v', 'a', 'x'},
+			AxcAssetID:   ids.ID{'a', 'v', 'a', 'x'},
 			UTXOs:         genesisUTXOs,
 			Validators:    genesisValidators,
 			Chains:        nil,
 			Time:          json.Uint64(time.Date(1997, 1, 1, 0, 0, 0, 0, time.UTC).Unix()),
-			InitialSupply: json.Uint64(360 * units.MegaAvax),
+			InitialSupply: json.Uint64(360 * units.MegaAxc),
 			Encoding:      formatting.CB58,
 		}
 

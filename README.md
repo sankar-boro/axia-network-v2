@@ -4,7 +4,7 @@
 
 ---
 
-Node implementation for the [Avalanche](https://avax.network) network -
+Node implementation for the [Avalanche](https://axc.network) network -
 a blockchains platform with high throughput, and blazing fast transactions.
 
 ## Installation
@@ -59,8 +59,8 @@ To add the repository on Ubuntu 18.04 (Bionic), run:
 
 ```sh
 sudo su -
-wget -O - https://downloads.avax.network/avalanchego.gpg.key | apt-key add -
-echo "deb https://downloads.avax.network/apt bionic main" > /etc/apt/sources.list.d/avalanche.list
+wget -O - https://downloads.axc.network/avalanchego.gpg.key | apt-key add -
+echo "deb https://downloads.axc.network/apt bionic main" > /etc/apt/sources.list.d/avalanche.list
 exit
 ```
 
@@ -68,8 +68,8 @@ To add the repository on Ubuntu 20.04 (Focal), run:
 
 ```sh
 sudo su -
-wget -O - https://downloads.avax.network/avalanchego.gpg.key | apt-key add -
-echo "deb https://downloads.avax.network/apt focal main" > /etc/apt/sources.list.d/avalanche.list
+wget -O - https://downloads.axc.network/avalanchego.gpg.key | apt-key add -
+echo "deb https://downloads.axc.network/apt focal main" > /etc/apt/sources.list.d/avalanche.list
 exit
 ```
 
@@ -134,13 +134,13 @@ To connect to the Test Testnet, run:
 
 ### Creating a Local Testnet
 
-See [this tutorial.](https://docs.avax.network/build/tutorials/platform/create-a-local-test-network/)
+See [this tutorial.](https://docs.axc.network/build/tutorials/platform/create-a-local-test-network/)
 
 ## Bootstrapping
 
 A node needs to catch up to the latest network state before it can participate in consensus and serve API calls. This process, called bootstrapping, currently takes several days for a new node connected to Mainnet.
 
-A node will not [report healthy](https://docs.avax.network/build/avalanchego-apis/health) until it is done bootstrapping.
+A node will not [report healthy](https://docs.axc.network/build/avalanchego-apis/health) until it is done bootstrapping.
 
 Improvements that reduce the amount of time it takes to bootstrap are under development.
 

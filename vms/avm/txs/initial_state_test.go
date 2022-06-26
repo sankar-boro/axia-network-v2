@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/codec/linearcodec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
@@ -132,7 +132,7 @@ func TestInitialStateVerifyNilOutput(t *testing.T) {
 
 func TestInitialStateVerifyInvalidOutput(t *testing.T) {
 	c := linearcodec.NewDefault()
-	if err := c.RegisterType(&avax.TestVerifiable{}); err != nil {
+	if err := c.RegisterType(&axc.TestVerifiable{}); err != nil {
 		t.Fatal(err)
 	}
 	m := codec.NewDefaultManager()
@@ -143,7 +143,7 @@ func TestInitialStateVerifyInvalidOutput(t *testing.T) {
 
 	is := InitialState{
 		FxIndex: 0,
-		Outs:    []verify.State{&avax.TestVerifiable{Err: errors.New("")}},
+		Outs:    []verify.State{&axc.TestVerifiable{Err: errors.New("")}},
 	}
 	if err := is.Verify(m, numFxs); err == nil {
 		t.Fatalf("Should have erred due to an invalid output")
@@ -152,7 +152,7 @@ func TestInitialStateVerifyInvalidOutput(t *testing.T) {
 
 func TestInitialStateVerifyUnsortedOutputs(t *testing.T) {
 	c := linearcodec.NewDefault()
-	if err := c.RegisterType(&avax.TestTransferable{}); err != nil {
+	if err := c.RegisterType(&axc.TestTransferable{}); err != nil {
 		t.Fatal(err)
 	}
 	m := codec.NewDefaultManager()
@@ -164,8 +164,8 @@ func TestInitialStateVerifyUnsortedOutputs(t *testing.T) {
 	is := InitialState{
 		FxIndex: 0,
 		Outs: []verify.State{
-			&avax.TestTransferable{Val: 1},
-			&avax.TestTransferable{Val: 0},
+			&axc.TestTransferable{Val: 1},
+			&axc.TestTransferable{Val: 0},
 		},
 	}
 	if err := is.Verify(m, numFxs); err == nil {

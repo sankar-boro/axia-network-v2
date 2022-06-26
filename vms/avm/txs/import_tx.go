@@ -9,7 +9,7 @@ import (
 	"github.com/sankar-boro/avalanchego/codec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var (
@@ -26,11 +26,11 @@ type ImportTx struct {
 	SourceChain ids.ID `serialize:"true" json:"sourceChain"`
 
 	// The inputs to this transaction
-	ImportedIns []*avax.TransferableInput `serialize:"true" json:"importedInputs"`
+	ImportedIns []*axc.TransferableInput `serialize:"true" json:"importedInputs"`
 }
 
 // InputUTXOs track which UTXOs this transaction is consuming.
-func (t *ImportTx) InputUTXOs() []*avax.UTXOID {
+func (t *ImportTx) InputUTXOs() []*axc.UTXOID {
 	utxos := t.BaseTx.InputUTXOs()
 	for _, in := range t.ImportedIns {
 		in.Symbol = true
@@ -82,14 +82,14 @@ func (t *ImportTx) SyntacticVerify(
 		return err
 	}
 
-	return avax.VerifyTx(
+	return axc.VerifyTx(
 		txFee,
 		txFeeAssetID,
-		[][]*avax.TransferableInput{
+		[][]*axc.TransferableInput{
 			t.Ins,
 			t.ImportedIns,
 		},
-		[][]*avax.TransferableOutput{t.Outs},
+		[][]*axc.TransferableOutput{t.Outs},
 		c,
 	)
 }

@@ -41,7 +41,7 @@ type Context struct {
 	NodeID    ids.NodeID
 
 	SwapChainID    ids.ID
-	AVAXAssetID ids.ID
+	AXCAssetID ids.ID
 
 	Log          logging.Logger
 	Lock         sync.RWMutex

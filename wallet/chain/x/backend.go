@@ -10,17 +10,17 @@ import (
 
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var _ Backend = &backend{}
 
 type ChainUTXOs interface {
-	AddUTXO(ctx stdcontext.Context, destinationChainID ids.ID, utxo *avax.UTXO) error
+	AddUTXO(ctx stdcontext.Context, destinationChainID ids.ID, utxo *axc.UTXO) error
 	RemoveUTXO(ctx stdcontext.Context, sourceChainID, utxoID ids.ID) error
 
-	UTXOs(ctx stdcontext.Context, sourceChainID ids.ID) ([]*avax.UTXO, error)
-	GetUTXO(ctx stdcontext.Context, sourceChainID, utxoID ids.ID) (*avax.UTXO, error)
+	UTXOs(ctx stdcontext.Context, sourceChainID ids.ID) ([]*axc.UTXO, error)
+	GetUTXO(ctx stdcontext.Context, sourceChainID, utxoID ids.ID) (*axc.UTXO, error)
 }
 
 // Backend defines the full interface required to support an Swap-chain wallet.
@@ -65,12 +65,12 @@ func (b *backend) AcceptTx(ctx stdcontext.Context, tx *txs.Tx) error {
 			err := b.AddUTXO(
 				ctx,
 				utx.DestinationChain,
-				&avax.UTXO{
-					UTXOID: avax.UTXOID{
+				&axc.UTXO{
+					UTXOID: axc.UTXOID{
 						TxID:        txID,
 						OutputIndex: uint32(len(utx.Outs) + i),
 					},
-					Asset: avax.Asset{ID: out.AssetID()},
+					Asset: axc.Asset{ID: out.AssetID()},
 					Out:   out.Out,
 				},
 			)

@@ -10,7 +10,7 @@ import (
 
 	database "github.com/sankar-boro/avalanchego/database"
 	ids "github.com/sankar-boro/avalanchego/ids"
-	avax "github.com/sankar-boro/avalanchego/vms/components/avax"
+	axc "github.com/sankar-boro/avalanchego/vms/components/axc"
 	status "github.com/sankar-boro/avalanchego/vms/platformvm/status"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -99,7 +99,7 @@ func (mr *MockInternalStateMockRecorder) AddPendingStaker(tx interface{}) *gomoc
 }
 
 // AddRewardUTXO mocks base method.
-func (m *MockInternalState) AddRewardUTXO(txID ids.ID, utxo *avax.UTXO) {
+func (m *MockInternalState) AddRewardUTXO(txID ids.ID, utxo *axc.UTXO) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "AddRewardUTXO", txID, utxo)
 }
@@ -135,7 +135,7 @@ func (mr *MockInternalStateMockRecorder) AddTx(tx, status interface{}) *gomock.C
 }
 
 // AddUTXO mocks base method.
-func (m *MockInternalState) AddUTXO(utxo *avax.UTXO) {
+func (m *MockInternalState) AddUTXO(utxo *axc.UTXO) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "AddUTXO", utxo)
 }
@@ -298,10 +298,10 @@ func (mr *MockInternalStateMockRecorder) GetLastAccepted() *gomock.Call {
 }
 
 // GetRewardUTXOs mocks base method.
-func (m *MockInternalState) GetRewardUTXOs(txID ids.ID) ([]*avax.UTXO, error) {
+func (m *MockInternalState) GetRewardUTXOs(txID ids.ID) ([]*axc.UTXO, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetRewardUTXOs", txID)
-	ret0, _ := ret[0].([]*avax.UTXO)
+	ret0, _ := ret[0].([]*axc.UTXO)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -373,10 +373,10 @@ func (mr *MockInternalStateMockRecorder) GetTx(txID interface{}) *gomock.Call {
 }
 
 // GetUTXO mocks base method.
-func (m *MockInternalState) GetUTXO(utxoID ids.ID) (*avax.UTXO, error) {
+func (m *MockInternalState) GetUTXO(utxoID ids.ID) (*axc.UTXO, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUTXO", utxoID)
-	ret0, _ := ret[0].(*avax.UTXO)
+	ret0, _ := ret[0].(*axc.UTXO)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

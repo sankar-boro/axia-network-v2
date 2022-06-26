@@ -5,7 +5,7 @@ package p
 
 import (
 	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
@@ -38,7 +38,7 @@ func (w *walletWithOptions) Builder() Builder {
 }
 
 func (w *walletWithOptions) IssueBaseTx(
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
 	return w.Wallet.IssueBaseTx(
@@ -125,7 +125,7 @@ func (w *walletWithOptions) IssueImportTx(
 
 func (w *walletWithOptions) IssueExportTx(
 	chainID ids.ID,
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
 	return w.Wallet.IssueExportTx(

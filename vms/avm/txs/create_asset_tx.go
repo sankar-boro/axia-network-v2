@@ -13,7 +13,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
 	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 const (
@@ -60,18 +60,18 @@ func (t *CreateAssetTx) InitCtx(ctx *snow.Context) {
 func (t *CreateAssetTx) InitialStates() []*InitialState { return t.States }
 
 // UTXOs returns the UTXOs transaction is producing.
-func (t *CreateAssetTx) UTXOs() []*avax.UTXO {
+func (t *CreateAssetTx) UTXOs() []*axc.UTXO {
 	txID := t.ID()
 	utxos := t.BaseTx.UTXOs()
 
 	for _, state := range t.States {
 		for _, out := range state.Outs {
-			utxos = append(utxos, &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxos = append(utxos, &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        txID,
 					OutputIndex: uint32(len(utxos)),
 				},
-				Asset: avax.Asset{
+				Asset: axc.Asset{
 					ID: txID,
 				},
 				Out: out,

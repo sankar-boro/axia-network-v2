@@ -155,7 +155,7 @@ type ManagerConfig struct {
 	Server                      server.Server      // Handles HTTP API calls
 	Keystore                    keystore.Keystore
 	AtomicMemory                *atomic.Memory
-	AVAXAssetID                 ids.ID
+	AXCAssetID                 ids.ID
 	SwapChainID                    ids.ID
 	CriticalChains              ids.Set         // Chains that can't exit gracefully
 	WhitelistedSubnets          ids.Set         // Subnets to validate
@@ -362,7 +362,7 @@ func (m *manager) buildChain(chainParams ChainParameters, sb Subnet) (*chain, er
 			NodeID:    m.NodeID,
 
 			SwapChainID:    m.SwapChainID,
-			AVAXAssetID: m.AVAXAssetID,
+			AXCAssetID: m.AXCAssetID,
 
 			Log:          chainLog,
 			Keystore:     m.Keystore.NewBlockchainKeyStore(chainParams.ID),

@@ -32,7 +32,7 @@ const (
 	UnitTestName = "testing"
 	LocalName    = "local"
 
-	MainnetHRP  = "avax"
+	MainnetHRP  = "axc"
 	CascadeHRP  = "cascade"
 	DenaliHRP   = "denali"
 	EverestHRP  = "everest"

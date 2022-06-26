@@ -6,7 +6,7 @@ package avm
 import (
 	"github.com/sankar-boro/avalanchego/utils/constants"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
@@ -68,7 +68,7 @@ func (t *txSemanticVerify) ImportTx(tx *txs.ImportTx) error {
 	codec := t.vm.parser.Codec()
 	offset := tx.BaseTx.NumCredentials()
 	for i, in := range tx.ImportedIns {
-		utxo := avax.UTXO{}
+		utxo := axc.UTXO{}
 		if _, err := codec.Unmarshal(allUTXOBytes[i], &utxo); err != nil {
 			return err
 		}
@@ -97,7 +97,7 @@ func (t *txSemanticVerify) ExportTx(tx *txs.ExportTx) error {
 		}
 
 		assetID := out.AssetID()
-		if assetID != t.vm.ctx.AVAXAssetID && tx.DestinationChain == constants.PlatformChainID {
+		if assetID != t.vm.ctx.AXCAssetID && tx.DestinationChain == constants.PlatformChainID {
 			return errWrongAssetID
 		}
 

@@ -7,14 +7,14 @@ import (
 	"github.com/sankar-boro/avalanchego/codec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var _ UnsignedTx = &BaseTx{}
 
 // BaseTx is the basis of all transactions.
 type BaseTx struct {
-	avax.BaseTx `serialize:"true"`
+	axc.BaseTx `serialize:"true"`
 }
 
 func (t *BaseTx) InitCtx(ctx *snow.Context) {
@@ -39,11 +39,11 @@ func (t *BaseTx) SyntacticVerify(
 		return err
 	}
 
-	return avax.VerifyTx(
+	return axc.VerifyTx(
 		txFee,
 		txFeeAssetID,
-		[][]*avax.TransferableInput{t.Ins},
-		[][]*avax.TransferableOutput{t.Outs},
+		[][]*axc.TransferableInput{t.Ins},
+		[][]*axc.TransferableOutput{t.Outs},
 		c,
 	)
 }

@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/units"
 	"github.com/sankar-boro/avalanchego/utils/wrappers"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
@@ -73,11 +73,11 @@ func NewContext(tb testing.TB) *snow.Context {
 	ctx := snow.DefaultContextTest()
 	ctx.NetworkID = networkID
 	ctx.ChainID = chainID
-	avaxAssetID, err := ids.FromString("2XGxUr7VF7j1iwUp2aiGe4b6Ue2yyNghNS1SuNTNmZ77dPpXFZ")
+	axcAssetID, err := ids.FromString("2XGxUr7VF7j1iwUp2aiGe4b6Ue2yyNghNS1SuNTNmZ77dPpXFZ")
 	if err != nil {
 		tb.Fatal(err)
 	}
-	ctx.AVAXAssetID = avaxAssetID
+	ctx.AXCAssetID = axcAssetID
 	ctx.SwapChainID = ids.Empty.Prefix(0)
 	aliaser := ctx.BCLookup.(ids.Aliaser)
 
@@ -122,17 +122,17 @@ func TestTxInvalidCredential(t *testing.T) {
 	c := setupCodec()
 
 	tx := &Tx{
-		UnsignedTx: &BaseTx{BaseTx: avax.BaseTx{
+		UnsignedTx: &BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    networkID,
 			BlockchainID: chainID,
-			Ins: []*avax.TransferableInput{{
-				UTXOID: avax.UTXOID{
+			Ins: []*axc.TransferableInput{{
+				UTXOID: axc.UTXOID{
 					TxID:        ids.Empty,
 					OutputIndex: 0,
 				},
-				Asset: avax.Asset{ID: assetID},
+				Asset: axc.Asset{ID: assetID},
 				In: &secp256k1fx.TransferInput{
-					Amt: 20 * units.KiloAvax,
+					Amt: 20 * units.KiloAxc,
 					Input: secp256k1fx.Input{
 						SigIndices: []uint32{
 							0,
@@ -141,7 +141,7 @@ func TestTxInvalidCredential(t *testing.T) {
 				},
 			}},
 		}},
-		Creds: []*fxs.FxCredential{{Verifiable: &avax.TestVerifiable{Err: errors.New("")}}},
+		Creds: []*fxs.FxCredential{{Verifiable: &axc.TestVerifiable{Err: errors.New("")}}},
 	}
 	tx.Initialize(nil, nil)
 
@@ -155,18 +155,18 @@ func TestTxInvalidUnsignedTx(t *testing.T) {
 	c := setupCodec()
 
 	tx := &Tx{
-		UnsignedTx: &BaseTx{BaseTx: avax.BaseTx{
+		UnsignedTx: &BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    networkID,
 			BlockchainID: chainID,
-			Ins: []*avax.TransferableInput{
+			Ins: []*axc.TransferableInput{
 				{
-					UTXOID: avax.UTXOID{
+					UTXOID: axc.UTXOID{
 						TxID:        ids.Empty,
 						OutputIndex: 0,
 					},
-					Asset: avax.Asset{ID: assetID},
+					Asset: axc.Asset{ID: assetID},
 					In: &secp256k1fx.TransferInput{
-						Amt: 20 * units.KiloAvax,
+						Amt: 20 * units.KiloAxc,
 						Input: secp256k1fx.Input{
 							SigIndices: []uint32{
 								0,
@@ -175,13 +175,13 @@ func TestTxInvalidUnsignedTx(t *testing.T) {
 					},
 				},
 				{
-					UTXOID: avax.UTXOID{
+					UTXOID: axc.UTXOID{
 						TxID:        ids.Empty,
 						OutputIndex: 0,
 					},
-					Asset: avax.Asset{ID: assetID},
+					Asset: axc.Asset{ID: assetID},
 					In: &secp256k1fx.TransferInput{
-						Amt: 20 * units.KiloAvax,
+						Amt: 20 * units.KiloAxc,
 						Input: secp256k1fx.Input{
 							SigIndices: []uint32{
 								0,
@@ -192,8 +192,8 @@ func TestTxInvalidUnsignedTx(t *testing.T) {
 			},
 		}},
 		Creds: []*fxs.FxCredential{
-			{Verifiable: &avax.TestVerifiable{}},
-			{Verifiable: &avax.TestVerifiable{}},
+			{Verifiable: &axc.TestVerifiable{}},
+			{Verifiable: &axc.TestVerifiable{}},
 		},
 	}
 	tx.Initialize(nil, nil)
@@ -208,15 +208,15 @@ func TestTxInvalidNumberOfCredentials(t *testing.T) {
 	c := setupCodec()
 
 	tx := &Tx{
-		UnsignedTx: &BaseTx{BaseTx: avax.BaseTx{
+		UnsignedTx: &BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    networkID,
 			BlockchainID: chainID,
-			Ins: []*avax.TransferableInput{
+			Ins: []*axc.TransferableInput{
 				{
-					UTXOID: avax.UTXOID{TxID: ids.Empty, OutputIndex: 0},
-					Asset:  avax.Asset{ID: assetID},
+					UTXOID: axc.UTXOID{TxID: ids.Empty, OutputIndex: 0},
+					Asset:  axc.Asset{ID: assetID},
 					In: &secp256k1fx.TransferInput{
-						Amt: 20 * units.KiloAvax,
+						Amt: 20 * units.KiloAxc,
 						Input: secp256k1fx.Input{
 							SigIndices: []uint32{
 								0,
@@ -225,10 +225,10 @@ func TestTxInvalidNumberOfCredentials(t *testing.T) {
 					},
 				},
 				{
-					UTXOID: avax.UTXOID{TxID: ids.Empty, OutputIndex: 1},
-					Asset:  avax.Asset{ID: assetID},
+					UTXOID: axc.UTXOID{TxID: ids.Empty, OutputIndex: 1},
+					Asset:  axc.Asset{ID: assetID},
 					In: &secp256k1fx.TransferInput{
-						Amt: 20 * units.KiloAvax,
+						Amt: 20 * units.KiloAxc,
 						Input: secp256k1fx.Input{
 							SigIndices: []uint32{
 								0,
@@ -238,7 +238,7 @@ func TestTxInvalidNumberOfCredentials(t *testing.T) {
 				},
 			},
 		}},
-		Creds: []*fxs.FxCredential{{Verifiable: &avax.TestVerifiable{}}},
+		Creds: []*fxs.FxCredential{{Verifiable: &axc.TestVerifiable{}}},
 	}
 	tx.Initialize(nil, nil)
 

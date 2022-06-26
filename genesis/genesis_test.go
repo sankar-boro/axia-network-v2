@@ -154,7 +154,7 @@ var (
 		"allocations": [
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local1g65uqn6t77p656w64023nh8nd9updzmxyymev2",
+				"axcAddr": "Swap-local1g65uqn6t77p656w64023nh8nd9updzmxyymev2",
 				"initialAmount": 0,
 				"unlockSchedule": [
 					{
@@ -165,7 +165,7 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local18jma8ppw3nhx5r4ap8clazz0dps7rv5u00z96u",
+				"axcAddr": "Swap-local18jma8ppw3nhx5r4ap8clazz0dps7rv5u00z96u",
 				"initialAmount": 300000000000000000,
 				"unlockSchedule": [
 					{
@@ -179,7 +179,7 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local1ur873jhz9qnaqv5qthk5sn3e8nj3e0kmggalnu",
+				"axcAddr": "Swap-local1ur873jhz9qnaqv5qthk5sn3e8nj3e0kmggalnu",
 				"initialAmount": 10000000000000000,
 				"unlockSchedule": [
 					{
@@ -486,7 +486,7 @@ func TestVMGenesis(t *testing.T) {
 	}
 }
 
-func TestAVAXAssetID(t *testing.T) {
+func TestAXCAssetID(t *testing.T) {
 	tests := []struct {
 		networkID  uint32
 		expectedID string
@@ -510,13 +510,13 @@ func TestAVAXAssetID(t *testing.T) {
 			assert := assert.New(t)
 
 			config := GetConfig(test.networkID)
-			_, avaxAssetID, err := FromConfig(config)
+			_, axcAssetID, err := FromConfig(config)
 			assert.NoError(err)
 
 			assert.Equal(
 				test.expectedID,
-				avaxAssetID.String(),
-				"AVAX assetID with networkID %d mismatch",
+				axcAssetID.String(),
+				"AXC assetID with networkID %d mismatch",
 				test.networkID,
 			)
 		})

@@ -5,7 +5,7 @@ package p
 
 import (
 	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
@@ -130,7 +130,7 @@ func (b *builderWithOptions) NewImportTx(
 
 func (b *builderWithOptions) NewExportTx(
 	chainID ids.ID,
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (*platformvm.UnsignedExportTx, error) {
 	return b.Builder.NewExportTx(

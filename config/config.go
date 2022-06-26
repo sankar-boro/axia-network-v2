@@ -1256,7 +1256,7 @@ func GetNodeConfig(v *viper.Viper, buildDir string) (node.Config, error) {
 	nodeConfig.TxFeeConfig = getTxFeeConfig(v, nodeConfig.NetworkID)
 
 	// Genesis Data
-	nodeConfig.GenesisBytes, nodeConfig.AvaxAssetID, err = getGenesisData(v, nodeConfig.NetworkID)
+	nodeConfig.GenesisBytes, nodeConfig.AxcAssetID, err = getGenesisData(v, nodeConfig.NetworkID)
 	if err != nil {
 		return node.Config{}, fmt.Errorf("unable to load genesis file: %w", err)
 	}

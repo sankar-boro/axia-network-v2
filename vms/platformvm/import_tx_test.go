@@ -15,7 +15,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
@@ -62,12 +62,12 @@ func TestNewImportTx(t *testing.T) {
 		peerSharedMemory := m.NewSharedMemory(peerChain)
 
 		// #nosec G404
-		utxo := &avax.UTXO{
-			UTXOID: avax.UTXOID{
+		utxo := &axc.UTXO{
+			UTXOID: axc.UTXOID{
 				TxID:        ids.GenerateTestID(),
 				OutputIndex: rand.Uint32(),
 			},
-			Asset: avax.Asset{ID: avaxAssetID},
+			Asset: axc.Asset{ID: axcAssetID},
 			Out: &secp256k1fx.TransferOutput{
 				Amt: amt,
 				OutputOwners: secp256k1fx.OutputOwners{
@@ -128,7 +128,7 @@ func TestNewImportTx(t *testing.T) {
 			assert := assert.New(t)
 
 			vm.ctx.SharedMemory = tt.sharedMemory
-			vm.AtomicUTXOManager = avax.NewAtomicUTXOManager(tt.sharedMemory, Codec)
+			vm.AtomicUTXOManager = axc.NewAtomicUTXOManager(tt.sharedMemory, Codec)
 			tx, err := vm.newImportTx(tt.sourceChainID, to, tt.sourceKeys, ids.ShortEmpty)
 			if tt.shouldErr {
 				assert.Error(err)

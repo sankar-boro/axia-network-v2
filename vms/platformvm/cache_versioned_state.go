@@ -8,18 +8,18 @@ import (
 
 	"github.com/sankar-boro/avalanchego/database"
 	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
 )
 
 var _ VersionedState = &versionedStateImpl{}
 
 type UTXOGetter interface {
-	GetUTXO(utxoID ids.ID) (*avax.UTXO, error)
+	GetUTXO(utxoID ids.ID) (*axc.UTXO, error)
 }
 
 type UTXOAdder interface {
-	AddUTXO(utxo *avax.UTXO)
+	AddUTXO(utxo *axc.UTXO)
 }
 
 type UTXODeleter interface {
@@ -36,8 +36,8 @@ type MutableState interface {
 	UTXOState
 	ValidatorState
 
-	AddRewardUTXO(txID ids.ID, utxo *avax.UTXO)
-	GetRewardUTXOs(txID ids.ID) ([]*avax.UTXO, error)
+	AddRewardUTXO(txID ids.ID, utxo *axc.UTXO)
+	GetRewardUTXOs(txID ids.ID) ([]*axc.UTXO, error)
 
 	GetTimestamp() time.Time
 	SetTimestamp(time.Time)
@@ -79,7 +79,7 @@ type versionedStateImpl struct {
 	cachedChains map[ids.ID][]*Tx
 
 	// map of txID -> []*UTXO
-	addedRewardUTXOs map[ids.ID][]*avax.UTXO
+	addedRewardUTXOs map[ids.ID][]*axc.UTXO
 
 	// map of txID -> {*Tx, Status}
 	addedTxs map[ids.ID]*txStatusImpl
@@ -95,7 +95,7 @@ type txStatusImpl struct {
 
 type utxoImpl struct {
 	utxoID ids.ID
-	utxo   *avax.UTXO
+	utxo   *axc.UTXO
 }
 
 func newVersionedState(
@@ -233,21 +233,21 @@ func (vs *versionedStateImpl) AddTx(tx *Tx, status status.Status) {
 	}
 }
 
-func (vs *versionedStateImpl) GetRewardUTXOs(txID ids.ID) ([]*avax.UTXO, error) {
+func (vs *versionedStateImpl) GetRewardUTXOs(txID ids.ID) ([]*axc.UTXO, error) {
 	if utxos, exists := vs.addedRewardUTXOs[txID]; exists {
 		return utxos, nil
 	}
 	return vs.parentState.GetRewardUTXOs(txID)
 }
 
-func (vs *versionedStateImpl) AddRewardUTXO(txID ids.ID, utxo *avax.UTXO) {
+func (vs *versionedStateImpl) AddRewardUTXO(txID ids.ID, utxo *axc.UTXO) {
 	if vs.addedRewardUTXOs == nil {
-		vs.addedRewardUTXOs = make(map[ids.ID][]*avax.UTXO)
+		vs.addedRewardUTXOs = make(map[ids.ID][]*axc.UTXO)
 	}
 	vs.addedRewardUTXOs[txID] = append(vs.addedRewardUTXOs[txID], utxo)
 }
 
-func (vs *versionedStateImpl) GetUTXO(utxoID ids.ID) (*avax.UTXO, error) {
+func (vs *versionedStateImpl) GetUTXO(utxoID ids.ID) (*axc.UTXO, error) {
 	utxo, modified := vs.modifiedUTXOs[utxoID]
 	if !modified {
 		return vs.parentState.GetUTXO(utxoID)
@@ -258,7 +258,7 @@ func (vs *versionedStateImpl) GetUTXO(utxoID ids.ID) (*avax.UTXO, error) {
 	return utxo.utxo, nil
 }
 
-func (vs *versionedStateImpl) AddUTXO(utxo *avax.UTXO) {
+func (vs *versionedStateImpl) AddUTXO(utxo *axc.UTXO) {
 	newUTXO := &utxoImpl{
 		utxoID: utxo.InputID(),
 		utxo:   utxo,

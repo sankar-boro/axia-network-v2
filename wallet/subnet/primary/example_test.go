@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/constants"
 	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
@@ -36,7 +36,7 @@ func ExampleWallet() {
 
 	// Pull out useful constants to use when issuing transactions.
 	swapChainID := xWallet.BlockchainID()
-	avaxAssetID := xWallet.AVAXAssetID()
+	axcAssetID := xWallet.AXCAssetID()
 	owner := &secp256k1fx.OutputOwners{
 		Threshold: 1,
 		Addrs: []ids.ShortID{
@@ -48,10 +48,10 @@ func ExampleWallet() {
 	exportStartTime := time.Now()
 	exportTxID, err := xWallet.IssueExportTx(
 		constants.PlatformChainID,
-		[]*avax.TransferableOutput{
+		[]*axc.TransferableOutput{
 			{
-				Asset: avax.Asset{
-					ID: avaxAssetID,
+				Asset: axc.Asset{
+					ID: axcAssetID,
 				},
 				Out: &secp256k1fx.TransferOutput{
 					Amt:          100 * units.Schmeckle,

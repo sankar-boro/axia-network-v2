@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/keystore"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
@@ -78,12 +78,12 @@ func GetAllUTXOsBenchmark(b *testing.B, utxoCount int) {
 
 	// #nosec G404
 	for i := 0; i < utxoCount; i++ {
-		utxo := &avax.UTXO{
-			UTXOID: avax.UTXOID{
+		utxo := &axc.UTXO{
+			UTXOID: axc.UTXOID{
 				TxID:        ids.GenerateTestID(),
 				OutputIndex: rand.Uint32(),
 			},
-			Asset: avax.Asset{ID: ids.ID{'y', 'e', 'e', 't'}},
+			Asset: axc.Asset{ID: ids.ID{'y', 'e', 'e', 't'}},
 			Out: &secp256k1fx.TransferOutput{
 				Amt: 100000,
 				OutputOwners: secp256k1fx.OutputOwners{
@@ -104,14 +104,14 @@ func GetAllUTXOsBenchmark(b *testing.B, utxoCount int) {
 
 	var (
 		err               error
-		notPaginatedUTXOs []*avax.UTXO
+		notPaginatedUTXOs []*axc.UTXO
 	)
 
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		// Fetch all UTXOs older version
-		notPaginatedUTXOs, err = avax.GetAllUTXOs(vm.state, addrsSet)
+		notPaginatedUTXOs, err = axc.GetAllUTXOs(vm.state, addrsSet)
 		if err != nil {
 			b.Fatal(err)
 		}

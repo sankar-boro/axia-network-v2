@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/logging"
 	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var (
@@ -43,8 +43,8 @@ type AddressTxsIndexer interface {
 	// If the error is non-nil, do not persist [txID] to disk as accepted in the VM
 	Accept(
 		txID ids.ID,
-		inputUTXOs []*avax.UTXO,
-		outputUTXOs []*avax.UTXO,
+		inputUTXOs []*axc.UTXO,
+		outputUTXOs []*axc.UTXO,
 	) error
 
 	// Read returns the IDs of transactions that changed [address]'s balance of [assetID].
@@ -94,7 +94,7 @@ func NewIndexer(
 // |  | "0"   => txID1
 // |  | "1"   => txID1
 // See interface documentation AddressTxsIndexer.Accept
-func (i *indexer) Accept(txID ids.ID, inputUTXOs []*avax.UTXO, outputUTXOs []*avax.UTXO) error {
+func (i *indexer) Accept(txID ids.ID, inputUTXOs []*axc.UTXO, outputUTXOs []*axc.UTXO) error {
 	utxos := inputUTXOs
 	// Fetch and add the output UTXOs
 	utxos = append(utxos, outputUTXOs...)
@@ -105,7 +105,7 @@ func (i *indexer) Accept(txID ids.ID, inputUTXOs []*avax.UTXO, outputUTXOs []*av
 	// we do this step separately to simplify the write process later
 	balanceChanges := make(map[string]map[ids.ID]struct{})
 	for _, utxo := range utxos {
-		out, ok := utxo.Out.(avax.Addressable)
+		out, ok := utxo.Out.(axc.Addressable)
 		if !ok {
 			i.log.Verbo("skipping UTXO %s for indexing", utxo.InputID())
 			continue
@@ -242,7 +242,7 @@ func NewNoIndexer(db database.Database, allowIncomplete bool) (AddressTxsIndexer
 	return &noIndexer{}, checkIndexStatus(db, false, allowIncomplete)
 }
 
-func (i *noIndexer) Accept(ids.ID, []*avax.UTXO, []*avax.UTXO) error {
+func (i *noIndexer) Accept(ids.ID, []*axc.UTXO, []*axc.UTXO) error {
 	return nil
 }
 

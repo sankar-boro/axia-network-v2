@@ -20,7 +20,7 @@ import (
 	"github.com/sankar-boro/avalanchego/tests/e2e"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/vms/avm"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 	"github.com/sankar-boro/avalanchego/wallet/subnet/primary"
 	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
@@ -103,14 +103,14 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 			balances, err := ewoqWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			avaxAssetID := wallet.X().AVAXAssetID()
-			ewoqPrevBalX := balances[avaxAssetID]
+			axcAssetID := wallet.X().AXCAssetID()
+			ewoqPrevBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", ewoqPrevBalX)
 
 			balances, err = randWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			randPrevBalX := balances[avaxAssetID]
+			randPrevBalX := balances[axcAssetID]
 			tests.Outf("{{green}}rand wallet balance:{{/}} %d\n", randPrevBalX)
 
 			amount := genRandUint64(ewoqPrevBalX)
@@ -119,9 +119,9 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 			tests.Outf("{{blue}}issuing regular, virtuous transaction at %q{{/}}\n", uris[0])
 			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultConfirmTxTimeout)
 			_, err = ewoqWallet.X().IssueBaseTx(
-				[]*avax.TransferableOutput{{
-					Asset: avax.Asset{
-						ID: avaxAssetID,
+				[]*axc.TransferableOutput{{
+					Asset: axc.Asset{
+						ID: axcAssetID,
 					},
 					Out: &secp256k1fx.TransferOutput{
 						Amt: amount,
@@ -140,12 +140,12 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 
 			balances, err = ewoqWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
-			ewoqCurBalX := balances[avaxAssetID]
+			ewoqCurBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", ewoqCurBalX)
 
 			balances, err = randWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
-			randCurBalX := balances[avaxAssetID]
+			randCurBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", randCurBalX)
 
 			gomega.Expect(ewoqCurBalX).Should(gomega.Equal(ewoqPrevBalX - amount - wallet.X().BaseTxFee()))
@@ -244,17 +244,17 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 			balances, err := ewoqWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			avaxAssetID := wallet.X().AVAXAssetID()
-			ewoqPrevBalX := balances[avaxAssetID]
+			axcAssetID := wallet.X().AXCAssetID()
+			ewoqPrevBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", ewoqPrevBalX)
 
 			amount := genRandUint64(ewoqPrevBalX)
 			tests.Outf("{{blue}}issuing regular, virtuous transaction at %q{{/}}\n", uris[0])
 			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultConfirmTxTimeout)
 			_, err = ewoqWallet.X().IssueBaseTx(
-				[]*avax.TransferableOutput{{
-					Asset: avax.Asset{
-						ID: avaxAssetID,
+				[]*axc.TransferableOutput{{
+					Asset: axc.Asset{
+						ID: axcAssetID,
 					},
 					Out: &secp256k1fx.TransferOutput{
 						Amt: amount,

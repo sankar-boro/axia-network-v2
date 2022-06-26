@@ -10,12 +10,12 @@ import (
 	"github.com/sankar-boro/avalanchego/codec/linearcodec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
 type testOperable struct {
-	avax.TestTransferable `serialize:"true"`
+	axc.TestTransferable `serialize:"true"`
 
 	Outputs []verify.State `serialize:"true"`
 }
@@ -45,7 +45,7 @@ func TestOperationVerifyEmpty(t *testing.T) {
 	}
 
 	op := &Operation{
-		Asset: avax.Asset{ID: ids.Empty},
+		Asset: axc.Asset{ID: ids.Empty},
 	}
 	if err := op.Verify(m); err == nil {
 		t.Fatalf("Should have erred due to empty operation")
@@ -60,8 +60,8 @@ func TestOperationVerifyUTXOIDsNotSorted(t *testing.T) {
 	}
 
 	op := &Operation{
-		Asset: avax.Asset{ID: ids.Empty},
-		UTXOIDs: []*avax.UTXOID{
+		Asset: axc.Asset{ID: ids.Empty},
+		UTXOIDs: []*axc.UTXOID{
 			{
 				TxID:        ids.Empty,
 				OutputIndex: 1,
@@ -87,8 +87,8 @@ func TestOperationVerify(t *testing.T) {
 
 	assetID := ids.GenerateTestID()
 	op := &Operation{
-		Asset: avax.Asset{ID: assetID},
-		UTXOIDs: []*avax.UTXOID{
+		Asset: axc.Asset{ID: assetID},
+		UTXOIDs: []*axc.UTXOID{
 			{
 				TxID:        assetID,
 				OutputIndex: 1,
@@ -114,8 +114,8 @@ func TestOperationSorting(t *testing.T) {
 
 	ops := []*Operation{
 		{
-			Asset: avax.Asset{ID: ids.Empty},
-			UTXOIDs: []*avax.UTXOID{
+			Asset: axc.Asset{ID: ids.Empty},
+			UTXOIDs: []*axc.UTXOID{
 				{
 					TxID:        ids.Empty,
 					OutputIndex: 1,
@@ -124,8 +124,8 @@ func TestOperationSorting(t *testing.T) {
 			Op: &testOperable{},
 		},
 		{
-			Asset: avax.Asset{ID: ids.Empty},
-			UTXOIDs: []*avax.UTXOID{
+			Asset: axc.Asset{ID: ids.Empty},
+			UTXOIDs: []*axc.UTXOID{
 				{
 					TxID:        ids.Empty,
 					OutputIndex: 0,
@@ -142,8 +142,8 @@ func TestOperationSorting(t *testing.T) {
 		t.Fatalf("Should be sorted")
 	}
 	ops = append(ops, &Operation{
-		Asset: avax.Asset{ID: ids.Empty},
-		UTXOIDs: []*avax.UTXOID{
+		Asset: axc.Asset{ID: ids.Empty},
+		UTXOIDs: []*axc.UTXOID{
 			{
 				TxID:        ids.Empty,
 				OutputIndex: 1,

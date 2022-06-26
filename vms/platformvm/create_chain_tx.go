@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/constants"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
@@ -131,7 +131,7 @@ func (tx *UnsignedCreateChainTx) Execute(
 	// Verify the flowcheck
 	timestamp := vs.GetTimestamp()
 	createBlockchainTxFee := vm.getCreateBlockchainTxFee(timestamp)
-	if err := vm.semanticVerifySpend(vs, tx, tx.Ins, tx.Outs, baseTxCreds, createBlockchainTxFee, vm.ctx.AVAXAssetID); err != nil {
+	if err := vm.semanticVerifySpend(vs, tx, tx.Ins, tx.Outs, baseTxCreds, createBlockchainTxFee, vm.ctx.AXCAssetID); err != nil {
 		return nil, err
 	}
 
@@ -157,7 +157,7 @@ func (tx *UnsignedCreateChainTx) Execute(
 	consumeInputs(vs, tx.Ins)
 	// Produce the UTXOS
 	txID := tx.ID()
-	produceOutputs(vs, txID, vm.ctx.AVAXAssetID, tx.Outs)
+	produceOutputs(vs, txID, vm.ctx.AXCAssetID, tx.Outs)
 	// Attempt to the new chain to the database
 	vs.AddChain(stx)
 
@@ -195,7 +195,7 @@ func (vm *VM) newCreateChainTx(
 
 	// Create the tx
 	utx := &UnsignedCreateChainTx{
-		BaseTx: BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    vm.ctx.NetworkID,
 			BlockchainID: vm.ctx.ChainID,
 			Ins:          ins,

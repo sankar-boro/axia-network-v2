@@ -18,7 +18,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/json"
 	"github.com/sankar-boro/avalanchego/utils/math"
 	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/keystore"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/stakeable"
@@ -104,7 +104,7 @@ type ExportKeyReply struct {
 func (service *Service) ExportKey(r *http.Request, args *ExportKeyArgs, reply *ExportKeyReply) error {
 	service.vm.ctx.Log.Debug("Platform: ExportKey called")
 
-	address, err := avax.ParseServiceAddress(service.vm, args.Address)
+	address, err := axc.ParseServiceAddress(service.vm, args.Address)
 	if err != nil {
 		return fmt.Errorf("couldn't parse %s to address: %w", args.Address, err)
 	}
@@ -169,12 +169,12 @@ type GetBalanceRequest struct {
 }
 
 type GetBalanceResponse struct {
-	// Balance, in nAVAX, of the address
+	// Balance, in nAXC, of the address
 	Balance            json.Uint64    `json:"balance"`
 	Unlocked           json.Uint64    `json:"unlocked"`
 	LockedStakeable    json.Uint64    `json:"lockedStakeable"`
 	LockedNotStakeable json.Uint64    `json:"lockedNotStakeable"`
-	UTXOIDs            []*avax.UTXOID `json:"utxoIDs"`
+	UTXOIDs            []*axc.UTXOID `json:"utxoIDs"`
 }
 
 // GetBalance gets the balance of an address
@@ -186,12 +186,12 @@ func (service *Service) GetBalance(_ *http.Request, args *GetBalanceRequest, res
 	service.vm.ctx.Log.Debug("Platform: GetBalance called for addresses %v", args.Addresses)
 
 	// Parse to address
-	addrs, err := avax.ParseServiceAddresses(service.vm, args.Addresses)
+	addrs, err := axc.ParseServiceAddresses(service.vm, args.Addresses)
 	if err != nil {
 		return err
 	}
 
-	utxos, err := avax.GetAllUTXOs(service.vm.internalState, addrs)
+	utxos, err := axc.GetAllUTXOs(service.vm.internalState, addrs)
 	if err != nil {
 		return fmt.Errorf("couldn't get UTXO set of %v: %w", args.Addresses, err)
 	}
@@ -344,7 +344,7 @@ func (service *Service) GetUTXOs(_ *http.Request, args *api.GetUTXOsArgs, respon
 		sourceChain = chainID
 	}
 
-	addrSet, err := avax.ParseServiceAddresses(service.vm, args.Addresses)
+	addrSet, err := axc.ParseServiceAddresses(service.vm, args.Addresses)
 	if err != nil {
 		return err
 	}
@@ -352,7 +352,7 @@ func (service *Service) GetUTXOs(_ *http.Request, args *api.GetUTXOsArgs, respon
 	startAddr := ids.ShortEmpty
 	startUTXO := ids.Empty
 	if args.StartIndex.Address != "" || args.StartIndex.UTXO != "" {
-		startAddr, err = avax.ParseServiceAddress(service.vm, args.StartIndex.Address)
+		startAddr, err = axc.ParseServiceAddress(service.vm, args.StartIndex.Address)
 		if err != nil {
 			return fmt.Errorf("couldn't parse start index address %q: %w", args.StartIndex.Address, err)
 		}
@@ -363,7 +363,7 @@ func (service *Service) GetUTXOs(_ *http.Request, args *api.GetUTXOsArgs, respon
 	}
 
 	var (
-		utxos     []*avax.UTXO
+		utxos     []*axc.UTXO
 		endAddr   ids.ShortID
 		endUTXOID ids.ID
 	)
@@ -372,7 +372,7 @@ func (service *Service) GetUTXOs(_ *http.Request, args *api.GetUTXOsArgs, respon
 		limit = maxPageSize
 	}
 	if sourceChain == service.vm.ctx.ChainID {
-		utxos, endAddr, endUTXOID, err = avax.GetPaginatedUTXOs(
+		utxos, endAddr, endUTXOID, err = axc.GetPaginatedUTXOs(
 			service.vm.internalState,
 			addrSet,
 			startAddr,
@@ -562,7 +562,7 @@ func (service *Service) GetStakingAssetID(_ *http.Request, args *GetStakingAsset
 			args.SubnetID)
 	}
 
-	response.AssetID = service.vm.ctx.AVAXAssetID
+	response.AssetID = service.vm.ctx.AXCAssetID
 	return nil
 }
 
@@ -852,7 +852,7 @@ type GetCurrentSupplyReply struct {
 	Supply json.Uint64 `json:"supply"`
 }
 
-// GetCurrentSupply returns an upper bound on the supply of AVAX in the system
+// GetCurrentSupply returns an upper bound on the supply of AXC in the system
 func (service *Service) GetCurrentSupply(_ *http.Request, _ *struct{}, reply *GetCurrentSupplyReply) error {
 	service.vm.ctx.Log.Debug("Platform: GetCurrentSupply called")
 
@@ -950,13 +950,13 @@ func (service *Service) AddValidator(_ *http.Request, args *AddValidatorArgs, re
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
 
 	// Parse the reward address
-	rewardAddress, err := avax.ParseServiceAddress(service.vm, args.RewardAddress)
+	rewardAddress, err := axc.ParseServiceAddress(service.vm, args.RewardAddress)
 	if err != nil {
 		return fmt.Errorf("problem while parsing reward address: %w", err)
 	}
@@ -979,7 +979,7 @@ func (service *Service) AddValidator(_ *http.Request, args *AddValidatorArgs, re
 	}
 	changeAddr := privKeys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1052,13 +1052,13 @@ func (service *Service) AddDelegator(_ *http.Request, args *AddDelegatorArgs, re
 	}
 
 	// Parse the reward address
-	rewardAddress, err := avax.ParseServiceAddress(service.vm, args.RewardAddress)
+	rewardAddress, err := axc.ParseServiceAddress(service.vm, args.RewardAddress)
 	if err != nil {
 		return fmt.Errorf("problem parsing 'rewardAddress': %w", err)
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1081,7 +1081,7 @@ func (service *Service) AddDelegator(_ *http.Request, args *AddDelegatorArgs, re
 	}
 	changeAddr := privKeys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1156,7 +1156,7 @@ func (service *Service) AddSubnetValidator(_ *http.Request, args *AddSubnetValid
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1178,7 +1178,7 @@ func (service *Service) AddSubnetValidator(_ *http.Request, args *AddSubnetValid
 	}
 	changeAddr := keys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1224,13 +1224,13 @@ func (service *Service) CreateSubnet(_ *http.Request, args *CreateSubnetArgs, re
 	service.vm.ctx.Log.Debug("Platform: CreateSubnet called")
 
 	// Parse the control keys
-	controlKeys, err := avax.ParseServiceAddresses(service.vm, args.ControlKeys)
+	controlKeys, err := axc.ParseServiceAddresses(service.vm, args.ControlKeys)
 	if err != nil {
 		return err
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1253,7 +1253,7 @@ func (service *Service) CreateSubnet(_ *http.Request, args *CreateSubnetArgs, re
 	}
 	changeAddr := privKeys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1282,26 +1282,26 @@ func (service *Service) CreateSubnet(_ *http.Request, args *CreateSubnetArgs, re
 	return errs.Err
 }
 
-// ExportAVAXArgs are the arguments to ExportAVAX
-type ExportAVAXArgs struct {
+// ExportAXCArgs are the arguments to ExportAXC
+type ExportAXCArgs struct {
 	// User, password, from addrs, change addr
 	api.JSONSpendHeader
 
-	// Amount of AVAX to send
+	// Amount of AXC to send
 	Amount json.Uint64 `json:"amount"`
 
 	// Chain the funds are going to. Optional. Used if To address does not include the chainID.
 	TargetChain string `json:"targetChain"`
 
-	// ID of the address that will receive the AVAX. This address may include the
+	// ID of the address that will receive the AXC. This address may include the
 	// chainID, which is used to determine what the destination chain is.
 	To string `json:"to"`
 }
 
-// ExportAVAX exports AVAX from the Core-Chain to the Swap-Chain
+// ExportAXC exports AXC from the Core-Chain to the Swap-Chain
 // It must be imported on the Swap-Chain to complete the transfer
-func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, response *api.JSONTxIDChangeAddr) error {
-	service.vm.ctx.Log.Debug("Platform: ExportAVAX called")
+func (service *Service) ExportAXC(_ *http.Request, args *ExportAXCArgs, response *api.JSONTxIDChangeAddr) error {
+	service.vm.ctx.Log.Debug("Platform: ExportAXC called")
 
 	if args.Amount == 0 {
 		return errNoAmount
@@ -1321,7 +1321,7 @@ func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, respon
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1344,7 +1344,7 @@ func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, respon
 	}
 	changeAddr := privKeys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1374,8 +1374,8 @@ func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, respon
 	return errs.Err
 }
 
-// ImportAVAXArgs are the arguments to ImportAVAX
-type ImportAVAXArgs struct {
+// ImportAXCArgs are the arguments to ImportAXC
+type ImportAXCArgs struct {
 	// User, password, from addrs, change addr
 	api.JSONSpendHeader
 
@@ -1386,10 +1386,10 @@ type ImportAVAXArgs struct {
 	To string `json:"to"`
 }
 
-// ImportAVAX issues a transaction to import AVAX from the Swap-chain. The AVAX
+// ImportAXC issues a transaction to import AXC from the Swap-chain. The AXC
 // must have already been exported from the Swap-Chain.
-func (service *Service) ImportAVAX(_ *http.Request, args *ImportAVAXArgs, response *api.JSONTxIDChangeAddr) error {
-	service.vm.ctx.Log.Debug("Platform: ImportAVAX called")
+func (service *Service) ImportAXC(_ *http.Request, args *ImportAXCArgs, response *api.JSONTxIDChangeAddr) error {
+	service.vm.ctx.Log.Debug("Platform: ImportAXC called")
 
 	// Parse the sourceCHain
 	chainID, err := service.vm.ctx.BCLookup.Lookup(args.SourceChain)
@@ -1398,13 +1398,13 @@ func (service *Service) ImportAVAX(_ *http.Request, args *ImportAVAXArgs, respon
 	}
 
 	// Parse the to address
-	to, err := avax.ParseServiceAddress(service.vm, args.To)
+	to, err := axc.ParseServiceAddress(service.vm, args.To)
 	if err != nil { // Parse address
 		return fmt.Errorf("couldn't parse argument 'to' to an address: %w", err)
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1427,7 +1427,7 @@ func (service *Service) ImportAVAX(_ *http.Request, args *ImportAVAXArgs, respon
 	}
 	changeAddr := privKeys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1516,7 +1516,7 @@ func (service *Service) CreateBlockchain(_ *http.Request, args *CreateBlockchain
 	}
 
 	// Parse the from addresses
-	fromAddrs, err := avax.ParseServiceAddresses(service.vm, args.From)
+	fromAddrs, err := axc.ParseServiceAddresses(service.vm, args.From)
 	if err != nil {
 		return err
 	}
@@ -1539,7 +1539,7 @@ func (service *Service) CreateBlockchain(_ *http.Request, args *CreateBlockchain
 	}
 	changeAddr := keys.Keys[0].PublicKey().Address() // By default, use a key controlled by the user
 	if args.ChangeAddr != "" {
-		changeAddr, err = avax.ParseServiceAddress(service.vm, args.ChangeAddr)
+		changeAddr, err = axc.ParseServiceAddress(service.vm, args.ChangeAddr)
 		if err != nil {
 			return fmt.Errorf("couldn't parse changeAddr: %w", err)
 		}
@@ -1963,7 +1963,7 @@ type GetStakeArgs struct {
 type GetStakeReply struct {
 	Staked json.Uint64 `json:"staked"`
 	// String representation of staked outputs
-	// Each is of type avax.TransferableOutput
+	// Each is of type axc.TransferableOutput
 	Outputs []string `json:"stakedOutputs"`
 	// Encoding of [Outputs]
 	Encoding formatting.Encoding `json:"encoding"`
@@ -1973,8 +1973,8 @@ type GetStakeReply struct {
 // Returns:
 // 1) The total amount staked by addresses in [addrs]
 // 2) The staked outputs
-func (service *Service) getStakeHelper(tx *Tx, addrs ids.ShortSet) (uint64, []avax.TransferableOutput, error) {
-	var outs []*avax.TransferableOutput
+func (service *Service) getStakeHelper(tx *Tx, addrs ids.ShortSet) (uint64, []axc.TransferableOutput, error) {
+	var outs []*axc.TransferableOutput
 	switch staker := tx.UnsignedTx.(type) {
 	case *UnsignedAddDelegatorTx:
 		outs = staker.Stake
@@ -1991,12 +1991,12 @@ func (service *Service) getStakeHelper(tx *Tx, addrs ids.ShortSet) (uint64, []av
 	var (
 		totalAmountStaked uint64
 		err               error
-		stakedOuts        = make([]avax.TransferableOutput, 0, len(outs))
+		stakedOuts        = make([]axc.TransferableOutput, 0, len(outs))
 	)
 	// Go through all of the staked outputs
 	for _, stake := range outs {
-		// This output isn't AVAX. Ignore.
-		if stake.AssetID() != service.vm.ctx.AVAXAssetID {
+		// This output isn't AXC. Ignore.
+		if stake.AssetID() != service.vm.ctx.AXCAssetID {
 			continue
 		}
 		out := stake.Out
@@ -2032,11 +2032,11 @@ func (service *Service) getStakeHelper(tx *Tx, addrs ids.ShortSet) (uint64, []av
 	return totalAmountStaked, stakedOuts, nil
 }
 
-// GetStake returns the amount of nAVAX that [args.Addresses] have cumulatively
+// GetStake returns the amount of nAXC that [args.Addresses] have cumulatively
 // staked on the Primary Network.
 //
 // This method assumes that each stake output has only owner
-// This method assumes only AVAX can be staked
+// This method assumes only AXC can be staked
 // This method only concerns itself with the Primary Network, not subnets
 // TODO: Improve the performance of this method by maintaining this data
 // in a data structure rather than re-calculating it by iterating over stakers
@@ -2047,7 +2047,7 @@ func (service *Service) GetStake(_ *http.Request, args *GetStakeArgs, response *
 		return fmt.Errorf("%d addresses provided but this method can take at most %d", len(args.Addresses), maxGetStakeAddrs)
 	}
 
-	addrs, err := avax.ParseServiceAddresses(service.vm, args.Addresses)
+	addrs, err := axc.ParseServiceAddresses(service.vm, args.Addresses)
 	if err != nil {
 		return err
 	}
@@ -2057,7 +2057,7 @@ func (service *Service) GetStake(_ *http.Request, args *GetStakeArgs, response *
 
 	var (
 		totalStake uint64
-		stakedOuts = make([]avax.TransferableOutput, 0, len(stakers))
+		stakedOuts = make([]axc.TransferableOutput, 0, len(stakers))
 	)
 	for _, tx := range stakers { // Iterates over current stakers
 		stakedAmt, outs, err := service.getStakeHelper(tx, addrs)
@@ -2105,11 +2105,11 @@ func (service *Service) GetStake(_ *http.Request, args *GetStakeArgs, response *
 type GetMinStakeReply struct {
 	//  The minimum amount of tokens one must bond to be a validator
 	MinValidatorStake json.Uint64 `json:"minValidatorStake"`
-	// Minimum stake, in nAVAX, that can be delegated on the primary network
+	// Minimum stake, in nAXC, that can be delegated on the primary network
 	MinDelegatorStake json.Uint64 `json:"minDelegatorStake"`
 }
 
-// GetMinStake returns the minimum staking amount in nAVAX.
+// GetMinStake returns the minimum staking amount in nAXC.
 func (service *Service) GetMinStake(_ *http.Request, _ *struct{}, reply *GetMinStakeReply) error {
 	reply.MinValidatorStake = json.Uint64(service.vm.MinValidatorStake)
 	reply.MinDelegatorStake = json.Uint64(service.vm.MinDelegatorStake)
@@ -2157,7 +2157,7 @@ type GetMaxStakeAmountReply struct {
 	Amount json.Uint64 `json:"amount"`
 }
 
-// GetMaxStakeAmount returns the maximum amount of nAVAX staking to the named
+// GetMaxStakeAmount returns the maximum amount of nAXC staking to the named
 // node during the time period.
 func (service *Service) GetMaxStakeAmount(_ *http.Request, args *GetMaxStakeAmountArgs, reply *GetMaxStakeAmountReply) error {
 	startTime := time.Unix(int64(args.StartTime), 0)

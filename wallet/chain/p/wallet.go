@@ -7,7 +7,7 @@ import (
 	"errors"
 
 	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
@@ -38,7 +38,7 @@ type Wallet interface {
 	// - [outputs] specifies all the recipients and amounts that should be sent
 	//   from this transaction.
 	IssueBaseTx(
-		outputs []*avax.TransferableOutput,
+		outputs []*axc.TransferableOutput,
 		options ...common.Option,
 	) (ids.ID, error)
 
@@ -128,7 +128,7 @@ type Wallet interface {
 	// - [outputs] specifies the outputs to send to the [chainID].
 	IssueExportTx(
 		chainID ids.ID,
-		outputs []*avax.TransferableOutput,
+		outputs []*axc.TransferableOutput,
 		options ...common.Option,
 	) (ids.ID, error)
 
@@ -171,7 +171,7 @@ func (w *wallet) Builder() Builder { return w.builder }
 func (w *wallet) Signer() Signer { return w.signer }
 
 func (w *wallet) IssueBaseTx(
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
 	utx, err := w.builder.NewBaseTx(outputs, options...)
@@ -257,7 +257,7 @@ func (w *wallet) IssueImportTx(
 
 func (w *wallet) IssueExportTx(
 	chainID ids.ID,
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
 	utx, err := w.builder.NewExportTx(chainID, outputs, options...)

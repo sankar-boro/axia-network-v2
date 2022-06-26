@@ -9,7 +9,7 @@ import (
 	"github.com/sankar-boro/avalanchego/codec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var (
@@ -38,7 +38,7 @@ func (t *OperationTx) InitCtx(ctx *snow.Context) {
 // should not be modified.
 func (t *OperationTx) Operations() []*Operation { return t.Ops }
 
-func (t *OperationTx) InputUTXOs() []*avax.UTXOID {
+func (t *OperationTx) InputUTXOs() []*axc.UTXOID {
 	utxos := t.BaseTx.InputUTXOs()
 	for _, op := range t.Ops {
 		utxos = append(utxos, op.UTXOIDs...)
@@ -72,19 +72,19 @@ func (t *OperationTx) NumCredentials() int {
 }
 
 // UTXOs returns the UTXOs transaction is producing.
-func (t *OperationTx) UTXOs() []*avax.UTXO {
+func (t *OperationTx) UTXOs() []*axc.UTXO {
 	txID := t.ID()
 	utxos := t.BaseTx.UTXOs()
 
 	for _, op := range t.Ops {
 		asset := op.AssetID()
 		for _, out := range op.Op.Outs() {
-			utxos = append(utxos, &avax.UTXO{
-				UTXOID: avax.UTXOID{
+			utxos = append(utxos, &axc.UTXO{
+				UTXOID: axc.UTXOID{
 					TxID:        txID,
 					OutputIndex: uint32(len(utxos)),
 				},
-				Asset: avax.Asset{ID: asset},
+				Asset: axc.Asset{ID: asset},
 				Out:   out,
 			})
 		}

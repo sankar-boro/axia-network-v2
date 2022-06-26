@@ -55,7 +55,7 @@ type Config struct {
 	// The maximum amount of tokens that can be bonded on a validator
 	MaxValidatorStake uint64
 
-	// Minimum stake, in nAVAX, that can be delegated on the primary network
+	// Minimum stake, in nAXC, that can be delegated on the primary network
 	MinDelegatorStake uint64
 
 	// Minimum fee that can be charged for delegation

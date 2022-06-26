@@ -14,7 +14,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/utils/hashing"
 	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
@@ -328,7 +328,7 @@ func TestCreateChainTxAP3FeeChange(t *testing.T) {
 		{
 			name:         "post-fork - incorrectly priced",
 			time:         ap3Time,
-			fee:          100*defaultTxFee - 1*units.NanoAvax,
+			fee:          100*defaultTxFee - 1*units.NanoAxc,
 			expectsError: true,
 		},
 		{
@@ -363,7 +363,7 @@ func TestCreateChainTxAP3FeeChange(t *testing.T) {
 			// Create the tx
 
 			utx := &UnsignedCreateChainTx{
-				BaseTx: BaseTx{BaseTx: avax.BaseTx{
+				BaseTx: BaseTx{BaseTx: axc.BaseTx{
 					NetworkID:    vm.ctx.NetworkID,
 					BlockchainID: vm.ctx.ChainID,
 					Ins:          ins,

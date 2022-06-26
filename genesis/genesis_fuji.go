@@ -16,7 +16,7 @@ var (
 		"allocations": [
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"axcAddr": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"initialAmount": 0,
 				"unlockSchedule": [
 					{
@@ -26,61 +26,61 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1xpmx0ljrpvqexrvrj26fnggvr0ax9wm32gaxmx",
+				"axcAddr": "Swap-test1xpmx0ljrpvqexrvrj26fnggvr0ax9wm32gaxmx",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1wrv92qg5x3dsqrtukdc8qxnpqust3qdakxgm4s",
+				"axcAddr": "Swap-test1wrv92qg5x3dsqrtukdc8qxnpqust3qdakxgm4s",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1qrmj7u9pquyy3mahzxeq0nnlnj2aceedjfqqrq",
+				"axcAddr": "Swap-test1qrmj7u9pquyy3mahzxeq0nnlnj2aceedjfqqrq",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1cap3ru2ghc3jtdnuyey738ru8u5ekdadcvrtyk",
+				"axcAddr": "Swap-test1cap3ru2ghc3jtdnuyey738ru8u5ekdadcvrtyk",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test18g2m7483k6swe46cpfmq96t09sp63pgv7judr4",
+				"axcAddr": "Swap-test18g2m7483k6swe46cpfmq96t09sp63pgv7judr4",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1zwe0kxhg73x3ehgtkkz24k9czlfgztc45hgrg3",
+				"axcAddr": "Swap-test1zwe0kxhg73x3ehgtkkz24k9czlfgztc45hgrg3",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test1fqcs4m9p8gdp7gckk30n8u68d55jk0hdumx30f",
+				"axcAddr": "Swap-test1fqcs4m9p8gdp7gckk30n8u68d55jk0hdumx30f",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
+				"axcAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
+				"axcAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-test10d2fqjfl3ghl73z2ez65ufanxwwhccxugq8z2t",
+				"axcAddr": "Swap-test10d2fqjfl3ghl73z2ez65ufanxwwhccxugq8z2t",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			}
@@ -200,16 +200,16 @@ var (
 	// TestParams are the params used for the test testnet
 	TestParams = Params{
 		TxFeeConfig: TxFeeConfig{
-			TxFee:                 units.MilliAvax,
-			CreateAssetTxFee:      10 * units.MilliAvax,
-			CreateSubnetTxFee:     100 * units.MilliAvax,
-			CreateBlockchainTxFee: 100 * units.MilliAvax,
+			TxFee:                 units.MilliAxc,
+			CreateAssetTxFee:      10 * units.MilliAxc,
+			CreateSubnetTxFee:     100 * units.MilliAxc,
+			CreateBlockchainTxFee: 100 * units.MilliAxc,
 		},
 		StakingConfig: StakingConfig{
 			UptimeRequirement: .8, // 80%
-			MinValidatorStake: 1 * units.Avax,
-			MaxValidatorStake: 3 * units.MegaAvax,
-			MinDelegatorStake: 1 * units.Avax,
+			MinValidatorStake: 1 * units.Axc,
+			MaxValidatorStake: 3 * units.MegaAxc,
+			MinDelegatorStake: 1 * units.Axc,
 			MinDelegationFee:  20000, // 2%
 			MinStakeDuration:  24 * time.Hour,
 			MaxStakeDuration:  365 * 24 * time.Hour,
@@ -217,7 +217,7 @@ var (
 				MaxConsumptionRate: .12 * reward.PercentDenominator,
 				MinConsumptionRate: .10 * reward.PercentDenominator,
 				MintingPeriod:      365 * 24 * time.Hour,
-				SupplyCap:          720 * units.MegaAvax,
+				SupplyCap:          720 * units.MegaAxc,
 			},
 		},
 	}

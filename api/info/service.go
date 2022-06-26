@@ -284,7 +284,7 @@ type GetTxFeeResponse struct {
 	CreateBlockchainTxFee json.Uint64 `json:"createBlockchainTxFee"`
 }
 
-// GetTxFee returns the transaction fee in nAVAX.
+// GetTxFee returns the transaction fee in nAXC.
 func (service *Info) GetTxFee(_ *http.Request, args *struct{}, reply *GetTxFeeResponse) error {
 	reply.TxFee = json.Uint64(service.TxFee)
 	reply.CreationTxFee = json.Uint64(service.CreateAssetTxFee)

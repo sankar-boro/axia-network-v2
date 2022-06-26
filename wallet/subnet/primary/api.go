@@ -12,15 +12,15 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/constants"
 	"github.com/sankar-boro/avalanchego/utils/rpc"
 	"github.com/sankar-boro/avalanchego/vms/avm"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm"
 	"github.com/sankar-boro/avalanchego/wallet/chain/p"
 	"github.com/sankar-boro/avalanchego/wallet/chain/x"
 )
 
 const (
-	MainnetAPIURI = "https://api.avax.network"
-	TestAPIURI    = "https://api.avax-test.network"
+	MainnetAPIURI = "https://api.axc.network"
+	TestAPIURI    = "https://api.axc-test.network"
 	LocalAPIURI   = "http://localhost:9650"
 
 	fetchLimit = 1024
@@ -128,7 +128,7 @@ func AddAllUTXOs(
 		}
 
 		for _, utxoBytes := range utxosBytes {
-			var utxo avax.UTXO
+			var utxo axc.UTXO
 			_, err := codec.Unmarshal(utxoBytes, &utxo)
 			if err != nil {
 				return err

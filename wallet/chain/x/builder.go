@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/math"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
@@ -50,7 +50,7 @@ type Builder interface {
 	// - [outputs] specifies all the recipients and amounts that should be sent
 	//   from this transaction.
 	NewBaseTx(
-		outputs []*avax.TransferableOutput,
+		outputs []*axc.TransferableOutput,
 		options ...common.Option,
 	) (*txs.BaseTx, error)
 
@@ -141,7 +141,7 @@ type Builder interface {
 	// - [outputs] specifies the outputs to send to the [chainID].
 	NewExportTx(
 		chainID ids.ID,
-		outputs []*avax.TransferableOutput,
+		outputs []*axc.TransferableOutput,
 		options ...common.Option,
 	) (*txs.ExportTx, error)
 }
@@ -151,7 +151,7 @@ type Builder interface {
 type BuilderBackend interface {
 	Context
 
-	UTXOs(ctx stdcontext.Context, sourceChainID ids.ID) ([]*avax.UTXO, error)
+	UTXOs(ctx stdcontext.Context, sourceChainID ids.ID) ([]*axc.UTXO, error)
 }
 
 type builder struct {
@@ -188,11 +188,11 @@ func (b *builder) GetImportableBalance(
 }
 
 func (b *builder) NewBaseTx(
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (*txs.BaseTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AVAXAssetID(): b.backend.BaseTxFee(),
+		b.backend.AXCAssetID(): b.backend.BaseTxFee(),
 	}
 	for _, out := range outputs {
 		assetID := out.AssetID()
@@ -209,9 +209,9 @@ func (b *builder) NewBaseTx(
 		return nil, err
 	}
 	outputs = append(outputs, changeOutputs...)
-	avax.SortTransferableOutputs(outputs, Parser.Codec()) // sort the outputs
+	axc.SortTransferableOutputs(outputs, Parser.Codec()) // sort the outputs
 
-	return &txs.BaseTx{BaseTx: avax.BaseTx{
+	return &txs.BaseTx{BaseTx: axc.BaseTx{
 		NetworkID:    b.backend.NetworkID(),
 		BlockchainID: b.backend.BlockchainID(),
 		Ins:          inputs,
@@ -228,7 +228,7 @@ func (b *builder) NewCreateAssetTx(
 	options ...common.Option,
 ) (*txs.CreateAssetTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AVAXAssetID(): b.backend.CreateAssetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAssetTxFee(),
 	}
 	ops := common.NewOptions(options)
 	inputs, outputs, err := b.spend(toBurn, ops)
@@ -248,7 +248,7 @@ func (b *builder) NewCreateAssetTx(
 	}
 
 	tx := &txs.CreateAssetTx{
-		BaseTx: txs.BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: txs.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: b.backend.BlockchainID(),
 			Ins:          inputs,
@@ -269,7 +269,7 @@ func (b *builder) NewOperationTx(
 	options ...common.Option,
 ) (*txs.OperationTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AVAXAssetID(): b.backend.CreateAssetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAssetTxFee(),
 	}
 	ops := common.NewOptions(options)
 	inputs, outputs, err := b.spend(toBurn, ops)
@@ -279,7 +279,7 @@ func (b *builder) NewOperationTx(
 
 	txs.SortOperations(operations, Parser.Codec())
 	return &txs.OperationTx{
-		BaseTx: txs.BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: txs.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: b.backend.BlockchainID(),
 			Ins:          inputs,
@@ -355,10 +355,10 @@ func (b *builder) NewImportTx(
 	var (
 		addrs           = ops.Addresses(b.addrs)
 		minIssuanceTime = ops.MinIssuanceTime()
-		avaxAssetID     = b.backend.AVAXAssetID()
+		axcAssetID     = b.backend.AXCAssetID()
 		txFee           = b.backend.BaseTxFee()
 
-		importedInputs  = make([]*avax.TransferableInput, 0, len(utxos))
+		importedInputs  = make([]*axc.TransferableInput, 0, len(utxos))
 		importedAmounts = make(map[ids.ID]uint64)
 	)
 	// Iterate over the unlocked UTXOs
@@ -375,7 +375,7 @@ func (b *builder) NewImportTx(
 			continue
 		}
 
-		importedInputs = append(importedInputs, &avax.TransferableInput{
+		importedInputs = append(importedInputs, &axc.TransferableInput{
 			UTXOID: utxo.UTXOID,
 			Asset:  utxo.Asset,
 			In: &secp256k1fx.TransferInput{
@@ -393,7 +393,7 @@ func (b *builder) NewImportTx(
 		}
 		importedAmounts[assetID] = newImportedAmount
 	}
-	avax.SortTransferableInputs(importedInputs) // sort imported inputs
+	axc.SortTransferableInputs(importedInputs) // sort imported inputs
 
 	if len(importedAmounts) == 0 {
 		return nil, fmt.Errorf(
@@ -403,16 +403,16 @@ func (b *builder) NewImportTx(
 	}
 
 	var (
-		inputs       []*avax.TransferableInput
-		outputs      = make([]*avax.TransferableOutput, 0, len(importedAmounts))
-		importedAVAX = importedAmounts[avaxAssetID]
+		inputs       []*axc.TransferableInput
+		outputs      = make([]*axc.TransferableOutput, 0, len(importedAmounts))
+		importedAXC = importedAmounts[axcAssetID]
 	)
-	if importedAVAX > txFee {
-		importedAmounts[avaxAssetID] -= txFee
+	if importedAXC > txFee {
+		importedAmounts[axcAssetID] -= txFee
 	} else {
-		if importedAVAX < txFee { // imported amount goes toward paying tx fee
+		if importedAXC < txFee { // imported amount goes toward paying tx fee
 			toBurn := map[ids.ID]uint64{
-				avaxAssetID: txFee - importedAVAX,
+				axcAssetID: txFee - importedAXC,
 			}
 			var err error
 			inputs, outputs, err = b.spend(toBurn, ops)
@@ -420,12 +420,12 @@ func (b *builder) NewImportTx(
 				return nil, fmt.Errorf("couldn't generate tx inputs/outputs: %w", err)
 			}
 		}
-		delete(importedAmounts, avaxAssetID)
+		delete(importedAmounts, axcAssetID)
 	}
 
 	for assetID, amount := range importedAmounts {
-		outputs = append(outputs, &avax.TransferableOutput{
-			Asset: avax.Asset{ID: assetID},
+		outputs = append(outputs, &axc.TransferableOutput{
+			Asset: axc.Asset{ID: assetID},
 			Out: &secp256k1fx.TransferOutput{
 				Amt:          amount,
 				OutputOwners: *to,
@@ -433,9 +433,9 @@ func (b *builder) NewImportTx(
 		})
 	}
 
-	avax.SortTransferableOutputs(outputs, Parser.Codec())
+	axc.SortTransferableOutputs(outputs, Parser.Codec())
 	return &txs.ImportTx{
-		BaseTx: txs.BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: txs.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: b.backend.BlockchainID(),
 			Ins:          inputs,
@@ -449,11 +449,11 @@ func (b *builder) NewImportTx(
 
 func (b *builder) NewExportTx(
 	chainID ids.ID,
-	outputs []*avax.TransferableOutput,
+	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (*txs.ExportTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AVAXAssetID(): b.backend.BaseTxFee(),
+		b.backend.AXCAssetID(): b.backend.BaseTxFee(),
 	}
 	for _, out := range outputs {
 		assetID := out.AssetID()
@@ -470,9 +470,9 @@ func (b *builder) NewExportTx(
 		return nil, err
 	}
 
-	avax.SortTransferableOutputs(outputs, Parser.Codec())
+	axc.SortTransferableOutputs(outputs, Parser.Codec())
 	return &txs.ExportTx{
-		BaseTx: txs.BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: txs.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: b.backend.BlockchainID(),
 			Ins:          inputs,
@@ -528,8 +528,8 @@ func (b *builder) spend(
 	amountsToBurn map[ids.ID]uint64,
 	options *common.Options,
 ) (
-	inputs []*avax.TransferableInput,
-	outputs []*avax.TransferableOutput,
+	inputs []*axc.TransferableInput,
+	outputs []*axc.TransferableOutput,
 	err error,
 ) {
 	utxos, err := b.backend.UTXOs(options.Context(), b.backend.BlockchainID())
@@ -573,7 +573,7 @@ func (b *builder) spend(
 			continue
 		}
 
-		inputs = append(inputs, &avax.TransferableInput{
+		inputs = append(inputs, &axc.TransferableInput{
 			UTXOID: utxo.UTXOID,
 			Asset:  utxo.Asset,
 			In: &secp256k1fx.TransferInput{
@@ -592,7 +592,7 @@ func (b *builder) spend(
 		amountsToBurn[assetID] -= amountToBurn
 		if remainingAmount := out.Amt - amountToBurn; remainingAmount > 0 {
 			// This input had extra value, so some of it must be returned
-			outputs = append(outputs, &avax.TransferableOutput{
+			outputs = append(outputs, &axc.TransferableOutput{
 				Asset: utxo.Asset,
 				Out: &secp256k1fx.TransferOutput{
 					Amt:          remainingAmount,
@@ -613,8 +613,8 @@ func (b *builder) spend(
 		}
 	}
 
-	avax.SortTransferableInputs(inputs)                   // sort inputs
-	avax.SortTransferableOutputs(outputs, Parser.Codec()) // sort the change outputs
+	axc.SortTransferableInputs(inputs)                   // sort inputs
+	axc.SortTransferableOutputs(outputs, Parser.Codec()) // sort the change outputs
 	return inputs, outputs, nil
 }
 
@@ -653,7 +653,7 @@ func (b *builder) mintFTs(
 		// add the operation to the array
 		operations = append(operations, &txs.Operation{
 			Asset:   utxo.Asset,
-			UTXOIDs: []*avax.UTXOID{&utxo.UTXOID},
+			UTXOIDs: []*axc.UTXOID{&utxo.UTXOID},
 			Op: &secp256k1fx.MintOperation{
 				MintInput: secp256k1fx.Input{
 					SigIndices: inputSigIndices,
@@ -713,8 +713,8 @@ func (b *builder) mintNFTs(
 
 		// add the operation to the array
 		operations = append(operations, &txs.Operation{
-			Asset: avax.Asset{ID: assetID},
-			UTXOIDs: []*avax.UTXOID{
+			Asset: axc.Asset{ID: assetID},
+			UTXOIDs: []*axc.UTXOID{
 				&utxo.UTXOID,
 			},
 			Op: &nftfx.MintOperation{
@@ -769,8 +769,8 @@ func (b *builder) mintProperty(
 
 		// add the operation to the array
 		operations = append(operations, &txs.Operation{
-			Asset: avax.Asset{ID: assetID},
-			UTXOIDs: []*avax.UTXOID{
+			Asset: axc.Asset{ID: assetID},
+			UTXOIDs: []*axc.UTXOID{
 				&utxo.UTXOID,
 			},
 			Op: &propertyfx.MintOperation{
@@ -825,8 +825,8 @@ func (b *builder) burnProperty(
 
 		// add the operation to the array
 		operations = append(operations, &txs.Operation{
-			Asset: avax.Asset{ID: assetID},
-			UTXOIDs: []*avax.UTXOID{
+			Asset: axc.Asset{ID: assetID},
+			UTXOIDs: []*axc.UTXOID{
 				&utxo.UTXOID,
 			},
 			Op: &propertyfx.BurnOperation{

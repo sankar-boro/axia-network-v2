@@ -34,7 +34,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/window"
 	"github.com/sankar-boro/avalanchego/utils/wrappers"
 	"github.com/sankar-boro/avalanchego/version"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/fx"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
@@ -72,8 +72,8 @@ var (
 type VM struct {
 	Factory
 	metrics
-	avax.AddressManager
-	avax.AtomicUTXOManager
+	axc.AddressManager
+	axc.AtomicUTXOManager
 	*network
 
 	// Used to get time. Useful for faking time during tests.
@@ -141,10 +141,10 @@ func (vm *VM) Initialize(
 	}
 
 	// Initialize the utility to parse addresses
-	vm.AddressManager = avax.NewAddressManager(ctx)
+	vm.AddressManager = axc.NewAddressManager(ctx)
 
 	// Initialize the utility to fetch atomic UTXOs
-	vm.AtomicUTXOManager = avax.NewAtomicUTXOManager(ctx.SharedMemory, Codec)
+	vm.AtomicUTXOManager = axc.NewAtomicUTXOManager(ctx.SharedMemory, Codec)
 
 	vm.fx = &secp256k1fx.Fx{}
 

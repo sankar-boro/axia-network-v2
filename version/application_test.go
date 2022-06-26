@@ -86,14 +86,14 @@ func TestComparingVersions(t *testing.T) {
 			before:      true,
 		},
 		{
-			myVersion:   NewDefaultApplication("avax", 1, 2, 4),
+			myVersion:   NewDefaultApplication("axc", 1, 2, 4),
 			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
 			compatible:  false,
 			before:      false,
 		},
 		{
 			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
-			peerVersion: NewDefaultApplication("avax", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axc", 1, 2, 3),
 			compatible:  false,
 			before:      false,
 		},

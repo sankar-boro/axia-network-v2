@@ -13,7 +13,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
@@ -24,8 +24,8 @@ var (
 )
 
 type Operation struct {
-	avax.Asset `serialize:"true"`
-	UTXOIDs    []*avax.UTXOID  `serialize:"true" json:"inputIDs"`
+	axc.Asset `serialize:"true"`
+	UTXOIDs    []*axc.UTXOID  `serialize:"true" json:"inputIDs"`
 	FxID       ids.ID          `serialize:"false" json:"fxID"`
 	Op         fxs.FxOperation `serialize:"true" json:"operation"`
 }
@@ -36,7 +36,7 @@ func (op *Operation) Verify(c codec.Manager) error {
 		return errNilOperation
 	case op.Op == nil:
 		return errNilFxOperation
-	case !avax.IsSortedAndUniqueUTXOIDs(op.UTXOIDs):
+	case !axc.IsSortedAndUniqueUTXOIDs(op.UTXOIDs):
 		return errNotSortedAndUniqueUTXOIDs
 	default:
 		return verify.All(&op.Asset, op.Op)

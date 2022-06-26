@@ -8,14 +8,14 @@ import (
 
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
 // BaseTx contains fields common to many transaction types. It should be
 // embedded in transaction implementations.
 type BaseTx struct {
-	avax.BaseTx `serialize:"true"`
+	axc.BaseTx `serialize:"true"`
 
 	// true iff this transaction has already passed syntactic verification
 	syntacticallyVerified bool
@@ -64,9 +64,9 @@ func (tx *BaseTx) SyntacticVerify(ctx *snow.Context) error {
 		}
 	}
 	switch {
-	case !avax.IsSortedTransferableOutputs(tx.Outs, Codec):
+	case !axc.IsSortedTransferableOutputs(tx.Outs, Codec):
 		return errOutputsNotSorted
-	case !avax.IsSortedAndUniqueTransferableInputs(tx.Ins):
+	case !axc.IsSortedAndUniqueTransferableInputs(tx.Ins):
 		return errInputsNotSortedUnique
 	default:
 		return nil

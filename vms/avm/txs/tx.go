@@ -13,7 +13,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/crypto"
 	"github.com/sankar-boro/avalanchego/utils/hashing"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
@@ -33,8 +33,8 @@ type UnsignedTx interface {
 	AssetIDs() ids.Set
 
 	NumCredentials() int
-	InputUTXOs() []*avax.UTXOID
-	UTXOs() []*avax.UTXO
+	InputUTXOs() []*axc.UTXOID
+	UTXOs() []*axc.UTXO
 
 	SyntacticVerify(
 		ctx *snow.Context,

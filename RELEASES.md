@@ -379,7 +379,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 
 - Added `--stake-max-consumption-rate` which defaults to `120,000`.
 - Added `--stake-min-consumption-rate` which defaults to `100,000`.
-- Added `--stake-supply-cap` which defaults to `720,000,000,000,000,000` nAVAX.
+- Added `--stake-supply-cap` which defaults to `720,000,000,000,000,000` nAXC.
 - Renamed `--bootstrap-multiput-max-containers-sent` to `--bootstrap-ancestors-max-containers-sent`.
 - Renamed `--bootstrap-multiput-max-containers-received` to `--bootstrap-ancestors-max-containers-received`.
 - Enforced that `--staking-enabled=false` can not be specified on public networks (`Test` and `Mainnet`).
@@ -485,12 +485,12 @@ The changes in the upgrade go into effect at 1 PM EST, December 2nd 2021 on Main
 ### PlatformVM
 
 - Enabled `AtomicTx`s to be issued into `StandardBlock`s and deprecated `AtomicBlock`s.
-- Added the ability to export/import AVAX to/from the AXC-chain.
+- Added the ability to export/import AXC to/from the AXC-chain.
 
 ### Coreth
 
 - Enabled multiple `AtomicTx`s to be issued per block.
-- Added the ability to export/import AVAX to/from the Core-chain.
+- Added the ability to export/import AXC to/from the Core-chain.
 - Updated dynamic fee calculations.
 
 ### ProposerVM

@@ -34,7 +34,7 @@ var (
 		"allocations": [
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local1g65uqn6t77p656w64023nh8nd9updzmxyymev2",
+				"axcAddr": "Swap-local1g65uqn6t77p656w64023nh8nd9updzmxyymev2",
 				"initialAmount": 0,
 				"unlockSchedule": [
 					{
@@ -45,7 +45,7 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local18jma8ppw3nhx5r4ap8clazz0dps7rv5u00z96u",
+				"axcAddr": "Swap-local18jma8ppw3nhx5r4ap8clazz0dps7rv5u00z96u",
 				"initialAmount": 300000000000000000,
 				"unlockSchedule": [
 					{
@@ -59,7 +59,7 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-local1ur873jhz9qnaqv5qthk5sn3e8nj3e0kmggalnu",
+				"axcAddr": "Swap-local1ur873jhz9qnaqv5qthk5sn3e8nj3e0kmggalnu",
 				"initialAmount": 10000000000000000,
 				"unlockSchedule": [
 					{
@@ -109,16 +109,16 @@ var (
 	// LocalParams are the params used for local networks
 	LocalParams = Params{
 		TxFeeConfig: TxFeeConfig{
-			TxFee:                 units.MilliAvax,
-			CreateAssetTxFee:      units.MilliAvax,
-			CreateSubnetTxFee:     100 * units.MilliAvax,
-			CreateBlockchainTxFee: 100 * units.MilliAvax,
+			TxFee:                 units.MilliAxc,
+			CreateAssetTxFee:      units.MilliAxc,
+			CreateSubnetTxFee:     100 * units.MilliAxc,
+			CreateBlockchainTxFee: 100 * units.MilliAxc,
 		},
 		StakingConfig: StakingConfig{
 			UptimeRequirement: .8, // 80%
-			MinValidatorStake: 2 * units.KiloAvax,
-			MaxValidatorStake: 3 * units.MegaAvax,
-			MinDelegatorStake: 25 * units.Avax,
+			MinValidatorStake: 2 * units.KiloAxc,
+			MaxValidatorStake: 3 * units.MegaAxc,
+			MinDelegatorStake: 25 * units.Axc,
 			MinDelegationFee:  20000, // 2%
 			MinStakeDuration:  24 * time.Hour,
 			MaxStakeDuration:  365 * 24 * time.Hour,
@@ -126,7 +126,7 @@ var (
 				MaxConsumptionRate: .12 * reward.PercentDenominator,
 				MinConsumptionRate: .10 * reward.PercentDenominator,
 				MintingPeriod:      365 * 24 * time.Hour,
-				SupplyCap:          720 * units.MegaAvax,
+				SupplyCap:          720 * units.MegaAxc,
 			},
 		},
 	}

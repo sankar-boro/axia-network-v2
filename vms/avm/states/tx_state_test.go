@@ -18,7 +18,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/units"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
@@ -68,17 +68,17 @@ func TestTxState(t *testing.T) {
 
 	tx := &txs.Tx{
 		UnsignedTx: &txs.BaseTx{
-			BaseTx: avax.BaseTx{
+			BaseTx: axc.BaseTx{
 				NetworkID:    networkID,
 				BlockchainID: chainID,
-				Ins: []*avax.TransferableInput{{
-					UTXOID: avax.UTXOID{
+				Ins: []*axc.TransferableInput{{
+					UTXOID: axc.UTXOID{
 						TxID:        ids.Empty,
 						OutputIndex: 0,
 					},
-					Asset: avax.Asset{ID: assetID},
+					Asset: axc.Asset{ID: assetID},
 					In: &secp256k1fx.TransferInput{
-						Amt: 20 * units.KiloAvax,
+						Amt: 20 * units.KiloAxc,
 						Input: secp256k1fx.Input{
 							SigIndices: []uint32{
 								0,

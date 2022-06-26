@@ -16,7 +16,7 @@ const defaultWeight = 10000
 var (
 	errCalculatedSubsetWrong = errors.New("incorrectly calculated whether one duration was subset of other")
 
-	// each key controls an address that has [defaultBalance] AVAX at genesis
+	// each key controls an address that has [defaultBalance] AXC at genesis
 	keys = crypto.BuildTestKeys()
 )
 

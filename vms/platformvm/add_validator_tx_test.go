@@ -10,7 +10,7 @@ import (
 
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
 	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
 	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
@@ -75,8 +75,8 @@ func TestAddValidatorTxSyntacticVerify(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tx.UnsignedTx.(*UnsignedAddValidatorTx).Stake = []*avax.TransferableOutput{{
-		Asset: avax.Asset{ID: avaxAssetID},
+	tx.UnsignedTx.(*UnsignedAddValidatorTx).Stake = []*axc.TransferableOutput{{
+		Asset: axc.Asset{ID: axcAssetID},
 		Out: &secp256k1fx.TransferOutput{
 			Amt: vm.MinValidatorStake,
 			OutputOwners: secp256k1fx.OutputOwners{

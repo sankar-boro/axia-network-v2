@@ -15,7 +15,7 @@ import (
 	"github.com/sankar-boro/avalanchego/utils/hashing"
 	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
 	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 	"github.com/sankar-boro/avalanchego/vms/nftfx"
 	"github.com/sankar-boro/avalanchego/vms/propertyfx"
@@ -42,7 +42,7 @@ type Signer interface {
 }
 
 type SignerBackend interface {
-	GetUTXO(ctx stdcontext.Context, chainID, utxoID ids.ID) (*avax.UTXO, error)
+	GetUTXO(ctx stdcontext.Context, chainID, utxoID ids.ID) (*axc.UTXO, error)
 }
 
 type signer struct {
@@ -134,7 +134,7 @@ func (s *signer) signExportTx(ctx stdcontext.Context, tx *txs.Tx, utx *txs.Expor
 	return s.sign(tx, txCreds, txSigners)
 }
 
-func (s *signer) getSigners(ctx stdcontext.Context, sourceChainID ids.ID, ins []*avax.TransferableInput) ([]verify.Verifiable, [][]*crypto.PrivateKeySECP256K1R, error) {
+func (s *signer) getSigners(ctx stdcontext.Context, sourceChainID ids.ID, ins []*axc.TransferableInput) ([]verify.Verifiable, [][]*crypto.PrivateKeySECP256K1R, error) {
 	txCreds := make([]verify.Verifiable, len(ins))
 	txSigners := make([][]*crypto.PrivateKeySECP256K1R, len(ins))
 	for credIndex, transferInput := range ins {

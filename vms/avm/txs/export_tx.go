@@ -9,7 +9,7 @@ import (
 	"github.com/sankar-boro/avalanchego/codec"
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 )
 
 var (
@@ -26,7 +26,7 @@ type ExportTx struct {
 	DestinationChain ids.ID `serialize:"true" json:"destinationChain"`
 
 	// The outputs this transaction is sending to the other chain
-	ExportedOuts []*avax.TransferableOutput `serialize:"true" json:"exportedOutputs"`
+	ExportedOuts []*axc.TransferableOutput `serialize:"true" json:"exportedOutputs"`
 }
 
 func (t *ExportTx) InitCtx(ctx *snow.Context) {
@@ -55,11 +55,11 @@ func (t *ExportTx) SyntacticVerify(
 		return err
 	}
 
-	return avax.VerifyTx(
+	return axc.VerifyTx(
 		txFee,
 		txFeeAssetID,
-		[][]*avax.TransferableInput{t.Ins},
-		[][]*avax.TransferableOutput{
+		[][]*axc.TransferableInput{t.Ins},
+		[][]*axc.TransferableOutput{
 			t.Outs,
 			t.ExportedOuts,
 		},

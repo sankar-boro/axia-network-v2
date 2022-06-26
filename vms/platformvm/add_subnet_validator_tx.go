@@ -12,7 +12,7 @@ import (
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
 	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 	"github.com/sankar-boro/avalanchego/vms/components/verify"
 
 	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
@@ -212,7 +212,7 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 		}
 
 		// Verify the flowcheck
-		if err := vm.semanticVerifySpend(parentState, tx, tx.Ins, tx.Outs, baseTxCreds, vm.TxFee, vm.ctx.AVAXAssetID); err != nil {
+		if err := vm.semanticVerifySpend(parentState, tx, tx.Ins, tx.Outs, baseTxCreds, vm.TxFee, vm.ctx.AXCAssetID); err != nil {
 			return nil, nil, err
 		}
 
@@ -233,14 +233,14 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 	consumeInputs(onCommitState, tx.Ins)
 	// Produce the UTXOS
 	txID := tx.ID()
-	produceOutputs(onCommitState, txID, vm.ctx.AVAXAssetID, tx.Outs)
+	produceOutputs(onCommitState, txID, vm.ctx.AXCAssetID, tx.Outs)
 
 	// Set up the state if this tx is aborted
 	onAbortState := newVersionedState(parentState, currentStakers, pendingStakers)
 	// Consume the UTXOS
 	consumeInputs(onAbortState, tx.Ins)
 	// Produce the UTXOS
-	produceOutputs(onAbortState, txID, vm.ctx.AVAXAssetID, tx.Outs)
+	produceOutputs(onAbortState, txID, vm.ctx.AXCAssetID, tx.Outs)
 
 	return onCommitState, onAbortState, nil
 }
@@ -274,7 +274,7 @@ func (vm *VM) newAddSubnetValidatorTx(
 
 	// Create the tx
 	utx := &UnsignedAddSubnetValidatorTx{
-		BaseTx: BaseTx{BaseTx: avax.BaseTx{
+		BaseTx: BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    vm.ctx.NetworkID,
 			BlockchainID: vm.ctx.ChainID,
 			Ins:          ins,

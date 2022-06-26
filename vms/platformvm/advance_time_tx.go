@@ -9,7 +9,7 @@ import (
 
 	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/axc"
 
 	safemath "github.com/sankar-boro/avalanchego/utils/math"
 )
@@ -23,7 +23,7 @@ var _ UnsignedProposalTx = &UnsignedAdvanceTimeTx{}
 //   * proposed timestamp > [current chain time]
 //   * proposed timestamp <= [time for next staker set change]
 type UnsignedAdvanceTimeTx struct {
-	avax.Metadata
+	axc.Metadata
 
 	// Unix time this block proposes increasing the timestamp to
 	Time uint64 `serialize:"true" json:"time"`
