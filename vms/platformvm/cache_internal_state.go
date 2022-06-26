@@ -33,7 +33,7 @@ var (
 	currentPrefix         = []byte("current")
 	pendingPrefix         = []byte("pending")
 	validatorPrefix       = []byte("validator")
-	delegatorPrefix       = []byte("delegator")
+	nominatorPrefix       = []byte("nominator")
 	subnetValidatorPrefix = []byte("subnetValidator")
 	validatorDiffsPrefix  = []byte("validatorDiffs")
 	blockPrefix           = []byte("block")
@@ -106,7 +106,7 @@ type InternalState interface {
  * | | |-. validator
  * | | | '-. list
  * | | |   '-- txID -> uptime + potential reward
- * | | |-. delegator
+ * | | |-. nominator
  * | | | '-. list
  * | | |   '-- txID -> potential reward
  * | | '-. subnetValidator
@@ -116,7 +116,7 @@ type InternalState interface {
  * | | |-. validator
  * | | | '-. list
  * | | |   '-- txID -> nil
- * | | |-. delegator
+ * | | |-. nominator
  * | | | '-. list
  * | | |   '-- txID -> nil
  * | | '-. subnetValidator
@@ -169,15 +169,15 @@ type internalStateImpl struct {
 	currentValidatorsDB          database.Database
 	currentValidatorBaseDB       database.Database
 	currentValidatorList         linkeddb.LinkedDB
-	currentDelegatorBaseDB       database.Database
-	currentDelegatorList         linkeddb.LinkedDB
+	currentNominatorBaseDB       database.Database
+	currentNominatorList         linkeddb.LinkedDB
 	currentSubnetValidatorBaseDB database.Database
 	currentSubnetValidatorList   linkeddb.LinkedDB
 	pendingValidatorsDB          database.Database
 	pendingValidatorBaseDB       database.Database
 	pendingValidatorList         linkeddb.LinkedDB
-	pendingDelegatorBaseDB       database.Database
-	pendingDelegatorList         linkeddb.LinkedDB
+	pendingNominatorBaseDB       database.Database
+	pendingNominatorList         linkeddb.LinkedDB
 	pendingSubnetValidatorBaseDB database.Database
 	pendingSubnetValidatorList   linkeddb.LinkedDB
 
@@ -243,12 +243,12 @@ func newInternalStateDatabases(vm *VM, db database.Database) *internalStateImpl 
 
 	currentValidatorsDB := prefixdb.New(currentPrefix, validatorsDB)
 	currentValidatorBaseDB := prefixdb.New(validatorPrefix, currentValidatorsDB)
-	currentDelegatorBaseDB := prefixdb.New(delegatorPrefix, currentValidatorsDB)
+	currentNominatorBaseDB := prefixdb.New(nominatorPrefix, currentValidatorsDB)
 	currentSubnetValidatorBaseDB := prefixdb.New(subnetValidatorPrefix, currentValidatorsDB)
 
 	pendingValidatorsDB := prefixdb.New(pendingPrefix, validatorsDB)
 	pendingValidatorBaseDB := prefixdb.New(validatorPrefix, pendingValidatorsDB)
-	pendingDelegatorBaseDB := prefixdb.New(delegatorPrefix, pendingValidatorsDB)
+	pendingNominatorBaseDB := prefixdb.New(nominatorPrefix, pendingValidatorsDB)
 	pendingSubnetValidatorBaseDB := prefixdb.New(subnetValidatorPrefix, pendingValidatorsDB)
 
 	validatorDiffsDB := prefixdb.New(validatorDiffsPrefix, validatorsDB)
@@ -268,15 +268,15 @@ func newInternalStateDatabases(vm *VM, db database.Database) *internalStateImpl 
 		currentValidatorsDB:          currentValidatorsDB,
 		currentValidatorBaseDB:       currentValidatorBaseDB,
 		currentValidatorList:         linkeddb.NewDefault(currentValidatorBaseDB),
-		currentDelegatorBaseDB:       currentDelegatorBaseDB,
-		currentDelegatorList:         linkeddb.NewDefault(currentDelegatorBaseDB),
+		currentNominatorBaseDB:       currentNominatorBaseDB,
+		currentNominatorList:         linkeddb.NewDefault(currentNominatorBaseDB),
 		currentSubnetValidatorBaseDB: currentSubnetValidatorBaseDB,
 		currentSubnetValidatorList:   linkeddb.NewDefault(currentSubnetValidatorBaseDB),
 		pendingValidatorsDB:          pendingValidatorsDB,
 		pendingValidatorBaseDB:       pendingValidatorBaseDB,
 		pendingValidatorList:         linkeddb.NewDefault(pendingValidatorBaseDB),
-		pendingDelegatorBaseDB:       pendingDelegatorBaseDB,
-		pendingDelegatorList:         linkeddb.NewDefault(pendingDelegatorBaseDB),
+		pendingNominatorBaseDB:       pendingNominatorBaseDB,
+		pendingNominatorList:         linkeddb.NewDefault(pendingNominatorBaseDB),
 		pendingSubnetValidatorBaseDB: pendingSubnetValidatorBaseDB,
 		pendingSubnetValidatorList:   linkeddb.NewDefault(pendingSubnetValidatorBaseDB),
 		validatorDiffsDB:             validatorDiffsDB,
@@ -834,11 +834,11 @@ func (st *internalStateImpl) Close() error {
 	errs := wrappers.Errs{}
 	errs.Add(
 		st.pendingSubnetValidatorBaseDB.Close(),
-		st.pendingDelegatorBaseDB.Close(),
+		st.pendingNominatorBaseDB.Close(),
 		st.pendingValidatorBaseDB.Close(),
 		st.pendingValidatorsDB.Close(),
 		st.currentSubnetValidatorBaseDB.Close(),
-		st.currentDelegatorBaseDB.Close(),
+		st.currentNominatorBaseDB.Close(),
 		st.currentValidatorBaseDB.Close(),
 		st.currentValidatorsDB.Close(),
 		st.validatorsDB.Close(),
@@ -899,8 +899,8 @@ func (st *internalStateImpl) writeCurrentStakers() error {
 			subnetID = constants.PrimaryNetworkID
 			nodeID = tx.Validator.NodeID
 			weight = tx.Validator.Wght
-		case *UnsignedAddDelegatorTx:
-			if err := database.PutUInt64(st.currentDelegatorList, txID[:], potentialReward); err != nil {
+		case *UnsignedAddNominatorTx:
+			if err := database.PutUInt64(st.currentNominatorList, txID[:], potentialReward); err != nil {
 				return err
 			}
 
@@ -956,8 +956,8 @@ func (st *internalStateImpl) writeCurrentStakers() error {
 			subnetID = constants.PrimaryNetworkID
 			nodeID = tx.Validator.NodeID
 			weight = tx.Validator.Wght
-		case *UnsignedAddDelegatorTx:
-			db = st.currentDelegatorList
+		case *UnsignedAddNominatorTx:
+			db = st.currentNominatorList
 
 			subnetID = constants.PrimaryNetworkID
 			nodeID = tx.Validator.NodeID
@@ -1062,8 +1062,8 @@ func (st *internalStateImpl) writePendingStakers() error {
 		switch tx.UnsignedTx.(type) {
 		case *UnsignedAddValidatorTx:
 			db = st.pendingValidatorList
-		case *UnsignedAddDelegatorTx:
-			db = st.pendingDelegatorList
+		case *UnsignedAddNominatorTx:
+			db = st.pendingNominatorList
 		case *UnsignedAddSubnetValidatorTx:
 			db = st.pendingSubnetValidatorList
 		default:
@@ -1082,8 +1082,8 @@ func (st *internalStateImpl) writePendingStakers() error {
 		switch tx.UnsignedTx.(type) {
 		case *UnsignedAddValidatorTx:
 			db = st.pendingValidatorList
-		case *UnsignedAddDelegatorTx:
-			db = st.pendingDelegatorList
+		case *UnsignedAddNominatorTx:
+			db = st.pendingNominatorList
 		case *UnsignedAddSubnetValidatorTx:
 			db = st.pendingSubnetValidatorList
 		default:
@@ -1339,10 +1339,10 @@ func (st *internalStateImpl) loadCurrentValidators() error {
 		return err
 	}
 
-	delegatorIt := st.currentDelegatorList.NewIterator()
-	defer delegatorIt.Release()
-	for delegatorIt.Next() {
-		txIDBytes := delegatorIt.Key()
+	nominatorIt := st.currentNominatorList.NewIterator()
+	defer nominatorIt.Release()
+	for nominatorIt.Next() {
+		txIDBytes := nominatorIt.Key()
 		txID, err := ids.ToID(txIDBytes)
 		if err != nil {
 			return err
@@ -1352,30 +1352,30 @@ func (st *internalStateImpl) loadCurrentValidators() error {
 			return err
 		}
 
-		potentialRewardBytes := delegatorIt.Value()
+		potentialRewardBytes := nominatorIt.Value()
 		potentialReward, err := database.ParseUInt64(potentialRewardBytes)
 		if err != nil {
 			return err
 		}
 
-		addDelegatorTx, ok := tx.UnsignedTx.(*UnsignedAddDelegatorTx)
+		addNominatorTx, ok := tx.UnsignedTx.(*UnsignedAddNominatorTx)
 		if !ok {
 			return errWrongTxType
 		}
 
 		cs.validators = append(cs.validators, tx)
-		vdr, exists := cs.validatorsByNodeID[addDelegatorTx.Validator.NodeID]
+		vdr, exists := cs.validatorsByNodeID[addNominatorTx.Validator.NodeID]
 		if !exists {
-			return errDelegatorSubset
+			return errNominatorSubset
 		}
-		vdr.delegatorWeight += addDelegatorTx.Validator.Wght
-		vdr.delegators = append(vdr.delegators, addDelegatorTx)
+		vdr.nominatorWeight += addNominatorTx.Validator.Wght
+		vdr.nominators = append(vdr.nominators, addNominatorTx)
 		cs.validatorsByTxID[txID] = &validatorReward{
 			addStakerTx:     tx,
 			potentialReward: potentialReward,
 		}
 	}
-	if err := delegatorIt.Error(); err != nil {
+	if err := nominatorIt.Error(); err != nil {
 		return err
 	}
 
@@ -1412,7 +1412,7 @@ func (st *internalStateImpl) loadCurrentValidators() error {
 	}
 
 	for _, vdr := range cs.validatorsByNodeID {
-		sortDelegatorsByRemoval(vdr.delegators)
+		sortNominatorsByRemoval(vdr.nominators)
 	}
 	sortValidatorsByRemoval(cs.validators)
 	cs.setNextStaker()
@@ -1452,10 +1452,10 @@ func (st *internalStateImpl) loadPendingValidators() error {
 		return err
 	}
 
-	delegatorIt := st.pendingDelegatorList.NewIterator()
-	defer delegatorIt.Release()
-	for delegatorIt.Next() {
-		txIDBytes := delegatorIt.Key()
+	nominatorIt := st.pendingNominatorList.NewIterator()
+	defer nominatorIt.Release()
+	for nominatorIt.Next() {
+		txIDBytes := nominatorIt.Key()
 		txID, err := ids.ToID(txIDBytes)
 		if err != nil {
 			return err
@@ -1465,22 +1465,22 @@ func (st *internalStateImpl) loadPendingValidators() error {
 			return err
 		}
 
-		addDelegatorTx, ok := tx.UnsignedTx.(*UnsignedAddDelegatorTx)
+		addNominatorTx, ok := tx.UnsignedTx.(*UnsignedAddNominatorTx)
 		if !ok {
 			return errWrongTxType
 		}
 
 		ps.validators = append(ps.validators, tx)
-		if vdr, exists := ps.validatorExtrasByNodeID[addDelegatorTx.Validator.NodeID]; exists {
-			vdr.delegators = append(vdr.delegators, addDelegatorTx)
+		if vdr, exists := ps.validatorExtrasByNodeID[addNominatorTx.Validator.NodeID]; exists {
+			vdr.nominators = append(vdr.nominators, addNominatorTx)
 		} else {
-			ps.validatorExtrasByNodeID[addDelegatorTx.Validator.NodeID] = &validatorImpl{
-				delegators: []*UnsignedAddDelegatorTx{addDelegatorTx},
+			ps.validatorExtrasByNodeID[addNominatorTx.Validator.NodeID] = &validatorImpl{
+				nominators: []*UnsignedAddNominatorTx{addNominatorTx},
 				subnets:    make(map[ids.ID]*UnsignedAddSubnetValidatorTx),
 			}
 		}
 	}
-	if err := delegatorIt.Error(); err != nil {
+	if err := nominatorIt.Error(); err != nil {
 		return err
 	}
 
@@ -1518,7 +1518,7 @@ func (st *internalStateImpl) loadPendingValidators() error {
 	}
 
 	for _, vdr := range ps.validatorExtrasByNodeID {
-		sortDelegatorsByAddition(vdr.delegators)
+		sortNominatorsByAddition(vdr.nominators)
 	}
 	sortValidatorsByAddition(ps.validators)
 

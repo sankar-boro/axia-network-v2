@@ -69,8 +69,8 @@ func (s *signer) Sign(ctx stdcontext.Context, tx *platformvm.Tx) error {
 		return s.signAddValidatorTx(ctx, tx, utx)
 	case *platformvm.UnsignedAddSubnetValidatorTx:
 		return s.signAddSubnetValidatorTx(ctx, tx, utx)
-	case *platformvm.UnsignedAddDelegatorTx:
-		return s.signAddDelegatorTx(ctx, tx, utx)
+	case *platformvm.UnsignedAddNominatorTx:
+		return s.signAddNominatorTx(ctx, tx, utx)
 	case *platformvm.UnsignedCreateChainTx:
 		return s.signCreateChainTx(ctx, tx, utx)
 	case *platformvm.UnsignedCreateSubnetTx:
@@ -105,7 +105,7 @@ func (s *signer) signAddSubnetValidatorTx(ctx stdcontext.Context, tx *platformvm
 	return s.sign(tx, txSigners)
 }
 
-func (s *signer) signAddDelegatorTx(ctx stdcontext.Context, tx *platformvm.Tx, utx *platformvm.UnsignedAddDelegatorTx) error {
+func (s *signer) signAddNominatorTx(ctx stdcontext.Context, tx *platformvm.Tx, utx *platformvm.UnsignedAddNominatorTx) error {
 	txSigners, err := s.getSigners(ctx, constants.PlatformChainID, utx.Ins)
 	if err != nil {
 		return err

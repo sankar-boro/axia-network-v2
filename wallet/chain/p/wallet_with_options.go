@@ -71,12 +71,12 @@ func (w *walletWithOptions) IssueAddSubnetValidatorTx(
 	)
 }
 
-func (w *walletWithOptions) IssueAddDelegatorTx(
+func (w *walletWithOptions) IssueAddNominatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueAddDelegatorTx(
+	return w.Wallet.IssueAddNominatorTx(
 		validator,
 		rewardsOwner,
 		common.UnionOptions(w.options, options)...,

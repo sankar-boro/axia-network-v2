@@ -80,8 +80,8 @@ type APIPrimaryValidator struct {
 	Uptime             *json.Float32 `json:"uptime"`
 	Connected          bool          `json:"connected"`
 	Staked             []APIUTXO     `json:"staked,omitempty"`
-	// The delegators delegating to this validator
-	Delegators []APIPrimaryDelegator `json:"delegators"`
+	// The nominators delegating to this validator
+	Nominators []APIPrimaryNominator `json:"nominators"`
 }
 
 // APISubnetValidator is the repr. of a subnet validator sent over APIs.
@@ -91,8 +91,8 @@ type APISubnetValidator struct {
 	Connected bool `json:"connected"`
 }
 
-// APIPrimaryDelegator is the repr. of a primary network delegator sent over APIs.
-type APIPrimaryDelegator struct {
+// APIPrimaryNominator is the repr. of a primary network nominator sent over APIs.
+type APIPrimaryNominator struct {
 	APIStaker
 	RewardOwner     *APIOwner    `json:"rewardOwner,omitempty"`
 	PotentialReward *json.Uint64 `json:"potentialReward,omitempty"`

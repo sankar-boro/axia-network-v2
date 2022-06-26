@@ -185,7 +185,7 @@ func TestUnsignedRewardValidatorTxExecuteOnAbort(t *testing.T) {
 	}
 }
 
-func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
+func TestRewardNominatorTxExecuteOnCommit(t *testing.T) {
 	assert := assert.New(t)
 
 	vm, _, _ := defaultVM()
@@ -217,8 +217,8 @@ func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
 
 	delStartTime := vdrStartTime
 	delEndTime := vdrEndTime
-	delTx, err := vm.newAddDelegatorTx(
-		vm.MinDelegatorStake, // stakeAmt
+	delTx, err := vm.newAddNominatorTx(
+		vm.MinNominatorStake, // stakeAmt
 		delStartTime,
 		delEndTime,
 		vdrNodeID,                               // node ID
@@ -242,7 +242,7 @@ func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
 	assert.True(ok)
 	stake, ok := set.GetWeight(vdrNodeID)
 	assert.True(ok)
-	assert.Equal(vm.MinValidatorStake+vm.MinDelegatorStake, stake)
+	assert.Equal(vm.MinValidatorStake+vm.MinNominatorStake, stake)
 
 	tx, err := vm.newRewardValidatorTx(delTx.ID())
 	assert.NoError(err)
@@ -266,8 +266,8 @@ func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
 	err = vm.internalState.Commit()
 	assert.NoError(err)
 
-	// If tx is committed, delegator and delegatee should get reward
-	// and the delegator's reward should be greater because the delegatee's share is 25%
+	// If tx is committed, nominator and delegatee should get reward
+	// and the nominator's reward should be greater because the delegatee's share is 25%
 	commitVdrBalance, err := axc.GetBalance(vm.internalState, vdrDestSet)
 	assert.NoError(err)
 	vdrReward, err := math.Sub64(commitVdrBalance, oldVdrBalance)
@@ -278,9 +278,9 @@ func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
 	assert.NoError(err)
 	delReward, err := math.Sub64(commitDelBalance, oldDelBalance)
 	assert.NoError(err)
-	assert.NotZero(delReward, "expected delegator balance to increase because of reward")
+	assert.NotZero(delReward, "expected nominator balance to increase because of reward")
 
-	assert.Less(vdrReward, delReward, "the delegator's reward should be greater than the delegatee's because the delegatee's share is 25%")
+	assert.Less(vdrReward, delReward, "the nominator's reward should be greater than the delegatee's because the delegatee's share is 25%")
 	assert.Equal(expectedReward, delReward+vdrReward, "expected total reward to be %d but is %d", expectedReward, delReward+vdrReward)
 
 	stake, ok = set.GetWeight(vdrNodeID)
@@ -288,7 +288,7 @@ func TestRewardDelegatorTxExecuteOnCommit(t *testing.T) {
 	assert.Equal(vm.MinValidatorStake, stake)
 }
 
-func TestRewardDelegatorTxExecuteOnAbort(t *testing.T) {
+func TestRewardNominatorTxExecuteOnAbort(t *testing.T) {
 	assert := assert.New(t)
 
 	vm, _, _ := defaultVM()
@@ -322,8 +322,8 @@ func TestRewardDelegatorTxExecuteOnAbort(t *testing.T) {
 
 	delStartTime := vdrStartTime
 	delEndTime := vdrEndTime
-	delTx, err := vm.newAddDelegatorTx(
-		vm.MinDelegatorStake, // stakeAmt
+	delTx, err := vm.newAddNominatorTx(
+		vm.MinNominatorStake, // stakeAmt
 		delStartTime,
 		delEndTime,
 		vdrNodeID,                               // node ID
@@ -365,7 +365,7 @@ func TestRewardDelegatorTxExecuteOnAbort(t *testing.T) {
 	err = vm.internalState.Commit()
 	assert.NoError(err)
 
-	// If tx is aborted, delegator and delegatee shouldn't get reward
+	// If tx is aborted, nominator and delegatee shouldn't get reward
 	newVdrBalance, err := axc.GetBalance(vm.internalState, vdrDestSet)
 	assert.NoError(err)
 	vdrReward, err := math.Sub64(newVdrBalance, oldVdrBalance)
@@ -376,7 +376,7 @@ func TestRewardDelegatorTxExecuteOnAbort(t *testing.T) {
 	assert.NoError(err)
 	delReward, err := math.Sub64(newDelBalance, oldDelBalance)
 	assert.NoError(err)
-	assert.Zero(delReward, "expected delegator balance not to increase")
+	assert.Zero(delReward, "expected nominator balance not to increase")
 
 	newSupply := vm.internalState.GetCurrentSupply()
 	assert.Equal(initialSupply-expectedReward, newSupply, "should have removed un-rewarded tokens from the potential supply")

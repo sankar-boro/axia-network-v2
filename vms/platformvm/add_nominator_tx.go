@@ -23,16 +23,16 @@ import (
 )
 
 var (
-	errDelegatorSubset = errors.New("delegator's time range must be a subset of the validator's time range")
+	errNominatorSubset = errors.New("nominator's time range must be a subset of the validator's time range")
 	errInvalidState    = errors.New("generated output isn't valid state")
 	errOverDelegated   = errors.New("validator would be over delegated")
 
-	_ UnsignedProposalTx = &UnsignedAddDelegatorTx{}
-	_ TimedTx            = &UnsignedAddDelegatorTx{}
+	_ UnsignedProposalTx = &UnsignedAddNominatorTx{}
+	_ TimedTx            = &UnsignedAddNominatorTx{}
 )
 
-// UnsignedAddDelegatorTx is an unsigned addDelegatorTx
-type UnsignedAddDelegatorTx struct {
+// UnsignedAddNominatorTx is an unsigned addNominatorTx
+type UnsignedAddNominatorTx struct {
 	// Metadata, inputs and outputs
 	BaseTx `serialize:"true"`
 	// Describes the delegatee
@@ -44,9 +44,9 @@ type UnsignedAddDelegatorTx struct {
 }
 
 // InitCtx sets the FxID fields in the inputs and outputs of this
-// [UnsignedAddDelegatorTx]. Also sets the [ctx] to the given [vm.ctx] so that
+// [UnsignedAddNominatorTx]. Also sets the [ctx] to the given [vm.ctx] so that
 // the addresses can be json marshalled into human readable format
-func (tx *UnsignedAddDelegatorTx) InitCtx(ctx *snow.Context) {
+func (tx *UnsignedAddNominatorTx) InitCtx(ctx *snow.Context) {
 	tx.BaseTx.InitCtx(ctx)
 	for _, out := range tx.Stake {
 		out.FxID = secp256k1fx.ID
@@ -56,22 +56,22 @@ func (tx *UnsignedAddDelegatorTx) InitCtx(ctx *snow.Context) {
 }
 
 // StartTime of this validator
-func (tx *UnsignedAddDelegatorTx) StartTime() time.Time {
+func (tx *UnsignedAddNominatorTx) StartTime() time.Time {
 	return tx.Validator.StartTime()
 }
 
 // EndTime of this validator
-func (tx *UnsignedAddDelegatorTx) EndTime() time.Time {
+func (tx *UnsignedAddNominatorTx) EndTime() time.Time {
 	return tx.Validator.EndTime()
 }
 
 // Weight of this validator
-func (tx *UnsignedAddDelegatorTx) Weight() uint64 {
+func (tx *UnsignedAddNominatorTx) Weight() uint64 {
 	return tx.Validator.Weight()
 }
 
 // SyntacticVerify returns nil iff [tx] is valid
-func (tx *UnsignedAddDelegatorTx) SyntacticVerify(ctx *snow.Context) error {
+func (tx *UnsignedAddNominatorTx) SyntacticVerify(ctx *snow.Context) error {
 	switch {
 	case tx == nil:
 		return errNilTx
@@ -102,7 +102,7 @@ func (tx *UnsignedAddDelegatorTx) SyntacticVerify(ctx *snow.Context) error {
 	case !axc.IsSortedTransferableOutputs(tx.Stake, Codec):
 		return errOutputsNotSorted
 	case totalStakeWeight != tx.Validator.Wght:
-		return fmt.Errorf("delegator weight %d is not equal to total stake weight %d", tx.Validator.Wght, totalStakeWeight)
+		return fmt.Errorf("nominator weight %d is not equal to total stake weight %d", tx.Validator.Wght, totalStakeWeight)
 	}
 
 	// cache that this is valid
@@ -111,7 +111,7 @@ func (tx *UnsignedAddDelegatorTx) SyntacticVerify(ctx *snow.Context) error {
 }
 
 // Attempts to verify this transaction with the provided state.
-func (tx *UnsignedAddDelegatorTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
+func (tx *UnsignedAddNominatorTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
 	startTime := tx.StartTime()
 	maxLocalStartTime := vm.clock.Time().Add(maxFutureStartTime)
 	if startTime.After(maxLocalStartTime) {
@@ -128,7 +128,7 @@ func (tx *UnsignedAddDelegatorTx) SemanticVerify(vm *VM, parentState MutableStat
 }
 
 // Execute this transaction.
-func (tx *UnsignedAddDelegatorTx) Execute(
+func (tx *UnsignedAddNominatorTx) Execute(
 	vm *VM,
 	parentState MutableState,
 	stx *Tx,
@@ -148,7 +148,7 @@ func (tx *UnsignedAddDelegatorTx) Execute(
 		return nil, nil, errStakeTooShort
 	case duration > vm.MaxStakeDuration: // Ensure staking length is not too long
 		return nil, nil, errStakeTooLong
-	case tx.Validator.Wght < vm.MinDelegatorStake:
+	case tx.Validator.Wght < vm.MinNominatorStake:
 		// Ensure validator is staking at least the minimum amount
 		return nil, nil, errWeightTooSmall
 	}
@@ -182,26 +182,26 @@ func (tx *UnsignedAddDelegatorTx) Execute(
 		}
 
 		pendingValidator := pendingStakers.GetValidator(tx.Validator.NodeID)
-		pendingDelegators := pendingValidator.Delegators()
+		pendingNominators := pendingValidator.Nominators()
 
 		var (
 			vdrTx                  *UnsignedAddValidatorTx
-			currentDelegatorWeight uint64
-			currentDelegators      []*UnsignedAddDelegatorTx
+			currentNominatorWeight uint64
+			currentNominators      []*UnsignedAddNominatorTx
 		)
 		if err == nil {
-			// This delegator is attempting to delegate to a currently validing
+			// This nominator is attempting to delegate to a currently validing
 			// node.
 			vdrTx = currentValidator.AddValidatorTx()
-			currentDelegatorWeight = currentValidator.DelegatorWeight()
-			currentDelegators = currentValidator.Delegators()
+			currentNominatorWeight = currentValidator.NominatorWeight()
+			currentNominators = currentValidator.Nominators()
 		} else {
-			// This delegator is attempting to delegate to a node that hasn't
+			// This nominator is attempting to delegate to a node that hasn't
 			// started validating yet.
 			vdrTx, err = pendingStakers.GetValidatorTx(tx.Validator.NodeID)
 			if err != nil {
 				if err == database.ErrNotFound {
-					return nil, nil, errDelegatorSubset
+					return nil, nil, errNominatorSubset
 				}
 				return nil, nil, fmt.Errorf(
 					"failed to find whether %s is a validator: %w",
@@ -211,16 +211,16 @@ func (tx *UnsignedAddDelegatorTx) Execute(
 			}
 		}
 
-		// Ensure that the period this delegator delegates is a subset of the
+		// Ensure that the period this nominator delegates is a subset of the
 		// time the validator validates.
 		if !tx.Validator.BoundedBy(vdrTx.StartTime(), vdrTx.EndTime()) {
-			return nil, nil, errDelegatorSubset
+			return nil, nil, errNominatorSubset
 		}
 
-		// Ensure that the period this delegator delegates wouldn't become over
+		// Ensure that the period this nominator delegates wouldn't become over
 		// delegated.
 		vdrWeight := vdrTx.Weight()
-		currentWeight, err := math.Add64(vdrWeight, currentDelegatorWeight)
+		currentWeight, err := math.Add64(vdrWeight, currentNominatorWeight)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -235,8 +235,8 @@ func (tx *UnsignedAddDelegatorTx) Execute(
 		}
 
 		canDelegate, err := CanDelegate(
-			currentDelegators,
-			pendingDelegators,
+			currentNominators,
+			pendingNominators,
 			tx,
 			currentWeight,
 			maximumWeight,
@@ -284,13 +284,13 @@ func (tx *UnsignedAddDelegatorTx) Execute(
 
 // InitiallyPrefersCommit returns true if the proposed validators start time is
 // after the current wall clock time,
-func (tx *UnsignedAddDelegatorTx) InitiallyPrefersCommit(vm *VM) bool {
+func (tx *UnsignedAddNominatorTx) InitiallyPrefersCommit(vm *VM) bool {
 	return tx.StartTime().After(vm.clock.Time())
 }
 
 // Creates a new transaction
-func (vm *VM) newAddDelegatorTx(
-	stakeAmt, // Amount the delegator stakes
+func (vm *VM) newAddNominatorTx(
+	stakeAmt, // Amount the nominator stakes
 	startTime, // Unix time they start delegating
 	endTime uint64, // Unix time they stop delegating
 	nodeID ids.NodeID, // ID of the node we are delegating to
@@ -303,7 +303,7 @@ func (vm *VM) newAddDelegatorTx(
 		return nil, fmt.Errorf("couldn't generate tx inputs/outputs: %w", err)
 	}
 	// Create the tx
-	utx := &UnsignedAddDelegatorTx{
+	utx := &UnsignedAddNominatorTx{
 		BaseTx: BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    vm.ctx.NetworkID,
 			BlockchainID: vm.ctx.ChainID,
@@ -330,16 +330,16 @@ func (vm *VM) newAddDelegatorTx(
 	return tx, utx.SyntacticVerify(vm.ctx)
 }
 
-// CanDelegate returns if the [new] delegator can be added to a validator who
-// has [current] and [pending] delegators. [currentStake] is the current amount
-// of stake on the validator, include the [current] delegators. [maximumStake]
+// CanDelegate returns if the [new] nominator can be added to a validator who
+// has [current] and [pending] nominators. [currentStake] is the current amount
+// of stake on the validator, include the [current] nominators. [maximumStake]
 // is the maximum amount of stake that can be on the validator at any given
 // time. It is assumed that the validator without adding [new] does not violate
 // [maximumStake].
 func CanDelegate(
 	current,
-	pending []*UnsignedAddDelegatorTx, // sorted by next start time first
-	new *UnsignedAddDelegatorTx,
+	pending []*UnsignedAddNominatorTx, // sorted by next start time first
+	new *UnsignedAddNominatorTx,
 	currentStake,
 	maximumStake uint64,
 ) (bool, error) {
@@ -366,16 +366,16 @@ func CanDelegate(
 // * [pending] is sorted in order of increasing delegation start time
 func maxStakeAmount(
 	current,
-	pending []*UnsignedAddDelegatorTx, // sorted by next start time first
+	pending []*UnsignedAddNominatorTx, // sorted by next start time first
 	startTime time.Time,
 	endTime time.Time,
 	currentStake uint64,
 ) (uint64, error) {
-	// Keep track of which delegators should be removed next so that we can
-	// efficiently remove delegators and keep the current stake updated.
+	// Keep track of which nominators should be removed next so that we can
+	// efficiently remove nominators and keep the current stake updated.
 	toRemoveHeap := coreChainValidator.EndTimeHeap{}
-	for _, currentDelegator := range current {
-		toRemoveHeap.Add(&currentDelegator.Validator)
+	for _, currentNominator := range current {
+		toRemoveHeap.Add(&currentNominator.Validator)
 	}
 
 	var (
@@ -411,10 +411,10 @@ func maxStakeAmount(
 			// starts, so its stake should be subtracted from [currentStake].
 
 			// Changed in AP3:
-			// If the new delegator has started, then this current delegator
+			// If the new nominator has started, then this current nominator
 			// should have an end time that is > [startTime].
-			newDelegatorHasStartedBeforeFinish := toRemoveEndTime.After(startTime)
-			if newDelegatorHasStartedBeforeFinish && currentStake > maxStake {
+			newNominatorHasStartedBeforeFinish := toRemoveEndTime.After(startTime)
+			if newNominatorHasStartedBeforeFinish && currentStake > maxStake {
 				// Only update [maxStake] if it's after [startTime]
 				maxStake = currentStake
 			}
@@ -425,12 +425,12 @@ func maxStakeAmount(
 			}
 
 			// Changed in AP3:
-			// Remove the delegator from the heap and update the heap so that
-			// the top of the heap is the next delegator to remove.
+			// Remove the nominator from the heap and update the heap so that
+			// the top of the heap is the next nominator to remove.
 			toRemoveHeap.Remove()
 		}
 
-		// Add to [currentStake] the stake of this pending delegator to
+		// Add to [currentStake] the stake of this pending nominator to
 		// calculate what the stake will be when this pending delegation has
 		// started.
 		currentStake, err = math.Add64(currentStake, nextPending.Validator.Wght)
@@ -439,25 +439,25 @@ func maxStakeAmount(
 		}
 
 		// Changed in AP3:
-		// If the new delegator has started, then this pending delegator should
-		// have a start time that is >= [startTime]. Otherwise, the delegator
+		// If the new nominator has started, then this pending nominator should
+		// have a start time that is >= [startTime]. Otherwise, the nominator
 		// hasn't started yet and the [currentStake] shouldn't count towards the
-		// [maximumStake] during the delegators delegation period.
-		newDelegatorHasStarted := !nextPendingStartTime.Before(startTime)
-		if newDelegatorHasStarted && currentStake > maxStake {
+		// [maximumStake] during the nominators delegation period.
+		newNominatorHasStarted := !nextPendingStartTime.Before(startTime)
+		if newNominatorHasStarted && currentStake > maxStake {
 			// Only update [maxStake] if it's after [startTime]
 			maxStake = currentStake
 		}
 
-		// This pending delegator is a current delegator relative
-		// when considering later pending delegators that start late
+		// This pending nominator is a current nominator relative
+		// when considering later pending nominators that start late
 		toRemoveHeap.Add(&nextPending.Validator)
 	}
 
-	// [currentStake] is now the amount staked before the next pending delegator
+	// [currentStake] is now the amount staked before the next pending nominator
 	// whose start time is after [endTime].
 
-	// If there aren't any delegators that will be added before the end of our
+	// If there aren't any nominators that will be added before the end of our
 	// delegation period, we should advance through time until our delegation
 	// period starts.
 	for toRemoveHeap.Len() > 0 {
@@ -473,8 +473,8 @@ func maxStakeAmount(
 		}
 
 		// Changed in AP3:
-		// Remove the delegator from the heap and update the heap so that the
-		// top of the heap is the next delegator to remove.
+		// Remove the nominator from the heap and update the heap so that the
+		// top of the heap is the next nominator to remove.
 		toRemoveHeap.Remove()
 	}
 
@@ -566,13 +566,13 @@ func (vm *VM) maxPrimarySubnetStakeAmount(
 		}
 
 		currentWeight := vdrTx.Weight()
-		currentWeight, err = math.Add64(currentWeight, currentValidator.DelegatorWeight())
+		currentWeight, err = math.Add64(currentWeight, currentValidator.NominatorWeight())
 		if err != nil {
 			return 0, err
 		}
 		return maxStakeAmount(
-			currentValidator.Delegators(),
-			pendingValidator.Delegators(),
+			currentValidator.Nominators(),
+			pendingValidator.Nominators(),
 			startTime,
 			endTime,
 			currentWeight,
@@ -594,7 +594,7 @@ func (vm *VM) maxPrimarySubnetStakeAmount(
 
 		return maxStakeAmount(
 			nil,
-			pendingValidator.Delegators(),
+			pendingValidator.Nominators(),
 			startTime,
 			endTime,
 			futureValidator.Weight(),

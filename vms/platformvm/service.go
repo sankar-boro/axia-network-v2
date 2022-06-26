@@ -585,19 +585,19 @@ type GetCurrentValidatorsArgs struct {
 }
 
 // GetCurrentValidatorsReply are the results from calling GetCurrentValidators.
-// Each validator contains a list of delegators to itself.
+// Each validator contains a list of nominators to itself.
 type GetCurrentValidatorsReply struct {
 	Validators []interface{} `json:"validators"`
 }
 
-// GetCurrentValidators returns current validators and delegators
+// GetCurrentValidators returns current validators and nominators
 func (service *Service) GetCurrentValidators(_ *http.Request, args *GetCurrentValidatorsArgs, reply *GetCurrentValidatorsReply) error {
 	service.vm.ctx.Log.Debug("Platform: GetCurrentValidators called")
 
 	reply.Validators = []interface{}{}
 
-	// Validator's node ID as string --> Delegators to them
-	vdrToDelegators := map[ids.NodeID][]APIPrimaryDelegator{}
+	// Validator's node ID as string --> Nominators to them
+	vdrToNominators := map[ids.NodeID][]APIPrimaryNominator{}
 
 	// Create set of nodeIDs
 	nodeIDs := ids.NodeIDSet{}
@@ -613,7 +613,7 @@ func (service *Service) GetCurrentValidators(_ *http.Request, args *GetCurrentVa
 			return err
 		}
 		switch staker := tx.UnsignedTx.(type) {
-		case *UnsignedAddDelegatorTx:
+		case *UnsignedAddNominatorTx:
 			if args.SubnetID != constants.PrimaryNetworkID {
 				continue
 			}
@@ -640,7 +640,7 @@ func (service *Service) GetCurrentValidators(_ *http.Request, args *GetCurrentVa
 			}
 
 			potentialReward := json.Uint64(rewardAmount)
-			delegator := APIPrimaryDelegator{
+			nominator := APIPrimaryNominator{
 				APIStaker: APIStaker{
 					TxID:        tx.ID(),
 					StartTime:   json.Uint64(staker.StartTime().Unix()),
@@ -651,7 +651,7 @@ func (service *Service) GetCurrentValidators(_ *http.Request, args *GetCurrentVa
 				RewardOwner:     rewardOwner,
 				PotentialReward: &potentialReward,
 			}
-			vdrToDelegators[delegator.NodeID] = append(vdrToDelegators[delegator.NodeID], delegator)
+			vdrToNominators[nominator.NodeID] = append(vdrToNominators[nominator.NodeID], nominator)
 		case *UnsignedAddValidatorTx:
 			if args.SubnetID != constants.PrimaryNetworkID {
 				continue
@@ -734,8 +734,8 @@ func (service *Service) GetCurrentValidators(_ *http.Request, args *GetCurrentVa
 		if !ok {
 			continue
 		}
-		if delegators, ok := vdrToDelegators[vdr.NodeID]; ok {
-			vdr.Delegators = delegators
+		if nominators, ok := vdrToNominators[vdr.NodeID]; ok {
+			vdr.Nominators = nominators
 		}
 		reply.Validators[i] = vdr
 	}
@@ -756,10 +756,10 @@ type GetPendingValidatorsArgs struct {
 }
 
 // GetPendingValidatorsReply are the results from calling GetPendingValidators.
-// Unlike GetCurrentValidatorsReply, each validator has a null delegator list.
+// Unlike GetCurrentValidatorsReply, each validator has a null nominator list.
 type GetPendingValidatorsReply struct {
 	Validators []interface{} `json:"validators"`
-	Delegators []interface{} `json:"delegators"`
+	Nominators []interface{} `json:"nominators"`
 }
 
 // GetPendingValidators returns the list of pending validators
@@ -767,7 +767,7 @@ func (service *Service) GetPendingValidators(_ *http.Request, args *GetPendingVa
 	service.vm.ctx.Log.Debug("Platform: GetPendingValidators called")
 
 	reply.Validators = []interface{}{}
-	reply.Delegators = []interface{}{}
+	reply.Nominators = []interface{}{}
 
 	// Create set of nodeIDs
 	nodeIDs := ids.NodeIDSet{}
@@ -778,7 +778,7 @@ func (service *Service) GetPendingValidators(_ *http.Request, args *GetPendingVa
 
 	for _, tx := range pendingValidators.Stakers() { // Iterates in order of increasing start time
 		switch staker := tx.UnsignedTx.(type) {
-		case *UnsignedAddDelegatorTx:
+		case *UnsignedAddNominatorTx:
 			if args.SubnetID != constants.PrimaryNetworkID {
 				continue
 			}
@@ -787,7 +787,7 @@ func (service *Service) GetPendingValidators(_ *http.Request, args *GetPendingVa
 			}
 
 			weight := json.Uint64(staker.Validator.Weight())
-			reply.Delegators = append(reply.Delegators, APIStaker{
+			reply.Nominators = append(reply.Nominators, APIStaker{
 				TxID:        tx.ID(),
 				NodeID:      staker.Validator.ID(),
 				StartTime:   json.Uint64(staker.StartTime().Unix()),
@@ -1012,18 +1012,18 @@ func (service *Service) AddValidator(_ *http.Request, args *AddValidatorArgs, re
 	return errs.Err
 }
 
-// AddDelegatorArgs are the arguments to AddDelegator
-type AddDelegatorArgs struct {
+// AddNominatorArgs are the arguments to AddNominator
+type AddNominatorArgs struct {
 	// User, password, from addrs, change addr
 	api.JSONSpendHeader
 	APIStaker
 	RewardAddress string `json:"rewardAddress"`
 }
 
-// AddDelegator creates and signs and issues a transaction to add a delegator to
+// AddNominator creates and signs and issues a transaction to add a nominator to
 // the primary network
-func (service *Service) AddDelegator(_ *http.Request, args *AddDelegatorArgs, reply *api.JSONTxIDChangeAddr) error {
-	service.vm.ctx.Log.Debug("Platform: AddDelegator called")
+func (service *Service) AddNominator(_ *http.Request, args *AddNominatorArgs, reply *api.JSONTxIDChangeAddr) error {
+	service.vm.ctx.Log.Debug("Platform: AddNominator called")
 
 	now := service.vm.clock.Time()
 	minAddStakerTime := now.Add(minAddStakerDelay)
@@ -1088,7 +1088,7 @@ func (service *Service) AddDelegator(_ *http.Request, args *AddDelegatorArgs, re
 	}
 
 	// Create the transaction
-	tx, err := service.vm.newAddDelegatorTx(
+	tx, err := service.vm.newAddNominatorTx(
 		args.weight(),          // Stake amount
 		uint64(args.StartTime), // Start time
 		uint64(args.EndTime),   // End time
@@ -1976,14 +1976,14 @@ type GetStakeReply struct {
 func (service *Service) getStakeHelper(tx *Tx, addrs ids.ShortSet) (uint64, []axc.TransferableOutput, error) {
 	var outs []*axc.TransferableOutput
 	switch staker := tx.UnsignedTx.(type) {
-	case *UnsignedAddDelegatorTx:
+	case *UnsignedAddNominatorTx:
 		outs = staker.Stake
 	case *UnsignedAddValidatorTx:
 		outs = staker.Stake
 	case *UnsignedAddSubnetValidatorTx:
 		return 0, nil, nil
 	default:
-		err := fmt.Errorf("expected *UnsignedAddDelegatorTx, *UnsignedAddValidatorTx or *UnsignedAddSubnetValidatorTx but got %T", tx.UnsignedTx)
+		err := fmt.Errorf("expected *UnsignedAddNominatorTx, *UnsignedAddValidatorTx or *UnsignedAddSubnetValidatorTx but got %T", tx.UnsignedTx)
 		service.vm.ctx.Log.Error("invalid tx type provided from validator set %s", err)
 		return 0, nil, err
 	}
@@ -2106,13 +2106,13 @@ type GetMinStakeReply struct {
 	//  The minimum amount of tokens one must bond to be a validator
 	MinValidatorStake json.Uint64 `json:"minValidatorStake"`
 	// Minimum stake, in nAXC, that can be delegated on the primary network
-	MinDelegatorStake json.Uint64 `json:"minDelegatorStake"`
+	MinNominatorStake json.Uint64 `json:"minNominatorStake"`
 }
 
 // GetMinStake returns the minimum staking amount in nAXC.
 func (service *Service) GetMinStake(_ *http.Request, _ *struct{}, reply *GetMinStakeReply) error {
 	reply.MinValidatorStake = json.Uint64(service.vm.MinValidatorStake)
-	reply.MinDelegatorStake = json.Uint64(service.vm.MinDelegatorStake)
+	reply.MinNominatorStake = json.Uint64(service.vm.MinNominatorStake)
 	return nil
 }
 

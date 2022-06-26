@@ -76,12 +76,12 @@ func (b *builderWithOptions) NewAddSubnetValidatorTx(
 	)
 }
 
-func (b *builderWithOptions) NewAddDelegatorTx(
+func (b *builderWithOptions) NewAddNominatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
-) (*platformvm.UnsignedAddDelegatorTx, error) {
-	return b.Builder.NewAddDelegatorTx(
+) (*platformvm.UnsignedAddNominatorTx, error) {
+	return b.Builder.NewAddNominatorTx(
 		validator,
 		rewardsOwner,
 		common.UnionOptions(b.options, options)...,

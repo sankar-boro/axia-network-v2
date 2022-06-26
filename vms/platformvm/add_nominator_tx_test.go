@@ -18,7 +18,7 @@ import (
 	"github.com/sankar-boro/axia/vms/platformvm/status"
 )
 
-func TestAddDelegatorTxSyntacticVerify(t *testing.T) {
+func TestAddNominatorTxSyntacticVerify(t *testing.T) {
 	vm, _, _ := defaultVM()
 	vm.ctx.Lock.Lock()
 	defer func() {
@@ -32,14 +32,14 @@ func TestAddDelegatorTxSyntacticVerify(t *testing.T) {
 	nodeID := ids.NodeID(rewardAddress)
 
 	// Case : tx is nil
-	var unsignedTx *UnsignedAddDelegatorTx
+	var unsignedTx *UnsignedAddNominatorTx
 	if err := unsignedTx.SyntacticVerify(vm.ctx); err == nil {
 		t.Fatal("should have errored because tx is nil")
 	}
 
 	// Case: Wrong network ID
-	tx, err := vm.newAddDelegatorTx(
-		vm.MinDelegatorStake,
+	tx, err := vm.newAddNominatorTx(
+		vm.MinNominatorStake,
 		uint64(defaultValidateStartTime.Unix()),
 		uint64(defaultValidateEndTime.Unix()),
 		nodeID,
@@ -50,16 +50,16 @@ func TestAddDelegatorTxSyntacticVerify(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tx.UnsignedTx.(*UnsignedAddDelegatorTx).NetworkID++
+	tx.UnsignedTx.(*UnsignedAddNominatorTx).NetworkID++
 	// This tx was syntactically verified when it was created...pretend it wasn't so we don't use cache
-	tx.UnsignedTx.(*UnsignedAddDelegatorTx).syntacticallyVerified = false
-	if err := tx.UnsignedTx.(*UnsignedAddDelegatorTx).SyntacticVerify(vm.ctx); err == nil {
+	tx.UnsignedTx.(*UnsignedAddNominatorTx).syntacticallyVerified = false
+	if err := tx.UnsignedTx.(*UnsignedAddNominatorTx).SyntacticVerify(vm.ctx); err == nil {
 		t.Fatal("should have errored because the wrong network ID was used")
 	}
 
 	// Case: Valid
-	if tx, err = vm.newAddDelegatorTx(
-		vm.MinDelegatorStake,
+	if tx, err = vm.newAddNominatorTx(
+		vm.MinNominatorStake,
 		uint64(defaultValidateStartTime.Unix()),
 		uint64(defaultValidateEndTime.Unix()),
 		nodeID,
@@ -68,12 +68,12 @@ func TestAddDelegatorTxSyntacticVerify(t *testing.T) {
 		ids.ShortEmpty, // change addr
 	); err != nil {
 		t.Fatal(err)
-	} else if err := tx.UnsignedTx.(*UnsignedAddDelegatorTx).SyntacticVerify(vm.ctx); err != nil {
+	} else if err := tx.UnsignedTx.(*UnsignedAddNominatorTx).SyntacticVerify(vm.ctx); err != nil {
 		t.Fatal(err)
 	}
 }
 
-func TestAddDelegatorTxExecute(t *testing.T) {
+func TestAddNominatorTxExecute(t *testing.T) {
 	rewardAddress := keys[0].PublicKey().Address()
 	nodeID := ids.NodeID(rewardAddress)
 
@@ -159,7 +159,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 
 	tests := []test{
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     uint64(defaultValidateStartTime.Unix()),
 			endTime:       uint64(defaultValidateEndTime.Unix()) + 1,
 			nodeID:        nodeID,
@@ -171,7 +171,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "validator stops validating primary network earlier than subnet",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     uint64(currentTimestamp.Add(maxFutureStartTime + time.Second).Unix()),
 			endTime:       uint64(currentTimestamp.Add(maxFutureStartTime * 2).Unix()),
 			nodeID:        nodeID,
@@ -183,7 +183,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   fmt.Sprintf("validator should not be added more than (%s) in the future", maxFutureStartTime),
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     uint64(defaultValidateStartTime.Unix()),
 			endTime:       uint64(defaultValidateEndTime.Unix()) + 1,
 			nodeID:        nodeID,
@@ -195,7 +195,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "end time is after the primary network end time",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     uint64(defaultValidateStartTime.Add(5 * time.Second).Unix()),
 			endTime:       uint64(defaultValidateEndTime.Add(-5 * time.Second).Unix()),
 			nodeID:        newValidatorID,
@@ -207,7 +207,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "validator not in the current or pending validator sets of the subnet",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     newValidatorStartTime - 1, // start validating subnet before primary network
 			endTime:       newValidatorEndTime,
 			nodeID:        newValidatorID,
@@ -219,7 +219,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "validator starts validating subnet before primary network",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     newValidatorStartTime,
 			endTime:       newValidatorEndTime + 1, // stop validating subnet after stopping validating primary network
 			nodeID:        newValidatorID,
@@ -231,7 +231,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "validator stops validating primary network before subnet",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     newValidatorStartTime, // same start time as for primary network
 			endTime:       newValidatorEndTime,   // same end time as for primary network
 			nodeID:        newValidatorID,
@@ -243,7 +243,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "valid",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake, // weight
+			stakeAmount:   freshVM.MinNominatorStake, // weight
 			startTime:     uint64(currentTimestamp.Unix()),
 			endTime:       uint64(defaultValidateEndTime.Unix()),
 			nodeID:        nodeID,                                  // node ID
@@ -255,7 +255,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "starts validating at current timestamp",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,               // weight
+			stakeAmount:   freshVM.MinNominatorStake,               // weight
 			startTime:     uint64(defaultValidateStartTime.Unix()), // start time
 			endTime:       uint64(defaultValidateEndTime.Unix()),   // end time
 			nodeID:        nodeID,                                  // node ID
@@ -278,7 +278,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description: "tx fee paying key has no funds",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     newValidatorStartTime, // same start time as for primary network
 			endTime:       newValidatorEndTime,   // same end time as for primary network
 			nodeID:        newValidatorID,
@@ -290,7 +290,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 			description:   "over delegation before AP3",
 		},
 		{
-			stakeAmount:   freshVM.MinDelegatorStake,
+			stakeAmount:   freshVM.MinNominatorStake,
 			startTime:     newValidatorStartTime, // same start time as for primary network
 			endTime:       newValidatorEndTime,   // same end time as for primary network
 			nodeID:        newValidatorID,
@@ -316,7 +316,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 				vm.ctx.Lock.Unlock()
 			}()
 
-			tx, err := vm.newAddDelegatorTx(
+			tx, err := vm.newAddNominatorTx(
 				tt.stakeAmount,
 				tt.startTime,
 				tt.endTime,
@@ -340,7 +340,7 @@ func TestAddDelegatorTxExecute(t *testing.T) {
 	}
 }
 
-func TestAddDelegatorTxOverDelegatedRegression(t *testing.T) {
+func TestAddNominatorTxOverDelegatedRegression(t *testing.T) {
 	assert := assert.New(t)
 
 	vm, _, _ := defaultVM()
@@ -389,14 +389,14 @@ func TestAddDelegatorTxOverDelegatedRegression(t *testing.T) {
 
 	verifyAndAcceptProposalCommitment(assert, firstAdvanceTimeBlock)
 
-	firstDelegatorStartTime := validatorStartTime.Add(syncBound).Add(1 * time.Second)
-	firstDelegatorEndTime := firstDelegatorStartTime.Add(vm.MinStakeDuration)
+	firstNominatorStartTime := validatorStartTime.Add(syncBound).Add(1 * time.Second)
+	firstNominatorEndTime := firstNominatorStartTime.Add(vm.MinStakeDuration)
 
 	// create valid tx
-	addFirstDelegatorTx, err := vm.newAddDelegatorTx(
-		4*vm.MinValidatorStake, // maximum amount of stake this delegator can provide
-		uint64(firstDelegatorStartTime.Unix()),
-		uint64(firstDelegatorEndTime.Unix()),
+	addFirstNominatorTx, err := vm.newAddNominatorTx(
+		4*vm.MinValidatorStake, // maximum amount of stake this nominator can provide
+		uint64(firstNominatorStartTime.Unix()),
+		uint64(firstNominatorEndTime.Unix()),
 		ids.NodeID(id),
 		keys[0].PublicKey().Address(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1]},
@@ -405,31 +405,31 @@ func TestAddDelegatorTxOverDelegatedRegression(t *testing.T) {
 	assert.NoError(err)
 
 	// trigger block creation
-	err = vm.blockBuilder.AddUnverifiedTx(addFirstDelegatorTx)
+	err = vm.blockBuilder.AddUnverifiedTx(addFirstNominatorTx)
 	assert.NoError(err)
 
-	addFirstDelegatorBlock, err := vm.BuildBlock()
+	addFirstNominatorBlock, err := vm.BuildBlock()
 	assert.NoError(err)
 
-	verifyAndAcceptProposalCommitment(assert, addFirstDelegatorBlock)
+	verifyAndAcceptProposalCommitment(assert, addFirstNominatorBlock)
 
-	vm.clock.Set(firstDelegatorStartTime)
+	vm.clock.Set(firstNominatorStartTime)
 
 	secondAdvanceTimeBlock, err := vm.BuildBlock()
 	assert.NoError(err)
 
 	verifyAndAcceptProposalCommitment(assert, secondAdvanceTimeBlock)
 
-	secondDelegatorStartTime := firstDelegatorEndTime.Add(2 * time.Second)
-	secondDelegatorEndTime := secondDelegatorStartTime.Add(vm.MinStakeDuration)
+	secondNominatorStartTime := firstNominatorEndTime.Add(2 * time.Second)
+	secondNominatorEndTime := secondNominatorStartTime.Add(vm.MinStakeDuration)
 
-	vm.clock.Set(secondDelegatorStartTime.Add(-10 * syncBound))
+	vm.clock.Set(secondNominatorStartTime.Add(-10 * syncBound))
 
 	// create valid tx
-	addSecondDelegatorTx, err := vm.newAddDelegatorTx(
-		vm.MinDelegatorStake,
-		uint64(secondDelegatorStartTime.Unix()),
-		uint64(secondDelegatorEndTime.Unix()),
+	addSecondNominatorTx, err := vm.newAddNominatorTx(
+		vm.MinNominatorStake,
+		uint64(secondNominatorStartTime.Unix()),
+		uint64(secondNominatorEndTime.Unix()),
 		ids.NodeID(id),
 		keys[0].PublicKey().Address(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1], keys[3]},
@@ -438,22 +438,22 @@ func TestAddDelegatorTxOverDelegatedRegression(t *testing.T) {
 	assert.NoError(err)
 
 	// trigger block creation
-	err = vm.blockBuilder.AddUnverifiedTx(addSecondDelegatorTx)
+	err = vm.blockBuilder.AddUnverifiedTx(addSecondNominatorTx)
 	assert.NoError(err)
 
-	addSecondDelegatorBlock, err := vm.BuildBlock()
+	addSecondNominatorBlock, err := vm.BuildBlock()
 	assert.NoError(err)
 
-	verifyAndAcceptProposalCommitment(assert, addSecondDelegatorBlock)
+	verifyAndAcceptProposalCommitment(assert, addSecondNominatorBlock)
 
-	thirdDelegatorStartTime := firstDelegatorEndTime.Add(-time.Second)
-	thirdDelegatorEndTime := thirdDelegatorStartTime.Add(vm.MinStakeDuration)
+	thirdNominatorStartTime := firstNominatorEndTime.Add(-time.Second)
+	thirdNominatorEndTime := thirdNominatorStartTime.Add(vm.MinStakeDuration)
 
 	// create valid tx
-	addThirdDelegatorTx, err := vm.newAddDelegatorTx(
-		vm.MinDelegatorStake,
-		uint64(thirdDelegatorStartTime.Unix()),
-		uint64(thirdDelegatorEndTime.Unix()),
+	addThirdNominatorTx, err := vm.newAddNominatorTx(
+		vm.MinNominatorStake,
+		uint64(thirdNominatorStartTime.Unix()),
+		uint64(thirdNominatorEndTime.Unix()),
 		ids.NodeID(id),
 		keys[0].PublicKey().Address(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1], keys[4]},
@@ -462,30 +462,30 @@ func TestAddDelegatorTxOverDelegatedRegression(t *testing.T) {
 	assert.NoError(err)
 
 	// trigger block creation
-	err = vm.blockBuilder.AddUnverifiedTx(addThirdDelegatorTx)
-	assert.Error(err, "should have marked the delegator as being over delegated")
+	err = vm.blockBuilder.AddUnverifiedTx(addThirdNominatorTx)
+	assert.Error(err, "should have marked the nominator as being over delegated")
 }
 
-func TestAddDelegatorTxHeapCorruption(t *testing.T) {
+func TestAddNominatorTxHeapCorruption(t *testing.T) {
 	validatorStartTime := defaultGenesisTime.Add(syncBound).Add(1 * time.Second)
 	validatorEndTime := validatorStartTime.Add(360 * 24 * time.Hour)
 	validatorStake := defaultMaxValidatorStake / 5
 
-	delegator1StartTime := validatorStartTime
-	delegator1EndTime := delegator1StartTime.Add(3 * defaultMinStakingDuration)
-	delegator1Stake := defaultMinValidatorStake
+	nominator1StartTime := validatorStartTime
+	nominator1EndTime := nominator1StartTime.Add(3 * defaultMinStakingDuration)
+	nominator1Stake := defaultMinValidatorStake
 
-	delegator2StartTime := validatorStartTime.Add(1 * defaultMinStakingDuration)
-	delegator2EndTime := delegator1StartTime.Add(6 * defaultMinStakingDuration)
-	delegator2Stake := defaultMinValidatorStake
+	nominator2StartTime := validatorStartTime.Add(1 * defaultMinStakingDuration)
+	nominator2EndTime := nominator1StartTime.Add(6 * defaultMinStakingDuration)
+	nominator2Stake := defaultMinValidatorStake
 
-	delegator3StartTime := validatorStartTime.Add(2 * defaultMinStakingDuration)
-	delegator3EndTime := delegator1StartTime.Add(4 * defaultMinStakingDuration)
-	delegator3Stake := defaultMaxValidatorStake - validatorStake - 2*defaultMinValidatorStake
+	nominator3StartTime := validatorStartTime.Add(2 * defaultMinStakingDuration)
+	nominator3EndTime := nominator1StartTime.Add(4 * defaultMinStakingDuration)
+	nominator3Stake := defaultMaxValidatorStake - validatorStake - 2*defaultMinValidatorStake
 
-	delegator4StartTime := validatorStartTime.Add(5 * defaultMinStakingDuration)
-	delegator4EndTime := delegator1StartTime.Add(7 * defaultMinStakingDuration)
-	delegator4Stake := defaultMaxValidatorStake - validatorStake - defaultMinValidatorStake
+	nominator4StartTime := validatorStartTime.Add(5 * defaultMinStakingDuration)
+	nominator4EndTime := nominator1StartTime.Add(7 * defaultMinStakingDuration)
+	nominator4Stake := defaultMaxValidatorStake - validatorStake - defaultMinValidatorStake
 
 	tests := []struct {
 		name       string
@@ -549,10 +549,10 @@ func TestAddDelegatorTxHeapCorruption(t *testing.T) {
 			verifyAndAcceptProposalCommitment(assert, addValidatorBlock)
 
 			// create valid tx
-			addFirstDelegatorTx, err := vm.newAddDelegatorTx(
-				delegator1Stake,
-				uint64(delegator1StartTime.Unix()),
-				uint64(delegator1EndTime.Unix()),
+			addFirstNominatorTx, err := vm.newAddNominatorTx(
+				nominator1Stake,
+				uint64(nominator1StartTime.Unix()),
+				uint64(nominator1EndTime.Unix()),
 				ids.NodeID(id),
 				keys[0].PublicKey().Address(),
 				[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1]},
@@ -560,21 +560,21 @@ func TestAddDelegatorTxHeapCorruption(t *testing.T) {
 			)
 			assert.NoError(err)
 
-			// issue the first add delegator tx
-			err = vm.blockBuilder.AddUnverifiedTx(addFirstDelegatorTx)
+			// issue the first add nominator tx
+			err = vm.blockBuilder.AddUnverifiedTx(addFirstNominatorTx)
 			assert.NoError(err)
 
-			// trigger block creation for the first add delegator tx
-			addFirstDelegatorBlock, err := vm.BuildBlock()
+			// trigger block creation for the first add nominator tx
+			addFirstNominatorBlock, err := vm.BuildBlock()
 			assert.NoError(err)
 
-			verifyAndAcceptProposalCommitment(assert, addFirstDelegatorBlock)
+			verifyAndAcceptProposalCommitment(assert, addFirstNominatorBlock)
 
 			// create valid tx
-			addSecondDelegatorTx, err := vm.newAddDelegatorTx(
-				delegator2Stake,
-				uint64(delegator2StartTime.Unix()),
-				uint64(delegator2EndTime.Unix()),
+			addSecondNominatorTx, err := vm.newAddNominatorTx(
+				nominator2Stake,
+				uint64(nominator2StartTime.Unix()),
+				uint64(nominator2EndTime.Unix()),
 				ids.NodeID(id),
 				keys[0].PublicKey().Address(),
 				[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1]},
@@ -582,21 +582,21 @@ func TestAddDelegatorTxHeapCorruption(t *testing.T) {
 			)
 			assert.NoError(err)
 
-			// issue the second add delegator tx
-			err = vm.blockBuilder.AddUnverifiedTx(addSecondDelegatorTx)
+			// issue the second add nominator tx
+			err = vm.blockBuilder.AddUnverifiedTx(addSecondNominatorTx)
 			assert.NoError(err)
 
-			// trigger block creation for the second add delegator tx
-			addSecondDelegatorBlock, err := vm.BuildBlock()
+			// trigger block creation for the second add nominator tx
+			addSecondNominatorBlock, err := vm.BuildBlock()
 			assert.NoError(err)
 
-			verifyAndAcceptProposalCommitment(assert, addSecondDelegatorBlock)
+			verifyAndAcceptProposalCommitment(assert, addSecondNominatorBlock)
 
 			// create valid tx
-			addThirdDelegatorTx, err := vm.newAddDelegatorTx(
-				delegator3Stake,
-				uint64(delegator3StartTime.Unix()),
-				uint64(delegator3EndTime.Unix()),
+			addThirdNominatorTx, err := vm.newAddNominatorTx(
+				nominator3Stake,
+				uint64(nominator3StartTime.Unix()),
+				uint64(nominator3EndTime.Unix()),
 				ids.NodeID(id),
 				keys[0].PublicKey().Address(),
 				[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1]},
@@ -604,21 +604,21 @@ func TestAddDelegatorTxHeapCorruption(t *testing.T) {
 			)
 			assert.NoError(err)
 
-			// issue the third add delegator tx
-			err = vm.blockBuilder.AddUnverifiedTx(addThirdDelegatorTx)
+			// issue the third add nominator tx
+			err = vm.blockBuilder.AddUnverifiedTx(addThirdNominatorTx)
 			assert.NoError(err)
 
-			// trigger block creation for the third add delegator tx
-			addThirdDelegatorBlock, err := vm.BuildBlock()
+			// trigger block creation for the third add nominator tx
+			addThirdNominatorBlock, err := vm.BuildBlock()
 			assert.NoError(err)
 
-			verifyAndAcceptProposalCommitment(assert, addThirdDelegatorBlock)
+			verifyAndAcceptProposalCommitment(assert, addThirdNominatorBlock)
 
 			// create valid tx
-			addFourthDelegatorTx, err := vm.newAddDelegatorTx(
-				delegator4Stake,
-				uint64(delegator4StartTime.Unix()),
-				uint64(delegator4EndTime.Unix()),
+			addFourthNominatorTx, err := vm.newAddNominatorTx(
+				nominator4Stake,
+				uint64(nominator4StartTime.Unix()),
+				uint64(nominator4EndTime.Unix()),
 				ids.NodeID(id),
 				keys[0].PublicKey().Address(),
 				[]*crypto.PrivateKeySECP256K1R{keys[0], keys[1]},
@@ -626,21 +626,21 @@ func TestAddDelegatorTxHeapCorruption(t *testing.T) {
 			)
 			assert.NoError(err)
 
-			// issue the fourth add delegator tx
-			err = vm.blockBuilder.AddUnverifiedTx(addFourthDelegatorTx)
+			// issue the fourth add nominator tx
+			err = vm.blockBuilder.AddUnverifiedTx(addFourthNominatorTx)
 			assert.NoError(err)
 
-			// trigger block creation for the fourth add delegator tx
-			addFourthDelegatorBlock, err := vm.BuildBlock()
+			// trigger block creation for the fourth add nominator tx
+			addFourthNominatorBlock, err := vm.BuildBlock()
 
 			if test.shouldFail {
-				assert.Error(err, "should have failed to allow new delegator")
+				assert.Error(err, "should have failed to allow new nominator")
 				return
 			}
 
 			assert.NoError(err)
 
-			verifyAndAcceptProposalCommitment(assert, addFourthDelegatorBlock)
+			verifyAndAcceptProposalCommitment(assert, addFourthNominatorBlock)
 		})
 	}
 }

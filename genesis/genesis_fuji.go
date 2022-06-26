@@ -209,7 +209,7 @@ var (
 			UptimeRequirement: .8, // 80%
 			MinValidatorStake: 1 * units.Axc,
 			MaxValidatorStake: 3 * units.MegaAxc,
-			MinDelegatorStake: 1 * units.Axc,
+			MinNominatorStake: 1 * units.Axc,
 			MinDelegationFee:  20000, // 2%
 			MinStakeDuration:  24 * time.Hour,
 			MaxStakeDuration:  365 * 24 * time.Hour,

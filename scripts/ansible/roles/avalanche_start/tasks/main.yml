@@ -8,7 +8,7 @@
       --api-metrics-enabled="{{ api_metrics_enabled }}"
       --tx-fee="{{ tx_fee }}"
       --min-validator-stake="{{ min_validator_stake }}"
-      --min-delegator-stake="{{ min_delegator_stake }}"
+      --min-nominator-stake="{{ min_nominator_stake }}"
       --assertions-enabled="{{ assertions_enabled }}"
       --signature-verification-enabled="{{ signature_verification_enabled }}"
       --db-type="{{ db_type }}"

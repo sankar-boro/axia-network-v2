@@ -508,15 +508,15 @@ func TestGetStake(t *testing.T) {
 
 	oldStake := uint64(defaultWeight)
 
-	// Add a delegator
-	stakeAmt := service.vm.MinDelegatorStake + 12345
-	delegatorNodeID := ids.NodeID(keys[0].PublicKey().Address())
-	delegatorEndTime := uint64(defaultGenesisTime.Add(defaultMinStakingDuration).Unix())
-	tx, err := service.vm.newAddDelegatorTx(
+	// Add a nominator
+	stakeAmt := service.vm.MinNominatorStake + 12345
+	nominatorNodeID := ids.NodeID(keys[0].PublicKey().Address())
+	nominatorEndTime := uint64(defaultGenesisTime.Add(defaultMinStakingDuration).Unix())
+	tx, err := service.vm.newAddNominatorTx(
 		stakeAmt,
 		uint64(defaultGenesisTime.Unix()),
-		delegatorEndTime,
-		delegatorNodeID,
+		nominatorEndTime,
+		nominatorNodeID,
 		ids.GenerateTestShortID(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0]},
 		keys[0].PublicKey().Address(), // change addr
@@ -530,7 +530,7 @@ func TestGetStake(t *testing.T) {
 	err = service.vm.internalState.(*internalStateImpl).loadCurrentValidators()
 	assert.NoError(err)
 
-	// Make sure the delegator addr has the right stake (old stake + stakeAmt)
+	// Make sure the nominator addr has the right stake (old stake + stakeAmt)
 	addr, _ := service.vm.FormatLocalAddress(keys[0].PublicKey().Address())
 	args.Addresses = []string{addr}
 	err = service.GetStake(nil, &args, &response)
@@ -574,7 +574,7 @@ func TestGetStake(t *testing.T) {
 	err = service.vm.internalState.(*internalStateImpl).loadPendingValidators()
 	assert.NoError(err)
 
-	// Make sure the delegator has the right stake (old stake + stakeAmt)
+	// Make sure the nominator has the right stake (old stake + stakeAmt)
 	err = service.GetStake(nil, &args, &response)
 	assert.NoError(err)
 	assert.EqualValues(oldStake+stakeAmt, response.Staked)
@@ -652,16 +652,16 @@ func TestGetCurrentValidators(t *testing.T) {
 		}
 	}
 
-	// Add a delegator
-	stakeAmt := service.vm.MinDelegatorStake + 12345
+	// Add a nominator
+	stakeAmt := service.vm.MinNominatorStake + 12345
 	validatorNodeID := ids.NodeID(keys[1].PublicKey().Address())
-	delegatorStartTime := uint64(defaultValidateStartTime.Unix())
-	delegatorEndTime := uint64(defaultValidateStartTime.Add(defaultMinStakingDuration).Unix())
+	nominatorStartTime := uint64(defaultValidateStartTime.Unix())
+	nominatorEndTime := uint64(defaultValidateStartTime.Add(defaultMinStakingDuration).Unix())
 
-	tx, err := service.vm.newAddDelegatorTx(
+	tx, err := service.vm.newAddNominatorTx(
 		stakeAmt,
-		delegatorStartTime,
-		delegatorEndTime,
+		nominatorStartTime,
+		nominatorEndTime,
 		validatorNodeID,
 		ids.GenerateTestShortID(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0]},
@@ -692,7 +692,7 @@ func TestGetCurrentValidators(t *testing.T) {
 		t.Fatalf("should be %d validators but are %d", len(genesis.Validators), len(response.Validators))
 	}
 
-	// Make sure the delegator is there
+	// Make sure the nominator is there
 	found := false
 	for i := 0; i < len(response.Validators) && !found; i++ {
 		vdr := response.Validators[i].(APIPrimaryValidator)
@@ -700,23 +700,23 @@ func TestGetCurrentValidators(t *testing.T) {
 			continue
 		}
 		found = true
-		if len(vdr.Delegators) != 1 {
-			t.Fatalf("%s should have 1 delegator", vdr.NodeID)
+		if len(vdr.Nominators) != 1 {
+			t.Fatalf("%s should have 1 nominator", vdr.NodeID)
 		}
-		delegator := vdr.Delegators[0]
+		nominator := vdr.Nominators[0]
 		switch {
-		case delegator.NodeID != vdr.NodeID:
+		case nominator.NodeID != vdr.NodeID:
 			t.Fatal("wrong node ID")
-		case uint64(delegator.StartTime) != delegatorStartTime:
+		case uint64(nominator.StartTime) != nominatorStartTime:
 			t.Fatal("wrong start time")
-		case uint64(delegator.EndTime) != delegatorEndTime:
+		case uint64(nominator.EndTime) != nominatorEndTime:
 			t.Fatal("wrong end time")
-		case delegator.weight() != stakeAmt:
+		case nominator.weight() != stakeAmt:
 			t.Fatalf("wrong weight")
 		}
 	}
 	if !found {
-		t.Fatalf("didnt find delegator")
+		t.Fatalf("didnt find nominator")
 	}
 }
 

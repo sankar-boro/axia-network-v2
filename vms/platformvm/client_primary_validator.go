@@ -42,12 +42,12 @@ type ClientPrimaryValidator struct {
 	DelegationFee   float32
 	Uptime          *float32
 	Connected       *bool
-	// The delegators delegating to this validator
-	Delegators []ClientPrimaryDelegator
+	// The nominators delegating to this validator
+	Nominators []ClientPrimaryNominator
 }
 
-// ClientPrimaryDelegator is the repr. of a primary network delegator sent over client
-type ClientPrimaryDelegator struct {
+// ClientPrimaryNominator is the repr. of a primary network nominator sent over client
+type ClientPrimaryNominator struct {
 	ClientStaker
 	RewardOwner     *ClientOwner
 	PotentialReward *uint64
@@ -96,17 +96,17 @@ func getClientPrimaryValidators(validatorsSliceIntf []interface{}) ([]ClientPrim
 			return nil, err
 		}
 
-		clientDelegators := make([]ClientPrimaryDelegator, len(apiValidator.Delegators))
-		for j, apiDelegator := range apiValidator.Delegators {
-			rewardOwner, err := apiOwnerToClientOwner(apiDelegator.RewardOwner)
+		clientNominators := make([]ClientPrimaryNominator, len(apiValidator.Nominators))
+		for j, apiNominator := range apiValidator.Nominators {
+			rewardOwner, err := apiOwnerToClientOwner(apiNominator.RewardOwner)
 			if err != nil {
 				return nil, err
 			}
 
-			clientDelegators[j] = ClientPrimaryDelegator{
-				ClientStaker:    apiStakerToClientStaker(apiDelegator.APIStaker),
+			clientNominators[j] = ClientPrimaryNominator{
+				ClientStaker:    apiStakerToClientStaker(apiNominator.APIStaker),
 				RewardOwner:     rewardOwner,
-				PotentialReward: (*uint64)(apiDelegator.PotentialReward),
+				PotentialReward: (*uint64)(apiNominator.PotentialReward),
 			}
 		}
 
@@ -117,7 +117,7 @@ func getClientPrimaryValidators(validatorsSliceIntf []interface{}) ([]ClientPrim
 			DelegationFee:   float32(apiValidator.DelegationFee),
 			Uptime:          (*float32)(apiValidator.Uptime),
 			Connected:       &apiValidator.Connected,
-			Delegators:      clientDelegators,
+			Nominators:      clientNominators,
 		}
 	}
 	return clientValidators, nil

@@ -85,18 +85,18 @@ type Builder interface {
 		options ...common.Option,
 	) (*platformvm.UnsignedAddSubnetValidatorTx, error)
 
-	// NewAddDelegatorTx creates a new delegator to a validator on the primary
+	// NewAddNominatorTx creates a new nominator to a validator on the primary
 	// network.
 	//
 	// - [validator] specifies all the details of the delegation period such as
 	//   the startTime, endTime, stake weight, and validator's nodeID.
-	// - [rewardsOwner] specifies the owner of all the rewards this delegator
+	// - [rewardsOwner] specifies the owner of all the rewards this nominator
 	//   may accrue at the end of its delegation period.
-	NewAddDelegatorTx(
+	NewAddNominatorTx(
 		validator *coreChainValidator.Validator,
 		rewardsOwner *secp256k1fx.OutputOwners,
 		options ...common.Option,
-	) (*platformvm.UnsignedAddDelegatorTx, error)
+	) (*platformvm.UnsignedAddNominatorTx, error)
 
 	// NewCreateChainTx creates a new chain in the named subnet.
 	//
@@ -289,11 +289,11 @@ func (b *builder) NewAddSubnetValidatorTx(
 	}, nil
 }
 
-func (b *builder) NewAddDelegatorTx(
+func (b *builder) NewAddNominatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
-) (*platformvm.UnsignedAddDelegatorTx, error) {
+) (*platformvm.UnsignedAddNominatorTx, error) {
 	toBurn := map[ids.ID]uint64{}
 	toStake := map[ids.ID]uint64{
 		b.backend.AXCAssetID(): validator.Wght,
@@ -305,7 +305,7 @@ func (b *builder) NewAddDelegatorTx(
 	}
 
 	ids.SortShortIDs(rewardsOwner.Addrs)
-	return &platformvm.UnsignedAddDelegatorTx{
+	return &platformvm.UnsignedAddNominatorTx{
 		BaseTx: platformvm.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: constants.PlatformChainID,

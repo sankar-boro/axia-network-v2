@@ -19,7 +19,7 @@ type StakingConfig struct {
 	// the primary network
 	MaxValidatorStake uint64 `json:"maxValidatorStake"`
 	// Minimum stake, in nAXC, that can be delegated on the primary network
-	MinDelegatorStake uint64 `json:"minDelegatorStake"`
+	MinNominatorStake uint64 `json:"minNominatorStake"`
 	// Minimum delegation fee, in the range [0, 1000000], that can be charged
 	// for delegation on the primary network.
 	MinDelegationFee uint32 `json:"minDelegationFee"`

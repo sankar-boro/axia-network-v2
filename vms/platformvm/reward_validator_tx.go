@@ -37,7 +37,7 @@ var (
 type UnsignedRewardValidatorTx struct {
 	axc.Metadata
 
-	// ID of the tx that created the delegator/validator being removed/rewarded
+	// ID of the tx that created the nominator/validator being removed/rewarded
 	TxID ids.ID `serialize:"true" json:"txID"`
 
 	// Marks if this validator should be rewarded according to this node.
@@ -180,7 +180,7 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 		// Handle reward preferences
 		nodeID = uStakerTx.Validator.ID()
 		startTime = uStakerTx.StartTime()
-	case *UnsignedAddDelegatorTx:
+	case *UnsignedAddNominatorTx:
 		// Refund the stake here
 		for i, out := range uStakerTx.Stake {
 			utxo := &axc.UTXO{
@@ -195,7 +195,7 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 			onAbortState.AddUTXO(utxo)
 		}
 
-		// We're removing a delegator, so we need to fetch the validator they
+		// We're removing a nominator, so we need to fetch the validator they
 		// are delgated to.
 		vdr, err := currentStakers.GetValidator(uStakerTx.Validator.NodeID)
 		if err != nil {
@@ -207,21 +207,21 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 		}
 		vdrTx := vdr.AddValidatorTx()
 
-		// Calculate split of reward between delegator/delegatee
-		// The delegator gives stake to the validatee
-		delegatorShares := reward.PercentDenominator - uint64(vdrTx.Shares)             // parentTx.Shares <= reward.PercentDenominator so no underflow
-		delegatorReward := delegatorShares * (stakerReward / reward.PercentDenominator) // delegatorShares <= reward.PercentDenominator so no overflow
+		// Calculate split of reward between nominator/delegatee
+		// The nominator gives stake to the validatee
+		nominatorShares := reward.PercentDenominator - uint64(vdrTx.Shares)             // parentTx.Shares <= reward.PercentDenominator so no underflow
+		nominatorReward := nominatorShares * (stakerReward / reward.PercentDenominator) // nominatorShares <= reward.PercentDenominator so no overflow
 		// Delay rounding as long as possible for small numbers
-		if optimisticReward, err := math.Mul64(delegatorShares, stakerReward); err == nil {
-			delegatorReward = optimisticReward / reward.PercentDenominator
+		if optimisticReward, err := math.Mul64(nominatorShares, stakerReward); err == nil {
+			nominatorReward = optimisticReward / reward.PercentDenominator
 		}
-		delegateeReward := stakerReward - delegatorReward // delegatorReward <= reward so no underflow
+		delegateeReward := stakerReward - nominatorReward // nominatorReward <= reward so no underflow
 
 		offset := 0
 
-		// Reward the delegator here
-		if delegatorReward > 0 {
-			outIntf, err := vm.fx.CreateOutput(delegatorReward, uStakerTx.RewardsOwner)
+		// Reward the nominator here
+		if nominatorReward > 0 {
+			outIntf, err := vm.fx.CreateOutput(nominatorReward, uStakerTx.RewardsOwner)
 			if err != nil {
 				return nil, nil, fmt.Errorf("failed to create output: %w", err)
 			}
