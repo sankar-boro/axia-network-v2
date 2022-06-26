@@ -1,18 +1,18 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 // convincer sends chits to [vdr] after its dependencies are met.
 type convincer struct {
-	consensus avalanche.Consensus
+	consensus axia.Consensus
 	sender    common.Sender
 	vdr       ids.NodeID
 	requestID uint32

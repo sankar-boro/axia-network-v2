@@ -6,8 +6,8 @@ package linkeddb
 import (
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/database"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/database"
 )
 
 const (

@@ -6,9 +6,9 @@ package avm
 import (
 	"reflect"
 
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/vms/avm/fxs"
+	"github.com/sankar-boro/axia/vms/avm/txs"
 )
 
 var _ txs.Visitor = &txInit{}

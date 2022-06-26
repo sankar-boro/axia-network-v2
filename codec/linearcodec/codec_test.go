@@ -6,7 +6,7 @@ package linearcodec
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/axia/codec"
 )
 
 func TestVectors(t *testing.T) {

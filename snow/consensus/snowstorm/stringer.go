@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/formatting"
 )
 
 type snowballNode struct {

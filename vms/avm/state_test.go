@@ -7,14 +7,14 @@ import (
 	"math"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 func TestSetsAndGets(t *testing.T) {

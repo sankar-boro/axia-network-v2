@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/rpc"
+	"github.com/sankar-boro/axia/utils/rpc"
 	"github.com/stretchr/testify/assert"
 )
 

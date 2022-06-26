@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
-	"github.com/sankar-boro/avalanchego/utils/timer/mockable"
-	"github.com/sankar-boro/avalanchego/vms/proposervm/block"
-	"github.com/sankar-boro/avalanchego/vms/proposervm/proposer"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowman"
+	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia/vms/proposervm/block"
+	"github.com/sankar-boro/axia/vms/proposervm/proposer"
 )
 
 func TestOracle_PreForkBlkImplementsInterface(t *testing.T) {

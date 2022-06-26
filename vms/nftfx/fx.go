@@ -7,9 +7,9 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 var (

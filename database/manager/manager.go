@@ -12,17 +12,17 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/corruptabledb"
-	"github.com/sankar-boro/avalanchego/database/leveldb"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/meterdb"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/database/rocksdb"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/corruptabledb"
+	"github.com/sankar-boro/axia/database/leveldb"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/meterdb"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/database/rocksdb"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia/version"
 )
 
 var (

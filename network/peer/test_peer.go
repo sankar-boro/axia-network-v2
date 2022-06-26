@@ -11,19 +11,19 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/network/throttling"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/staking"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/ips"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/math/meter"
-	"github.com/sankar-boro/avalanchego/utils/resource"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/network/throttling"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/staking"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/math/meter"
+	"github.com/sankar-boro/axia/utils/resource"
+	"github.com/sankar-boro/axia/version"
 )
 
 const maxMessageToSend = 1024

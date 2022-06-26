@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 var (

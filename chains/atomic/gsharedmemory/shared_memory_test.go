@@ -14,16 +14,16 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
 
-	sharedmemorypb "github.com/sankar-boro/avalanchego/proto/pb/sharedmemory"
+	sharedmemorypb "github.com/sankar-boro/axia/proto/pb/sharedmemory"
 )
 
 const (

@@ -6,8 +6,8 @@ package tracker
 import (
 	"math"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 var _ Targeter = &targeter{}

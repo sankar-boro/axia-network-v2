@@ -6,9 +6,9 @@ package axc
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/codec/linearcodec"
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/codec/linearcodec"
+	"github.com/sankar-boro/axia/ids"
 )
 
 func TestAssetVerifyNil(t *testing.T) {

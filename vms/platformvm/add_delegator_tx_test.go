@@ -11,11 +11,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/snowman"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/vms/platformvm/reward"
+	"github.com/sankar-boro/axia/vms/platformvm/status"
 )
 
 func TestAddDelegatorTxSyntacticVerify(t *testing.T) {

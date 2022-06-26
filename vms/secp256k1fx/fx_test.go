@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/codec/linearcodec"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/codec/linearcodec"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 var (

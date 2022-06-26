@@ -6,8 +6,8 @@ package snowman
 import (
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
 )
 
 // Block is a possible decision that dictates the next canonical block.

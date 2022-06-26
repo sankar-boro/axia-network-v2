@@ -1,10 +1,10 @@
 ---
-ava_user: avalanche
+ava_user: axia
 ava_group: admin
 network: mainnet
-db_dir: /data/avalanchego
-log_dir: /var/log/avalanchego
-config_dir: /etc/avalanchego
-plugin_dir: /usr/local/lib/avalanchego/plugins
-repo_url: https://github.com/sankar-boro/avalanchego
-repo_folder: /tmp/avalanchego
+db_dir: /data/axia
+log_dir: /var/log/axia
+config_dir: /etc/axia
+plugin_dir: /usr/local/lib/axia/plugins
+repo_url: https://github.com/sankar-boro/axia
+repo_folder: /tmp/axia

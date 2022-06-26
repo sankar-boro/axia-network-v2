@@ -1,12 +1,12 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 var _ Vertex = &TestVertex{}

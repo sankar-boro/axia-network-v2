@@ -10,18 +10,18 @@ import (
 	"sort"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/formatting/address"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/vms/avm"
-	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/nftfx"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
-	"github.com/sankar-boro/avalanchego/vms/propertyfx"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/vms/avm"
+	"github.com/sankar-boro/axia/vms/avm/fxs"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/nftfx"
+	"github.com/sankar-boro/axia/vms/platformvm"
+	"github.com/sankar-boro/axia/vms/propertyfx"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 const (
@@ -163,7 +163,7 @@ func validateConfig(networkID uint32, config *Config) error {
 
 // FromFile returns the genesis data of the Platform Chain.
 //
-// Since an Avalanche network has exactly one Platform Chain, and the Platform
+// Since an Axia network has exactly one Platform Chain, and the Platform
 // Chain defines the genesis state of the network (who is staking, which chains
 // exist, etc.), defining the genesis state of the Platform Chain is the same as
 // defining the genesis state of the network.
@@ -204,7 +204,7 @@ func FromFile(networkID uint32, filepath string) ([]byte, ids.ID, error) {
 
 // FromFlag returns the genesis data of the Platform Chain.
 //
-// Since an Avalanche network has exactly one Platform Chain, and the Platform
+// Since an Axia network has exactly one Platform Chain, and the Platform
 // Chain defines the genesis state of the network (who is staking, which chains
 // exist, etc.), defining the genesis state of the Platform Chain is the same as
 // defining the genesis state of the network.
@@ -259,7 +259,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 	}
 	{
 		axc := avm.AssetDefinition{
-			Name:         "Avalanche",
+			Name:         "Axia",
 			Symbol:       "AXC",
 			Denomination: 9,
 			InitialState: map[string][]interface{}{},

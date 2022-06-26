@@ -8,9 +8,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 var (

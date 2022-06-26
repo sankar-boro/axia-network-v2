@@ -6,8 +6,8 @@ package genesis
 import (
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/vms/platformvm/reward"
 )
 
 type StakingConfig struct {

@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/staking"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/staking"
 )
 
 func TestParse(t *testing.T) {

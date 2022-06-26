@@ -12,11 +12,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/utils/perms"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/utils/perms"
+	"github.com/sankar-boro/axia/vms/platformvm"
 )
 
 func TestValidateConfig(t *testing.T) {

@@ -6,7 +6,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/sankar-boro/avalanchego/api"
+	"github.com/sankar-boro/axia/api"
 )
 
 // Service that serves the Auth API functionality.

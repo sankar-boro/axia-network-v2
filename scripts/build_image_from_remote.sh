@@ -5,13 +5,13 @@ set -o nounset
 set -o pipefail
 
 # Note: this script will build a docker image by cloning a remote version of
-# avalanchego into a temporary location and using that version's Dockerfile to
+# axia into a temporary location and using that version's Dockerfile to
 # build the image.
 
 SRC_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
-DOCKERHUB_REPO="avaplatform/avalanchego"
-REMOTE="https://github.com/sankar-boro/avalanchego.git"
+DOCKERHUB_REPO="avaplatform/axia"
+REMOTE="https://github.com/sankar-boro/axia.git"
 BRANCH="master"
 
 if [[ $# -eq 2 ]]; then
@@ -39,16 +39,16 @@ if [[ "$keep_existing" != 1 ]]; then
 fi
 
 # Clone the remote and checkout the specified branch to build the Docker image
-AVALANCHE_CLONE="$WORKPREFIX/avalanchego"
+AXIA_CLONE="$WORKPREFIX/axia"
 
 if [[ ! -d "$WORKPREFIX" ]]; then
     mkdir -p "$WORKPREFIX"
     git config --global credential.helper cache
-    git clone "$REMOTE" "$AVALANCHE_CLONE"
-    git --git-dir="$AVALANCHE_CLONE/.git" checkout "$BRANCH"
+    git clone "$REMOTE" "$AXIA_CLONE"
+    git --git-dir="$AXIA_CLONE/.git" checkout "$BRANCH"
 fi
 
-FULL_COMMIT_HASH="$(git --git-dir="$AVALANCHE_CLONE/.git" rev-parse HEAD)"
-AVALANCHE_COMMIT="${FULL_COMMIT_HASH::8}"
+FULL_COMMIT_HASH="$(git --git-dir="$AXIA_CLONE/.git" rev-parse HEAD)"
+AXIA_COMMIT="${FULL_COMMIT_HASH::8}"
 
-"${DOCKER}" build -t "$DOCKERHUB_REPO:$AVALANCHE_COMMIT" "$AVALANCHE_CLONE" -f "$AVALANCHE_CLONE/Dockerfile"
+"${DOCKER}" build -t "$DOCKERHUB_REPO:$AXIA_COMMIT" "$AXIA_CLONE" -f "$AXIA_CLONE/Dockerfile"

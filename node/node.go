@@ -22,60 +22,60 @@ import (
 
 	coreth "github.com/sankar-boro/coreth/plugin/evm"
 
-	"github.com/sankar-boro/avalanchego/api/admin"
-	"github.com/sankar-boro/avalanchego/api/auth"
-	"github.com/sankar-boro/avalanchego/api/health"
-	"github.com/sankar-boro/avalanchego/api/info"
-	"github.com/sankar-boro/avalanchego/api/keystore"
-	"github.com/sankar-boro/avalanchego/api/metrics"
-	"github.com/sankar-boro/avalanchego/api/server"
-	"github.com/sankar-boro/avalanchego/chains"
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/leveldb"
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/database/rocksdb"
-	"github.com/sankar-boro/avalanchego/genesis"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/indexer"
-	"github.com/sankar-boro/avalanchego/ipcs"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/network"
-	"github.com/sankar-boro/avalanchego/network/dialer"
-	"github.com/sankar-boro/avalanchego/network/peer"
-	"github.com/sankar-boro/avalanchego/network/throttling"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/networking/benchlist"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/snow/networking/timeout"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/snow/uptime"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/filesystem"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/utils/ips"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/math"
-	"github.com/sankar-boro/avalanchego/utils/math/meter"
-	"github.com/sankar-boro/avalanchego/utils/profiler"
-	"github.com/sankar-boro/avalanchego/utils/resource"
-	"github.com/sankar-boro/avalanchego/utils/timer"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/version"
-	"github.com/sankar-boro/avalanchego/vms/avm"
-	"github.com/sankar-boro/avalanchego/vms/nftfx"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/config"
-	"github.com/sankar-boro/avalanchego/vms/propertyfx"
-	"github.com/sankar-boro/avalanchego/vms/registry"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/api/admin"
+	"github.com/sankar-boro/axia/api/auth"
+	"github.com/sankar-boro/axia/api/health"
+	"github.com/sankar-boro/axia/api/info"
+	"github.com/sankar-boro/axia/api/keystore"
+	"github.com/sankar-boro/axia/api/metrics"
+	"github.com/sankar-boro/axia/api/server"
+	"github.com/sankar-boro/axia/chains"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/leveldb"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/database/rocksdb"
+	"github.com/sankar-boro/axia/genesis"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/indexer"
+	"github.com/sankar-boro/axia/ipcs"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/network"
+	"github.com/sankar-boro/axia/network/dialer"
+	"github.com/sankar-boro/axia/network/peer"
+	"github.com/sankar-boro/axia/network/throttling"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/networking/benchlist"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/snow/networking/timeout"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/snow/uptime"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/filesystem"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/math"
+	"github.com/sankar-boro/axia/utils/math/meter"
+	"github.com/sankar-boro/axia/utils/profiler"
+	"github.com/sankar-boro/axia/utils/resource"
+	"github.com/sankar-boro/axia/utils/timer"
+	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia/vms/avm"
+	"github.com/sankar-boro/axia/vms/nftfx"
+	"github.com/sankar-boro/axia/vms/platformvm"
+	"github.com/sankar-boro/axia/vms/platformvm/config"
+	"github.com/sankar-boro/axia/vms/propertyfx"
+	"github.com/sankar-boro/axia/vms/registry"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 
-	ipcsapi "github.com/sankar-boro/avalanchego/api/ipcs"
+	ipcsapi "github.com/sankar-boro/axia/api/ipcs"
 )
 
 var (
@@ -86,7 +86,7 @@ var (
 	errShuttingDown  = errors.New("server shutting down")
 )
 
-// Node is an instance of an Avalanche node.
+// Node is an instance of an Axia node.
 type Node struct {
 	Log        logging.Logger
 	LogFactory logging.Factory
@@ -707,7 +707,7 @@ func (n *Node) initChainManager(axcAssetID ids.ID) error {
 	return nil
 }
 
-// initVMs initializes the VMs Avalanche supports + any additional vms installed as plugins.
+// initVMs initializes the VMs Axia supports + any additional vms installed as plugins.
 func (n *Node) initVMs() error {
 	n.Log.Info("initializing VMs")
 
@@ -726,7 +726,7 @@ func (n *Node) initVMs() error {
 		VMManager: n.Config.VMManager,
 	})
 
-	// Register the VMs that Avalanche supports
+	// Register the VMs that Axia supports
 	errs := wrappers.Errs{}
 	errs.Add(
 		vmRegisterer.Register(constants.PlatformVMID, &platformvm.Factory{

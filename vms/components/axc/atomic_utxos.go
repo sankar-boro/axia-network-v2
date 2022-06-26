@@ -6,9 +6,9 @@ package axc
 import (
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/ids"
 )
 
 var _ AtomicUTXOManager = &atomicUTXOManager{}

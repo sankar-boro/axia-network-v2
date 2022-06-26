@@ -10,10 +10,10 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 const (

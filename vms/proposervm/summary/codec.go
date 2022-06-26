@@ -7,8 +7,8 @@ import (
 	"errors"
 	"math"
 
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/codec/linearcodec"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/codec/linearcodec"
 )
 
 const codecVersion = 0

@@ -10,17 +10,17 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/avalanchego/app"
-	"github.com/sankar-boro/avalanchego/app/process"
-	"github.com/sankar-boro/avalanchego/node"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia/app"
+	"github.com/sankar-boro/axia/app/process"
+	"github.com/sankar-boro/axia/node"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
 
-	appplugin "github.com/sankar-boro/avalanchego/app/plugin"
+	appplugin "github.com/sankar-boro/axia/app/plugin"
 )
 
-// Run an AvalancheGo node.
+// Run an Axia node.
 // If specified in the config, serves a hashicorp plugin that can be consumed by
-// the daemon (see avalanchego/main).
+// the daemon (see axia/main).
 func Run(config Config, nodeConfig node.Config) {
 	nodeApp := process.NewApp(nodeConfig) // Create node wrapper
 	if config.PluginMode {                // Serve as a plugin

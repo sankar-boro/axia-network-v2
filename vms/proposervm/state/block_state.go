@@ -9,12 +9,12 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/cache/metercacher"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/vms/proposervm/block"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/cache/metercacher"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/vms/proposervm/block"
 )
 
 const (

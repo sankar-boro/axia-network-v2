@@ -1,14 +1,14 @@
-- name: Create Avalanche daemon group
+- name: Create Axia daemon group
   become: true
   group:
-    name: "{{ avalanche_daemon_group }}"
+    name: "{{ axia_daemon_group }}"
     system: true
 
-- name: Create Avalanche daemon user
+- name: Create Axia daemon user
   become: true
   user:
-    name: "{{ avalanche_daemon_user }}"
-    group: "{{ avalanche_daemon_group }}"
-    home: "{{ avalanche_daemon_home_dir }}"
+    name: "{{ axia_daemon_user }}"
+    group: "{{ axia_daemon_group }}"
+    home: "{{ axia_daemon_home_dir }}"
     shell: /bin/false
     system: true

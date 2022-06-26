@@ -4,8 +4,8 @@
 package tree
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/snowman"
 )
 
 type Tree interface {

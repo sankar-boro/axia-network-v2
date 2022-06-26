@@ -15,16 +15,16 @@ import (
 
 	"github.com/onsi/gomega"
 
-	runner_client "github.com/sankar-boro/avalanche-network-runner/client"
+	runner_client "github.com/sankar-boro/axia-network-runner/client"
 
-	"github.com/sankar-boro/avalanchego/tests"
-	"github.com/sankar-boro/avalanchego/tests/e2e"
+	"github.com/sankar-boro/axia/tests"
+	"github.com/sankar-boro/axia/tests/e2e"
 
 	// ensure test packages are scanned by ginkgo
-	_ "github.com/sankar-boro/avalanchego/tests/e2e/ping"
-	_ "github.com/sankar-boro/avalanchego/tests/e2e/static-handlers"
-	_ "github.com/sankar-boro/avalanchego/tests/e2e/whitelist-vtx"
-	_ "github.com/sankar-boro/avalanchego/tests/e2e/x/transfer"
+	_ "github.com/sankar-boro/axia/tests/e2e/ping"
+	_ "github.com/sankar-boro/axia/tests/e2e/static-handlers"
+	_ "github.com/sankar-boro/axia/tests/e2e/whitelist-vtx"
+	_ "github.com/sankar-boro/axia/tests/e2e/x/transfer"
 )
 
 func TestE2E(t *testing.T) {
@@ -34,7 +34,7 @@ func TestE2E(t *testing.T) {
 
 var (
 	logLevel            string
-	avalanchegoLogLevel string
+	axiaLogLevel string
 
 	networkRunnerGRPCEp string
 	execPath            string
@@ -53,10 +53,10 @@ func init() {
 		"log level",
 	)
 	flag.StringVar(
-		&avalanchegoLogLevel,
-		"avalanchego-log-level",
+		&axiaLogLevel,
+		"axia-log-level",
 		"INFO",
-		"avalanchegoLogLevel log level (optional, only required for local network-runner)",
+		"axiaLogLevel log level (optional, only required for local network-runner)",
 	)
 
 	flag.StringVar(
@@ -67,9 +67,9 @@ func init() {
 	)
 	flag.StringVar(
 		&execPath,
-		"avalanchego-path",
+		"axia-path",
 		"",
-		"[optional] avalanchego executable path (only required for local network-runner tests)",
+		"[optional] axia executable path (only required for local network-runner tests)",
 	)
 
 	// TODO: set timestamp on the test network machines to be more realistic
@@ -83,7 +83,7 @@ func init() {
 		&uris,
 		"uris",
 		"",
-		"URIs for avalanche node (comma-separated, required to run against existing cluster)",
+		"URIs for axia node (comma-separated, required to run against existing cluster)",
 	)
 }
 
@@ -111,7 +111,7 @@ var _ = ginkgo.BeforeSuite(func() {
 
 		tests.Outf("{{magenta}}starting network-runner with %q{{/}}\n", execPath)
 		ctx, cancel = context.WithTimeout(context.Background(), 15*time.Second)
-		resp, err := runnerCli.Start(ctx, execPath, runner_client.WithLogLevel(avalanchegoLogLevel))
+		resp, err := runnerCli.Start(ctx, execPath, runner_client.WithLogLevel(axiaLogLevel))
 		cancel()
 		gomega.Expect(err).Should(gomega.BeNil())
 		tests.Outf("{{green}}successfully started network-runner :{{/}} %+v\n", resp.ClusterInfo.NodeNames)

@@ -1,4 +1,4 @@
-avalanche_nodes:
+axia_nodes:
   hosts:
     ec2-203-0-113-42.us-east-1.compute.amazonaws.com:
     ec2-203-0-113-9.ap-southeast-1.compute.amazonaws.com:

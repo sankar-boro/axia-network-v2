@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/vms/components/verify"
 )
 
 var errCantSpend = errors.New("unable to spend this UTXO")

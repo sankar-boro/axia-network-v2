@@ -7,15 +7,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/rpc"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/rpc"
 )
 
 var _ Client = &client{}
 
-// Client interface for the Avalanche Platform Info API Endpoint
+// Client interface for the Axia Platform Info API Endpoint
 type Client interface {
 	StartCPUProfiler(context.Context, ...rpc.Option) (bool, error)
 	StopCPUProfiler(context.Context, ...rpc.Option) (bool, error)
@@ -31,7 +31,7 @@ type Client interface {
 	GetConfig(ctx context.Context, options ...rpc.Option) (interface{}, error)
 }
 
-// Client implementation for the Avalanche Platform Info API Endpoint
+// Client implementation for the Axia Platform Info API Endpoint
 type client struct {
 	requester rpc.EndpointRequester
 }

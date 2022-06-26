@@ -9,11 +9,11 @@ import (
 
 	stdcontext "context"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/platformvm"
 )
 
 var _ Backend = &backend{}

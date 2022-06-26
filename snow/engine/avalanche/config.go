@@ -1,17 +1,17 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
-// Config wraps all the parameters needed for an avalanche engine
+// Config wraps all the parameters needed for an axia engine
 type Config struct {
 	Ctx *snow.ConsensusContext
 	common.AllGetsServer
@@ -20,6 +20,6 @@ type Config struct {
 	Sender     common.Sender
 	Validators validators.Set
 
-	Params    avalanche.Parameters
-	Consensus avalanche.Consensus
+	Params    axia.Parameters
+	Consensus axia.Consensus
 }

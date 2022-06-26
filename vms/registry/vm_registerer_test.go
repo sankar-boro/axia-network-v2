@@ -11,13 +11,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/api/server"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block/mocks"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/vms"
+	"github.com/sankar-boro/axia/api/server"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block/mocks"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/vms"
 )
 
 var id = ids.GenerateTestID()

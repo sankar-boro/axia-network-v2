@@ -7,12 +7,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/vms/platformvm/reward"
+	"github.com/sankar-boro/axia/vms/platformvm/status"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 func TestAddSubnetValidatorTxSyntacticVerify(t *testing.T) {

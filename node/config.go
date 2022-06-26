@@ -7,22 +7,22 @@ import (
 	"crypto/tls"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/chains"
-	"github.com/sankar-boro/avalanchego/genesis"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/nat"
-	"github.com/sankar-boro/avalanchego/network"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/networking/benchlist"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/snow/networking/sender"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/utils/dynamicip"
-	"github.com/sankar-boro/avalanchego/utils/ips"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/profiler"
-	"github.com/sankar-boro/avalanchego/utils/timer"
-	"github.com/sankar-boro/avalanchego/vms"
+	"github.com/sankar-boro/axia/chains"
+	"github.com/sankar-boro/axia/genesis"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/nat"
+	"github.com/sankar-boro/axia/network"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/networking/benchlist"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/snow/networking/sender"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/utils/dynamicip"
+	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/profiler"
+	"github.com/sankar-boro/axia/utils/timer"
+	"github.com/sankar-boro/axia/vms"
 )
 
 type IPCConfig struct {
@@ -129,7 +129,7 @@ type DatabaseConfig struct {
 	Config []byte `json:"-"`
 }
 
-// Config contains all of the configurations of an Avalanche node.
+// Config contains all of the configurations of an Axia node.
 type Config struct {
 	HTTPConfig          `json:"httpConfig"`
 	IPConfig            `json:"ipConfig"`
@@ -178,7 +178,7 @@ type Config struct {
 	FdLimit uint64 `json:"fdLimit"`
 
 	// Consensus configuration
-	ConsensusParams avalanche.Parameters `json:"consensusParams"`
+	ConsensusParams axia.Parameters `json:"consensusParams"`
 
 	// Metrics
 	MeterVMEnabled bool `json:"meterVMEnabled"`

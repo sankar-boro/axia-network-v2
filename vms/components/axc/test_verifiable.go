@@ -3,7 +3,7 @@
 
 package axc
 
-import "github.com/sankar-boro/avalanchego/snow"
+import "github.com/sankar-boro/axia/snow"
 
 type TestVerifiable struct{ Err error }
 

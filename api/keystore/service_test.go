@@ -10,9 +10,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/formatting"
 )
 
 // strongPassword defines a password used for the following tests that

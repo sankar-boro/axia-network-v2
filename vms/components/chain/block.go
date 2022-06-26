@@ -4,7 +4,7 @@
 package chain
 
 import (
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
+	"github.com/sankar-boro/axia/snow/consensus/snowman"
 )
 
 // BlockWrapper wraps a snowman Block while adding a smart caching layer to improve

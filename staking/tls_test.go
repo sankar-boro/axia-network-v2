@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/utils/hashing"
 	"github.com/stretchr/testify/assert"
 )
 

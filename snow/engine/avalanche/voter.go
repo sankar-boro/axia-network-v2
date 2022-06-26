@@ -1,12 +1,12 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
 )
 
 // Voter records chits received from [vdr] once its dependencies are met.
@@ -74,11 +74,11 @@ func (v *voter) Update() {
 	}
 
 	if v.t.Consensus.Quiesce() {
-		v.t.Ctx.Log.Debug("Avalanche engine can quiesce")
+		v.t.Ctx.Log.Debug("Axia engine can quiesce")
 		return
 	}
 
-	v.t.Ctx.Log.Debug("Avalanche engine can't quiesce")
+	v.t.Ctx.Log.Debug("Axia engine can't quiesce")
 	v.t.repoll()
 }
 

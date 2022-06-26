@@ -1,15 +1,15 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
-// Parameters the avalanche parameters include the snowball parameters and the
+// Parameters the axia parameters include the snowball parameters and the
 // optimal number of parents
 type Parameters struct {
 	snowball.Parameters

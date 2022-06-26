@@ -6,7 +6,7 @@ package types
 import (
 	"encoding/json"
 
-	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/axia/utils/formatting"
 )
 
 // JSONByteSlice represents [[]byte] that is json marshalled to hex

@@ -4,10 +4,10 @@
 package avm
 
 import (
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/components/verify"
 )
 
 var _ txs.Visitor = &txSemanticVerify{}

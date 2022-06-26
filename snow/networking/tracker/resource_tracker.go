@@ -10,11 +10,11 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/linkedhashmap"
-	"github.com/sankar-boro/avalanchego/utils/math/meter"
-	"github.com/sankar-boro/avalanchego/utils/resource"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/linkedhashmap"
+	"github.com/sankar-boro/axia/utils/math/meter"
+	"github.com/sankar-boro/axia/utils/resource"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 const epsilon = 1e-9

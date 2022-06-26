@@ -1,21 +1,21 @@
-- name: Configure Avalanche service
+- name: Configure Axia service
   become: true
   template:
-    src: avalanche.service
-    dest: "/etc/systemd/system/{{ avalanche_daemon_service_name }}.service"
+    src: axia.service
+    dest: "/etc/systemd/system/{{ axia_daemon_service_name }}.service"
     owner: root
     group: root
     mode: u=rw,go=r
   notify:
     - Reload systemd
-    - Restart Avalanche service
+    - Restart Axia service
 
-- name: Enable Avalanche service
+- name: Enable Axia service
   become: true
   systemd:
-    name: "{{ avalanche_daemon_service_name }}"
+    name: "{{ axia_daemon_service_name }}"
     state: started
     enabled: true
     daemon_reload: true
   notify:
-    - Restart Avalanche service
+    - Restart Axia service

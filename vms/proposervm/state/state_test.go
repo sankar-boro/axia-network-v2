@@ -9,8 +9,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/versiondb"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/versiondb"
 )
 
 func TestState(t *testing.T) {

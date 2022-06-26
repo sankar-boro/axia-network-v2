@@ -1,7 +1,7 @@
 - name: Start node
   # noqa 301
   shell:
-    nohup {{ avalanche_binary }}
+    nohup {{ axia_binary }}
       --network-id="{{ network_id }}"
       --api-admin-enabled="{{ api_admin_enabled }}"
       --api-keystore-enabled="{{ api_keystore_enabled }}"
@@ -34,8 +34,8 @@
       --snow-quorum-size="{{ snow_quorum_size }}"
       --snow-virtuous-commit-threshold="{{ snow_virtuous_commit_threshold }}"
       --snow-rogue-commit-threshold="{{ snow_rogue_commit_threshold }}"
-      --snow-avalanche-num-parents="{{ snow_avalanche_num_parents }}"
-      --snow-avalanche-batch-size="{{ snow_avalanche_batch_size }}"
+      --snow-axia-num-parents="{{ snow_axia_num_parents }}"
+      --snow-axia-batch-size="{{ snow_axia_batch_size }}"
       --api-ipcs-enabled="{{ api_ipcs_enabled }}"
       --max-non-staker-pending-msgs="{{ max_non_staker_pending_msgs }}"
       --network-minimum-timeout={{ network_minimum_timeout }}

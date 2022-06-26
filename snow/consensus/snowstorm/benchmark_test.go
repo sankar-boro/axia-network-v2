@@ -6,9 +6,9 @@ package snowstorm
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/utils/sampler"
+	"github.com/sankar-boro/axia/utils/sampler"
 
-	sbcon "github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
 func Simulate(

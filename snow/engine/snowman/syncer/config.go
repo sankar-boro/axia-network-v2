@@ -4,10 +4,10 @@
 package syncer
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 type Config struct {

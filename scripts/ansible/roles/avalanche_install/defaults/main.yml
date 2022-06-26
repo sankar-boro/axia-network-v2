@@ -11,15 +11,15 @@ sharedstatedir: "{{ localstatedir }}/lib"
 # Has no Meson builtin equivalent
 logdir: "{{ localstatedir }}/log"
 
-avalanche_binary: "{{ avalanche_binaries_dir }}/avalanchego"
+axia_binary: "{{ axia_binaries_dir }}/axia"
 
-# These names are specific to Avalanche. Default values are based loosely on *nix
+# These names are specific to Axia. Default values are based loosely on *nix
 # conventions.
-avalanche_daemon_home_dir: "{{ sharedstatedir }}/avalanchego"
-avalanche_daemon_db_dir: "{{ avalanche_daemon_home_dir }}/db"
-avalanche_daemon_log_dir: "{{ logdir }}/avalanchego"
-avalanche_daemon_lib_dir: "{{ libdir }}/avalanchego"
-avalanche_daemon_staking_dir: "{{ avalanche_daemon_home_dir }}/staking"
-avalanche_daemon_staking_tls_cert: "{{ avalanche_daemon_staking_dir }}/staker.crt"
-avalanche_daemon_staking_tls_csr: "{{ avalanche_daemon_staking_dir }}/staker.csr"
-avalanche_daemon_staking_tls_key: "{{ avalanche_daemon_staking_dir }}/staker.key"
+axia_daemon_home_dir: "{{ sharedstatedir }}/axia"
+axia_daemon_db_dir: "{{ axia_daemon_home_dir }}/db"
+axia_daemon_log_dir: "{{ logdir }}/axia"
+axia_daemon_lib_dir: "{{ libdir }}/axia"
+axia_daemon_staking_dir: "{{ axia_daemon_home_dir }}/staking"
+axia_daemon_staking_tls_cert: "{{ axia_daemon_staking_dir }}/staker.crt"
+axia_daemon_staking_tls_csr: "{{ axia_daemon_staking_dir }}/staker.csr"
+axia_daemon_staking_tls_key: "{{ axia_daemon_staking_dir }}/staker.key"

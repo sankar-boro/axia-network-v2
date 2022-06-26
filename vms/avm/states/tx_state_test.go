@@ -10,18 +10,18 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/nftfx"
-	"github.com/sankar-boro/avalanchego/vms/propertyfx"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia/vms/avm/fxs"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/nftfx"
+	"github.com/sankar-boro/axia/vms/propertyfx"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 var (

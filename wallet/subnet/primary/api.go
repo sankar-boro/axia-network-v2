@@ -6,16 +6,16 @@ package primary
 import (
 	"context"
 
-	"github.com/sankar-boro/avalanchego/api/info"
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/rpc"
-	"github.com/sankar-boro/avalanchego/vms/avm"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
-	"github.com/sankar-boro/avalanchego/wallet/chain/p"
-	"github.com/sankar-boro/avalanchego/wallet/chain/x"
+	"github.com/sankar-boro/axia/api/info"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia/vms/avm"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/platformvm"
+	"github.com/sankar-boro/axia/wallet/chain/p"
+	"github.com/sankar-boro/axia/wallet/chain/x"
 )
 
 const (

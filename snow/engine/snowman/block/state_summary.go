@@ -4,7 +4,7 @@
 package block
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // StateSummary represents all the information needed to download, verify, and

@@ -11,15 +11,15 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/encdb"
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/password"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/encdb"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/password"
 )
 
 const (

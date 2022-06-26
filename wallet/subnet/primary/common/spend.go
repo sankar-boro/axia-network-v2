@@ -4,8 +4,8 @@
 package common
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 // MatchOwners attempts to match a list of addresses up to the provided

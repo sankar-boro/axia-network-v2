@@ -6,10 +6,10 @@ package common
 import (
 	"time"
 
-	"github.com/sankar-boro/avalanchego/api/health"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/api/health"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 // Engine describes the standard interface of a consensus engine

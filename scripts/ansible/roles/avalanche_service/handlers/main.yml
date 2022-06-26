@@ -3,8 +3,8 @@
   systemd:
     daemon_reload: true
 
-- name: Restart Avalanche service
+- name: Restart Axia service
   become: true
   service:
-    name: "{{ avalanche_daemon_service_name }}"
+    name: "{{ axia_daemon_service_name }}"
     state: restarted

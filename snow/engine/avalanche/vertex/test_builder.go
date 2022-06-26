@@ -7,9 +7,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 var (
@@ -21,13 +21,13 @@ var (
 type TestBuilder struct {
 	T             *testing.T
 	CantBuildVtx  bool
-	BuildVtxF     func(parentIDs []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error)
-	BuildStopVtxF func(parentIDs []ids.ID) (avalanche.Vertex, error)
+	BuildVtxF     func(parentIDs []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error)
+	BuildStopVtxF func(parentIDs []ids.ID) (axia.Vertex, error)
 }
 
 func (b *TestBuilder) Default(cant bool) { b.CantBuildVtx = cant }
 
-func (b *TestBuilder) BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
+func (b *TestBuilder) BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
 	if b.BuildVtxF != nil {
 		return b.BuildVtxF(parentIDs, txs)
 	}
@@ -37,7 +37,7 @@ func (b *TestBuilder) BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (avalanch
 	return nil, errBuild
 }
 
-func (b *TestBuilder) BuildStopVtx(parentIDs []ids.ID) (avalanche.Vertex, error) {
+func (b *TestBuilder) BuildStopVtx(parentIDs []ids.ID) (axia.Vertex, error) {
 	if b.BuildStopVtxF != nil {
 		return b.BuildStopVtxF(parentIDs)
 	}

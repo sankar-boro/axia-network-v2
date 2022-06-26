@@ -10,19 +10,19 @@ import (
 	"net/http"
 	"sort"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/formatting/address"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/stakeable"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 
-	safemath "github.com/sankar-boro/avalanchego/utils/math"
-	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
+	safemath "github.com/sankar-boro/axia/utils/math"
+	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
 )
 
-// Note that since an Avalanche network has exactly one Platform Chain,
+// Note that since an Axia network has exactly one Platform Chain,
 // and the Platform Chain defines the genesis state of the network
 // (who is staking, which chains exist, etc.), defining the genesis
 // state of the Platform Chain is the same as defining the genesis
@@ -188,7 +188,7 @@ func bech32ToID(addrStr string) (ids.ShortID, error) {
 	return ids.ToShortID(addrBytes)
 }
 
-// BuildGenesis build the genesis state of the Platform Chain (and thereby the Avalanche network.)
+// BuildGenesis build the genesis state of the Platform Chain (and thereby the Axia network.)
 func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, reply *BuildGenesisReply) error {
 	// Specify the UTXOs on the Platform chain that exist at genesis.
 	utxos := make([]*GenesisUTXO, 0, len(args.UTXOs))

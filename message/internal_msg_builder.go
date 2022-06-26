@@ -4,8 +4,8 @@
 package message
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/version"
 )
 
 var _ InternalMsgBuilder = internalMsgBuilder{}

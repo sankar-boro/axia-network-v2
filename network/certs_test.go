@@ -8,9 +8,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/network/peer"
-	"github.com/sankar-boro/avalanchego/staking"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/network/peer"
+	"github.com/sankar-boro/axia/staking"
 )
 
 var (

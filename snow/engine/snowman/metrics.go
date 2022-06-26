@@ -6,8 +6,8 @@ package snowman
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/utils/metric"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils/metric"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 type metrics struct {

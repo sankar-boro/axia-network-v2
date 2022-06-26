@@ -6,11 +6,11 @@ package platformvm
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/formatting/address"
-	"github.com/sankar-boro/avalanchego/utils/json"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia/utils/json"
 )
 
 func TestBuildGenesisInvalidUTXOBalance(t *testing.T) {

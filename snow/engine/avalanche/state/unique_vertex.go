@@ -9,19 +9,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 var (
 	_ cache.Evictable  = &uniqueVertex{}
-	_ avalanche.Vertex = &uniqueVertex{}
+	_ axia.Vertex = &uniqueVertex{}
 )
 
 // uniqueVertex acts as a cache for vertices in the database.
@@ -211,7 +211,7 @@ func (vtx *uniqueVertex) Reject() error {
 // improves performance
 func (vtx *uniqueVertex) Status() choices.Status { vtx.refresh(); return vtx.v.status }
 
-func (vtx *uniqueVertex) Parents() ([]avalanche.Vertex, error) {
+func (vtx *uniqueVertex) Parents() ([]axia.Vertex, error) {
 	vtx.refresh()
 
 	if vtx.v.vtx == nil {
@@ -220,7 +220,7 @@ func (vtx *uniqueVertex) Parents() ([]avalanche.Vertex, error) {
 
 	parentIDs := vtx.v.vtx.ParentIDs()
 	if len(vtx.v.parents) != len(parentIDs) {
-		vtx.v.parents = make([]avalanche.Vertex, len(parentIDs))
+		vtx.v.parents = make([]axia.Vertex, len(parentIDs))
 		for i, parentID := range parentIDs {
 			vtx.v.parents[i] = &uniqueVertex{
 				serializer: vtx.serializer,
@@ -299,7 +299,7 @@ func (vtx *uniqueVertex) Verify() error {
 	// To make sure such transitive paths of the stop vertex reach all accepted frontier:
 	// 1. check the edge of the transitive paths refers to the accepted frontier
 	// 2. check dependencies of all txs must be subset of transitive paths
-	queue := []avalanche.Vertex{vtx}
+	queue := []axia.Vertex{vtx}
 	visitedVtx := ids.NewSet(0)
 
 	acceptedFrontier := ids.NewSet(0)
@@ -380,7 +380,7 @@ func (vtx *uniqueVertex) Whitelist() (ids.Set, error) {
 	// perform BFS on transitive paths until reaching the accepted frontier
 	// represents all processing transaction IDs transitively referenced by the
 	// vertex
-	queue := []avalanche.Vertex{vtx}
+	queue := []axia.Vertex{vtx}
 	whitlist := ids.NewSet(0)
 	visitedVtx := ids.NewSet(0)
 	for len(queue) > 0 {
@@ -503,6 +503,6 @@ type vertexState struct {
 	vtx    vertex.StatelessVertex
 	status choices.Status
 
-	parents []avalanche.Vertex
+	parents []axia.Vertex
 	txs     []snowstorm.Tx
 }

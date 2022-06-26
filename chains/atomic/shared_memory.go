@@ -4,9 +4,9 @@
 package atomic
 
 import (
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/versiondb"
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/versiondb"
+	"github.com/sankar-boro/axia/ids"
 )
 
 var _ SharedMemory = &sharedMemory{}

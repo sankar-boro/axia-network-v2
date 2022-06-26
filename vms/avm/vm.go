@@ -16,33 +16,33 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/database/versiondb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/pubsub"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/utils/timer"
-	"github.com/sankar-boro/avalanchego/utils/timer/mockable"
-	"github.com/sankar-boro/avalanchego/version"
-	"github.com/sankar-boro/avalanchego/vms/avm/states"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/components/index"
-	"github.com/sankar-boro/avalanchego/vms/components/keystore"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
-	"github.com/sankar-boro/avalanchego/vms/nftfx"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/database/versiondb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/pubsub"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/utils/timer"
+	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia/vms/avm/states"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/components/index"
+	"github.com/sankar-boro/axia/vms/components/keystore"
+	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia/vms/nftfx"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 
-	safemath "github.com/sankar-boro/avalanchego/utils/math"
-	extensions "github.com/sankar-boro/avalanchego/vms/avm/fxs"
+	safemath "github.com/sankar-boro/axia/utils/math"
+	extensions "github.com/sankar-boro/axia/vms/avm/fxs"
 )
 
 const (
@@ -120,7 +120,7 @@ func (vm *VM) Disconnected(nodeID ids.NodeID) error {
 
 /*
  ******************************************************************************
- ******************************** Avalanche API *******************************
+ ******************************** Axia API *******************************
  ******************************************************************************
  */
 

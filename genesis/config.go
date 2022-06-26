@@ -11,12 +11,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/formatting/address"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia/utils/wrappers"
 
-	safemath "github.com/sankar-boro/avalanchego/utils/math"
+	safemath "github.com/sankar-boro/axia/utils/math"
 )
 
 type LockedAmount struct {

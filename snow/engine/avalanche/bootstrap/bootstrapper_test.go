@@ -8,20 +8,20 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/common/queue"
+	"github.com/sankar-boro/axia/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
 
-	avagetter "github.com/sankar-boro/avalanchego/snow/engine/avalanche/getter"
+	avagetter "github.com/sankar-boro/axia/snow/engine/axia/getter"
 )
 
 var (
@@ -112,7 +112,7 @@ func TestBootstrapperSingleFrontier(t *testing.T) {
 	vtxBytes1 := []byte{1}
 	vtxBytes2 := []byte{2}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Processing,
@@ -120,7 +120,7 @@ func TestBootstrapperSingleFrontier(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
@@ -128,7 +128,7 @@ func TestBootstrapperSingleFrontier(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes1,
 	}
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID2,
 			StatusV: choices.Processing,
@@ -152,7 +152,7 @@ func TestBootstrapperSingleFrontier(t *testing.T) {
 
 	acceptedIDs := []ids.ID{vtxID0, vtxID1, vtxID2}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID0:
 			return vtx0, nil
@@ -166,7 +166,7 @@ func TestBootstrapperSingleFrontier(t *testing.T) {
 		}
 	}
 
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			return vtx0, nil
@@ -209,7 +209,7 @@ func TestBootstrapperByzantineResponses(t *testing.T) {
 	vtxBytes1 := []byte{1}
 	vtxBytes2 := []byte{2}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -217,17 +217,17 @@ func TestBootstrapperByzantineResponses(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  1,
 		BytesV:   vtxBytes1,
 	}
 	// Should not receive transitive votes from [vtx1]
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID2,
 			StatusV: choices.Unknown,
@@ -251,7 +251,7 @@ func TestBootstrapperByzantineResponses(t *testing.T) {
 
 	acceptedIDs := []ids.ID{vtxID1}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID1:
 			return vtx1, nil
@@ -277,7 +277,7 @@ func TestBootstrapperByzantineResponses(t *testing.T) {
 		reqVtxID = vtxID
 	}
 
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			vtx0.StatusV = choices.Processing
@@ -311,7 +311,7 @@ func TestBootstrapperByzantineResponses(t *testing.T) {
 	}
 
 	oldReqID = *requestID
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID1:
 			return vtx1, nil
@@ -390,7 +390,7 @@ func TestBootstrapperTxDependencies(t *testing.T) {
 		}
 	}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -399,12 +399,12 @@ func TestBootstrapperTxDependencies(t *testing.T) {
 		TxsV:    []snowstorm.Tx{tx1},
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0}, // Depends on vtx0
+		ParentsV: []axia.Vertex{vtx0}, // Depends on vtx0
 		HeightV:  1,
 		TxsV:     []snowstorm.Tx{tx0},
 		BytesV:   vtxBytes1,
@@ -425,7 +425,7 @@ func TestBootstrapperTxDependencies(t *testing.T) {
 
 	acceptedIDs := []ids.ID{vtxID1}
 
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes1):
 			return vtx1, nil
@@ -435,7 +435,7 @@ func TestBootstrapperTxDependencies(t *testing.T) {
 		t.Fatal(errParsedUnknownVertex)
 		return nil, errParsedUnknownVertex
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID1:
 			return vtx1, nil
@@ -465,7 +465,7 @@ func TestBootstrapperTxDependencies(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes1):
 			return vtx1, nil
@@ -531,7 +531,7 @@ func TestBootstrapperMissingTxDependency(t *testing.T) {
 	vtxBytes0 := []byte{2}
 	vtxBytes1 := []byte{3}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -539,12 +539,12 @@ func TestBootstrapperMissingTxDependency(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0}, // depends on vtx0
+		ParentsV: []axia.Vertex{vtx0}, // depends on vtx0
 		HeightV:  1,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   vtxBytes1,
@@ -565,7 +565,7 @@ func TestBootstrapperMissingTxDependency(t *testing.T) {
 
 	acceptedIDs := []ids.ID{vtxID1}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID1:
 			return vtx1, nil
@@ -576,7 +576,7 @@ func TestBootstrapperMissingTxDependency(t *testing.T) {
 			panic(errUnknownVertex)
 		}
 	}
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes1):
 			return vtx1, nil
@@ -640,7 +640,7 @@ func TestBootstrapperIncompleteAncestors(t *testing.T) {
 	vtxBytes1 := []byte{1}
 	vtxBytes2 := []byte{2}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -648,21 +648,21 @@ func TestBootstrapperIncompleteAncestors(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  1,
 		BytesV:   vtxBytes1,
 	}
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID2,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx1},
+		ParentsV: []axia.Vertex{vtx1},
 		HeightV:  2,
 		BytesV:   vtxBytes2,
 	}
@@ -682,7 +682,7 @@ func TestBootstrapperIncompleteAncestors(t *testing.T) {
 
 	acceptedIDs := []ids.ID{vtxID2}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch {
 		case vtxID == vtxID0:
 			return nil, errUnknownVertex
@@ -695,7 +695,7 @@ func TestBootstrapperIncompleteAncestors(t *testing.T) {
 			panic(errUnknownVertex)
 		}
 	}
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			vtx0.StatusV = choices.Processing
@@ -765,7 +765,7 @@ func TestBootstrapperFinalized(t *testing.T) {
 	vtxBytes0 := []byte{0}
 	vtxBytes1 := []byte{1}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -773,12 +773,12 @@ func TestBootstrapperFinalized(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  1,
 		BytesV:   vtxBytes1,
 	}
@@ -800,7 +800,7 @@ func TestBootstrapperFinalized(t *testing.T) {
 
 	parsedVtx0 := false
 	parsedVtx1 := false
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID0:
 			if parsedVtx0 {
@@ -817,7 +817,7 @@ func TestBootstrapperFinalized(t *testing.T) {
 			panic(errUnknownVertex)
 		}
 	}
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			vtx0.StatusV = choices.Processing
@@ -883,7 +883,7 @@ func TestBootstrapperAcceptsAncestorsParents(t *testing.T) {
 	vtxBytes1 := []byte{1}
 	vtxBytes2 := []byte{2}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -891,21 +891,21 @@ func TestBootstrapperAcceptsAncestorsParents(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  1,
 		BytesV:   vtxBytes1,
 	}
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID2,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx1},
+		ParentsV: []axia.Vertex{vtx1},
 		HeightV:  2,
 		BytesV:   vtxBytes2,
 	}
@@ -928,7 +928,7 @@ func TestBootstrapperAcceptsAncestorsParents(t *testing.T) {
 	parsedVtx0 := false
 	parsedVtx1 := false
 	parsedVtx2 := false
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID0:
 			if parsedVtx0 {
@@ -950,7 +950,7 @@ func TestBootstrapperAcceptsAncestorsParents(t *testing.T) {
 		}
 		return nil, errUnknownVertex
 	}
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			vtx0.StatusV = choices.Processing
@@ -1019,7 +1019,7 @@ func TestRestartBootstrapping(t *testing.T) {
 	vtxBytes4 := []byte{4}
 	vtxBytes5 := []byte{5}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -1027,48 +1027,48 @@ func TestRestartBootstrapping(t *testing.T) {
 		HeightV: 0,
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  1,
 		BytesV:   vtxBytes1,
 	}
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID2,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx1},
+		ParentsV: []axia.Vertex{vtx1},
 		HeightV:  2,
 		BytesV:   vtxBytes2,
 	}
-	vtx3 := &avalanche.TestVertex{
+	vtx3 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID3,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx2},
+		ParentsV: []axia.Vertex{vtx2},
 		HeightV:  3,
 		BytesV:   vtxBytes3,
 	}
-	vtx4 := &avalanche.TestVertex{
+	vtx4 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID4,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx2},
+		ParentsV: []axia.Vertex{vtx2},
 		HeightV:  3,
 		BytesV:   vtxBytes4,
 	}
-	vtx5 := &avalanche.TestVertex{
+	vtx5 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID5,
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{vtx4},
+		ParentsV: []axia.Vertex{vtx4},
 		HeightV:  4,
 		BytesV:   vtxBytes5,
 	}
@@ -1096,7 +1096,7 @@ func TestRestartBootstrapping(t *testing.T) {
 	parsedVtx3 := false
 	parsedVtx4 := false
 	parsedVtx5 := false
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID0:
 			if parsedVtx0 {
@@ -1130,7 +1130,7 @@ func TestRestartBootstrapping(t *testing.T) {
 		}
 		return nil, errUnknownVertex
 	}
-	manager.ParseVtxF = func(vtxBytes []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(vtxBytes []byte) (axia.Vertex, error) {
 		switch {
 		case bytes.Equal(vtxBytes, vtxBytes0):
 			vtx0.StatusV = choices.Processing

@@ -6,7 +6,7 @@ set -o pipefail
 
 # Changes to the minimum golang version must also be replicated in
 # scripts/ansible/roles/golang_base/defaults/main.yml
-# scripts/build_avalanche.sh (here)
+# scripts/build_axia.sh (here)
 # scripts/local.Dockerfile
 # Dockerfile
 # README.md
@@ -30,22 +30,22 @@ version_lt() {
 }
 
 if version_lt "$(go_version)" "$go_version_minimum"; then
-    echo "AvalancheGo requires Go >= $go_version_minimum, Go $(go_version) found." >&2
+    echo "Axia requires Go >= $go_version_minimum, Go $(go_version) found." >&2
     exit 1
 fi
 
-# Avalanchego root folder
-AVALANCHE_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd .. && pwd )
+# Axia root folder
+AXIA_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd .. && pwd )
 # Load the versions
-source "$AVALANCHE_PATH"/scripts/versions.sh
+source "$AXIA_PATH"/scripts/versions.sh
 # Load the constants
-source "$AVALANCHE_PATH"/scripts/constants.sh
+source "$AXIA_PATH"/scripts/constants.sh
 
 # Build with rocksdb allowed only if the environment variable ROCKSDBALLOWED is set
 if [ -z ${ROCKSDBALLOWED+x} ]; then
-    echo "Building AvalancheGo..."
-    go build -ldflags "-X github.com/sankar-boro/avalanchego/version.GitCommit=$git_commit $static_ld_flags" -o "$avalanchego_path" "$AVALANCHE_PATH/main/"*.go
+    echo "Building Axia..."
+    go build -ldflags "-X github.com/sankar-boro/axia/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
 else
-    echo "Building AvalancheGo with rocksdb enabled..."
-    go build -tags rocksdballowed -ldflags "-X github.com/sankar-boro/avalanchego/version.GitCommit=$git_commit $static_ld_flags" -o "$avalanchego_path" "$AVALANCHE_PATH/main/"*.go
+    echo "Building Axia with rocksdb enabled..."
+    go build -tags rocksdballowed -ldflags "-X github.com/sankar-boro/axia/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
 fi

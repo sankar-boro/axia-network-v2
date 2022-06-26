@@ -7,16 +7,16 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/utils/crypto"
-	"github.com/sankar-boro/avalanchego/utils/math"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/stakeable"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia/utils/math"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 var (

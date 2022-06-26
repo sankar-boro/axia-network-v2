@@ -1,18 +1,18 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"errors"
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/metrics"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/metrics"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 const minMapSize = 16
@@ -35,7 +35,7 @@ func (TopologicalFactory) New() Consensus { return &Topological{} }
 // removes sufficiently old decisions. However, that will need to be analyzed to
 // ensure safety. It is doable when adding in a weak synchrony assumption.
 
-// Topological performs the avalanche algorithm by utilizing a topological sort
+// Topological performs the axia algorithm by utilizing a topological sort
 // of the voting results. Assumes that vertices are inserted in topological
 // order.
 type Topological struct {
@@ -285,7 +285,7 @@ func (ta *Topological) HealthCheck() (interface{}, error) {
 		if err != nil {
 			errorReasons = append(errorReasons, err.Error())
 		}
-		return details, fmt.Errorf("avalanche consensus is not healthy reason: %s", strings.Join(errorReasons, ", "))
+		return details, fmt.Errorf("axia consensus is not healthy reason: %s", strings.Join(errorReasons, ", "))
 	}
 	return details, nil
 }

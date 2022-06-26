@@ -6,7 +6,7 @@ package summary
 import (
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 func Build(

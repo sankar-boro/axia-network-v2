@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/ips"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia/utils/logging"
 	"github.com/stretchr/testify/assert"
 )
 

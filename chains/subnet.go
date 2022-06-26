@@ -6,10 +6,10 @@ package chains
 import (
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/networking/sender"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/networking/sender"
 )
 
 var _ Subnet = &subnet{}
@@ -31,7 +31,7 @@ type SubnetConfig struct {
 
 	// ValidatorOnly indicates that this Subnet's Chains are available to only subnet validators.
 	ValidatorOnly       bool                 `json:"validatorOnly"`
-	ConsensusParameters avalanche.Parameters `json:"consensusParameters"`
+	ConsensusParameters axia.Parameters `json:"consensusParameters"`
 }
 
 type subnet struct {

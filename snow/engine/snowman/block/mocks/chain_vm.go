@@ -8,12 +8,12 @@ import (
 	reflect "reflect"
 	time "time"
 
-	manager "github.com/sankar-boro/avalanchego/database/manager"
-	ids "github.com/sankar-boro/avalanchego/ids"
-	snow "github.com/sankar-boro/avalanchego/snow"
-	snowman "github.com/sankar-boro/avalanchego/snow/consensus/snowman"
-	common "github.com/sankar-boro/avalanchego/snow/engine/common"
-	version "github.com/sankar-boro/avalanchego/version"
+	manager "github.com/sankar-boro/axia/database/manager"
+	ids "github.com/sankar-boro/axia/ids"
+	snow "github.com/sankar-boro/axia/snow"
+	snowman "github.com/sankar-boro/axia/snow/consensus/snowman"
+	common "github.com/sankar-boro/axia/snow/engine/common"
+	version "github.com/sankar-boro/axia/version"
 	gomock "github.com/golang/mock/gomock"
 )
 

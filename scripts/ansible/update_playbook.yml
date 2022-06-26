@@ -5,6 +5,6 @@
   connection: ssh
   hosts: all
   roles:
-    - name: avalanche_stop
-    - name: avalanche_build
-    - name: avalanche_start
+    - name: axia_stop
+    - name: axia_build
+    - name: axia_start

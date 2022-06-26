@@ -4,10 +4,10 @@
 package avm
 
 import (
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/pubsub"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/pubsub"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/axc"
 )
 
 var _ pubsub.Filterer = &filterer{}

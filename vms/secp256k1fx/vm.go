@@ -4,9 +4,9 @@
 package secp256k1fx
 
 import (
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/timer/mockable"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/timer/mockable"
 )
 
 // VM that this Fx must be run by

@@ -6,9 +6,9 @@ package throttling
 import (
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 // Used by the sybil-safe inbound and outbound message throttlers

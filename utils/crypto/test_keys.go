@@ -4,7 +4,7 @@
 package crypto
 
 import (
-	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/axia/utils/formatting"
 )
 
 func BuildTestKeys() []*PrivateKeySECP256K1R {

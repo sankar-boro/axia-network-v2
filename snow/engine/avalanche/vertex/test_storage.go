@@ -7,8 +7,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
 )
 
 var (
@@ -21,7 +21,7 @@ var (
 type TestStorage struct {
 	T                    *testing.T
 	CantGetVtx, CantEdge bool
-	GetVtxF              func(ids.ID) (avalanche.Vertex, error)
+	GetVtxF              func(ids.ID) (axia.Vertex, error)
 	EdgeF                func() []ids.ID
 }
 
@@ -30,7 +30,7 @@ func (s *TestStorage) Default(cant bool) {
 	s.CantEdge = cant
 }
 
-func (s *TestStorage) GetVtx(id ids.ID) (avalanche.Vertex, error) {
+func (s *TestStorage) GetVtx(id ids.ID) (axia.Vertex, error) {
 	if s.GetVtxF != nil {
 		return s.GetVtxF(id)
 	}

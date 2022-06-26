@@ -6,9 +6,9 @@ package vertex
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
 )
 
 // This example inserts several ints into an IntHeap, checks the minimum,
@@ -16,35 +16,35 @@ import (
 func TestUniqueVertexHeapReturnsOrdered(t *testing.T) {
 	h := NewHeap()
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
 		HeightV: 0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
 		HeightV: 1,
 	}
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
 		HeightV: 1,
 	}
-	vtx3 := &avalanche.TestVertex{
+	vtx3 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
 		HeightV: 3,
 	}
-	vtx4 := &avalanche.TestVertex{
+	vtx4 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -52,7 +52,7 @@ func TestUniqueVertexHeapReturnsOrdered(t *testing.T) {
 		HeightV: 0,
 	}
 
-	vts := []avalanche.Vertex{vtx0, vtx1, vtx2, vtx3, vtx4}
+	vts := []axia.Vertex{vtx0, vtx1, vtx2, vtx3, vtx4}
 
 	for _, vtx := range vts {
 		h.Push(vtx)
@@ -103,14 +103,14 @@ func TestUniqueVertexHeapReturnsOrdered(t *testing.T) {
 func TestUniqueVertexHeapRemainsUnique(t *testing.T) {
 	h := NewHeap()
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
 		HeightV: 0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -119,14 +119,14 @@ func TestUniqueVertexHeapRemainsUnique(t *testing.T) {
 	}
 
 	sharedID := ids.GenerateTestID()
-	vtx2 := &avalanche.TestVertex{
+	vtx2 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     sharedID,
 			StatusV: choices.Processing,
 		},
 		HeightV: 1,
 	}
-	vtx3 := &avalanche.TestVertex{
+	vtx3 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     sharedID,
 			StatusV: choices.Processing,

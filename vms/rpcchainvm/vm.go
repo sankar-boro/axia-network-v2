@@ -10,14 +10,14 @@ import (
 
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
 
-	vmpb "github.com/sankar-boro/avalanchego/proto/pb/vm"
+	vmpb "github.com/sankar-boro/axia/proto/pb/vm"
 )
 
 // protocolVersion should be bumped anytime changes are made which require
-// the plugin vm to upgrade to latest avalanchego release to be compatible.
+// the plugin vm to upgrade to latest axia release to be compatible.
 const protocolVersion = 15
 
 var (

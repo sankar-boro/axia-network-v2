@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Start a number of Avalanche nodes on Amazon EC2
+Start a number of Axia nodes on Amazon EC2
 """
 
 import boto3

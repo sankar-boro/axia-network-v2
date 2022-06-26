@@ -6,7 +6,7 @@ package math
 import (
 	"container/heap"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 var (

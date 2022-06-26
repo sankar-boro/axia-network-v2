@@ -6,7 +6,7 @@ package choices
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 var errUnknownStatus = errors.New("unknown status")

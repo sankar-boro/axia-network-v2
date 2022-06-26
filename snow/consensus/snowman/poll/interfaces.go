@@ -6,8 +6,8 @@ package poll
 import (
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/formatting"
 )
 
 // Set is a collection of polls

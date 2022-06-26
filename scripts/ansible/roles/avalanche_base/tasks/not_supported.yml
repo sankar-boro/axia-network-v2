@@ -7,4 +7,4 @@
       distribution={{ ansible_facts.distribution }},
       distribution_version={{ ansible_facts.distribution_version }}).
   tags:
-    - avalanche_base
+    - axia_base

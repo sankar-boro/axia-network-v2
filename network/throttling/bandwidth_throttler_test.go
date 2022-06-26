@@ -8,8 +8,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/logging"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/assert"
 )

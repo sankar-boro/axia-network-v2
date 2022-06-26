@@ -4,7 +4,7 @@
 package message
 
 import (
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 // Field that may be packed into a message

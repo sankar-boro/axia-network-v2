@@ -1,12 +1,12 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 var _ snowstorm.Tx = &transactionVertex{}
@@ -30,7 +30,7 @@ type transactionVertex struct {
 	nodes map[ids.ID]*transactionVertex
 
 	// status reports the status of this transaction vertex in snowstorm which
-	// is then used by avalanche to determine the accaptability of the vertex.
+	// is then used by axia to determine the accaptability of the vertex.
 	status choices.Status
 }
 

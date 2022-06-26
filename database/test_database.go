@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/axia/utils/units"
 )
 
 // Tests is a list of all database tests

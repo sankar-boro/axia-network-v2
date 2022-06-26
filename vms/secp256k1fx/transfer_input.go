@@ -6,7 +6,7 @@ package secp256k1fx
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/axia/snow"
 )
 
 var errNoValueInput = errors.New("input has no value")

@@ -12,14 +12,14 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils/math/meter"
-	"github.com/sankar-boro/avalanchego/utils/resource"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils/math/meter"
+	"github.com/sankar-boro/axia/utils/resource"
 )
 
 func TestHandlerDropsTimedOutMessages(t *testing.T) {

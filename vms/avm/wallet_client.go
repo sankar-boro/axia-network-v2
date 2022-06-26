@@ -7,12 +7,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/utils/rpc"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/utils/rpc"
 )
 
 var _ WalletClient = &client{}

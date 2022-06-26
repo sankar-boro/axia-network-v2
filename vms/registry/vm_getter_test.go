@@ -13,10 +13,10 @@ import (
 
 	"github.com/golang/mock/gomock"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/filesystem"
-	"github.com/sankar-boro/avalanchego/utils/resource"
-	"github.com/sankar-boro/avalanchego/vms"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/filesystem"
+	"github.com/sankar-boro/axia/utils/resource"
+	"github.com/sankar-boro/axia/vms"
 )
 
 var (

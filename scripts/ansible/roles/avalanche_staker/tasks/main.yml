@@ -1,11 +1,11 @@
 - name: Create staking key
   become: true
   openssl_privatekey:
-    path: "{{ avalanche_daemon_staking_tls_key }}"
+    path: "{{ axia_daemon_staking_tls_key }}"
     size: 4096
     backup: true
-    owner: "{{ avalanche_daemon_user }}"
-    group: "{{ avalanche_daemon_group }}"
+    owner: "{{ axia_daemon_user }}"
+    group: "{{ axia_daemon_group }}"
     mode: u=rw,go=
 
 # This CSR isn't used at all by avlanchego. It's a required step when creating
@@ -14,7 +14,7 @@
 - name: Create staking certificate signing request
   become: true
   openssl_csr:
-    path: "{{ avalanche_daemon_staking_tls_csr }}"
+    path: "{{ axia_daemon_staking_tls_csr }}"
     basic_constraints:
       - "CA:FALSE"
     basic_constraints_critical: true
@@ -22,10 +22,10 @@
       - digitalSignature
       - dataEncipherment
     key_usage_critical: true
-    privatekey_path: "{{ avalanche_daemon_staking_tls_key }}"
+    privatekey_path: "{{ axia_daemon_staking_tls_key }}"
     use_common_name_for_san: false
-    owner: "{{ avalanche_daemon_user }}"
-    group: "{{ avalanche_daemon_group }}"
+    owner: "{{ axia_daemon_user }}"
+    group: "{{ axia_daemon_group }}"
     mode: u=rw,go=r
 
 # These parameters in this role were arrived at by inspecting an certificate
@@ -36,11 +36,11 @@
 - name: Create staking certificate
   become: true
   openssl_certificate:
-    path: "{{ avalanche_daemon_staking_tls_cert }}"
+    path: "{{ axia_daemon_staking_tls_cert }}"
     backup: true
-    csr_path: "{{ avalanche_daemon_staking_tls_csr }}"
-    privatekey_path: "{{ avalanche_daemon_staking_tls_key }}"
+    csr_path: "{{ axia_daemon_staking_tls_csr }}"
+    privatekey_path: "{{ axia_daemon_staking_tls_key }}"
     provider: selfsigned
-    owner: "{{ avalanche_daemon_user }}"
-    group: "{{ avalanche_daemon_group }}"
+    owner: "{{ axia_daemon_user }}"
+    group: "{{ axia_daemon_group }}"
     mode: u=rw,go=r

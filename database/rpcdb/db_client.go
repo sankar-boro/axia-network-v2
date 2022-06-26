@@ -10,13 +10,13 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/nodb"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/nodb"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia/utils/wrappers"
 
-	rpcdbpb "github.com/sankar-boro/avalanchego/proto/pb/rpcdb"
+	rpcdbpb "github.com/sankar-boro/axia/proto/pb/rpcdb"
 )
 
 const (

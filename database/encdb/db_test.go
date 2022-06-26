@@ -6,8 +6,8 @@ package encdb
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/memdb"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/memdb"
 )
 
 func TestInterface(t *testing.T) {

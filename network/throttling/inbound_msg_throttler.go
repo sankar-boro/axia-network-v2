@@ -7,10 +7,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils/logging"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

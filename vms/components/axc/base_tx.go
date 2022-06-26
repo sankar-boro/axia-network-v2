@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/vms/types"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/vms/types"
 )
 
 // MaxMemoSize is the maximum number of bytes in the memo field

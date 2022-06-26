@@ -13,9 +13,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/math/meter"
-	"github.com/sankar-boro/avalanchego/utils/resource"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/math/meter"
+	"github.com/sankar-boro/axia/utils/resource"
 )
 
 func TestNewCPUTracker(t *testing.T) {

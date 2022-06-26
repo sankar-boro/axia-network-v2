@@ -8,13 +8,13 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/api/health"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/snow/networking/benchlist"
-	"github.com/sankar-boro/avalanchego/snow/networking/handler"
-	"github.com/sankar-boro/avalanchego/snow/networking/timeout"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/api/health"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/snow/networking/benchlist"
+	"github.com/sankar-boro/axia/snow/networking/handler"
+	"github.com/sankar-boro/axia/snow/networking/timeout"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 // Router routes consensus messages to the Handler of the consensus

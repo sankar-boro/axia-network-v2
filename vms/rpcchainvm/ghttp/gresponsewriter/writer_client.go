@@ -11,15 +11,15 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/ghttp/gconn"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/ghttp/greader"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/ghttp/gwriter"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/ghttp/gconn"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/ghttp/greader"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/ghttp/gwriter"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
 
-	responsewriterpb "github.com/sankar-boro/avalanchego/proto/pb/http/responsewriter"
-	readerpb "github.com/sankar-boro/avalanchego/proto/pb/io/reader"
-	writerpb "github.com/sankar-boro/avalanchego/proto/pb/io/writer"
-	connpb "github.com/sankar-boro/avalanchego/proto/pb/net/conn"
+	responsewriterpb "github.com/sankar-boro/axia/proto/pb/http/responsewriter"
+	readerpb "github.com/sankar-boro/axia/proto/pb/io/reader"
+	writerpb "github.com/sankar-boro/axia/proto/pb/io/writer"
+	connpb "github.com/sankar-boro/axia/proto/pb/net/conn"
 )
 
 var (

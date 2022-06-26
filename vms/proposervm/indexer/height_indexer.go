@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/vms/proposervm/state"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/vms/proposervm/state"
 )
 
 // default number of heights to index before committing

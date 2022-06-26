@@ -6,14 +6,14 @@ package snowstorm
 import (
 	"fmt"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/metrics"
-	"github.com/sankar-boro/avalanchego/snow/events"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/metrics"
+	"github.com/sankar-boro/axia/snow/events"
+	"github.com/sankar-boro/axia/utils/wrappers"
 
-	sbcon "github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
 var (
@@ -394,7 +394,7 @@ func (dg *Directed) RecordPoll(votes ids.Bag) (bool, error) {
 	// a transaction.
 	dg.pollNumber++
 
-	// This flag tracks if the Avalanche instance needs to recompute its
+	// This flag tracks if the Axia instance needs to recompute its
 	// frontiers. Frontiers only need to be recalculated if preferences change
 	// or if a tx was accepted.
 	changed := false

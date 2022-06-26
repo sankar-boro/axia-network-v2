@@ -1,19 +1,19 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/common"
 )
 
 // issuer issues [vtx] into consensus after its dependencies are met.
 type issuer struct {
 	t                 *Transitive
-	vtx               avalanche.Vertex
+	vtx               axia.Vertex
 	issued, abandoned bool
 	vtxDeps, txDeps   ids.Set
 }

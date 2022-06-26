@@ -8,9 +8,9 @@ import (
 	"math"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/timer/mockable"
+	"github.com/sankar-boro/axia/utils/timer/mockable"
 
-	safemath "github.com/sankar-boro/avalanchego/utils/math"
+	safemath "github.com/sankar-boro/axia/utils/math"
 )
 
 var (

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aliasreader;
 
-option go_package = "github.com/sankar-boro/avalanchego/proto/pb/aliasreader";
+option go_package = "github.com/sankar-boro/axia/proto/pb/aliasreader";
 
 message ID {
   bytes id = 1;

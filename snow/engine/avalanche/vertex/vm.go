@@ -4,12 +4,12 @@
 package vertex
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/common"
 )
 
-// DAGVM defines the minimum functionality that an avalanche VM must
+// DAGVM defines the minimum functionality that an axia VM must
 // implement
 type DAGVM interface {
 	common.VM

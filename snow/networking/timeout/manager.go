@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/networking/benchlist"
-	"github.com/sankar-boro/avalanchego/utils/timer"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/networking/benchlist"
+	"github.com/sankar-boro/axia/utils/timer"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

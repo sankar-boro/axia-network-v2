@@ -18,32 +18,32 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/sankar-boro/avalanchego/app/runner"
-	"github.com/sankar-boro/avalanchego/chains"
-	"github.com/sankar-boro/avalanchego/genesis"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/ipcs"
-	"github.com/sankar-boro/avalanchego/nat"
-	"github.com/sankar-boro/avalanchego/network"
-	"github.com/sankar-boro/avalanchego/network/dialer"
-	"github.com/sankar-boro/avalanchego/network/throttling"
-	"github.com/sankar-boro/avalanchego/node"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
-	"github.com/sankar-boro/avalanchego/snow/networking/benchlist"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/snow/networking/sender"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/staking"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/dynamicip"
-	"github.com/sankar-boro/avalanchego/utils/ips"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/password"
-	"github.com/sankar-boro/avalanchego/utils/profiler"
-	"github.com/sankar-boro/avalanchego/utils/storage"
-	"github.com/sankar-boro/avalanchego/utils/timer"
-	"github.com/sankar-boro/avalanchego/vms"
+	"github.com/sankar-boro/axia/app/runner"
+	"github.com/sankar-boro/axia/chains"
+	"github.com/sankar-boro/axia/genesis"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/ipcs"
+	"github.com/sankar-boro/axia/nat"
+	"github.com/sankar-boro/axia/network"
+	"github.com/sankar-boro/axia/network/dialer"
+	"github.com/sankar-boro/axia/network/throttling"
+	"github.com/sankar-boro/axia/node"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/networking/benchlist"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/snow/networking/sender"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/staking"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/dynamicip"
+	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/password"
+	"github.com/sankar-boro/axia/utils/profiler"
+	"github.com/sankar-boro/axia/utils/storage"
+	"github.com/sankar-boro/axia/utils/timer"
+	"github.com/sankar-boro/axia/vms"
 )
 
 const (
@@ -84,7 +84,7 @@ func GetRunnerConfig(v *viper.Viper) (runner.Config, error) {
 	// Build directory should have this structure:
 	//
 	// build
-	// ├── avalanchego (the binary from compiling the app directory)
+	// ├── axia (the binary from compiling the app directory)
 	// └── plugins
 	//     └── evm
 	validBuildDir := func(dir string) bool {
@@ -119,8 +119,8 @@ func GetRunnerConfig(v *viper.Viper) (runner.Config, error) {
 	return config, nil
 }
 
-func getConsensusConfig(v *viper.Viper) avalanche.Parameters {
-	return avalanche.Parameters{
+func getConsensusConfig(v *viper.Viper) axia.Parameters {
+	return axia.Parameters{
 		Parameters: snowball.Parameters{
 			K:                       v.GetInt(SnowSampleSizeKey),
 			Alpha:                   v.GetInt(SnowQuorumSizeKey),
@@ -133,8 +133,8 @@ func getConsensusConfig(v *viper.Viper) avalanche.Parameters {
 			MixedQueryNumPushVdr:    int(v.GetUint(SnowMixedQueryNumPushVdrKey)),
 			MixedQueryNumPushNonVdr: int(v.GetUint(SnowMixedQueryNumPushNonVdrKey)),
 		},
-		BatchSize: v.GetInt(SnowAvalancheBatchSizeKey),
-		Parents:   v.GetInt(SnowAvalancheNumParentsKey),
+		BatchSize: v.GetInt(SnowAxiaBatchSizeKey),
+		Parents:   v.GetInt(SnowAxiaNumParentsKey),
 	}
 }
 

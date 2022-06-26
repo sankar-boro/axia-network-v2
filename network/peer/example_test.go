@@ -9,10 +9,10 @@ import (
 	"net"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/ips"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/ips"
 )
 
 func ExampleStartTestPeer() {

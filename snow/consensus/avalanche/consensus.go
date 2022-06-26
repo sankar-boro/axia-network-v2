@@ -1,12 +1,12 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 // TODO: Implement pruning of accepted decisions.
@@ -15,7 +15,7 @@ import (
 // removes sufficiently old decisions. However, that will need to be analyzed to
 // ensure safety. It is doable with a weak syncrony assumption.
 
-// Consensus represents a general avalanche instance that can be used directly
+// Consensus represents a general axia instance that can be used directly
 // to process a series of partially ordered elements.
 type Consensus interface {
 	// Takes in alpha, beta1, beta2, the accepted frontier, the join statuses,
@@ -25,7 +25,7 @@ type Consensus interface {
 	// the join status map.
 	Initialize(*snow.ConsensusContext, Parameters, []Vertex) error
 
-	// Returns the parameters that describe this avalanche instance
+	// Returns the parameters that describe this axia instance
 	Parameters() Parameters
 
 	// Returns the number of vertices processing

@@ -7,11 +7,11 @@ import (
 	"container/list"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
-	"github.com/sankar-boro/avalanchego/vms/components/keystore"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia/vms/components/keystore"
 )
 
 // Returns:

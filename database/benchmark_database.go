@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/axia/utils/units"
 )
 
 var (

@@ -3,7 +3,7 @@
 
 package common
 
-import "github.com/sankar-boro/avalanchego/ids"
+import "github.com/sankar-boro/axia/ids"
 
 // Send a query composed partially of push queries and partially of pull queries.
 // The validators in [vdrs] will be queried.

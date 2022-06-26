@@ -9,14 +9,14 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/api/server"
-	"github.com/sankar-boro/avalanchego/chains"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/ipcs"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/json"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/api/server"
+	"github.com/sankar-boro/axia/chains"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/ipcs"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 // IPCServer maintains the IPCs

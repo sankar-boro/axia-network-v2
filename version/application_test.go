@@ -11,11 +11,11 @@ import (
 )
 
 func TestNewDefaultApplication(t *testing.T) {
-	v := NewDefaultApplication("avalanche", 1, 2, 3)
+	v := NewDefaultApplication("axia", 1, 2, 3)
 
 	assert.NotNil(t, v)
-	assert.Equal(t, "avalanche/1.2.3", v.String())
-	assert.Equal(t, "avalanche", v.App())
+	assert.Equal(t, "axia/1.2.3", v.String())
+	assert.Equal(t, "axia", v.App())
 	assert.Equal(t, 1, v.Major())
 	assert.Equal(t, 2, v.Minor())
 	assert.Equal(t, 3, v.Patch())
@@ -24,11 +24,11 @@ func TestNewDefaultApplication(t *testing.T) {
 }
 
 func TestNewApplication(t *testing.T) {
-	v := NewApplication("avalanche", ":", ",", 1, 2, 3)
+	v := NewApplication("axia", ":", ",", 1, 2, 3)
 
 	assert.NotNil(t, v)
-	assert.Equal(t, "avalanche:1,2,3", v.String())
-	assert.Equal(t, "avalanche", v.App())
+	assert.Equal(t, "axia:1,2,3", v.String())
+	assert.Equal(t, "axia", v.App())
 	assert.Equal(t, 1, v.Major())
 	assert.Equal(t, 2, v.Minor())
 	assert.Equal(t, 3, v.Patch())
@@ -44,55 +44,55 @@ func TestComparingVersions(t *testing.T) {
 		before      bool
 	}{
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 3),
 			compatible:  true,
 			before:      false,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 4),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 4),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 3),
 			compatible:  true,
 			before:      false,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 4),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 4),
 			compatible:  true,
 			before:      true,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 3, 3),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 3, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 3),
 			compatible:  true,
 			before:      false,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
-			peerVersion: NewDefaultApplication("avalanche", 1, 3, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 3, 3),
 			compatible:  true,
 			before:      true,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 2, 2, 3),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 2, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 3),
 			compatible:  false,
 			before:      false,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
-			peerVersion: NewDefaultApplication("avalanche", 2, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 2, 2, 3),
 			compatible:  true,
 			before:      true,
 		},
 		{
 			myVersion:   NewDefaultApplication("axc", 1, 2, 4),
-			peerVersion: NewDefaultApplication("avalanche", 1, 2, 3),
+			peerVersion: NewDefaultApplication("axia", 1, 2, 3),
 			compatible:  false,
 			before:      false,
 		},
 		{
-			myVersion:   NewDefaultApplication("avalanche", 1, 2, 3),
+			myVersion:   NewDefaultApplication("axia", 1, 2, 3),
 			peerVersion: NewDefaultApplication("axc", 1, 2, 3),
 			compatible:  false,
 			before:      false,

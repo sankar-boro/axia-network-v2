@@ -13,55 +13,55 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/api/health"
-	"github.com/sankar-boro/avalanchego/api/keystore"
-	"github.com/sankar-boro/avalanchego/api/metrics"
-	"github.com/sankar-boro/avalanchego/api/server"
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/network"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/state"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/tracker"
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/syncer"
-	"github.com/sankar-boro/avalanchego/snow/networking/handler"
-	"github.com/sankar-boro/avalanchego/snow/networking/router"
-	"github.com/sankar-boro/avalanchego/snow/networking/sender"
-	"github.com/sankar-boro/avalanchego/snow/networking/timeout"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/version"
-	"github.com/sankar-boro/avalanchego/vms"
-	"github.com/sankar-boro/avalanchego/vms/metervm"
-	"github.com/sankar-boro/avalanchego/vms/proposervm"
+	"github.com/sankar-boro/axia/api/health"
+	"github.com/sankar-boro/axia/api/keystore"
+	"github.com/sankar-boro/axia/api/metrics"
+	"github.com/sankar-boro/axia/api/server"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/network"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/engine/axia/state"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/common/queue"
+	"github.com/sankar-boro/axia/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia/snow/engine/snowman/syncer"
+	"github.com/sankar-boro/axia/snow/networking/handler"
+	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia/snow/networking/sender"
+	"github.com/sankar-boro/axia/snow/networking/timeout"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia/vms"
+	"github.com/sankar-boro/axia/vms/metervm"
+	"github.com/sankar-boro/axia/vms/proposervm"
 
-	dbManager "github.com/sankar-boro/avalanchego/database/manager"
-	timetracker "github.com/sankar-boro/avalanchego/snow/networking/tracker"
+	dbManager "github.com/sankar-boro/axia/database/manager"
+	timetracker "github.com/sankar-boro/axia/snow/networking/tracker"
 
-	avcon "github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	aveng "github.com/sankar-boro/avalanchego/snow/engine/avalanche"
-	avbootstrap "github.com/sankar-boro/avalanchego/snow/engine/avalanche/bootstrap"
-	avagetter "github.com/sankar-boro/avalanchego/snow/engine/avalanche/getter"
+	avcon "github.com/sankar-boro/axia/snow/consensus/axia"
+	aveng "github.com/sankar-boro/axia/snow/engine/axia"
+	avbootstrap "github.com/sankar-boro/axia/snow/engine/axia/bootstrap"
+	avagetter "github.com/sankar-boro/axia/snow/engine/axia/getter"
 
-	smcon "github.com/sankar-boro/avalanchego/snow/consensus/snowman"
-	smeng "github.com/sankar-boro/avalanchego/snow/engine/snowman"
-	smbootstrap "github.com/sankar-boro/avalanchego/snow/engine/snowman/bootstrap"
-	snowgetter "github.com/sankar-boro/avalanchego/snow/engine/snowman/getter"
+	smcon "github.com/sankar-boro/axia/snow/consensus/snowman"
+	smeng "github.com/sankar-boro/axia/snow/engine/snowman"
+	smbootstrap "github.com/sankar-boro/axia/snow/engine/snowman/bootstrap"
+	snowgetter "github.com/sankar-boro/axia/snow/engine/snowman/getter"
 )
 
 const defaultChannelSize = 1
 
 var (
 	errUnknownChainID   = errors.New("unknown chain ID")
-	errUnknownVMType    = errors.New("the vm should have type avalanche.DAGVM or snowman.ChainVM")
+	errUnknownVMType    = errors.New("the vm should have type axia.DAGVM or snowman.ChainVM")
 	errCreatePlatformVM = errors.New("attempted to create a chain running the PlatformVM")
 	errNotBootstrapped  = errors.New("chains not bootstrapped")
 
@@ -454,7 +454,7 @@ func (m *manager) buildChain(chainParams ChainParameters, sb Subnet) (*chain, er
 	var chain *chain
 	switch vm := vm.(type) {
 	case vertex.DAGVM:
-		chain, err = m.createAvalancheChain(
+		chain, err = m.createAxiaChain(
 			ctx,
 			chainParams.GenesisData,
 			vdrs,
@@ -466,7 +466,7 @@ func (m *manager) buildChain(chainParams ChainParameters, sb Subnet) (*chain, er
 			sb,
 		)
 		if err != nil {
-			return nil, fmt.Errorf("error while creating new avalanche vm %w", err)
+			return nil, fmt.Errorf("error while creating new axia vm %w", err)
 		}
 	case block.ChainVM:
 		chain, err = m.createSnowmanChain(
@@ -506,8 +506,8 @@ func (m *manager) unblockChains() {
 	}
 }
 
-// Create a DAG-based blockchain that uses Avalanche
-func (m *manager) createAvalancheChain(
+// Create a DAG-based blockchain that uses Axia
+func (m *manager) createAxiaChain(
 	ctx *snow.ConsensusContext,
 	genesisData []byte,
 	vdrs,
@@ -644,7 +644,7 @@ func (m *manager) createAvalancheChain(
 
 	avaGetHandler, err := avagetter.New(vtxManager, commonCfg)
 	if err != nil {
-		return nil, fmt.Errorf("couldn't initialize avalanche base message handler: %w", err)
+		return nil, fmt.Errorf("couldn't initialize axia base message handler: %w", err)
 	}
 
 	// create bootstrap gear
@@ -663,7 +663,7 @@ func (m *manager) createAvalancheChain(
 		},
 	)
 	if err != nil {
-		return nil, fmt.Errorf("error initializing avalanche bootstrapper: %w", err)
+		return nil, fmt.Errorf("error initializing axia bootstrapper: %w", err)
 	}
 	handler.SetBootstrapper(bootstrapper)
 
@@ -680,7 +680,7 @@ func (m *manager) createAvalancheChain(
 	}
 	engine, err := aveng.New(engineConfig)
 	if err != nil {
-		return nil, fmt.Errorf("error initializing avalanche engine: %w", err)
+		return nil, fmt.Errorf("error initializing axia engine: %w", err)
 	}
 	handler.SetConsensus(engine)
 

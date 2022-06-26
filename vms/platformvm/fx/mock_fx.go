@@ -7,7 +7,7 @@ package fx
 import (
 	reflect "reflect"
 
-	snow "github.com/sankar-boro/avalanchego/snow"
+	snow "github.com/sankar-boro/axia/snow"
 	gomock "github.com/golang/mock/gomock"
 )
 

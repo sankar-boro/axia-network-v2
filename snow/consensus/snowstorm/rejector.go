@@ -4,9 +4,9 @@
 package snowstorm
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/events"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/events"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 var _ events.Blockable = &rejector{}

@@ -1,4 +1,4 @@
-- name: Install Avalanche dependencies
+- name: Install Axia dependencies
   become: true
   yum:
     name:

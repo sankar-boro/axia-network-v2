@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/version"
 
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/snow"
 )
 
 var (

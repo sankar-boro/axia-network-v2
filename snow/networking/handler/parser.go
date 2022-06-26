@@ -6,8 +6,8 @@ package handler
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
 )
 
 var (

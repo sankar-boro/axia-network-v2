@@ -4,7 +4,7 @@
 package crypto
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 type Factory interface {

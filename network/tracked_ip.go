@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/network/peer"
+	"github.com/sankar-boro/axia/network/peer"
 )
 
 func init() { rand.Seed(time.Now().UnixNano()) }

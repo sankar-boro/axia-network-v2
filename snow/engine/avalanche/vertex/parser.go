@@ -4,14 +4,14 @@
 package vertex
 
 import (
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 // Parser parses bytes into a vertex.
 type Parser interface {
 	// Parse a vertex from a slice of bytes
-	ParseVtx(vertex []byte) (avalanche.Vertex, error)
+	ParseVtx(vertex []byte) (axia.Vertex, error)
 }
 
 // Parse parses the provided vertex bytes into a stateless vertex

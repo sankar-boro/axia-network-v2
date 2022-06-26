@@ -10,13 +10,13 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/api/keystore"
-	"github.com/sankar-boro/avalanchego/api/metrics"
-	"github.com/sankar-boro/avalanchego/chains/atomic"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/api/keystore"
+	"github.com/sankar-boro/axia/api/metrics"
+	"github.com/sankar-boro/axia/chains/atomic"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 type SubnetLookup interface {
@@ -64,11 +64,11 @@ type ConsensusContext struct {
 
 	// DecisionAcceptor is the callback that will be fired whenever a VM is
 	// notified that their object, either a block in snowman or a transaction
-	// in avalanche, was accepted.
+	// in axia, was accepted.
 	DecisionAcceptor Acceptor
 
 	// ConsensusAcceptor is the callback that will be fired whenever a
-	// container, either a block in snowman or a vertex in avalanche, was
+	// container, either a block in snowman or a vertex in axia, was
 	// accepted.
 	ConsensusAcceptor Acceptor
 

@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/utils/units"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 const (

@@ -16,26 +16,26 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/sankar-boro/avalanchego/database/leveldb"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/rocksdb"
-	"github.com/sankar-boro/avalanchego/genesis"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/ulimit"
-	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/axia/database/leveldb"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/rocksdb"
+	"github.com/sankar-boro/axia/genesis"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/ulimit"
+	"github.com/sankar-boro/axia/utils/units"
 )
 
 const (
 	DefaultHTTPPort    = 9650
 	DefaultStakingPort = 9651
 
-	AvalancheGoDataDirVar    = "AVALANCHEGO_DATA_DIR"
-	defaultUnexpandedDataDir = "$" + AvalancheGoDataDirVar
+	AxiaDataDirVar    = "AXIA_DATA_DIR"
+	defaultUnexpandedDataDir = "$" + AxiaDataDirVar
 )
 
 var (
 	// [defaultUnexpandedDataDir] will be expanded when reading the flags
-	defaultDataDir         = filepath.Join("$HOME", ".avalanchego")
+	defaultDataDir         = filepath.Join("$HOME", ".axia")
 	defaultDBDir           = filepath.Join(defaultUnexpandedDataDir, "db")
 	defaultLogDir          = filepath.Join(defaultUnexpandedDataDir, "logs")
 	defaultProfileDir      = filepath.Join(defaultUnexpandedDataDir, "profiles")
@@ -112,7 +112,7 @@ func addNodeFlags(fs *flag.FlagSet) {
 	fs.String(DBConfigContentKey, "", "Specifies base64 encoded database config content")
 
 	// Logging
-	fs.String(LogsDirKey, defaultLogDir, "Logging directory for Avalanche")
+	fs.String(LogsDirKey, defaultLogDir, "Logging directory for Axia")
 	fs.String(LogLevelKey, "info", "The log level. Should be one of {verbo, debug, trace, info, warn, error, fatal, off}")
 	fs.String(LogDisplayLevelKey, "", "The log display level. If left blank, will inherit the value of log-level. Otherwise, should be one of {verbo, debug, trace, info, warn, error, fatal, off}")
 	fs.String(LogFormatKey, "auto", "The structure of log format. Defaults to 'auto' which formats terminal-like logs, when the output is a terminal. Otherwise, should be one of {auto, plain, colors, json}")
@@ -295,8 +295,8 @@ func addNodeFlags(fs *flag.FlagSet) {
 	fs.Int(SnowQuorumSizeKey, 15, "Alpha value to use for required number positive results")
 	fs.Int(SnowVirtuousCommitThresholdKey, 15, "Beta value to use for virtuous transactions")
 	fs.Int(SnowRogueCommitThresholdKey, 20, "Beta value to use for rogue transactions")
-	fs.Int(SnowAvalancheNumParentsKey, 5, "Number of vertexes for reference from each new vertex")
-	fs.Int(SnowAvalancheBatchSizeKey, 30, "Number of operations to batch in each new vertex")
+	fs.Int(SnowAxiaNumParentsKey, 5, "Number of vertexes for reference from each new vertex")
+	fs.Int(SnowAxiaBatchSizeKey, 30, "Number of operations to batch in each new vertex")
 	fs.Int(SnowConcurrentRepollsKey, 4, "Minimum number of concurrent polls for finalizing consensus")
 	fs.Int(SnowOptimalProcessingKey, 50, "Optimal number of processing containers in consensus")
 	fs.Int(SnowMaxProcessingKey, 1024, "Maximum number of processing items to be considered healthy")
@@ -353,7 +353,7 @@ func addNodeFlags(fs *flag.FlagSet) {
 	fs.Float64(DiskMaxNonVdrNodeUsageKey, 1000*units.GiB, "Maximum number of disk reads/writes per second that a non-validator can utilize. Must be >= 0")
 }
 
-// BuildFlagSet returns a complete set of flags for avalanchego
+// BuildFlagSet returns a complete set of flags for axia
 func BuildFlagSet() *flag.FlagSet {
 	// TODO parse directly into a *pflag.FlagSet instead of into a *flag.FlagSet
 	// and then putting those into a *plag.FlagSet
@@ -364,7 +364,7 @@ func BuildFlagSet() *flag.FlagSet {
 }
 
 // GetExpandedArg gets the string in viper corresponding to [key] and expands
-// any variables using the OS env. If the [AvalancheGoDataDirVar] var is used,
+// any variables using the OS env. If the [AxiaDataDirVar] var is used,
 // we expand the value of the variable with the string in viper corresponding to
 // [DataDirKey].
 func GetExpandedArg(v *viper.Viper, key string) string {
@@ -372,13 +372,13 @@ func GetExpandedArg(v *viper.Viper, key string) string {
 }
 
 // GetExpandedString expands [s] with any variables using the OS env. If the
-// [AvalancheGoDataDirVar] var is used, we expand the value of the variable with
+// [AxiaDataDirVar] var is used, we expand the value of the variable with
 // the string in viper corresponding to [DataDirKey].
 func GetExpandedString(v *viper.Viper, s string) string {
 	return os.Expand(
 		s,
 		func(strVar string) string {
-			if strVar == AvalancheGoDataDirVar {
+			if strVar == AxiaDataDirVar {
 				return os.ExpandEnv(v.GetString(DataDirKey))
 			}
 			return os.Getenv(strVar)

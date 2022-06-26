@@ -10,7 +10,7 @@ package database
 import (
 	"io"
 
-	"github.com/sankar-boro/avalanchego/api/health"
+	"github.com/sankar-boro/axia/api/health"
 )
 
 // KeyValueReader wraps the Has and Get method of a backing data store.

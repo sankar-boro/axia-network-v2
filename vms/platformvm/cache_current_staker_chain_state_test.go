@@ -8,10 +8,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/constants"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/constants"
 
-	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
+	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
 )
 
 func TestPrimaryValidatorSet(t *testing.T) {

@@ -8,13 +8,13 @@ import (
 	"crypto/tls"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/network/dialer"
-	"github.com/sankar-boro/avalanchego/network/throttling"
-	"github.com/sankar-boro/avalanchego/snow/networking/tracker"
-	"github.com/sankar-boro/avalanchego/snow/uptime"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils/ips"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/network/dialer"
+	"github.com/sankar-boro/axia/network/throttling"
+	"github.com/sankar-boro/axia/snow/networking/tracker"
+	"github.com/sankar-boro/axia/snow/uptime"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils/ips"
 )
 
 // HealthConfig describes parameters for network layer health checks.
@@ -126,7 +126,7 @@ type Config struct {
 	WhitelistedSubnets ids.Set        `json:"whitelistedSubnets"`
 	Beacons            validators.Set `json:"beacons"`
 
-	// Validators are the current validators in the Avalanche network
+	// Validators are the current validators in the Axia network
 	Validators validators.Manager `json:"validators"`
 
 	UptimeCalculator uptime.Calculator `json:"-"`

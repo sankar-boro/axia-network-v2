@@ -4,9 +4,9 @@
 package pubsub
 
 import (
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/utils/formatting/address"
-	"github.com/sankar-boro/avalanchego/utils/json"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia/utils/json"
 )
 
 // NewBloom command for a new bloom filter

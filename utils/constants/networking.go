@@ -7,7 +7,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/axia/utils/units"
 )
 
 // Const variables to be exported

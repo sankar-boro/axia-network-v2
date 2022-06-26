@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 func TestDelayFromNew(t *testing.T) {

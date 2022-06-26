@@ -33,12 +33,12 @@ func TestDefaultVersionParser(t *testing.T) {
 }
 
 func TestDefaultApplicationParser(t *testing.T) {
-	v, err := DefaultApplicationParser.Parse("avalanche/1.2.3")
+	v, err := DefaultApplicationParser.Parse("axia/1.2.3")
 
 	assert.NoError(t, err)
 	assert.NotNil(t, v)
-	assert.Equal(t, "avalanche/1.2.3", v.String())
-	assert.Equal(t, "avalanche", v.App())
+	assert.Equal(t, "axia/1.2.3", v.String())
+	assert.Equal(t, "axia", v.App())
 	assert.Equal(t, 1, v.Major())
 	assert.Equal(t, 2, v.Minor())
 	assert.Equal(t, 3, v.Patch())
@@ -47,10 +47,10 @@ func TestDefaultApplicationParser(t *testing.T) {
 
 	badVersions := []string{
 		"",
-		"avalanche/",
-		"avalanche/z.0.0",
-		"avalanche/0.z.0",
-		"avalanche/0.0.z",
+		"axia/",
+		"axia/z.0.0",
+		"axia/0.z.0",
+		"axia/0.0.z",
 	}
 	for _, badVersion := range badVersions {
 		_, err := DefaultApplicationParser.Parse(badVersion)
@@ -61,12 +61,12 @@ func TestDefaultApplicationParser(t *testing.T) {
 func TestNewApplicationParser(t *testing.T) {
 	p := NewApplicationParser(":", ",")
 
-	v, err := p.Parse("avalanche:1,2,3")
+	v, err := p.Parse("axia:1,2,3")
 
 	assert.NoError(t, err)
 	assert.NotNil(t, v)
-	assert.Equal(t, "avalanche:1,2,3", v.String())
-	assert.Equal(t, "avalanche", v.App())
+	assert.Equal(t, "axia:1,2,3", v.String())
+	assert.Equal(t, "axia", v.App())
 	assert.Equal(t, 1, v.Major())
 	assert.Equal(t, 2, v.Minor())
 	assert.Equal(t, 3, v.Patch())

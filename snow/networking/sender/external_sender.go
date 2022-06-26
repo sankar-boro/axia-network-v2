@@ -4,8 +4,8 @@
 package sender
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
 )
 
 // ExternalSender sends consensus messages to other validators

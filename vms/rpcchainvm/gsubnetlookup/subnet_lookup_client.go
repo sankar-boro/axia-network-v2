@@ -6,10 +6,10 @@ package gsubnetlookup
 import (
 	"context"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
 
-	subnetlookuppb "github.com/sankar-boro/avalanchego/proto/pb/subnetlookup"
+	subnetlookuppb "github.com/sankar-boro/axia/proto/pb/subnetlookup"
 )
 
 var _ snow.SubnetLookup = &Client{}

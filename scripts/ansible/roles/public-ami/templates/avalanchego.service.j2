@@ -1,12 +1,12 @@
 [Unit]
-Description=Avalanche go client
+Description=Axia go client
 After=syslog.target network.target
 
 [Service]
-User=avalanche
+User=axia
 Type=simple
-Environment=HOME=/home/avalanche
-ExecStart=/usr/local/bin/avalanchego --config-file /etc/avalanchego/conf.json
+Environment=HOME=/home/axia
+ExecStart=/usr/local/bin/axia --config-file /etc/axia/conf.json
 KillMode=process
 KillSignal=SIGINT
 TimeoutStopSec=90

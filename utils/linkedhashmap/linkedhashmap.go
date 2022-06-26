@@ -7,7 +7,7 @@ import (
 	"container/list"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // Hashmap provides an O(1) mapping from a comparable key to any value.

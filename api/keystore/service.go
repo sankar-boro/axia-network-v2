@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/version"
 )
 
 type service struct {

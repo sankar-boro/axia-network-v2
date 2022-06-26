@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowman"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 // When one stakes, one must specify the time one will start to validate and

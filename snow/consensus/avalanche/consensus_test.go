@@ -1,7 +1,7 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"errors"
@@ -14,11 +14,11 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
 )
 
 type testFunc func(*testing.T, Factory)
@@ -335,7 +335,7 @@ func AddTest(t *testing.T, factory Factory) {
 	}
 
 	if !avl.Finalized() {
-		t.Fatal("An empty avalanche instance is not finalized")
+		t.Fatal("An empty axia instance is not finalized")
 	}
 	if !ids.UnsortedEquals([]ids.ID{seedVertices[0].ID(), seedVertices[1].ID()}, avl.Preferences().List()) {
 		t.Fatal("Initial frontier failed to be set")
@@ -900,7 +900,7 @@ func VotingTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	case !ids.UnsortedEquals([]ids.ID{vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Processing:
@@ -916,7 +916,7 @@ func VotingTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case !avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too late")
+		t.Fatalf("An axia instance finalized too late")
 	case !ids.UnsortedEquals([]ids.ID{vtx1.IDV}, avl.Preferences().List()):
 		// rejected vertex ID (vtx0) must have been removed from the preferred set
 		t.Fatalf("Initial frontier failed to be set")
@@ -1010,7 +1010,7 @@ func IgnoreInvalidVotingTest(t *testing.T, factory Factory) {
 	if err := avl.RecordPoll(sm); err != nil {
 		t.Fatal(err)
 	} else if avl.Finalized() {
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	}
 }
 
@@ -1091,7 +1091,7 @@ func IgnoreInvalidTransactionVertexVotingTest(t *testing.T, factory Factory) {
 	if err := avl.RecordPoll(sm); err != nil {
 		t.Fatal(err)
 	} else if avl.Finalized() {
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	}
 }
 
@@ -1188,7 +1188,7 @@ func TransitiveVotingTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	case !ids.UnsortedEquals([]ids.ID{vtx2.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Accepted:
@@ -1204,7 +1204,7 @@ func TransitiveVotingTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case !avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too late")
+		t.Fatalf("An axia instance finalized too late")
 	case !ids.UnsortedEquals([]ids.ID{vtx2.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Accepted:
@@ -1288,8 +1288,8 @@ func SplitVotingTest(t *testing.T, factory Factory) {
 	switch {
 	case err != nil:
 		t.Fatal(err)
-	case avl.Finalized(): // avalanche shouldn't be finalized because the vertex transactions are still processing
-		t.Fatalf("An avalanche instance finalized too late")
+	case avl.Finalized(): // axia shouldn't be finalized because the vertex transactions are still processing
+		t.Fatalf("An axia instance finalized too late")
 	case !ids.UnsortedEquals([]ids.ID{vtx0.IDV, vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Accepted:
@@ -1306,7 +1306,7 @@ func SplitVotingTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case !avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too late")
+		t.Fatalf("An axia instance finalized too late")
 	case !ids.UnsortedEquals([]ids.ID{vtx0.IDV, vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Accepted:
@@ -1413,7 +1413,7 @@ func TransitiveRejectionTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	case !ids.UnsortedEquals([]ids.ID{vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	}
@@ -1423,7 +1423,7 @@ func TransitiveRejectionTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	case !ids.UnsortedEquals([]ids.ID{vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Rejected:
@@ -1439,7 +1439,7 @@ func TransitiveRejectionTest(t *testing.T, factory Factory) {
 	case err != nil:
 		t.Fatal(err)
 	case avl.Finalized():
-		t.Fatalf("An avalanche instance finalized too early")
+		t.Fatalf("An axia instance finalized too early")
 	case !ids.UnsortedEquals([]ids.ID{vtx1.IDV}, avl.Preferences().List()):
 		t.Fatalf("Initial frontier failed to be set")
 	case tx0.Status() != choices.Rejected:
@@ -1907,7 +1907,7 @@ func TransactionVertexTest(t *testing.T, factory Factory) {
 	case vtx0.Status() != choices.Accepted:
 		t.Fatalf("vertex with no transaction should have been accepted after polling, got %v", vtx0.Status())
 	case !avl.Finalized():
-		t.Fatal("expected finalized avalanche instance")
+		t.Fatal("expected finalized axia instance")
 	case !ids.UnsortedEquals([]ids.ID{vtx0.IDV}, avl.Preferences().List()):
 		t.Fatalf("unexpected frontier %v", avl.Preferences().List())
 	}

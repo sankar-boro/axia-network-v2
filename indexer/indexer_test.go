@@ -13,22 +13,22 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/api/server"
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/database/versiondb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/api/server"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/database/versiondb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/logging"
 
-	avengmocks "github.com/sankar-boro/avalanchego/snow/engine/avalanche/mocks"
-	avvtxmocks "github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex/mocks"
-	smblockmocks "github.com/sankar-boro/avalanchego/snow/engine/snowman/block/mocks"
-	smengmocks "github.com/sankar-boro/avalanchego/snow/engine/snowman/mocks"
+	avengmocks "github.com/sankar-boro/axia/snow/engine/axia/mocks"
+	avvtxmocks "github.com/sankar-boro/axia/snow/engine/axia/vertex/mocks"
+	smblockmocks "github.com/sankar-boro/axia/snow/engine/snowman/block/mocks"
+	smengmocks "github.com/sankar-boro/axia/snow/engine/snowman/mocks"
 )
 
 var _ server.PathAdder = &apiServerMock{}
@@ -291,7 +291,7 @@ func TestIndexer(t *testing.T) {
 	}
 	// Mocked VM knows about this block now
 	dagEngine.On("GetVtx", vtxID).Return(
-		&avalanche.TestVertex{
+		&axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				StatusV: choices.Accepted,
 				IDV:     vtxID,

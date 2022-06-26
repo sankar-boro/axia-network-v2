@@ -7,13 +7,13 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 var errUnknownVertex = errors.New("unknown vertex")
@@ -111,11 +111,11 @@ func TestFilterAccepted(t *testing.T) {
 	vtxID1 := ids.GenerateTestID()
 	vtxID2 := ids.GenerateTestID()
 
-	vtx0 := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	vtx0 := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     vtxID0,
 		StatusV: choices.Accepted,
 	}}
-	vtx1 := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	vtx1 := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     vtxID1,
 		StatusV: choices.Accepted,
 	}}
@@ -131,7 +131,7 @@ func TestFilterAccepted(t *testing.T) {
 
 	vtxIDs := []ids.ID{vtxID0, vtxID1, vtxID2}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtxID0:
 			return vtx0, nil

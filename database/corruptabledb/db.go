@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/database"
+	"github.com/sankar-boro/axia/database"
 )
 
 var (

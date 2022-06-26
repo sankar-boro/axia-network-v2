@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/app"
-	"github.com/sankar-boro/avalanchego/nat"
-	"github.com/sankar-boro/avalanchego/node"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/perms"
-	"github.com/sankar-boro/avalanchego/utils/ulimit"
+	"github.com/sankar-boro/axia/app"
+	"github.com/sankar-boro/axia/nat"
+	"github.com/sankar-boro/axia/node"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/perms"
+	"github.com/sankar-boro/axia/utils/ulimit"
 )
 
 const (

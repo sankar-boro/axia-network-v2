@@ -4,7 +4,7 @@
 package metervm
 
 import (
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block"
 )
 
 func (vm *blockVM) StateSyncEnabled() (bool, error) {

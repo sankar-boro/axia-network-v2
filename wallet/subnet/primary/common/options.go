@@ -7,8 +7,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
 )
 
 const defaultPollFrequency = 100 * time.Millisecond

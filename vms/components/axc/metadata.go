@@ -6,9 +6,9 @@ package axc
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia/vms/components/verify"
 )
 
 var (

@@ -1,16 +1,16 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 func TestVotingFinishesWithAbandonedDep(t *testing.T) {

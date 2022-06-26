@@ -6,9 +6,9 @@ package axc
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/math"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/math"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 var errInsufficientFunds = errors.New("insufficient funds")

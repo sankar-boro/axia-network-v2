@@ -7,12 +7,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/utils/rpc"
+	"github.com/sankar-boro/axia/utils/rpc"
 )
 
 var _ Client = &client{}
 
-// Client interface for Avalanche Health API Endpoint
+// Client interface for Axia Health API Endpoint
 type Client interface {
 	// Readiness returns if the node has finished initialization
 	Readiness(context.Context, ...rpc.Option) (*APIHealthReply, error)
@@ -25,7 +25,7 @@ type Client interface {
 	AwaitHealthy(ctx context.Context, freq time.Duration, options ...rpc.Option) (bool, error)
 }
 
-// Client implementation for Avalanche Health API Endpoint
+// Client implementation for Axia Health API Endpoint
 type client struct {
 	requester rpc.EndpointRequester
 }

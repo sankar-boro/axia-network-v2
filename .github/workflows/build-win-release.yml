@@ -1,4 +1,4 @@
-# Build a windows release from the avalanchego repo
+# Build a windows release from the axia repo
 
 name: build-win-release
 
@@ -34,15 +34,15 @@ jobs:
           aws --version
 
       # Runs a single command using the runners shell
-      - name: Build the avalanchego binaries
+      - name: Build the axia binaries
         run: ./scripts/build.sh
         shell: bash
 
       - name: Create zip
         run: |
-          mv .\build\avalanchego .\build\avalanchego.exe
+          mv .\build\axia .\build\axia.exe
           mv .\build\plugins\evm .\build\plugins\evm.exe
-          Compress-Archive -Path .\build\avalanchego.exe,.\build\plugins -DestinationPath .\build\avalanchego-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip
+          Compress-Archive -Path .\build\axia.exe,.\build\plugins -DestinationPath .\build\axia-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -52,4 +52,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Copy to s3
-        run: aws s3 cp .\build\avalanchego-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip s3://${{ secrets.BUCKET }}/windows/avalanchego-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip
+        run: aws s3 cp .\build\axia-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip s3://${{ secrets.BUCKET }}/windows/axia-win-${{ steps.get_version.outputs.VERSION }}-experimental.zip

@@ -9,12 +9,12 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common/queue"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 var errMissingVtxDependenciesOnAccept = errors.New("attempting to execute blocked vertex")
@@ -41,7 +41,7 @@ func (p *vtxParser) Parse(vtxBytes []byte) (queue.Job, error) {
 type vertexJob struct {
 	log                     logging.Logger
 	numAccepted, numDropped prometheus.Counter
-	vtx                     avalanche.Vertex
+	vtx                     axia.Vertex
 }
 
 func (v *vertexJob) ID() ids.ID { return v.vtx.ID() }

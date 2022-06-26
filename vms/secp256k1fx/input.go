@@ -6,8 +6,8 @@ package secp256k1fx
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/math"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/math"
 )
 
 const (

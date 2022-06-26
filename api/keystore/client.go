@@ -6,14 +6,14 @@ package keystore
 import (
 	"context"
 
-	"github.com/sankar-boro/avalanchego/api"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/utils/rpc"
+	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/utils/rpc"
 )
 
 var _ Client = &client{}
 
-// Client interface for Avalanche Keystore API Endpoint
+// Client interface for Axia Keystore API Endpoint
 type Client interface {
 	CreateUser(context.Context, api.UserPass, ...rpc.Option) (bool, error)
 	// Returns the usernames of all keystore users
@@ -26,7 +26,7 @@ type Client interface {
 	DeleteUser(context.Context, api.UserPass, ...rpc.Option) (bool, error)
 }
 
-// Client implementation for Avalanche Keystore API Endpoint
+// Client implementation for Axia Keystore API Endpoint
 type client struct {
 	requester rpc.EndpointRequester
 }

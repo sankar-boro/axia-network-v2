@@ -4,18 +4,18 @@
 package vertex
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 // Builder builds a vertex given a set of parentIDs and transactions.
 type Builder interface {
 	// Build a new vertex from the contents of a vertex
-	BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error)
+	BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error)
 	// Build a new stop vertex from the parents
-	BuildStopVtx(parentIDs []ids.ID) (avalanche.Vertex, error)
+	BuildStopVtx(parentIDs []ids.ID) (axia.Vertex, error)
 }
 
 // Build a new stateless vertex from the contents of a vertex

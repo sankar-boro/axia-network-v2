@@ -8,10 +8,10 @@ import (
 	reflect "reflect"
 	time "time"
 
-	database "github.com/sankar-boro/avalanchego/database"
-	ids "github.com/sankar-boro/avalanchego/ids"
-	axc "github.com/sankar-boro/avalanchego/vms/components/axc"
-	status "github.com/sankar-boro/avalanchego/vms/platformvm/status"
+	database "github.com/sankar-boro/axia/database"
+	ids "github.com/sankar-boro/axia/ids"
+	axc "github.com/sankar-boro/axia/vms/components/axc"
+	status "github.com/sankar-boro/axia/vms/platformvm/status"
 	gomock "github.com/golang/mock/gomock"
 )
 

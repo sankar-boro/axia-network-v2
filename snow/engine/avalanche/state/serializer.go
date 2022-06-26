@@ -1,7 +1,7 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-// Package state manages the meta-data required by consensus for an avalanche
+// Package state manages the meta-data required by consensus for an axia
 // dag.
 package state
 
@@ -9,16 +9,16 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/versiondb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/math"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/versiondb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/math"
 )
 
 const (
@@ -70,15 +70,15 @@ func NewSerializer(config SerializerConfig) vertex.Manager {
 	return &s
 }
 
-func (s *Serializer) ParseVtx(b []byte) (avalanche.Vertex, error) {
+func (s *Serializer) ParseVtx(b []byte) (axia.Vertex, error) {
 	return newUniqueVertex(s, b)
 }
 
-func (s *Serializer) BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
+func (s *Serializer) BuildVtx(parentIDs []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
 	return s.buildVtx(parentIDs, txs, false)
 }
 
-func (s *Serializer) BuildStopVtx(parentIDs []ids.ID) (avalanche.Vertex, error) {
+func (s *Serializer) BuildStopVtx(parentIDs []ids.ID) (axia.Vertex, error) {
 	return s.buildVtx(parentIDs, nil, true)
 }
 
@@ -86,7 +86,7 @@ func (s *Serializer) buildVtx(
 	parentIDs []ids.ID,
 	txs []snowstorm.Tx,
 	stopVtx bool,
-) (avalanche.Vertex, error) {
+) (axia.Vertex, error) {
 	height := uint64(0)
 	for _, parentID := range parentIDs {
 		parent, err := s.getUniqueVertex(parentID)
@@ -136,7 +136,7 @@ func (s *Serializer) buildVtx(
 	return uVtx, uVtx.setVertex(vtx)
 }
 
-func (s *Serializer) GetVtx(vtxID ids.ID) (avalanche.Vertex, error) {
+func (s *Serializer) GetVtx(vtxID ids.ID) (axia.Vertex, error) {
 	return s.getUniqueVertex(vtxID)
 }
 

@@ -1,14 +1,14 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/common"
 )
 
 var (
@@ -22,7 +22,7 @@ type EngineTest struct {
 	common.EngineTest
 
 	CantGetVtx bool
-	GetVtxF    func(vtxID ids.ID) (avalanche.Vertex, error)
+	GetVtxF    func(vtxID ids.ID) (axia.Vertex, error)
 }
 
 func (e *EngineTest) Default(cant bool) {
@@ -30,7 +30,7 @@ func (e *EngineTest) Default(cant bool) {
 	e.CantGetVtx = false
 }
 
-func (e *EngineTest) GetVtx(vtxID ids.ID) (avalanche.Vertex, error) {
+func (e *EngineTest) GetVtx(vtxID ids.ID) (axia.Vertex, error) {
 	if e.GetVtxF != nil {
 		return e.GetVtxF(vtxID)
 	}

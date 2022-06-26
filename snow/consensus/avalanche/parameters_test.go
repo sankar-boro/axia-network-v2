@@ -1,12 +1,12 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
 func TestParametersValid(t *testing.T) {

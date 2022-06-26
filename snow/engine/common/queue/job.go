@@ -4,7 +4,7 @@
 package queue
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // Job defines the interface required to be placed on the job queue.

@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/memdb"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/memdb"
 )
 
 func TestLinkedDB(t *testing.T) {

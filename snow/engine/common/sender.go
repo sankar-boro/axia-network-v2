@@ -4,8 +4,8 @@
 package common
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
 )
 
 // Sender defines how a consensus engine sends messages and requests to other

@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils"
 )
 
 var (

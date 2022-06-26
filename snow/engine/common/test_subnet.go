@@ -6,7 +6,7 @@ package common
 import (
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // SubnetTest is a test subnet

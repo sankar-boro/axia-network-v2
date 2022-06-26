@@ -15,13 +15,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/wrappers"
 
-	sbcon "github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
 type testFunc func(*testing.T, Factory)

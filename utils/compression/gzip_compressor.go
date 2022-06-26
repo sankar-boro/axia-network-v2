@@ -10,7 +10,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/axia/utils"
 )
 
 var _ Compressor = &gzipCompressor{}

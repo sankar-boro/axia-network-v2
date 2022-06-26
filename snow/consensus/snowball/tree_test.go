@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/sampler"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/sampler"
 )
 
 const (

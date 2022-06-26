@@ -8,9 +8,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/nodb"
-	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/nodb"
+	"github.com/sankar-boro/axia/utils"
 )
 
 const (

@@ -4,7 +4,7 @@ package http;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/sankar-boro/avalanchego/proto/pb/http";
+option go_package = "github.com/sankar-boro/axia/proto/pb/http";
 
 service HTTP {
   // Handle wraps http1 over http2 and provides support for websockets by implementing
@@ -138,7 +138,7 @@ message Request {
 
 message ResponseWriter {
   // reserved for backward compatibility
-  // avalanchego <=v1.7.9 used the field "1" as an id to identify the gRPC server
+  // axia <=v1.7.9 used the field "1" as an id to identify the gRPC server
   // address which served the Writer service via the now removed service broker
   reserved 1;
   // header returns the header map that will be sent by

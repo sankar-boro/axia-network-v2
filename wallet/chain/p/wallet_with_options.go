@@ -4,13 +4,13 @@
 package p
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/components/axc"
-	"github.com/sankar-boro/avalanchego/vms/platformvm"
-	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
-	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia/vms/platformvm"
+	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia/wallet/subnet/primary/common"
 
-	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
+	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
 )
 
 var _ Wallet = &walletWithOptions{}

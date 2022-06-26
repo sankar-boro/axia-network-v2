@@ -9,8 +9,8 @@ import (
 	"math"
 	"reflect"
 
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/utils/wrappers"
 )
 
 const (

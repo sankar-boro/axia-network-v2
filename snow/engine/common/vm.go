@@ -4,10 +4,10 @@
 package common
 
 import (
-	"github.com/sankar-boro/avalanchego/api/health"
-	"github.com/sankar-boro/avalanchego/database/manager"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/api/health"
+	"github.com/sankar-boro/axia/database/manager"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 // VM describes the interface that all consensus VMs must implement

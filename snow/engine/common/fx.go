@@ -4,7 +4,7 @@
 package common
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // Fx wraps an instance of a feature extension

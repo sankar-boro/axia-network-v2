@@ -3,7 +3,7 @@
 
 package registry
 
-import "github.com/sankar-boro/avalanchego/ids"
+import "github.com/sankar-boro/axia/ids"
 
 var _ VMRegistry = &vmRegistry{}
 

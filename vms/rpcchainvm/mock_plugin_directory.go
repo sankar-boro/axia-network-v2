@@ -7,8 +7,8 @@ package rpcchainvm
 import (
 	reflect "reflect"
 
-	ids "github.com/sankar-boro/avalanchego/ids"
-	vms "github.com/sankar-boro/avalanchego/vms"
+	ids "github.com/sankar-boro/axia/ids"
+	vms "github.com/sankar-boro/axia/vms"
 	gomock "github.com/golang/mock/gomock"
 )
 

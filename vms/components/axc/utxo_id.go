@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/vms/components/verify"
 )
 
 var (

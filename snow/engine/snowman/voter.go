@@ -4,7 +4,7 @@
 package snowman
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 // Voter records chits received from [vdr] once its dependencies are met.

@@ -12,9 +12,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/axia/utils/wrappers"
 
-	connpb "github.com/sankar-boro/avalanchego/proto/pb/net/conn"
+	connpb "github.com/sankar-boro/axia/proto/pb/net/conn"
 )
 
 var _ net.Conn = &Client{}

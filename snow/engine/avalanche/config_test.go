@@ -1,18 +1,18 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/database/memdb"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/bootstrap"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
+	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/engine/axia/bootstrap"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/common/queue"
 )
 
 func DefaultConfig() (common.Config, bootstrap.Config, Config) {
@@ -35,7 +35,7 @@ func DefaultConfig() (common.Config, bootstrap.Config, Config) {
 		Manager:    bootstrapConfig.Manager,
 		Sender:     bootstrapConfig.Sender,
 		Validators: bootstrapConfig.Validators,
-		Params: avalanche.Parameters{
+		Params: axia.Parameters{
 			Parameters: snowball.Parameters{
 				K:                       1,
 				Alpha:                   1,
@@ -51,7 +51,7 @@ func DefaultConfig() (common.Config, bootstrap.Config, Config) {
 			Parents:   2,
 			BatchSize: 1,
 		},
-		Consensus: &avalanche.Topological{},
+		Consensus: &axia.Topological{},
 	}
 
 	return commonCfg, bootstrapConfig, engineConfig

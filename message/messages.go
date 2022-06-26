@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/axia/ids"
 )
 
 var (

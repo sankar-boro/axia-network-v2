@@ -17,12 +17,12 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/nodb"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/logging"
-	"github.com/sankar-boro/avalanchego/utils/perms"
-	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/nodb"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia/utils/perms"
+	"github.com/sankar-boro/axia/utils/units"
 )
 
 const (

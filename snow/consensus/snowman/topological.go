@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/metrics"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/metrics"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
 )
 
 var (

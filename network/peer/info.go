@@ -6,8 +6,8 @@ package peer
 import (
 	"time"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils/json"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils/json"
 )
 
 type Info struct {

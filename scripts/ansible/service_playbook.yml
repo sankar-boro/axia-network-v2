@@ -1,10 +1,10 @@
 #!/usr/bin/env ansible-playbook
 ---
-- name: Configure Avalanche service
-  hosts: avalanche_nodes
+- name: Configure Axia service
+  hosts: axia_nodes
   roles:
-    - name: avalanche_download
-    - name: avalanche_user
-    - name: avalanche_install
-    - name: avalanche_staker
-    - name: avalanche_service
+    - name: axia_download
+    - name: axia_user
+    - name: axia_install
+    - name: axia_staker
+    - name: axia_service

@@ -1,20 +1,20 @@
 %define _build_id_links none
 
-Name:           avalanchego
+Name:           axia
 Version:        %{version}
 Release:        %{release}
-Summary:        The Avalanche platform binaries
+Summary:        The Axia platform binaries
 URL:            https://github.com/sankar-boro/%{name}
 License:        BSD-3
 AutoReqProv:    no
 
 %description
-Avalanche is an incredibly lightweight protocol, so the minimum computer requirements are quite modest.
+Axia is an incredibly lightweight protocol, so the minimum computer requirements are quite modest.
 
 %files
-/usr/local/bin/avalanchego
-/usr/local/lib/avalanchego
-/usr/local/lib/avalanchego/evm
+/usr/local/bin/axia
+/usr/local/lib/axia
+/usr/local/lib/axia/evm
 
 %changelog
 * Mon Oct 26 2020 Charlie Wyse <charlie@avalabs.org>

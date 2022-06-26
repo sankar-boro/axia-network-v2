@@ -11,7 +11,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/axia/utils"
 )
 
 var errDuplicateCheck = errors.New("duplicated check")

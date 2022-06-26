@@ -9,15 +9,15 @@ import (
 	"math"
 	"time"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/utils/formatting"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia/version"
 )
 
 const (
@@ -166,7 +166,7 @@ func (b *bootstrapper) Ancestors(vdr ids.NodeID, requestID uint32, vtxs [][]byte
 	b.needToFetch.Remove(vtxID)
 
 	// All vertices added to [processVertices] have received transitive votes from the accepted frontier
-	processVertices := make([]avalanche.Vertex, 1, len(vtxs)) // Process all of the valid vertices in this message
+	processVertices := make([]axia.Vertex, 1, len(vtxs)) // Process all of the valid vertices in this message
 	processVertices[0] = vtx
 	parents, err := vtx.Parents()
 	if err != nil {
@@ -323,7 +323,7 @@ func (b *bootstrapper) fetch(vtxIDs ...ids.ID) error {
 }
 
 // Process the vertices in [vtxs].
-func (b *bootstrapper) process(vtxs ...avalanche.Vertex) error {
+func (b *bootstrapper) process(vtxs ...axia.Vertex) error {
 	// Vertices that we need to process. Store them in a heap for deduplication
 	// and so we always process vertices further down in the DAG first. This helps
 	// to reduce the number of repeated DAG traversals.
@@ -448,7 +448,7 @@ func (b *bootstrapper) ForceAccepted(acceptedContainerIDs []ids.ID) error {
 	// we iterate over every container that must be traversed.
 	pendingContainerIDs = append(pendingContainerIDs, acceptedContainerIDs...)
 	b.Ctx.Log.Debug("Starting bootstrapping with %d missing vertices and %d from the accepted frontier", len(pendingContainerIDs), len(acceptedContainerIDs))
-	toProcess := make([]avalanche.Vertex, 0, len(pendingContainerIDs))
+	toProcess := make([]axia.Vertex, 0, len(pendingContainerIDs))
 	for _, vtxID := range pendingContainerIDs {
 		if vtx, err := b.Manager.GetVtx(vtxID); err == nil {
 			if vtx.Status() == choices.Accepted {

@@ -1,7 +1,7 @@
 # ref. https://goreleaser.com/customization/build/
 builds:
   - main: ./main
-    binary: avalanchego
+    binary: axia
     flags:
       - -v
     ignore:
@@ -25,4 +25,4 @@ release:
   # Default is extracted from the origin remote URL or empty if its private hosted.
   github:
     owner: ava-labs
-    name: avalanchego
+    name: axia

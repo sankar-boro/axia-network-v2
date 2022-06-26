@@ -9,24 +9,24 @@ import (
 	"net/url"
 )
 
-var _ EndpointRequester = &avalancheEndpointRequester{}
+var _ EndpointRequester = &axiaEndpointRequester{}
 
 type EndpointRequester interface {
 	SendRequest(ctx context.Context, method string, params interface{}, reply interface{}, options ...Option) error
 }
 
-type avalancheEndpointRequester struct {
+type axiaEndpointRequester struct {
 	uri, base string
 }
 
 func NewEndpointRequester(uri, base string) EndpointRequester {
-	return &avalancheEndpointRequester{
+	return &axiaEndpointRequester{
 		uri:  uri,
 		base: base,
 	}
 }
 
-func (e *avalancheEndpointRequester) SendRequest(
+func (e *axiaEndpointRequester) SendRequest(
 	ctx context.Context,
 	method string,
 	params interface{},

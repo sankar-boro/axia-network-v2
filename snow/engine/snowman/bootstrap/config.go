@@ -4,9 +4,9 @@
 package bootstrap
 
 import (
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
-	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/common/queue"
+	"github.com/sankar-boro/axia/snow/engine/snowman/block"
 )
 
 type Config struct {

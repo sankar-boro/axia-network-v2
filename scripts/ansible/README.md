@@ -1,7 +1,7 @@
-# Ansible for AvalancheGo
+# Ansible for Axia
 
 [Ansible](https://ansible.com) playbooks, roles, & inventories to install
-[AvalancheGo](https://github.com/sankar-boro/avalanchego) as a systemd service.
+[Axia](https://github.com/sankar-boro/axia) as a systemd service.
 Target(s) can be
 
 - localhost
@@ -13,17 +13,17 @@ Target(s) can be
 
 ## Using
 
-To create an AvalancheGo service on localhost
+To create an Axia service on localhost
 
 1. Check you have Ansible 2.9+ (see [Installing](#installing))
-2. Clone the AvalancheGo git repository
+2. Clone the Axia git repository
     ```
-    $ git clone https://github.com/sankar-boro/avalanchego
+    $ git clone https://github.com/sankar-boro/axia
     ```
 
 3. Change to this directory
     ```
-    $ cd avalanchego/scripts/ansible
+    $ cd axia/scripts/ansible
     ```
 
 4. Run the service playbook
@@ -42,13 +42,13 @@ To create an AvalancheGo service on localhost
 
 5. Check the service is running
     ```
-    $ systemctl status avalanchego
+    $ systemctl status axia
     ```
 
     The output should look similar to
     ```
-    ● avalanchego.service - AvalancheGo node for Avalanche consensus network
-    Loaded: loaded (/etc/systemd/system/avalanchego.service; enabled; vendor preset: enabled)
+    ● axia.service - Axia node for Axia consensus network
+    Loaded: loaded (/etc/systemd/system/axia.service; enabled; vendor preset: enabled)
     Active: active (running) since Wed 2020-10-21 10:00:00 UTC; 32s ago
     ...
     ```
@@ -93,7 +93,7 @@ Here are some examples to use as a starting point.
 ### Amazon
 
 ```yaml
-avalanche_nodes:
+axia_nodes:
   hosts:
     ec2-203-0-113-42.us-east-1.compute.amazonaws.com:
     ec2-203-0-113-9.ap-southeast-1.compute.amazonaws.com:
@@ -105,7 +105,7 @@ avalanche_nodes:
 ### Raspberry Pi
 
 ```yaml
-avalanche_nodes:
+axia_nodes:
   hosts:
     raspberrypi.local:
   vars:
@@ -127,78 +127,78 @@ Target operating systems supported by these roles & playbooks are
 ## Example run
 
 ```
-PLAY [Configure Avalanche service] *********************************************
+PLAY [Configure Axia service] *********************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [localhost]
 
-TASK [avalanche_download : Query releases] *************************************
+TASK [axia_download : Query releases] *************************************
 ok: [localhost]
 
-TASK [avalanche_download : Fetch release] **************************************
-changed: [localhost] => (item=avalanchego-linux-arm64-v1.5.0.tar.gz)
-changed: [localhost] => (item=avalanchego-linux-arm64-v1.5.0.tar.gz.sig)
+TASK [axia_download : Fetch release] **************************************
+changed: [localhost] => (item=axia-linux-arm64-v1.5.0.tar.gz)
+changed: [localhost] => (item=axia-linux-arm64-v1.5.0.tar.gz.sig)
 
-TASK [avalanche_download : Create temp gnupghome] ******************************
+TASK [axia_download : Create temp gnupghome] ******************************
 changed: [localhost]
 
-TASK [avalanche_download : Import keys] ****************************************
+TASK [axia_download : Import keys] ****************************************
 changed: [localhost]
 
-TASK [avalanche_download : Verify signature] ***********************************
+TASK [axia_download : Verify signature] ***********************************
 ok: [localhost]
 
-TASK [avalanche_download : Cleanup temp gnupghome] *****************************
+TASK [axia_download : Cleanup temp gnupghome] *****************************
 changed: [localhost]
 
-TASK [avalanche_download : Unpack release] *************************************
-changed: [localhost] => (item=avalanchego-linux-arm64-v1.5.0.tar.gz)
+TASK [axia_download : Unpack release] *************************************
+changed: [localhost] => (item=axia-linux-arm64-v1.5.0.tar.gz)
 
-TASK [avalanche_user : Create Avalanche daemon group] **************************
+TASK [axia_user : Create Axia daemon group] **************************
 changed: [localhost]
 
-TASK [avalanche_user : Create Avalanche daemon user] ***************************
+TASK [axia_user : Create Axia daemon user] ***************************
 changed: [localhost]
 
-TASK [avalanche_install : Create shared directories] ***************************
+TASK [axia_install : Create shared directories] ***************************
 changed: [localhost] => (item={'path': '/usr/local/bin'})
 changed: [localhost] => (item={'path': '/var/local/lib'})
 changed: [localhost] => (item={'path': '/var/local/log'})
 
-TASK [avalanche_install : Create Avalanche directories] ************************
-changed: [localhost] => (item=/var/local/lib/avalanchego)
-changed: [localhost] => (item=/var/local/lib/avalanchego/db)
-changed: [localhost] => (item=/var/local/lib/avalanchego/staking)
-changed: [localhost] => (item=/var/local/log/avalanchego)
-changed: [localhost] => (item=/usr/local/lib/avalanchego)
+TASK [axia_install : Create Axia directories] ************************
+changed: [localhost] => (item=/var/local/lib/axia)
+changed: [localhost] => (item=/var/local/lib/axia/db)
+changed: [localhost] => (item=/var/local/lib/axia/staking)
+changed: [localhost] => (item=/var/local/log/axia)
+changed: [localhost] => (item=/usr/local/lib/axia)
 
-TASK [avalanche_install : Install Avalanche binary] ****************************
+TASK [axia_install : Install Axia binary] ****************************
 changed: [localhost]
 
-TASK [avalanche_install : Remove outdated support files] **********************
-ok: [localhost] => (item={'path': '/usr/local/lib/avalanchego/evm'})
-ok: [localhost] => (item={'path': '/usr/local/lib/avalanchego/avalanchego-preupgrade'})
-ok: [localhost] => (item={'path': '/usr/local/lib/avalanchego/avalanchego-latest'})
+TASK [axia_install : Remove outdated support files] **********************
+ok: [localhost] => (item={'path': '/usr/local/lib/axia/evm'})
+ok: [localhost] => (item={'path': '/usr/local/lib/axia/axia-preupgrade'})
+ok: [localhost] => (item={'path': '/usr/local/lib/axia/axia-latest'})
 
-TASK [avalanche_install : Install support files] *******************************
-changed: [localhost] => (item=/usr/local/lib/avalanchego/plugins)
+TASK [axia_install : Install support files] *******************************
+changed: [localhost] => (item=/usr/local/lib/axia/plugins)
 
-TASK [avalanche_staker : Create staking key] ***********************************
+TASK [axia_staker : Create staking key] ***********************************
 changed: [localhost]
 
-TASK [avalanche_staker : Create staking certificate signing request] ***********
+TASK [axia_staker : Create staking certificate signing request] ***********
 changed: [localhost]
 
-TASK [avalanche_staker : Create staking certificate] ***************************
+TASK [axia_staker : Create staking certificate] ***************************
 changed: [localhost]
 
-TASK [avalanche_service : Configure Avalanche service] *************************
+TASK [axia_service : Configure Axia service] *************************
 changed: [localhost]
 
-TASK [avalanche_service : Enable Avalanche service] ****************************
+TASK [axia_service : Enable Axia service] ****************************
 changed: [localhost]
 
-RUNNING HANDLER [avalanche_service : Restart Avalanche service] ****************
+RUNNING HANDLER [axia_service : Restart Axia service] ****************
 changed: [localhost]
 
 PLAY RECAP *********************************************************************

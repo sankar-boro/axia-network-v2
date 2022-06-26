@@ -6,12 +6,12 @@ package config
 import (
 	"time"
 
-	"github.com/sankar-boro/avalanchego/chains"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/uptime"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
+	"github.com/sankar-boro/axia/chains"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/uptime"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/vms/platformvm/reward"
 )
 
 // Struct collecting all foundational parameters of PlatformVM

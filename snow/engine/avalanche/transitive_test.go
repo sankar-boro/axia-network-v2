@@ -1,7 +1,7 @@
 // Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-package avalanche
+package axia
 
 import (
 	"bytes"
@@ -13,22 +13,22 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow/choices"
-	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
-	"github.com/sankar-boro/avalanchego/snow/consensus/snowstorm"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/bootstrap"
-	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/sankar-boro/avalanchego/snow/engine/common"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/constants"
-	"github.com/sankar-boro/avalanchego/utils/wrappers"
-	"github.com/sankar-boro/avalanchego/version"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia/snow/engine/axia/bootstrap"
+	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia/version"
 
-	avagetter "github.com/sankar-boro/avalanchego/snow/engine/avalanche/getter"
+	avagetter "github.com/sankar-boro/axia/snow/engine/axia/getter"
 )
 
 var (
@@ -104,13 +104,13 @@ func TestEngineAdd(t *testing.T) {
 		t.Fatalf("Wrong chain ID")
 	}
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{
-			&avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+		ParentsV: []axia.Vertex{
+			&axia.TestVertex{TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Unknown,
 			}},
@@ -134,7 +134,7 @@ func TestEngineAdd(t *testing.T) {
 		}
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if !bytes.Equal(b, vtx.Bytes()) {
 			t.Fatalf("Wrong bytes")
 		}
@@ -155,7 +155,7 @@ func TestEngineAdd(t *testing.T) {
 		t.Fatalf("Should have been blocking on request")
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) { return nil, errFailedParsing }
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) { return nil, errFailedParsing }
 
 	if err := te.Put(vdr, *reqID, nil); err != nil {
 		t.Fatal(err)
@@ -190,16 +190,16 @@ func TestEngineQuery(t *testing.T) {
 
 	manager.Default(true)
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -208,7 +208,7 @@ func TestEngineQuery(t *testing.T) {
 	}}
 	tx0.InputIDsV = append(tx0.InputIDsV, utxos[0])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -220,7 +220,7 @@ func TestEngineQuery(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -242,7 +242,7 @@ func TestEngineQuery(t *testing.T) {
 	}
 
 	vertexed := new(bool)
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if *vertexed {
 			t.Fatalf("Sent multiple requests")
 		}
@@ -309,7 +309,7 @@ func TestEngineQuery(t *testing.T) {
 		}
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if !bytes.Equal(b, vtx0.Bytes()) {
 			t.Fatalf("Wrong bytes")
 		}
@@ -330,7 +330,7 @@ func TestEngineQuery(t *testing.T) {
 		t.Fatalf("Didn't provide preferences")
 	}
 
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -341,9 +341,9 @@ func TestEngineQuery(t *testing.T) {
 		BytesV:   []byte{5, 4, 3, 2, 1, 9},
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtx0.ID() {
-			return &avalanche.TestVertex{
+			return &axia.TestVertex{
 				TestDecidable: choices.TestDecidable{
 					StatusV: choices.Unknown,
 				},
@@ -393,14 +393,14 @@ func TestEngineQuery(t *testing.T) {
 		}
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if !bytes.Equal(b, vtx1.Bytes()) {
 			t.Fatalf("Wrong bytes")
 		}
 
-		manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+		manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 			if vtxID == vtx0.ID() {
-				return &avalanche.TestVertex{
+				return &axia.TestVertex{
 					TestDecidable: choices.TestDecidable{
 						StatusV: choices.Processing,
 					},
@@ -459,7 +459,7 @@ func TestEngineMultipleQuery(t *testing.T) {
 	vals := validators.NewSet()
 	engCfg.Validators = vals
 
-	engCfg.Params = avalanche.Parameters{
+	engCfg.Params = axia.Parameters{
 		Parameters: snowball.Parameters{
 			K:                       3,
 			Alpha:                   2,
@@ -498,20 +498,20 @@ func TestEngineMultipleQuery(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -528,7 +528,7 @@ func TestEngineMultipleQuery(t *testing.T) {
 	}}
 	tx0.InputIDsV = append(tx0.InputIDsV, utxos[0])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -569,7 +569,7 @@ func TestEngineMultipleQuery(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -579,7 +579,7 @@ func TestEngineMultipleQuery(t *testing.T) {
 		TxsV:     []snowstorm.Tx{tx0},
 	}
 
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -655,16 +655,16 @@ func TestEngineBlockedIssue(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -673,7 +673,7 @@ func TestEngineBlockedIssue(t *testing.T) {
 	}}
 	tx0.InputIDsV = append(tx0.InputIDsV, utxos[0])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -683,13 +683,13 @@ func TestEngineBlockedIssue(t *testing.T) {
 		TxsV:     []snowstorm.Tx{tx0},
 	}
 
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{
-			&avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+		ParentsV: []axia.Vertex{
+			&axia.TestVertex{TestDecidable: choices.TestDecidable{
 				IDV:     vtx0.IDV,
 				StatusV: choices.Unknown,
 			}},
@@ -740,16 +740,16 @@ func TestEngineAbandonResponse(t *testing.T) {
 
 	sender.Default(true)
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -758,7 +758,7 @@ func TestEngineAbandonResponse(t *testing.T) {
 	}}
 	tx0.InputIDsV = append(tx0.InputIDsV, utxos[0])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -768,7 +768,7 @@ func TestEngineAbandonResponse(t *testing.T) {
 		TxsV:     []snowstorm.Tx{tx0},
 	}
 
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) { return nil, errUnknownVertex }
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) { return nil, errUnknownVertex }
 
 	te, err := newTransitive(engCfg)
 	if err != nil {
@@ -808,16 +808,16 @@ func TestEngineScheduleRepoll(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -826,7 +826,7 @@ func TestEngineScheduleRepoll(t *testing.T) {
 	}}
 	tx0.InputIDsV = append(tx0.InputIDsV, utxos[0])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -912,11 +912,11 @@ func TestEngineRejectDoubleSpendTx(t *testing.T) {
 	engCfg.VM = vm
 	vm.Default(true)
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -947,7 +947,7 @@ func TestEngineRejectDoubleSpendTx(t *testing.T) {
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[0])
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -957,13 +957,13 @@ func TestEngineRejectDoubleSpendTx(t *testing.T) {
 		t.Fatalf("Unknown vertex")
 		panic("Should have errored")
 	}
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		return &avalanche.TestVertex{
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		return &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
@@ -1014,11 +1014,11 @@ func TestEngineRejectDoubleSpendIssuedTx(t *testing.T) {
 	engCfg.VM = vm
 	vm.Default(true)
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -1049,7 +1049,7 @@ func TestEngineRejectDoubleSpendIssuedTx(t *testing.T) {
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[0])
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1071,13 +1071,13 @@ func TestEngineRejectDoubleSpendIssuedTx(t *testing.T) {
 	}
 
 	vm.CantSetState = true
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		return &avalanche.TestVertex{
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		return &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
@@ -1119,17 +1119,17 @@ func TestEngineIssueRepoll(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1194,11 +1194,11 @@ func TestEngineReissue(t *testing.T) {
 	vm.Default(true)
 	engCfg.VM = vm
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -1246,19 +1246,19 @@ func TestEngineReissue(t *testing.T) {
 	}
 	tx3.InputIDsV = append(tx3.InputIDsV, utxos[0])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{gVtx, mVtx},
+		ParentsV: []axia.Vertex{gVtx, mVtx},
 		HeightV:  1,
 		TxsV:     []snowstorm.Tx{tx2},
 		BytesV:   []byte{42},
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1282,14 +1282,14 @@ func TestEngineReissue(t *testing.T) {
 	}
 
 	vm.CantSetState = true
-	lastVtx := new(avalanche.TestVertex)
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		lastVtx = &avalanche.TestVertex{
+	lastVtx := new(axia.TestVertex)
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		lastVtx = &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
@@ -1314,7 +1314,7 @@ func TestEngineReissue(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if !bytes.Equal(b, vtx.Bytes()) {
 			t.Fatalf("Wrong bytes")
 		}
@@ -1376,11 +1376,11 @@ func TestEngineLargeIssue(t *testing.T) {
 	vm.Default(true)
 	engCfg.VM = vm
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -1411,7 +1411,7 @@ func TestEngineLargeIssue(t *testing.T) {
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1433,14 +1433,14 @@ func TestEngineLargeIssue(t *testing.T) {
 	}
 
 	vm.CantSetState = true
-	lastVtx := new(avalanche.TestVertex)
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		lastVtx = &avalanche.TestVertex{
+	lastVtx := new(axia.TestVertex)
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		lastVtx = &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
@@ -1479,17 +1479,17 @@ func TestEngineGetVertex(t *testing.T) {
 	}
 	engCfg.AllGetsServer = avaGetHandler
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1538,18 +1538,18 @@ func TestEngineInsufficientValidators(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -1560,7 +1560,7 @@ func TestEngineInsufficientValidators(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1614,18 +1614,18 @@ func TestEnginePushGossip(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -1636,7 +1636,7 @@ func TestEnginePushGossip(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1663,7 +1663,7 @@ func TestEnginePushGossip(t *testing.T) {
 		*requested = true
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx.BytesV) {
 			return vtx, nil
 		}
@@ -1702,18 +1702,18 @@ func TestEngineSingleQuery(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -1724,7 +1724,7 @@ func TestEngineSingleQuery(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1774,18 +1774,18 @@ func TestEngineParentBlockingInsert(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	missingVtx := &avalanche.TestVertex{
+	missingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -1795,28 +1795,28 @@ func TestEngineParentBlockingInsert(t *testing.T) {
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
-	parentVtx := &avalanche.TestVertex{
+	parentVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{missingVtx},
+		ParentsV: []axia.Vertex{missingVtx},
 		HeightV:  2,
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
-	blockingVtx := &avalanche.TestVertex{
+	blockingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{parentVtx},
+		ParentsV: []axia.Vertex{parentVtx},
 		HeightV:  3,
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1879,18 +1879,18 @@ func TestEngineBlockingChitRequest(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	missingVtx := &avalanche.TestVertex{
+	missingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -1900,28 +1900,28 @@ func TestEngineBlockingChitRequest(t *testing.T) {
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
-	parentVtx := &avalanche.TestVertex{
+	parentVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{missingVtx},
+		ParentsV: []axia.Vertex{missingVtx},
 		HeightV:  2,
 		BytesV:   []byte{1, 1, 2, 3},
 	}
 
-	blockingVtx := &avalanche.TestVertex{
+	blockingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{parentVtx},
+		ParentsV: []axia.Vertex{parentVtx},
 		HeightV:  3,
 		BytesV:   []byte{2, 1, 2, 3},
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -1945,14 +1945,14 @@ func TestEngineBlockingChitRequest(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == blockingVtx.ID() {
 			return blockingVtx, nil
 		}
 		t.Fatalf("Unknown vertex")
 		panic("Should have errored")
 	}
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, blockingVtx.Bytes()) {
 			return blockingVtx, nil
 		}
@@ -2001,18 +2001,18 @@ func TestEngineBlockingChitResponse(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	issuedVtx := &avalanche.TestVertex{
+	issuedVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -2022,7 +2022,7 @@ func TestEngineBlockingChitResponse(t *testing.T) {
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
-	missingVtx := &avalanche.TestVertex{
+	missingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -2032,18 +2032,18 @@ func TestEngineBlockingChitResponse(t *testing.T) {
 		BytesV:   []byte{1, 1, 2, 3},
 	}
 
-	blockingVtx := &avalanche.TestVertex{
+	blockingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{missingVtx},
+		ParentsV: []axia.Vertex{missingVtx},
 		HeightV:  2,
 		BytesV:   []byte{2, 1, 2, 3},
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -2084,7 +2084,7 @@ func TestEngineBlockingChitResponse(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		if id == blockingVtx.ID() {
 			return blockingVtx, nil
 		}
@@ -2134,18 +2134,18 @@ func TestEngineMissingTx(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 
-	issuedVtx := &avalanche.TestVertex{
+	issuedVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -2155,7 +2155,7 @@ func TestEngineMissingTx(t *testing.T) {
 		BytesV:   []byte{0, 1, 2, 3},
 	}
 
-	missingVtx := &avalanche.TestVertex{
+	missingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -2165,18 +2165,18 @@ func TestEngineMissingTx(t *testing.T) {
 		BytesV:   []byte{1, 1, 2, 3},
 	}
 
-	blockingVtx := &avalanche.TestVertex{
+	blockingVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{missingVtx},
+		ParentsV: []axia.Vertex{missingVtx},
 		HeightV:  2,
 		BytesV:   []byte{2, 1, 2, 3},
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -2217,7 +2217,7 @@ func TestEngineMissingTx(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		if id == blockingVtx.ID() {
 			return blockingVtx, nil
 		}
@@ -2261,12 +2261,12 @@ func TestEngineIssueBlockingTx(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -2284,7 +2284,7 @@ func TestEngineIssueBlockingTx(t *testing.T) {
 	}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -2332,12 +2332,12 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 
 	vtxID0 := ids.GenerateTestID()
 	vtxID1 := ids.GenerateTestID()
@@ -2345,7 +2345,7 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 	vtxBytes0 := []byte{0}
 	vtxBytes1 := []byte{1}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Unknown,
@@ -2354,12 +2354,12 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 		HeightV:  1,
 		BytesV:   vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		BytesV:   vtxBytes1,
 	}
@@ -2368,7 +2368,7 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 		return []ids.ID{gVtx.ID()}
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == gVtx.ID() {
 			return gVtx, nil
 		}
@@ -2392,14 +2392,14 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 	sender.SendGetF = func(vID ids.NodeID, reqID uint32, vtxID ids.ID) {
 		*requestID = reqID
 	}
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtxBytes1) {
 			return vtx1, nil
 		}
 		t.Fatalf("Unknown bytes provided")
 		panic("Unknown bytes provided")
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID1 {
 			return vtx1, nil
 		}
@@ -2425,7 +2425,7 @@ func TestEngineReissueAbortedVertex(t *testing.T) {
 			*requested = true
 		}
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID1 {
 			return vtx1, nil
 		}
@@ -2513,7 +2513,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 	vtxBytes0 := []byte{2}
 	vtxBytes1 := []byte{3}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Processing,
@@ -2522,12 +2522,12 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 		TxsV:    []snowstorm.Tx{tx0},
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   vtxBytes1,
@@ -2600,7 +2600,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Should have requested from the validators during AcceptedFrontier")
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID0 {
 			return nil, errMissing
 		}
@@ -2632,7 +2632,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Unknown bytes provided")
 		panic("Unknown bytes provided")
 	}
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtxBytes0) {
 			return vtx0, nil
 		}
@@ -2642,7 +2642,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 	manager.EdgeF = func() []ids.ID {
 		return []ids.ID{vtxID0}
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID0 {
 			return vtx0, nil
 		}
@@ -2666,7 +2666,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Should have accepted %s", vtxID0)
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtxBytes1) {
 			return vtx1, nil
 		}
@@ -2699,7 +2699,7 @@ func TestEngineBootstrappingIntoConsensus(t *testing.T) {
 			t.Fatalf("Sent wrong query bytes")
 		}
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID1 {
 			return vtx1, nil
 		}
@@ -2954,7 +2954,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 	vtxBytes0 := []byte{2}
 	vtxBytes1 := []byte{3}
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID0,
 			StatusV: choices.Processing,
@@ -2963,12 +2963,12 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 		TxsV:    []snowstorm.Tx{tx0},
 		BytesV:  vtxBytes0,
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     vtxID1,
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   vtxBytes1,
@@ -3049,7 +3049,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Should have requested from the validators during AcceptedFrontier")
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID0 {
 			return nil, errMissing
 		}
@@ -3080,7 +3080,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Unknown bytes provided")
 		panic("Unknown bytes provided")
 	}
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtxBytes0) {
 			return vtx0, nil
 		}
@@ -3090,7 +3090,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 	manager.EdgeF = func() []ids.ID {
 		return []ids.ID{vtxID0}
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID0 {
 			return vtx0, nil
 		}
@@ -3116,7 +3116,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 		t.Fatalf("Should have accepted %s", vtxID0)
 	}
 
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtxBytes1) {
 			return vtx1, nil
 		}
@@ -3149,7 +3149,7 @@ func TestEngineReBootstrappingIntoConsensus(t *testing.T) {
 			t.Fatalf("Sent wrong query bytes")
 		}
 	}
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == vtxID1 {
 			return vtx1, nil
 		}
@@ -3181,12 +3181,12 @@ func TestEngineUndeclaredDependencyDeadlock(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3204,7 +3204,7 @@ func TestEngineUndeclaredDependencyDeadlock(t *testing.T) {
 	}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -3213,12 +3213,12 @@ func TestEngineUndeclaredDependencyDeadlock(t *testing.T) {
 		HeightV:  1,
 		TxsV:     []snowstorm.Tx{tx0},
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx1},
 	}
@@ -3252,7 +3252,7 @@ func TestEngineUndeclaredDependencyDeadlock(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		switch vtxID {
 		case vtx0.ID():
 			return vtx0, nil
@@ -3285,12 +3285,12 @@ func TestEnginePartiallyValidVertex(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3308,7 +3308,7 @@ func TestEnginePartiallyValidVertex(t *testing.T) {
 	}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -3328,8 +3328,8 @@ func TestEnginePartiallyValidVertex(t *testing.T) {
 	}
 
 	expectedVtxID := ids.GenerateTestID()
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		return &avalanche.TestVertex{
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		return &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     expectedVtxID,
 				StatusV: choices.Processing,
@@ -3365,7 +3365,7 @@ func TestEngineGossip(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -3380,7 +3380,7 @@ func TestEngineGossip(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID()} }
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if vtxID == gVtx.ID() {
 			return gVtx, nil
 		}
@@ -3430,7 +3430,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{
+	gVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Accepted,
@@ -3438,7 +3438,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 		BytesV: []byte{0},
 	}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3453,7 +3453,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 	}}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -3463,12 +3463,12 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 		TxsV:     []snowstorm.Tx{tx0},
 		BytesV:   []byte{1},
 	}
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   []byte{2},
@@ -3484,7 +3484,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 	}
 
 	parsed := new(bool)
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx1.Bytes()) {
 			*parsed = true
 			return vtx1, nil
@@ -3492,7 +3492,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 		return nil, errUnknownVertex
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if !*parsed {
 			return nil, errUnknownVertex
 		}
@@ -3523,7 +3523,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 	}
 
 	*parsed = false
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx0.Bytes()) {
 			*parsed = true
 			return vtx0, nil
@@ -3531,7 +3531,7 @@ func TestEngineInvalidVertexIgnoredFromUnexpectedPeer(t *testing.T) {
 		return nil, errUnknownVertex
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if !*parsed {
 			return nil, errUnknownVertex
 		}
@@ -3573,7 +3573,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 	manager := vertex.NewTestManager(t)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{
+	gVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Accepted,
@@ -3581,7 +3581,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 		BytesV: []byte{0},
 	}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3596,7 +3596,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 	}}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx0 := &avalanche.TestVertex{
+	vtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
@@ -3607,12 +3607,12 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 		BytesV:   []byte{1},
 	}
 
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx0},
+		ParentsV: []axia.Vertex{vtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   []byte{2},
@@ -3628,7 +3628,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 	}
 
 	parsed := new(bool)
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx1.Bytes()) {
 			*parsed = true
 			return vtx1, nil
@@ -3636,7 +3636,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 		return nil, errUnknownVertex
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if !*parsed {
 			return nil, errUnknownVertex
 		}
@@ -3670,7 +3670,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 	}
 
 	*parsed = false
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx0.Bytes()) {
 			*parsed = true
 			return vtx0, nil
@@ -3678,7 +3678,7 @@ func TestEnginePushQueryRequestIDConflict(t *testing.T) {
 		return nil, errUnknownVertex
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if !*parsed {
 			return nil, errUnknownVertex
 		}
@@ -3727,7 +3727,7 @@ func TestEngineAggressivePolling(t *testing.T) {
 	vm.Default(true)
 	engCfg.VM = vm
 
-	gVtx := &avalanche.TestVertex{
+	gVtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Accepted,
@@ -3735,7 +3735,7 @@ func TestEngineAggressivePolling(t *testing.T) {
 		BytesV: []byte{0},
 	}
 
-	vts := []avalanche.Vertex{gVtx}
+	vts := []axia.Vertex{gVtx}
 	utxos := []ids.ID{ids.GenerateTestID(), ids.GenerateTestID()}
 
 	tx0 := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3750,7 +3750,7 @@ func TestEngineAggressivePolling(t *testing.T) {
 	}}
 	tx1.InputIDsV = append(tx1.InputIDsV, utxos[1])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -3773,7 +3773,7 @@ func TestEngineAggressivePolling(t *testing.T) {
 
 	vm.CantSetState = true
 	parsed := new(bool)
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx.Bytes()) {
 			*parsed = true
 			return vtx, nil
@@ -3781,7 +3781,7 @@ func TestEngineAggressivePolling(t *testing.T) {
 		return nil, errUnknownVertex
 	}
 
-	manager.GetVtxF = func(vtxID ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(vtxID ids.ID) (axia.Vertex, error) {
 		if !*parsed {
 			return nil, errUnknownVertex
 		}
@@ -3840,11 +3840,11 @@ func TestEngineDuplicatedIssuance(t *testing.T) {
 	vm.Default(true)
 	engCfg.VM = vm
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -3866,7 +3866,7 @@ func TestEngineDuplicatedIssuance(t *testing.T) {
 	tx.InputIDsV = append(tx.InputIDsV, utxos[0])
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -3888,14 +3888,14 @@ func TestEngineDuplicatedIssuance(t *testing.T) {
 	}
 
 	vm.CantSetState = true
-	lastVtx := new(avalanche.TestVertex)
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
-		lastVtx = &avalanche.TestVertex{
+	lastVtx := new(axia.TestVertex)
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
+		lastVtx = &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
@@ -3914,7 +3914,7 @@ func TestEngineDuplicatedIssuance(t *testing.T) {
 		t.Fatalf("Should have issued txs differently")
 	}
 
-	manager.BuildVtxF = func([]ids.ID, []snowstorm.Tx) (avalanche.Vertex, error) {
+	manager.BuildVtxF = func([]ids.ID, []snowstorm.Tx) (axia.Vertex, error) {
 		t.Fatalf("shouldn't have attempted to issue a duplicated tx")
 		return nil, nil
 	}
@@ -3953,16 +3953,16 @@ func TestEngineDoubleChit(t *testing.T) {
 	manager.Default(true)
 	engCfg.Manager = manager
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
 
-	vts := []avalanche.Vertex{gVtx, mVtx}
+	vts := []axia.Vertex{gVtx, mVtx}
 	utxos := []ids.ID{ids.GenerateTestID()}
 
 	tx := &snowstorm.TestTx{TestDecidable: choices.TestDecidable{
@@ -3971,7 +3971,7 @@ func TestEngineDoubleChit(t *testing.T) {
 	}}
 	tx.InputIDsV = append(tx.InputIDsV, utxos[0])
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -3983,7 +3983,7 @@ func TestEngineDoubleChit(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{vts[0].ID(), vts[1].ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -4013,7 +4013,7 @@ func TestEngineDoubleChit(t *testing.T) {
 			t.Fatalf("Wrong vertex requested")
 		}
 	}
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		if id == vtx.ID() {
 			return vtx, nil
 		}
@@ -4103,7 +4103,7 @@ func TestEngineBubbleVotes(t *testing.T) {
 		InputIDsV: utxos[1:2],
 	}
 
-	vtx := &avalanche.TestVertex{
+	vtx := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
@@ -4113,35 +4113,35 @@ func TestEngineBubbleVotes(t *testing.T) {
 		BytesV:  []byte{0},
 	}
 
-	missingVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	missingVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Unknown,
 	}}
 
-	pendingVtx0 := &avalanche.TestVertex{
+	pendingVtx0 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{vtx, missingVtx},
+		ParentsV: []axia.Vertex{vtx, missingVtx},
 		HeightV:  1,
 		TxsV:     []snowstorm.Tx{tx1},
 		BytesV:   []byte{1},
 	}
 
-	pendingVtx1 := &avalanche.TestVertex{
+	pendingVtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Processing,
 		},
-		ParentsV: []avalanche.Vertex{pendingVtx0},
+		ParentsV: []axia.Vertex{pendingVtx0},
 		HeightV:  2,
 		TxsV:     []snowstorm.Tx{tx2},
 		BytesV:   []byte{2},
 	}
 
 	manager.EdgeF = func() []ids.ID { return nil }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case vtx.ID():
 			return vtx, nil
@@ -4231,11 +4231,11 @@ func TestEngineIssue(t *testing.T) {
 	vm.Default(true)
 	engCfg.VM = vm
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
-	mVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	mVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -4265,7 +4265,7 @@ func TestEngineIssue(t *testing.T) {
 	}
 
 	manager.EdgeF = func() []ids.ID { return []ids.ID{gVtx.ID(), mVtx.ID()} }
-	manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+	manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 		switch id {
 		case gVtx.ID():
 			return gVtx, nil
@@ -4288,20 +4288,20 @@ func TestEngineIssue(t *testing.T) {
 
 	vm.CantSetState = true
 	numBuilt := 0
-	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (avalanche.Vertex, error) {
+	manager.BuildVtxF = func(_ []ids.ID, txs []snowstorm.Tx) (axia.Vertex, error) {
 		numBuilt++
-		vtx := &avalanche.TestVertex{
+		vtx := &axia.TestVertex{
 			TestDecidable: choices.TestDecidable{
 				IDV:     ids.GenerateTestID(),
 				StatusV: choices.Processing,
 			},
-			ParentsV: []avalanche.Vertex{gVtx, mVtx},
+			ParentsV: []axia.Vertex{gVtx, mVtx},
 			HeightV:  1,
 			TxsV:     txs,
 			BytesV:   []byte{1},
 		}
 
-		manager.GetVtxF = func(id ids.ID) (avalanche.Vertex, error) {
+		manager.GetVtxF = func(id ids.ID) (axia.Vertex, error) {
 			switch id {
 			case gVtx.ID():
 				return gVtx, nil
@@ -4389,7 +4389,7 @@ func TestAbandonTx(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	gVtx := &avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+	gVtx := &axia.TestVertex{TestDecidable: choices.TestDecidable{
 		IDV:     ids.GenerateTestID(),
 		StatusV: choices.Accepted,
 	}}
@@ -4420,24 +4420,24 @@ func TestAbandonTx(t *testing.T) {
 		BytesV:        utils.RandomBytes(32),
 	}
 
-	vtx0 := &avalanche.TestVertex{ // Contains tx0, which will fail verification
+	vtx0 := &axia.TestVertex{ // Contains tx0, which will fail verification
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{gVtx},
+		ParentsV: []axia.Vertex{gVtx},
 		HeightV:  gVtx.HeightV + 1,
 		TxsV:     []snowstorm.Tx{tx0},
 	}
 
 	// Contains tx1, which depends on tx0.
 	// vtx0 and vtx1 are siblings.
-	vtx1 := &avalanche.TestVertex{
+	vtx1 := &axia.TestVertex{
 		TestDecidable: choices.TestDecidable{
 			IDV:     ids.GenerateTestID(),
 			StatusV: choices.Unknown,
 		},
-		ParentsV: []avalanche.Vertex{gVtx},
+		ParentsV: []axia.Vertex{gVtx},
 		HeightV:  gVtx.HeightV + 1,
 		TxsV:     []snowstorm.Tx{tx1},
 	}
@@ -4453,7 +4453,7 @@ func TestAbandonTx(t *testing.T) {
 
 	// Give the engine vtx1. It should wait to issue vtx1
 	// until tx0 is issued, because tx1 depends on tx0.
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx1.BytesV) {
 			vtx1.StatusV = choices.Processing
 			return vtx1, nil
@@ -4469,7 +4469,7 @@ func TestAbandonTx(t *testing.T) {
 
 	// Give the engine vtx0. It should try to issue vtx0
 	// but then abandon it because tx0 fails verification.
-	manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+	manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 		if bytes.Equal(b, vtx0.BytesV) {
 			vtx0.StatusV = choices.Processing
 			return vtx0, nil
@@ -4538,13 +4538,13 @@ func TestSendMixedQuery(t *testing.T) {
 				}
 
 				// [blk1] is a child of [gBlk] and passes verification
-				vtx1 := &avalanche.TestVertex{
+				vtx1 := &axia.TestVertex{
 					TestDecidable: choices.TestDecidable{
 						IDV:     ids.GenerateTestID(),
 						StatusV: choices.Processing,
 					},
-					ParentsV: []avalanche.Vertex{
-						&avalanche.TestVertex{TestDecidable: choices.TestDecidable{
+					ParentsV: []axia.Vertex{
+						&axia.TestVertex{TestDecidable: choices.TestDecidable{
 							IDV:     ids.GenerateTestID(),
 							StatusV: choices.Accepted,
 						}},
@@ -4552,7 +4552,7 @@ func TestSendMixedQuery(t *testing.T) {
 					BytesV: []byte{1},
 				}
 
-				manager.ParseVtxF = func(b []byte) (avalanche.Vertex, error) {
+				manager.ParseVtxF = func(b []byte) (axia.Vertex, error) {
 					switch {
 					case bytes.Equal(b, vtx1.Bytes()):
 						return vtx1, nil

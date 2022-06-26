@@ -6,11 +6,11 @@ package states
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/avalanchego/cache"
-	"github.com/sankar-boro/avalanchego/cache/metercacher"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/vms/avm/txs"
+	"github.com/sankar-boro/axia/cache"
+	"github.com/sankar-boro/axia/cache/metercacher"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/vms/avm/txs"
 )
 
 const txCacheSize = 8192

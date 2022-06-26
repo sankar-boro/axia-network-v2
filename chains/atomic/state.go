@@ -7,13 +7,13 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/sankar-boro/avalanchego/codec"
-	"github.com/sankar-boro/avalanchego/database"
-	"github.com/sankar-boro/avalanchego/database/linkeddb"
-	"github.com/sankar-boro/avalanchego/database/prefixdb"
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/utils"
-	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/axia/codec"
+	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia/database/linkeddb"
+	"github.com/sankar-boro/axia/database/prefixdb"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia/utils/hashing"
 )
 
 var errDuplicatedOperation = errors.New("duplicated operation on provided value")

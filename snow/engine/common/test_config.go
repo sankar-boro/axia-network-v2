@@ -4,10 +4,10 @@
 package common
 
 import (
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/snow/engine/common/tracker"
-	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia/snow/validators"
 )
 
 // DefaultConfigTest returns a test configuration

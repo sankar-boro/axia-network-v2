@@ -13,11 +13,11 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/avalanchego/snow"
-	"github.com/sankar-boro/avalanchego/utils/resource"
-	"github.com/sankar-boro/avalanchego/utils/subprocess"
-	"github.com/sankar-boro/avalanchego/vms"
-	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia/utils/resource"
+	"github.com/sankar-boro/axia/utils/subprocess"
+	"github.com/sankar-boro/axia/vms"
+	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
 )
 
 var (

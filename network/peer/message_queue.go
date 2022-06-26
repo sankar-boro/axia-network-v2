@@ -7,10 +7,10 @@ import (
 	"context"
 	"sync"
 
-	"github.com/sankar-boro/avalanchego/ids"
-	"github.com/sankar-boro/avalanchego/message"
-	"github.com/sankar-boro/avalanchego/network/throttling"
-	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia/message"
+	"github.com/sankar-boro/axia/network/throttling"
+	"github.com/sankar-boro/axia/utils/logging"
 )
 
 var (
