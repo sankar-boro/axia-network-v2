@@ -17,9 +17,9 @@ import (
 // Returns:
 // 1) genesis bytes of vm
 // 2) the VM
-// 3) The wallet service that wraps the VM
+// 3) The axiawallet service that wraps the VM
 // 4) atomic memory to use in tests
-func setupWS(t *testing.T, isAXCAsset bool) ([]byte, *VM, *WalletService, *atomic.Memory, *txs.Tx) {
+func setupWS(t *testing.T, isAXCAsset bool) ([]byte, *VM, *AxiaWalletService, *atomic.Memory, *txs.Tx) {
 	var genesisBytes []byte
 	var vm *VM
 	var m *atomic.Memory
@@ -32,16 +32,16 @@ func setupWS(t *testing.T, isAXCAsset bool) ([]byte, *VM, *WalletService, *atomi
 		genesisTx = GetCreateTxFromGenesisTest(t, genesisBytes, feeAssetName)
 	}
 
-	ws := &WalletService{vm: vm, pendingTxMap: make(map[ids.ID]*list.Element), pendingTxOrdering: list.New()}
+	ws := &AxiaWalletService{vm: vm, pendingTxMap: make(map[ids.ID]*list.Element), pendingTxOrdering: list.New()}
 	return genesisBytes, vm, ws, m, genesisTx
 }
 
 // Returns:
 // 1) genesis bytes of vm
 // 2) the VM
-// 3) The wallet service that wraps the VM
+// 3) The axiawallet service that wraps the VM
 // 4) atomic memory to use in tests
-func setupWSWithKeys(t *testing.T, isAXCAsset bool) ([]byte, *VM, *WalletService, *atomic.Memory, *txs.Tx) {
+func setupWSWithKeys(t *testing.T, isAXCAsset bool) ([]byte, *VM, *AxiaWalletService, *atomic.Memory, *txs.Tx) {
 	genesisBytes, vm, ws, m, tx := setupWS(t, isAXCAsset)
 
 	// Import the initially funded private keys
@@ -60,7 +60,7 @@ func setupWSWithKeys(t *testing.T, isAXCAsset bool) ([]byte, *VM, *WalletService
 	return genesisBytes, vm, ws, m, tx
 }
 
-func TestWalletService_SendMultiple(t *testing.T) {
+func TestAxiaWalletService_SendMultiple(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			_, vm, ws, _, genesisTx := setupWSWithKeys(t, tc.axcAsset)

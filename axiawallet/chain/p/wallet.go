@@ -11,7 +11,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm/status"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
 
 	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
@@ -19,10 +19,10 @@ import (
 var (
 	errNotCommitted = errors.New("not committed")
 
-	_ Wallet = &wallet{}
+	_ AxiaWallet = &axiawallet{}
 )
 
-type Wallet interface {
+type AxiaWallet interface {
 	Context
 
 	// Builder returns the builder that will be used to create the transactions.
@@ -145,13 +145,13 @@ type Wallet interface {
 	) (ids.ID, error)
 }
 
-func NewWallet(
+func NewAxiaWallet(
 	builder Builder,
 	signer Signer,
 	client platformvm.Client,
 	backend Backend,
-) Wallet {
-	return &wallet{
+) AxiaWallet {
+	return &axiawallet{
 		Backend: backend,
 		builder: builder,
 		signer:  signer,
@@ -159,18 +159,18 @@ func NewWallet(
 	}
 }
 
-type wallet struct {
+type axiawallet struct {
 	Backend
 	builder Builder
 	signer  Signer
 	client  platformvm.Client
 }
 
-func (w *wallet) Builder() Builder { return w.builder }
+func (w *axiawallet) Builder() Builder { return w.builder }
 
-func (w *wallet) Signer() Signer { return w.signer }
+func (w *axiawallet) Signer() Signer { return w.signer }
 
-func (w *wallet) IssueBaseTx(
+func (w *axiawallet) IssueBaseTx(
 	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
@@ -181,7 +181,7 @@ func (w *wallet) IssueBaseTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueAddValidatorTx(
+func (w *axiawallet) IssueAddValidatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	shares uint32,
@@ -194,7 +194,7 @@ func (w *wallet) IssueAddValidatorTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueAddSubnetValidatorTx(
+func (w *axiawallet) IssueAddSubnetValidatorTx(
 	validator *coreChainValidator.SubnetValidator,
 	options ...common.Option,
 ) (ids.ID, error) {
@@ -205,7 +205,7 @@ func (w *wallet) IssueAddSubnetValidatorTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueAddNominatorTx(
+func (w *axiawallet) IssueAddNominatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
@@ -217,7 +217,7 @@ func (w *wallet) IssueAddNominatorTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueCreateChainTx(
+func (w *axiawallet) IssueCreateChainTx(
 	subnetID ids.ID,
 	genesis []byte,
 	vmID ids.ID,
@@ -232,7 +232,7 @@ func (w *wallet) IssueCreateChainTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueCreateSubnetTx(
+func (w *axiawallet) IssueCreateSubnetTx(
 	owner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {
@@ -243,7 +243,7 @@ func (w *wallet) IssueCreateSubnetTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueImportTx(
+func (w *axiawallet) IssueImportTx(
 	sourceChainID ids.ID,
 	to *secp256k1fx.OutputOwners,
 	options ...common.Option,
@@ -255,7 +255,7 @@ func (w *wallet) IssueImportTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueExportTx(
+func (w *axiawallet) IssueExportTx(
 	chainID ids.ID,
 	outputs []*axc.TransferableOutput,
 	options ...common.Option,
@@ -267,7 +267,7 @@ func (w *wallet) IssueExportTx(
 	return w.IssueUnsignedTx(utx, options...)
 }
 
-func (w *wallet) IssueUnsignedTx(
+func (w *axiawallet) IssueUnsignedTx(
 	utx platformvm.UnsignedTx,
 	options ...common.Option,
 ) (ids.ID, error) {
@@ -281,7 +281,7 @@ func (w *wallet) IssueUnsignedTx(
 	return w.IssueTx(tx, options...)
 }
 
-func (w *wallet) IssueTx(
+func (w *axiawallet) IssueTx(
 	tx *platformvm.Tx,
 	options ...common.Option,
 ) (ids.ID, error) {

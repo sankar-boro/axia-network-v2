@@ -18,14 +18,14 @@ import (
 	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
-type WalletService struct {
+type AxiaWalletService struct {
 	vm *VM
 
 	pendingTxMap      map[ids.ID]*list.Element
 	pendingTxOrdering *list.List
 }
 
-func (w *WalletService) decided(txID ids.ID) {
+func (w *AxiaWalletService) decided(txID ids.ID) {
 	e, ok := w.pendingTxMap[txID]
 	if !ok {
 		return
@@ -34,7 +34,7 @@ func (w *WalletService) decided(txID ids.ID) {
 	w.pendingTxOrdering.Remove(e)
 }
 
-func (w *WalletService) issue(txBytes []byte) (ids.ID, error) {
+func (w *AxiaWalletService) issue(txBytes []byte) (ids.ID, error) {
 	tx, err := w.vm.parser.Parse(txBytes)
 	if err != nil {
 		return ids.ID{}, err
@@ -53,7 +53,7 @@ func (w *WalletService) issue(txBytes []byte) (ids.ID, error) {
 	return txID, nil
 }
 
-func (w *WalletService) update(utxos []*axc.UTXO) ([]*axc.UTXO, error) {
+func (w *AxiaWalletService) update(utxos []*axc.UTXO) ([]*axc.UTXO, error) {
 	utxoMap := make(map[ids.ID]*axc.UTXO, len(utxos))
 	for _, utxo := range utxos {
 		utxoMap[utxo.InputID()] = utxo
@@ -87,8 +87,8 @@ func (w *WalletService) update(utxos []*axc.UTXO) ([]*axc.UTXO, error) {
 }
 
 // IssueTx attempts to issue a transaction into consensus
-func (w *WalletService) IssueTx(r *http.Request, args *api.FormattedTx, reply *api.JSONTxID) error {
-	w.vm.ctx.Log.Debug("AVM Wallet: IssueTx called with %s", args.Tx)
+func (w *AxiaWalletService) IssueTx(r *http.Request, args *api.FormattedTx, reply *api.JSONTxID) error {
+	w.vm.ctx.Log.Debug("AVM AxiaWallet: IssueTx called with %s", args.Tx)
 
 	txBytes, err := formatting.Decode(args.Encoding, args.Tx)
 	if err != nil {
@@ -100,7 +100,7 @@ func (w *WalletService) IssueTx(r *http.Request, args *api.FormattedTx, reply *a
 }
 
 // Send returns the ID of the newly created transaction
-func (w *WalletService) Send(r *http.Request, args *SendArgs, reply *api.JSONTxIDChangeAddr) error {
+func (w *AxiaWalletService) Send(r *http.Request, args *SendArgs, reply *api.JSONTxIDChangeAddr) error {
 	return w.SendMultiple(r, &SendMultipleArgs{
 		JSONSpendHeader: args.JSONSpendHeader,
 		Outputs:         []SendOutput{args.SendOutput},
@@ -109,8 +109,8 @@ func (w *WalletService) Send(r *http.Request, args *SendArgs, reply *api.JSONTxI
 }
 
 // SendMultiple sends a transaction with multiple outputs.
-func (w *WalletService) SendMultiple(r *http.Request, args *SendMultipleArgs, reply *api.JSONTxIDChangeAddr) error {
-	w.vm.ctx.Log.Debug("AVM Wallet: SendMultiple called with username: %s", args.Username)
+func (w *AxiaWalletService) SendMultiple(r *http.Request, args *SendMultipleArgs, reply *api.JSONTxIDChangeAddr) error {
+	w.vm.ctx.Log.Debug("AVM AxiaWallet: SendMultiple called with username: %s", args.Username)
 
 	// Validate the memo field
 	memoBytes := []byte(args.Memo)

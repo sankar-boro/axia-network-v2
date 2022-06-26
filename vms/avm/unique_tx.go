@@ -186,7 +186,7 @@ func (tx *UniqueTx) Accept() error {
 	}
 
 	tx.vm.pubsub.Publish(NewPubSubFilterer(tx.Tx))
-	tx.vm.walletService.decided(txID)
+	tx.vm.axiawalletService.decided(txID)
 
 	tx.deps = nil // Needed to prevent a memory leak
 	return nil
@@ -209,7 +209,7 @@ func (tx *UniqueTx) Reject() error {
 		return err
 	}
 
-	tx.vm.walletService.decided(txID)
+	tx.vm.axiawalletService.decided(txID)
 
 	tx.deps = nil // Needed to prevent a memory leak
 

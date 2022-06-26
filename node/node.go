@@ -793,7 +793,7 @@ func (n *Node) initSharedMemory() error {
 	return n.sharedMemory.Initialize(n.Log, sharedMemoryDB)
 }
 
-// initKeystoreAPI initializes the keystore service, which is an on-node wallet.
+// initKeystoreAPI initializes the keystore service, which is an on-node axiawallet.
 // Assumes n.APIServer is already set
 func (n *Node) initKeystoreAPI() error {
 	n.Log.Info("initializing keystore")

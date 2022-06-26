@@ -103,7 +103,7 @@ type VM struct {
 	typeToFxIndex map[reflect.Type]int
 	fxs           []*extensions.ParsedFx
 
-	walletService WalletService
+	axiawalletService AxiaWalletService
 
 	addressTxsIndexer index.AddressTxsIndexer
 
@@ -221,9 +221,9 @@ func (vm *VM) Initialize(
 	vm.uniqueTxs = &cache.EvictableLRU{
 		Size: txDeduplicatorSize,
 	}
-	vm.walletService.vm = vm
-	vm.walletService.pendingTxMap = make(map[ids.ID]*list.Element)
-	vm.walletService.pendingTxOrdering = list.New()
+	vm.axiawalletService.vm = vm
+	vm.axiawalletService.pendingTxMap = make(map[ids.ID]*list.Element)
+	vm.axiawalletService.pendingTxOrdering = list.New()
 
 	// use no op impl when disabled in config
 	if avmConfig.IndexTransactions {
@@ -304,17 +304,17 @@ func (vm *VM) CreateHandlers() (map[string]*common.HTTPHandler, error) {
 		return nil, err
 	}
 
-	walletServer := rpc.NewServer()
-	walletServer.RegisterCodec(codec, "application/json")
-	walletServer.RegisterCodec(codec, "application/json;charset=UTF-8")
-	walletServer.RegisterInterceptFunc(vm.metrics.apiRequestMetric.InterceptRequest)
-	walletServer.RegisterAfterFunc(vm.metrics.apiRequestMetric.AfterRequest)
-	// name this service "wallet"
-	err := walletServer.RegisterService(&vm.walletService, "wallet")
+	axiawalletServer := rpc.NewServer()
+	axiawalletServer.RegisterCodec(codec, "application/json")
+	axiawalletServer.RegisterCodec(codec, "application/json;charset=UTF-8")
+	axiawalletServer.RegisterInterceptFunc(vm.metrics.apiRequestMetric.InterceptRequest)
+	axiawalletServer.RegisterAfterFunc(vm.metrics.apiRequestMetric.AfterRequest)
+	// name this service "axiawallet"
+	err := axiawalletServer.RegisterService(&vm.axiawalletService, "axiawallet")
 
 	return map[string]*common.HTTPHandler{
 		"":        {Handler: rpcServer},
-		"/wallet": {Handler: walletServer},
+		"/axiawallet": {Handler: axiawalletServer},
 		"/events": {LockOptions: common.NoLock, Handler: vm.pubsub},
 	}, err
 }

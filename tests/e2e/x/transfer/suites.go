@@ -20,8 +20,8 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/avm"
 	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
 )
 
 var keyFactory crypto.FactorySECP256K1R
@@ -47,14 +47,14 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 			genesis.EWOQKey,
 			randomKey,
 		)
-		var baseWallet primary.Wallet
-		ginkgo.By("setting up a base wallet", func() {
-			walletURI := uris[0]
+		var baseAxiaWallet primary.AxiaWallet
+		ginkgo.By("setting up a base axiawallet", func() {
+			axiawalletURI := uris[0]
 
-			// 5-second is enough to fetch initial UTXOs for test cluster in "primary.NewWallet"
-			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultWalletCreationTimeout)
+			// 5-second is enough to fetch initial UTXOs for test cluster in "primary.NewAxiaWallet"
+			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultAxiaWalletCreationTimeout)
 			var err error
-			baseWallet, err = primary.NewWalletFromURI(ctx, walletURI, keys)
+			baseAxiaWallet, err = primary.NewAxiaWalletFromURI(ctx, axiawalletURI, keys)
 			cancel()
 			gomega.Expect(err).Should(gomega.BeNil())
 		})
@@ -84,43 +84,43 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 			}
 		})
 
-		ewoqWallet := primary.NewWalletWithOptions(
-			baseWallet,
+		ewoqAxiaWallet := primary.NewAxiaWalletWithOptions(
+			baseAxiaWallet,
 			common.WithCustomAddresses(ids.ShortSet{
 				ewoqAddr: struct{}{},
 			}),
 		)
-		randWallet := primary.NewWalletWithOptions(
-			baseWallet,
+		randAxiaWallet := primary.NewAxiaWalletWithOptions(
+			baseAxiaWallet,
 			common.WithCustomAddresses(ids.ShortSet{
 				randomAddr: struct{}{},
 			}),
 		)
 		var txID ids.ID
 		ginkgo.By("issue regular, virtuous Swap-Chain tx should succeed", func() {
-			balances, err := ewoqWallet.X().Builder().GetFTBalance()
+			balances, err := ewoqAxiaWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			axcAssetID := baseWallet.X().AXCAssetID()
+			axcAssetID := baseAxiaWallet.X().AXCAssetID()
 			ewoqPrevBalX := balances[axcAssetID]
-			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", ewoqPrevBalX)
+			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", ewoqPrevBalX)
 
-			balances, err = randWallet.X().Builder().GetFTBalance()
+			balances, err = randAxiaWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
 			randPrevBalX := balances[axcAssetID]
-			tests.Outf("{{green}}rand wallet balance:{{/}} %d\n", randPrevBalX)
+			tests.Outf("{{green}}rand axiawallet balance:{{/}} %d\n", randPrevBalX)
 
 			amount := ewoqPrevBalX / 10
 			if amount == 0 {
-				ginkgo.Skip("not enough balance in the test wallet")
+				ginkgo.Skip("not enough balance in the test axiawallet")
 			}
 			tests.Outf("{{green}}amount to transfer:{{/}} %d\n", amount)
 
 			// transfer "amount" from "ewoq" to "random"
 			tests.Outf("{{blue}}transferring %d from 'ewoq' to 'random' at %q{{/}}\n", amount, uris[0])
 			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultConfirmTxTimeout)
-			txID, err = ewoqWallet.X().IssueBaseTx(
+			txID, err = ewoqAxiaWallet.X().IssueBaseTx(
 				[]*axc.TransferableOutput{{
 					Asset: axc.Asset{
 						ID: axcAssetID,
@@ -138,17 +138,17 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 			cancel()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			balances, err = ewoqWallet.X().Builder().GetFTBalance()
+			balances, err = ewoqAxiaWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 			ewoqCurBalX := balances[axcAssetID]
-			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", ewoqCurBalX)
+			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", ewoqCurBalX)
 
-			balances, err = randWallet.X().Builder().GetFTBalance()
+			balances, err = randAxiaWallet.X().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 			randCurBalX := balances[axcAssetID]
-			tests.Outf("{{green}}ewoq wallet balance:{{/}} %d\n", randCurBalX)
+			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", randCurBalX)
 
-			gomega.Expect(ewoqCurBalX).Should(gomega.Equal(ewoqPrevBalX - amount - baseWallet.X().BaseTxFee()))
+			gomega.Expect(ewoqCurBalX).Should(gomega.Equal(ewoqPrevBalX - amount - baseAxiaWallet.X().BaseTxFee()))
 			gomega.Expect(randCurBalX).Should(gomega.Equal(randPrevBalX + amount))
 		})
 

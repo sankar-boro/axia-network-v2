@@ -23,7 +23,7 @@ type ChainUTXOs interface {
 	GetUTXO(ctx stdcontext.Context, sourceChainID, utxoID ids.ID) (*axc.UTXO, error)
 }
 
-// Backend defines the full interface required to support an Swap-chain wallet.
+// Backend defines the full interface required to support an Swap-chain axiawallet.
 type Backend interface {
 	ChainUTXOs
 	BuilderBackend

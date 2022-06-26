@@ -8,52 +8,52 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
 
 	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
 
-var _ Wallet = &walletWithOptions{}
+var _ AxiaWallet = &axiawalletWithOptions{}
 
-func NewWalletWithOptions(
-	wallet Wallet,
+func NewAxiaWalletWithOptions(
+	axiawallet AxiaWallet,
 	options ...common.Option,
-) Wallet {
-	return &walletWithOptions{
-		Wallet:  wallet,
+) AxiaWallet {
+	return &axiawalletWithOptions{
+		AxiaWallet:  axiawallet,
 		options: options,
 	}
 }
 
-type walletWithOptions struct {
-	Wallet
+type axiawalletWithOptions struct {
+	AxiaWallet
 	options []common.Option
 }
 
-func (w *walletWithOptions) Builder() Builder {
+func (w *axiawalletWithOptions) Builder() Builder {
 	return NewBuilderWithOptions(
-		w.Wallet.Builder(),
+		w.AxiaWallet.Builder(),
 		w.options...,
 	)
 }
 
-func (w *walletWithOptions) IssueBaseTx(
+func (w *axiawalletWithOptions) IssueBaseTx(
 	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueBaseTx(
+	return w.AxiaWallet.IssueBaseTx(
 		outputs,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueAddValidatorTx(
+func (w *axiawalletWithOptions) IssueAddValidatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	shares uint32,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueAddValidatorTx(
+	return w.AxiaWallet.IssueAddValidatorTx(
 		validator,
 		rewardsOwner,
 		shares,
@@ -61,29 +61,29 @@ func (w *walletWithOptions) IssueAddValidatorTx(
 	)
 }
 
-func (w *walletWithOptions) IssueAddSubnetValidatorTx(
+func (w *axiawalletWithOptions) IssueAddSubnetValidatorTx(
 	validator *coreChainValidator.SubnetValidator,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueAddSubnetValidatorTx(
+	return w.AxiaWallet.IssueAddSubnetValidatorTx(
 		validator,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueAddNominatorTx(
+func (w *axiawalletWithOptions) IssueAddNominatorTx(
 	validator *coreChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueAddNominatorTx(
+	return w.AxiaWallet.IssueAddNominatorTx(
 		validator,
 		rewardsOwner,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueCreateChainTx(
+func (w *axiawalletWithOptions) IssueCreateChainTx(
 	subnetID ids.ID,
 	genesis []byte,
 	vmID ids.ID,
@@ -91,7 +91,7 @@ func (w *walletWithOptions) IssueCreateChainTx(
 	chainName string,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueCreateChainTx(
+	return w.AxiaWallet.IssueCreateChainTx(
 		subnetID,
 		genesis,
 		vmID,
@@ -101,55 +101,55 @@ func (w *walletWithOptions) IssueCreateChainTx(
 	)
 }
 
-func (w *walletWithOptions) IssueCreateSubnetTx(
+func (w *axiawalletWithOptions) IssueCreateSubnetTx(
 	owner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueCreateSubnetTx(
+	return w.AxiaWallet.IssueCreateSubnetTx(
 		owner,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueImportTx(
+func (w *axiawalletWithOptions) IssueImportTx(
 	sourceChainID ids.ID,
 	to *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueImportTx(
+	return w.AxiaWallet.IssueImportTx(
 		sourceChainID,
 		to,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueExportTx(
+func (w *axiawalletWithOptions) IssueExportTx(
 	chainID ids.ID,
 	outputs []*axc.TransferableOutput,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueExportTx(
+	return w.AxiaWallet.IssueExportTx(
 		chainID,
 		outputs,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueUnsignedTx(
+func (w *axiawalletWithOptions) IssueUnsignedTx(
 	utx platformvm.UnsignedTx,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueUnsignedTx(
+	return w.AxiaWallet.IssueUnsignedTx(
 		utx,
 		common.UnionOptions(w.options, options)...,
 	)
 }
 
-func (w *walletWithOptions) IssueTx(
+func (w *axiawalletWithOptions) IssueTx(
 	tx *platformvm.Tx,
 	options ...common.Option,
 ) (ids.ID, error) {
-	return w.Wallet.IssueTx(
+	return w.AxiaWallet.IssueTx(
 		tx,
 		common.UnionOptions(w.options, options)...,
 	)

@@ -24,7 +24,7 @@ var _ Client = &client{}
 
 // Client for interacting with an AVM (Swap-Chain) instance
 type Client interface {
-	WalletClient
+	AxiaWalletClient
 	// GetTxStatus returns the status of [txID]
 	GetTxStatus(ctx context.Context, txID ids.ID, options ...rpc.Option) (choices.Status, error)
 	// ConfirmTx attempts to confirm [txID] by repeatedly checking its status.

@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
 
 	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )

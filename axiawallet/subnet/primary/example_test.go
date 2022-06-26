@@ -16,27 +16,27 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
-func ExampleWallet() {
+func ExampleAxiaWallet() {
 	ctx := context.Background()
 	kc := secp256k1fx.NewKeychain(genesis.EWOQKey)
 
-	// NewWalletFromURI fetches the available UTXOs owned by [kc] on the network
+	// NewAxiaWalletFromURI fetches the available UTXOs owned by [kc] on the network
 	// that [LocalAPIURI] is hosting.
-	walletSyncStartTime := time.Now()
-	wallet, err := NewWalletFromURI(ctx, LocalAPIURI, kc)
+	axiawalletSyncStartTime := time.Now()
+	axiawallet, err := NewAxiaWalletFromURI(ctx, LocalAPIURI, kc)
 	if err != nil {
-		fmt.Printf("failed to initialize wallet with: %s\n", err)
+		fmt.Printf("failed to initialize axiawallet with: %s\n", err)
 		return
 	}
-	fmt.Printf("synced wallet in %s\n", time.Since(walletSyncStartTime))
+	fmt.Printf("synced axiawallet in %s\n", time.Since(axiawalletSyncStartTime))
 
-	// Get the Core-chain and the Swap-chain wallets
-	pWallet := wallet.P()
-	xWallet := wallet.X()
+	// Get the Core-chain and the Swap-chain axiawallets
+	pAxiaWallet := axiawallet.P()
+	xAxiaWallet := axiawallet.X()
 
 	// Pull out useful constants to use when issuing transactions.
-	swapChainID := xWallet.BlockchainID()
-	axcAssetID := xWallet.AXCAssetID()
+	swapChainID := xAxiaWallet.BlockchainID()
+	axcAssetID := xAxiaWallet.AXCAssetID()
 	owner := &secp256k1fx.OutputOwners{
 		Threshold: 1,
 		Addrs: []ids.ShortID{
@@ -46,7 +46,7 @@ func ExampleWallet() {
 
 	// Send 100 schmeckles to the Core-chain.
 	exportStartTime := time.Now()
-	exportTxID, err := xWallet.IssueExportTx(
+	exportTxID, err := xAxiaWallet.IssueExportTx(
 		constants.PlatformChainID,
 		[]*axc.TransferableOutput{
 			{
@@ -68,7 +68,7 @@ func ExampleWallet() {
 
 	// Import the 100 schmeckles from the Swap-chain into the Core-chain.
 	importStartTime := time.Now()
-	importTxID, err := pWallet.IssueImportTx(swapChainID, owner)
+	importTxID, err := pAxiaWallet.IssueImportTx(swapChainID, owner)
 	if err != nil {
 		fmt.Printf("failed to issue X->P import transaction with: %s\n", err)
 		return

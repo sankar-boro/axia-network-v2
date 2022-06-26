@@ -15,10 +15,10 @@ import (
 	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 )
 
-var _ WalletClient = &client{}
+var _ AxiaWalletClient = &client{}
 
-// interface of an AVM wallet client for interacting with avm managed wallet on [chain]
-type WalletClient interface {
+// interface of an AVM axiawallet client for interacting with avm managed axiawallet on [chain]
+type AxiaWalletClient interface {
 	// IssueTx issues a transaction to a node and returns the TxID
 	IssueTx(ctx context.Context, tx []byte, options ...rpc.Option) (ids.ID, error)
 	// Send [amount] of [assetID] to address [to]
@@ -45,25 +45,25 @@ type WalletClient interface {
 	) (ids.ID, error)
 }
 
-// implementation of an AVM wallet client for interacting with avm managed wallet on [chain]
-type walletClient struct {
+// implementation of an AVM axiawallet client for interacting with avm managed axiawallet on [chain]
+type axiawalletClient struct {
 	requester rpc.EndpointRequester
 }
 
-// NewWalletClient returns an AVM wallet client for interacting with avm managed wallet on [chain]
-func NewWalletClient(uri, chain string) WalletClient {
+// NewAxiaWalletClient returns an AVM axiawallet client for interacting with avm managed axiawallet on [chain]
+func NewAxiaWalletClient(uri, chain string) AxiaWalletClient {
 	path := fmt.Sprintf(
-		"%s/ext/%s/%s/wallet",
+		"%s/ext/%s/%s/axiawallet",
 		uri,
 		constants.ChainAliasPrefix,
 		chain,
 	)
-	return &walletClient{
-		requester: rpc.NewEndpointRequester(path, "wallet"),
+	return &axiawalletClient{
+		requester: rpc.NewEndpointRequester(path, "axiawallet"),
 	}
 }
 
-func (c *walletClient) IssueTx(ctx context.Context, txBytes []byte, options ...rpc.Option) (ids.ID, error) {
+func (c *axiawalletClient) IssueTx(ctx context.Context, txBytes []byte, options ...rpc.Option) (ids.ID, error) {
 	txStr, err := formatting.EncodeWithChecksum(formatting.Hex, txBytes)
 	if err != nil {
 		return ids.ID{}, err
@@ -88,7 +88,7 @@ type ClientSendOutput struct {
 	To ids.ShortID
 }
 
-func (c *walletClient) Send(
+func (c *axiawalletClient) Send(
 	ctx context.Context,
 	user api.UserPass,
 	from []ids.ShortID,
@@ -116,7 +116,7 @@ func (c *walletClient) Send(
 	return res.TxID, err
 }
 
-func (c *walletClient) SendMultiple(
+func (c *axiawalletClient) SendMultiple(
 	ctx context.Context,
 	user api.UserPass,
 	from []ids.ShortID,

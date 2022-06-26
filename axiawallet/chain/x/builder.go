@@ -17,7 +17,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/nftfx"
 	"github.com/sankar-boro/axia-network-v2/vms/propertyfx"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
 )
 
 var (

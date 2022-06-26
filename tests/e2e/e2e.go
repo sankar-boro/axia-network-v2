@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	// Enough for primary.NewWallet to fetch initial UTXOs.
-	DefaultWalletCreationTimeout = 5 * time.Second
+	// Enough for primary.NewAxiaWallet to fetch initial UTXOs.
+	DefaultAxiaWalletCreationTimeout = 5 * time.Second
 
 	// Defines default tx confirmation timeout.
 	// Enough for test/custom networks.
