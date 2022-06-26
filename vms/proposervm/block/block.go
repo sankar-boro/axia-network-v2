@@ -32,7 +32,7 @@ type Block interface {
 type SignedBlock interface {
 	Block
 
-	PChainHeight() uint64
+	CoreChainHeight() uint64
 	Timestamp() time.Time
 	Proposer() ids.NodeID
 
@@ -42,7 +42,7 @@ type SignedBlock interface {
 type statelessUnsignedBlock struct {
 	ParentID     ids.ID `serialize:"true"`
 	Timestamp    int64  `serialize:"true"`
-	PChainHeight uint64 `serialize:"true"`
+	CoreChainHeight uint64 `serialize:"true"`
 	Certificate  []byte `serialize:"true"`
 	Block        []byte `serialize:"true"`
 }
@@ -87,7 +87,7 @@ func (b *statelessBlock) initialize(bytes []byte) error {
 	return nil
 }
 
-func (b *statelessBlock) PChainHeight() uint64 { return b.StatelessBlock.PChainHeight }
+func (b *statelessBlock) CoreChainHeight() uint64 { return b.StatelessBlock.CoreChainHeight }
 func (b *statelessBlock) Timestamp() time.Time { return b.timestamp }
 func (b *statelessBlock) Proposer() ids.NodeID { return b.proposer }
 

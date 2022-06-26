@@ -19,7 +19,7 @@ func TestBuild(t *testing.T) {
 
 	parentID := ids.ID{1}
 	timestamp := time.Unix(123, 0)
-	pChainHeight := uint64(2)
+	coreChainHeight := uint64(2)
 	innerBlockBytes := []byte{3}
 	chainID := ids.ID{4}
 
@@ -32,7 +32,7 @@ func TestBuild(t *testing.T) {
 	builtBlock, err := Build(
 		parentID,
 		timestamp,
-		pChainHeight,
+		coreChainHeight,
 		cert,
 		innerBlockBytes,
 		chainID,
@@ -41,7 +41,7 @@ func TestBuild(t *testing.T) {
 	assert.NoError(err)
 
 	assert.Equal(parentID, builtBlock.ParentID())
-	assert.Equal(pChainHeight, builtBlock.PChainHeight())
+	assert.Equal(coreChainHeight, builtBlock.CoreChainHeight())
 	assert.Equal(timestamp, builtBlock.Timestamp())
 	assert.Equal(innerBlockBytes, builtBlock.Block())
 
@@ -55,16 +55,16 @@ func TestBuild(t *testing.T) {
 func TestBuildUnsigned(t *testing.T) {
 	parentID := ids.ID{1}
 	timestamp := time.Unix(123, 0)
-	pChainHeight := uint64(2)
+	coreChainHeight := uint64(2)
 	innerBlockBytes := []byte{3}
 
 	assert := assert.New(t)
 
-	builtBlock, err := BuildUnsigned(parentID, timestamp, pChainHeight, innerBlockBytes)
+	builtBlock, err := BuildUnsigned(parentID, timestamp, coreChainHeight, innerBlockBytes)
 	assert.NoError(err)
 
 	assert.Equal(parentID, builtBlock.ParentID())
-	assert.Equal(pChainHeight, builtBlock.PChainHeight())
+	assert.Equal(coreChainHeight, builtBlock.CoreChainHeight())
 	assert.Equal(timestamp, builtBlock.Timestamp())
 	assert.Equal(innerBlockBytes, builtBlock.Block())
 	assert.Equal(ids.EmptyNodeID, builtBlock.Proposer())

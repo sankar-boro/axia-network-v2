@@ -98,17 +98,17 @@ func (b *preForkBlock) verifyPostForkChild(child *postForkBlock) error {
 	}
 
 	childID := child.ID()
-	childPChainHeight := child.PChainHeight()
-	currentPChainHeight, err := b.vm.ctx.ValidatorState.GetCurrentHeight()
+	childCoreChainHeight := child.CoreChainHeight()
+	currentCoreChainHeight, err := b.vm.ctx.ValidatorState.GetCurrentHeight()
 	if err != nil {
 		b.vm.ctx.Log.Error("couldn't retrieve current P-Chain height while verifying %s: %s", childID, err)
 		return err
 	}
-	if childPChainHeight > currentPChainHeight {
-		return errPChainHeightNotReached
+	if childCoreChainHeight > currentCoreChainHeight {
+		return errCoreChainHeightNotReached
 	}
-	if childPChainHeight < b.vm.minimumPChainHeight {
-		return errPChainHeightTooLow
+	if childCoreChainHeight < b.vm.minimumCoreChainHeight {
+		return errCoreChainHeightTooLow
 	}
 
 	// Make sure [b] is the parent of [child]'s inner block
@@ -179,7 +179,7 @@ func (b *preForkBlock) buildChild() (Block, error) {
 
 	// The child's P-Chain height is proposed as the optimal P-Chain height that
 	// is at least the minimum height
-	pChainHeight, err := b.vm.optimalPChainHeight(b.vm.minimumPChainHeight)
+	coreChainHeight, err := b.vm.optimalCoreChainHeight(b.vm.minimumCoreChainHeight)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +192,7 @@ func (b *preForkBlock) buildChild() (Block, error) {
 	statelessBlock, err := block.BuildUnsigned(
 		parentID,
 		newTimestamp,
-		pChainHeight,
+		coreChainHeight,
 		innerBlock.Bytes(),
 	)
 	if err != nil {
@@ -213,7 +213,7 @@ func (b *preForkBlock) buildChild() (Block, error) {
 	return blk, nil
 }
 
-func (b *preForkBlock) pChainHeight() (uint64, error) {
+func (b *preForkBlock) coreChainHeight() (uint64, error) {
 	return 0, nil
 }
 

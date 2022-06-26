@@ -53,7 +53,7 @@ type VM struct {
 	ssVM block.StateSyncableVM
 
 	activationTime      time.Time
-	minimumPChainHeight uint64
+	minimumCoreChainHeight uint64
 
 	state.State
 	hIndexer                indexer.HeightIndexer
@@ -89,7 +89,7 @@ type VM struct {
 func New(
 	vm block.ChainVM,
 	activationTime time.Time,
-	minimumPChainHeight uint64,
+	minimumCoreChainHeight uint64,
 ) *VM {
 	bVM, _ := vm.(block.BatchedChainVM)
 	hVM, _ := vm.(block.HeightIndexedChainVM)
@@ -101,7 +101,7 @@ func New(
 		ssVM:    ssVM,
 
 		activationTime:      activationTime,
-		minimumPChainHeight: minimumPChainHeight,
+		minimumCoreChainHeight: minimumCoreChainHeight,
 	}
 }
 
@@ -227,13 +227,13 @@ func (vm *VM) SetPreference(preferred ids.ID) error {
 		return err
 	}
 
-	pChainHeight, err := blk.pChainHeight()
+	coreChainHeight, err := blk.coreChainHeight()
 	if err != nil {
 		return err
 	}
 
 	// reset scheduler
-	minDelay, err := vm.Windower.Delay(blk.Height()+1, pChainHeight, vm.ctx.NodeID)
+	minDelay, err := vm.Windower.Delay(blk.Height()+1, coreChainHeight, vm.ctx.NodeID)
 	if err != nil {
 		vm.ctx.Log.Debug("failed to fetch the expected delay due to: %s", err)
 		// A nil error is returned here because it is possible that
@@ -700,11 +700,11 @@ func (vm *VM) notifyInnerBlockReady() {
 	}
 }
 
-func (vm *VM) optimalPChainHeight(minPChainHeight uint64) (uint64, error) {
+func (vm *VM) optimalCoreChainHeight(minCoreChainHeight uint64) (uint64, error) {
 	minimumHeight, err := vm.ctx.ValidatorState.GetMinimumHeight()
 	if err != nil {
 		return 0, err
 	}
 
-	return math.Max64(minimumHeight, minPChainHeight), nil
+	return math.Max64(minimumHeight, minCoreChainHeight), nil
 }

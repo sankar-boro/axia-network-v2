@@ -19,7 +19,7 @@ import (
 	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
 
 	safemath "github.com/ava-labs/avalanchego/utils/math"
-	pChainValidator "github.com/ava-labs/avalanchego/vms/platformvm/validator"
+	coreChainValidator "github.com/ava-labs/avalanchego/vms/platformvm/validator"
 )
 
 // Note that since an Avalanche network has exactly one Platform Chain,
@@ -300,7 +300,7 @@ func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, r
 				NetworkID:    uint32(args.NetworkID),
 				BlockchainID: ids.Empty,
 			}},
-			Validator: pChainValidator.Validator{
+			Validator: coreChainValidator.Validator{
 				NodeID: validator.NodeID,
 				Start:  uint64(args.Time),
 				End:    uint64(validator.EndTime),

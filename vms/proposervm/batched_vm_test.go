@@ -881,7 +881,7 @@ func initTestRemoteProposerVM(
 		T: t,
 	}
 	valState.GetMinimumHeightF = func() (uint64, error) { return coreGenBlk.Height(), nil }
-	valState.GetCurrentHeightF = func() (uint64, error) { return defaultPChainHeight, nil }
+	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
 	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
 		res := make(map[ids.NodeID]uint64)
 		res[proVM.ctx.NodeID] = uint64(10)

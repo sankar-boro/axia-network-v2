@@ -22,7 +22,7 @@ import (
 func testBlockState(a *assert.Assertions, bs BlockState) {
 	parentID := ids.ID{1}
 	timestamp := time.Unix(123, 0)
-	pChainHeight := uint64(2)
+	coreChainHeight := uint64(2)
 	innerBlockBytes := []byte{3}
 	chainID := ids.ID{4}
 
@@ -35,7 +35,7 @@ func testBlockState(a *assert.Assertions, bs BlockState) {
 	b, err := block.Build(
 		parentID,
 		timestamp,
-		pChainHeight,
+		coreChainHeight,
 		cert,
 		innerBlockBytes,
 		chainID,

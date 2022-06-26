@@ -18,7 +18,7 @@ A standard block header contains the following fields:
 
 - `ParentID`, the ID of the parent's enriched block (Note: this is different from the inner block ID).
 - `Timestamp`, the local time at block production.
-- `PChainHeight` the height of the last accepted block on the P-chain at the time the block is produced.
+- `CoreChainHeight` the height of the last accepted block on the P-chain at the time the block is produced.
 - `Certificate` the TLS certificate of the block producer, to verify the block signature.
 - `Signature` the signature attesting this block was proposed by the correct block producer.
 
@@ -47,8 +47,8 @@ A proposer in position `i` in the proposers list has its submission windows star
 The following validation rules are enforced:
 
 - Given a `proposervm.Block` **C** and its parent block **P**, **P**'s inner block must be **C**'s inner block's parent.
-- A block must have a `PChainHeight` is larger or equal to its parent's `PChainHeight` (`PChainHeight` is monotonic).
-- A block must have a `PChainHeight` that is less or equal to current P-Chain height.
+- A block must have a `CoreChainHeight` is larger or equal to its parent's `CoreChainHeight` (`CoreChainHeight` is monotonic).
+- A block must have a `CoreChainHeight` that is less or equal to current P-Chain height.
 - A block must have a `Timestamp` larger or equal to its parent's `Timestamp` (`Timestamp` is monotonic)
 - A block received by a node at time `t_local` must have a `Timestamp` such that `Timestamp < t_local + maxSkew` (a block too far in the future is invalid). `maxSkew` is currently set to `10 seconds`.
 - A block issued by a proposer `p` which has a position `i` in the current proposer list must have its timestamp at least `i × WindowDuration` seconds after its parent block's `Timestamp`. A block issued by a validator not contained in the first `maxWindows` positions in the proposal list must have its timestamp at least `maxWindows × WindowDuration` seconds after its parent block's `Timestamp`.

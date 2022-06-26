@@ -184,7 +184,7 @@ type ManagerConfig struct {
 	BootstrapAncestorsMaxContainersReceived int
 
 	ApricotPhase4Time            time.Time
-	ApricotPhase4MinPChainHeight uint64
+	ApricotPhase4MinCoreChainHeight uint64
 
 	// Tracks CPU/disk usage caused by each peer.
 	ResourceTracker timetracker.ResourceTracker
@@ -782,7 +782,7 @@ func (m *manager) createSnowmanChain(
 	}
 
 	// enable ProposerVM on this VM
-	vm = proposervm.New(vm, m.ApricotPhase4Time, m.ApricotPhase4MinPChainHeight)
+	vm = proposervm.New(vm, m.ApricotPhase4Time, m.ApricotPhase4MinCoreChainHeight)
 
 	if m.MeterVMEnabled {
 		vm = metervm.NewBlockVM(vm)
