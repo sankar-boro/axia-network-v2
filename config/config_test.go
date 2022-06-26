@@ -50,11 +50,11 @@ func TestGetChainConfigsFromFiles(t *testing.T) {
 			}(),
 		},
 		"valid alias": {
-			configs:  map[string]string{"C": "hello", "X": "world"},
-			upgrades: map[string]string{"C": "upgradess"},
+			configs:  map[string]string{"AXC": "hello", "X": "world"},
+			upgrades: map[string]string{"AXC": "upgradess"},
 			expected: func() map[string]chains.ChainConfig {
 				m := map[string]chains.ChainConfig{}
-				m["C"] = chains.ChainConfig{Config: []byte("hello"), Upgrade: []byte("upgradess")}
+				m["AXC"] = chains.ChainConfig{Config: []byte("hello"), Upgrade: []byte("upgradess")}
 				m["X"] = chains.ChainConfig{Config: []byte("world"), Upgrade: []byte(nil)}
 
 				return m
@@ -124,7 +124,7 @@ func TestGetChainConfigsDirNotExist(t *testing.T) {
 		"full structure": {
 			structure: "/cdir/C/",
 			file:      map[string]string{"config.ex": "hello"},
-			expected:  map[string]chains.ChainConfig{"C": {Config: []byte("hello"), Upgrade: []byte(nil)}},
+			expected:  map[string]chains.ChainConfig{"AXC": {Config: []byte("hello"), Upgrade: []byte(nil)}},
 		},
 	}
 
@@ -171,11 +171,11 @@ func TestSetChainConfigDefaultDir(t *testing.T) {
 	v := setupViper(configFilePath)
 	assert.Equal(defaultChainConfigDir, v.GetString(ChainConfigDirKey))
 
-	chainsDir := filepath.Join(defaultChainConfigDir, "C")
+	chainsDir := filepath.Join(defaultChainConfigDir, "AXC")
 	setupFile(t, chainsDir, chainConfigFileName+".ex", "helloworld")
 	chainConfigs, err := getChainConfigs(v)
 	assert.NoError(err)
-	expected := map[string]chains.ChainConfig{"C": {Config: []byte("helloworld"), Upgrade: []byte(nil)}}
+	expected := map[string]chains.ChainConfig{"AXC": {Config: []byte("helloworld"), Upgrade: []byte(nil)}}
 	assert.Equal(expected, chainConfigs)
 }
 
@@ -217,12 +217,12 @@ func TestGetChainConfigsFromFlags(t *testing.T) {
 		},
 		"valid alias": {
 			fullConfigs: map[string]chains.ChainConfig{
-				"C": {Config: []byte("hello"), Upgrade: []byte("upgradess")},
+				"AXC": {Config: []byte("hello"), Upgrade: []byte("upgradess")},
 				"X": {Config: []byte("world"), Upgrade: []byte(nil)},
 			},
 			expected: func() map[string]chains.ChainConfig {
 				m := map[string]chains.ChainConfig{}
-				m["C"] = chains.ChainConfig{Config: []byte("hello"), Upgrade: []byte("upgradess")}
+				m["AXC"] = chains.ChainConfig{Config: []byte("hello"), Upgrade: []byte("upgradess")}
 				m["X"] = chains.ChainConfig{Config: []byte("world"), Upgrade: []byte(nil)}
 
 				return m

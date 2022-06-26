@@ -50,9 +50,9 @@ func Aliases(genesisBytes []byte) (map[string][]string, map[ids.ID][]string, err
 			chainAliases[chainID] = GetSwapChainAliases()
 		case constants.EVMID:
 			apiAliases[endpoint] = []string{
-				"C",
+				"AXC",
 				"evm",
-				path.Join(constants.ChainAliasPrefix, "C"),
+				path.Join(constants.ChainAliasPrefix, "AXC"),
 				path.Join(constants.ChainAliasPrefix, "evm"),
 			}
 			chainAliases[chainID] = GetAXCChainAliases()
@@ -62,7 +62,7 @@ func Aliases(genesisBytes []byte) (map[string][]string, map[ids.ID][]string, err
 }
 
 func GetAXCChainAliases() []string {
-	return []string{"C", "evm"}
+	return []string{"AXC", "evm"}
 }
 
 func GetSwapChainAliases() []string {

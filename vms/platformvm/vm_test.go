@@ -143,7 +143,7 @@ func defaultContext() *snow.Context {
 		aliaser.Alias(constants.PlatformChainID, constants.PlatformChainID.String()),
 		aliaser.Alias(swapChainID, "X"),
 		aliaser.Alias(swapChainID, swapChainID.String()),
-		aliaser.Alias(axcChainID, "C"),
+		aliaser.Alias(axcChainID, "AXC"),
 		aliaser.Alias(axcChainID, axcChainID.String()),
 	)
 	if errs.Errored() {
