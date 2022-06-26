@@ -419,7 +419,7 @@ func (vm *VM) CreateHandlers() (map[string]*common.HTTPHandler, error) {
 	server.RegisterCodec(json.NewCodec(), "application/json;charset=UTF-8")
 	server.RegisterInterceptFunc(vm.metrics.apiRequestMetrics.InterceptRequest)
 	server.RegisterAfterFunc(vm.metrics.apiRequestMetrics.AfterRequest)
-	if err := server.RegisterService(&Service{vm: vm}, "platform"); err != nil {
+	if err := server.RegisterService(&Service{vm: vm}, "core"); err != nil {
 		return nil, err
 	}
 
@@ -437,7 +437,7 @@ func (vm *VM) CreateStaticHandlers() (map[string]*common.HTTPHandler, error) {
 	server := rpc.NewServer()
 	server.RegisterCodec(json.NewCodec(), "application/json")
 	server.RegisterCodec(json.NewCodec(), "application/json;charset=UTF-8")
-	if err := server.RegisterService(&StaticService{}, "platform"); err != nil {
+	if err := server.RegisterService(&StaticService{}, "core"); err != nil {
 		return nil, err
 	}
 

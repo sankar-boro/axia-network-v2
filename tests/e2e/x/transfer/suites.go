@@ -156,7 +156,7 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AVAX]", func() {
 			tests.Outf("{{blue}}waiting before querying metrics{{/}}\n")
 
 			for _, u := range uris {
-				xc := avm.NewClient(u, "X")
+				xc := avm.NewClient(u, "Swap")
 				ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultConfirmTxTimeout)
 				status, err := xc.ConfirmTx(ctx, txID, 2*time.Second)
 				cancel()

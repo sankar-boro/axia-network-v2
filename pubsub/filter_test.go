@@ -18,7 +18,7 @@ import (
 func TestAddAddressesParseAddresses(t *testing.T) {
 	assert := assert.New(t)
 
-	chainAlias := "X"
+	chainAlias := "Swap"
 	hrp := constants.GetHRP(5)
 
 	addrID := ids.ShortID{1}

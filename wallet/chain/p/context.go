@@ -34,7 +34,7 @@ type context struct {
 
 func NewContextFromURI(ctx stdcontext.Context, uri string) (Context, error) {
 	infoClient := info.NewClient(uri)
-	swapChainClient := avm.NewClient(uri, "X")
+	swapChainClient := avm.NewClient(uri, "Swap")
 	return NewContextFromClients(ctx, infoClient, swapChainClient)
 }
 

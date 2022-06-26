@@ -158,7 +158,7 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 		// SO THIS SHOULD SUCCEED WITH NO ERROR
 		ginkgo.By("issue whitelist vtx to the first node", func() {
 			tests.Outf("{{blue}}{{bold}}issuing whitelist vtx at URI %q at the very first time{{/}}\n", uris[0])
-			client := avm.NewClient(uris[0], "X")
+			client := avm.NewClient(uris[0], "Swap")
 			ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 			err := client.IssueStopVertex(ctx)
 			cancel()
@@ -204,7 +204,7 @@ var _ = e2e.DescribeSwapChain("[WhitelistTx]", func() {
 		ginkgo.By("whitelist vtx can't be issued twice in all nodes", func() {
 			for _, u := range uris {
 				tests.Outf("{{red}}issuing second whitelist vtx to URI %q{{/}}\n", u)
-				client := avm.NewClient(u, "X")
+				client := avm.NewClient(u, "Swap")
 				ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 				err := client.IssueStopVertex(ctx)
 				cancel()
