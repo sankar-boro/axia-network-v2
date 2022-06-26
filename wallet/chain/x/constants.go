@@ -4,11 +4,11 @@
 package x
 
 import (
-	"github.com/ava-labs/avalanchego/vms/avm/fxs"
-	"github.com/ava-labs/avalanchego/vms/avm/txs"
-	"github.com/ava-labs/avalanchego/vms/nftfx"
-	"github.com/ava-labs/avalanchego/vms/propertyfx"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/vms/avm/fxs"
+	"github.com/sankar-boro/avalanchego/vms/avm/txs"
+	"github.com/sankar-boro/avalanchego/vms/nftfx"
+	"github.com/sankar-boro/avalanchego/vms/propertyfx"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
 const (

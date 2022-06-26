@@ -25,13 +25,13 @@ fi
 
 #################################
 # download avalanchego
-# https://github.com/ava-labs/avalanchego/releases
+# https://github.com/sankar-boro/avalanchego/releases
 GOARCH=$(go env GOARCH)
 GOOS=$(go env GOOS)
-DOWNLOAD_URL=https://github.com/ava-labs/avalanchego/releases/download/v${VERSION}/avalanchego-linux-${GOARCH}-v${VERSION}.tar.gz
+DOWNLOAD_URL=https://github.com/sankar-boro/avalanchego/releases/download/v${VERSION}/avalanchego-linux-${GOARCH}-v${VERSION}.tar.gz
 DOWNLOAD_PATH=/tmp/avalanchego.tar.gz
 if [[ ${GOOS} == "darwin" ]]; then
-  DOWNLOAD_URL=https://github.com/ava-labs/avalanchego/releases/download/v${VERSION}/avalanchego-macos-v${VERSION}.zip
+  DOWNLOAD_URL=https://github.com/sankar-boro/avalanchego/releases/download/v${VERSION}/avalanchego-macos-v${VERSION}.zip
   DOWNLOAD_PATH=/tmp/avalanchego.zip
 fi
 
@@ -53,13 +53,13 @@ find /tmp/avalanchego-v${VERSION}
 
 #################################
 # download avalanche-network-runner
-# https://github.com/ava-labs/avalanche-network-runner
+# https://github.com/sankar-boro/avalanche-network-runner
 # TODO: migrate to upstream avalanche-network-runner
 NETWORK_RUNNER_VERSION=1.0.6
 DOWNLOAD_PATH=/tmp/avalanche-network-runner.tar.gz
-DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/avalanche-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
+DOWNLOAD_URL=https://github.com/sankar-boro/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/avalanche-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
 if [[ ${GOOS} == "darwin" ]]; then
-  DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/avalanche-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
+  DOWNLOAD_URL=https://github.com/sankar-boro/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/avalanche-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
 fi
 
 rm -f ${DOWNLOAD_PATH}

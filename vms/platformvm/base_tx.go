@@ -6,10 +6,10 @@ package platformvm
 import (
 	"fmt"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow"
-	"github.com/ava-labs/avalanchego/vms/components/avax"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
 // BaseTx contains fields common to many transaction types. It should be

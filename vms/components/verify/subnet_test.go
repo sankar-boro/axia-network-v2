@@ -9,8 +9,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow"
 )
 
 var errMissing = errors.New("missing")

@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/choices"
-	"github.com/ava-labs/avalanchego/vms/platformvm/status"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/choices"
+	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
 )
 
 var (

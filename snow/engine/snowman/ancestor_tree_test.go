@@ -6,7 +6,7 @@ package snowman
 import (
 	"testing"
 
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 	"github.com/stretchr/testify/assert"
 )
 

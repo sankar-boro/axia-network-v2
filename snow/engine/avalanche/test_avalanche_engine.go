@@ -6,9 +6,9 @@ package avalanche
 import (
 	"errors"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/consensus/avalanche"
-	"github.com/ava-labs/avalanchego/snow/engine/common"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
+	"github.com/sankar-boro/avalanchego/snow/engine/common"
 )
 
 var (

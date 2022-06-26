@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ava-labs/avalanchego/utils/units"
+	"github.com/sankar-boro/avalanchego/utils/units"
 )
 
 const (

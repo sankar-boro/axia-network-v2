@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ava-labs/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/utils/constants"
 )
 
 // MinConnectedStake is the minimum percentage of the Primary Network's that

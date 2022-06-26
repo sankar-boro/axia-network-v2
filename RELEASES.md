@@ -1,8 +1,8 @@
 # Release Notes
 
-## [v1.7.12](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.12)
+## [v1.7.12](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.12)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### State Sync
 
@@ -43,9 +43,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Standardized json imports
 - Added vm factory interface checks
 
-## [v1.7.11](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.11)
+## [v1.7.11](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.11)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 **The first startup of the AXC-Chain will cause an increase in CPU and IO usage due to an index update. This index update runs in the background and does not impact restart time.**
 
@@ -130,9 +130,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Updated issue template
 - Documented additional `snowman.Block` invariants
 
-## [v1.7.10](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.10)
+## [v1.7.10](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.10)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Networking
 
@@ -183,9 +183,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Simplified consensus engine `Shutdown` notification dispatching.
 - Removed `Sleep` call in the inbound connection throttler.
 
-## [v1.7.9](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.9)
+## [v1.7.9](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.9)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Updates
 
@@ -195,9 +195,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Removed dead code from network packer.
 - Improved logging of invalid hash length errors.
 
-## [v1.7.8](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.8)
+## [v1.7.8](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.8)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Networking
 
@@ -226,9 +226,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Optimized various queue removals for improved memory freeing.
 - Added a basic Swap-chain E2E usage test to the new testing framework.
 
-## [v1.7.7](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.7)
+## [v1.7.7](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.7)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Networking
 
@@ -275,9 +275,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Resolved the default log directory on initialization to avoid additional error handling.
 - Added support to the chain state module to specify an arbitrary new accepted block.
 
-## [v1.7.6](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.6)
+## [v1.7.6](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.6)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Consensus
 
@@ -310,9 +310,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Extended chain shutdown timeout.
 - Performed various cleanup passes.
 
-## [v1.7.5](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.5)
+## [v1.7.5](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.5)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Consensus
 
@@ -341,9 +341,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Fixed bug in BLOCKHASH opcode during traceBlock.
 - Fixed bug in handling updated chain config on startup.
 
-## [v1.7.4](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.4)
+## [v1.7.4](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.4)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 **The first startup of the AXC-Chain will take a few minutes longer due to an index update.**
 
@@ -395,9 +395,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Separated health checks into `readiness`, `healthiness`, and `liveness` checks to support more fine-grained monitoring.
 - Refactored API client utilities to use a `Context` rather than an explicit timeout.
 
-## [v1.7.3](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.3)
+## [v1.7.3](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.3)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Consensus
 
@@ -425,9 +425,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Fixed acceptance broadcasting over IPC.
 - Fixed 32-bit architecture builds for AvalancheGo (not Coreth).
 
-## [v1.7.2](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.2)
+## [v1.7.2](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.2)
 
-This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
 ### Coreth
 
@@ -457,9 +457,9 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 - Fixed panic bug in logging library when importing from external projects.
 
-## [v1.7.1](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.1)
+## [v1.7.1](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.1)
 
-This update is backwards compatible with [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). Please see the expected update times in the v1.7.0 release.
+This update is backwards compatible with [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0). Please see the expected update times in the v1.7.0 release.
 
 ### Coreth
 
@@ -469,7 +469,7 @@ This update is backwards compatible with [v1.7.0](https://github.com/ava-labs/av
 
 - Fixed vote bubbling for unverified block chits.
 
-## [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0)
+## [v1.7.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.7.0)
 
 This upgrade adds support for issuing multiple atomic transactions into a single block and directly transferring assets between the Core-chain and the AXC-chain.
 
@@ -505,9 +505,9 @@ The changes in the upgrade go into effect at 1 PM EST, December 2nd 2021 on Main
 
 - Removed `--snow-epoch-first-transition` and `snow-epoch-duration` as command line arguments.
 
-## [v1.6.5](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.5)
+## [v1.6.5](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.5)
 
-This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.6.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
 
 ### Bootstrapping
 
@@ -528,9 +528,9 @@ This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/ava
 - Added reported uptime to pong messages to be able to better track a local node's uptime as viewed by the network.
 - Refactored request timeout registry to avoid a potential race condition.
 
-## [v1.6.4](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.4)
+## [v1.6.4](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.4)
 
-This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.6.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
 
 ### Config
 
@@ -572,9 +572,9 @@ This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/ava
 
 ---
 
-## [v1.6.3](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.3)
+## [v1.6.3](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.3)
 
-This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
+This version is backwards compatible to [v1.6.0](https://github.com/sankar-boro/avalanchego/releases/tag/v1.6.0). It is optional, but encouraged.
 
 ### Config Options
 

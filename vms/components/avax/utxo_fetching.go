@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 
-	safemath "github.com/ava-labs/avalanchego/utils/math"
+	safemath "github.com/sankar-boro/avalanchego/utils/math"
 )
 
 // GetBalance returns the current balance of [addrs]

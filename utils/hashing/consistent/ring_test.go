@@ -6,7 +6,7 @@ package consistent
 import (
 	"testing"
 
-	"github.com/ava-labs/avalanchego/utils/hashing"
+	"github.com/sankar-boro/avalanchego/utils/hashing"
 
 	"github.com/stretchr/testify/assert"
 

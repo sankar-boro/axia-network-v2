@@ -6,9 +6,9 @@ package vertex
 import (
 	"testing"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/choices"
-	"github.com/ava-labs/avalanchego/snow/consensus/avalanche"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/choices"
+	"github.com/sankar-boro/avalanchego/snow/consensus/avalanche"
 )
 
 // This example inserts several ints into an IntHeap, checks the minimum,

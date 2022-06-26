@@ -9,7 +9,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/ava-labs/avalanchego/utils/logging"
+	"github.com/sankar-boro/avalanchego/utils/logging"
 )
 
 var _ Health = &health{}

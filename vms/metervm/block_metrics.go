@@ -6,8 +6,8 @@ package metervm
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/ava-labs/avalanchego/utils/metric"
-	"github.com/ava-labs/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/avalanchego/utils/metric"
+	"github.com/sankar-boro/avalanchego/utils/wrappers"
 )
 
 type blockMetrics struct {

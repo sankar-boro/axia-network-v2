@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ava-labs/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/utils/constants"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

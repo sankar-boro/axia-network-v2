@@ -4,9 +4,9 @@
 package bootstrap
 
 import (
-	"github.com/ava-labs/avalanchego/snow/engine/avalanche/vertex"
-	"github.com/ava-labs/avalanchego/snow/engine/common"
-	"github.com/ava-labs/avalanchego/snow/engine/common/queue"
+	"github.com/sankar-boro/avalanchego/snow/engine/avalanche/vertex"
+	"github.com/sankar-boro/avalanchego/snow/engine/common"
+	"github.com/sankar-boro/avalanchego/snow/engine/common/queue"
 )
 
 type Config struct {

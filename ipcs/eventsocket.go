@@ -8,11 +8,11 @@ import (
 	"os"
 	"syscall"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/ipcs/socket"
-	"github.com/ava-labs/avalanchego/snow"
-	"github.com/ava-labs/avalanchego/utils/logging"
-	"github.com/ava-labs/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ipcs/socket"
+	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/avalanchego/utils/wrappers"
 )
 
 var _ snow.Acceptor = &EventSockets{}

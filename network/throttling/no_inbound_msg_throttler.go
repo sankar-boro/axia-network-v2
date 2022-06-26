@@ -6,7 +6,7 @@ package throttling
 import (
 	"context"
 
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 )
 
 var _ InboundMsgThrottler = &noInboundMsgThrottler{}

@@ -12,17 +12,17 @@ import (
 
 	ginkgo "github.com/onsi/ginkgo/v2"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/tests/e2e"
-	"github.com/ava-labs/avalanchego/utils/constants"
-	"github.com/ava-labs/avalanchego/utils/crypto"
-	"github.com/ava-labs/avalanchego/utils/formatting"
-	"github.com/ava-labs/avalanchego/utils/formatting/address"
-	"github.com/ava-labs/avalanchego/utils/json"
-	"github.com/ava-labs/avalanchego/utils/units"
-	"github.com/ava-labs/avalanchego/vms/avm"
-	"github.com/ava-labs/avalanchego/vms/platformvm"
-	"github.com/ava-labs/avalanchego/vms/platformvm/reward"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/tests/e2e"
+	"github.com/sankar-boro/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/utils/crypto"
+	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/avalanchego/utils/formatting/address"
+	"github.com/sankar-boro/avalanchego/utils/json"
+	"github.com/sankar-boro/avalanchego/utils/units"
+	"github.com/sankar-boro/avalanchego/vms/avm"
+	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/avalanchego/vms/platformvm/reward"
 )
 
 var _ = ginkgo.Describe("[StaticHandlers]", func() {

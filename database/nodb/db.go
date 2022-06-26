@@ -4,7 +4,7 @@
 package nodb
 
 import (
-	"github.com/ava-labs/avalanchego/database"
+	"github.com/sankar-boro/avalanchego/database"
 )
 
 var (

@@ -15,11 +15,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow"
-	"github.com/ava-labs/avalanchego/snow/choices"
-	"github.com/ava-labs/avalanchego/snow/consensus/snowball"
-	"github.com/ava-labs/avalanchego/utils/sampler"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/avalanchego/snow/choices"
+	"github.com/sankar-boro/avalanchego/snow/consensus/snowball"
+	"github.com/sankar-boro/avalanchego/utils/sampler"
 )
 
 type testFunc func(*testing.T, Factory)

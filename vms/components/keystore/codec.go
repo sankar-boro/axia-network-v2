@@ -6,9 +6,9 @@ package keystore
 import (
 	"math"
 
-	"github.com/ava-labs/avalanchego/codec"
-	"github.com/ava-labs/avalanchego/codec/linearcodec"
-	"github.com/ava-labs/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/avalanchego/codec/linearcodec"
+	"github.com/sankar-boro/avalanchego/utils/wrappers"
 )
 
 const (

@@ -7,10 +7,10 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/ava-labs/avalanchego/codec"
-	"github.com/ava-labs/avalanchego/codec/linearcodec"
-	"github.com/ava-labs/avalanchego/utils/crypto"
-	"github.com/ava-labs/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/avalanchego/codec/linearcodec"
+	"github.com/sankar-boro/avalanchego/utils/crypto"
+	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
 func TestCredentialVerify(t *testing.T) {

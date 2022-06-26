@@ -6,9 +6,9 @@ package tree
 import (
 	"testing"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/choices"
-	"github.com/ava-labs/avalanchego/snow/consensus/snowman"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/choices"
+	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
 	"github.com/stretchr/testify/assert"
 )
 

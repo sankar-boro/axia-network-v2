@@ -16,11 +16,11 @@ import (
 
 	secp256k1 "github.com/decred/dcrd/dcrec/secp256k1/v3"
 
-	"github.com/ava-labs/avalanchego/cache"
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils"
-	"github.com/ava-labs/avalanchego/utils/formatting"
-	"github.com/ava-labs/avalanchego/utils/hashing"
+	"github.com/sankar-boro/avalanchego/cache"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/avalanchego/utils/hashing"
 )
 
 const (

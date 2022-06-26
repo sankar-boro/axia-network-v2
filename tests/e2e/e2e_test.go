@@ -15,16 +15,16 @@ import (
 
 	"github.com/onsi/gomega"
 
-	runner_client "github.com/ava-labs/avalanche-network-runner/client"
+	runner_client "github.com/sankar-boro/avalanche-network-runner/client"
 
-	"github.com/ava-labs/avalanchego/tests"
-	"github.com/ava-labs/avalanchego/tests/e2e"
+	"github.com/sankar-boro/avalanchego/tests"
+	"github.com/sankar-boro/avalanchego/tests/e2e"
 
 	// ensure test packages are scanned by ginkgo
-	_ "github.com/ava-labs/avalanchego/tests/e2e/ping"
-	_ "github.com/ava-labs/avalanchego/tests/e2e/static-handlers"
-	_ "github.com/ava-labs/avalanchego/tests/e2e/whitelist-vtx"
-	_ "github.com/ava-labs/avalanchego/tests/e2e/x/transfer"
+	_ "github.com/sankar-boro/avalanchego/tests/e2e/ping"
+	_ "github.com/sankar-boro/avalanchego/tests/e2e/static-handlers"
+	_ "github.com/sankar-boro/avalanchego/tests/e2e/whitelist-vtx"
+	_ "github.com/sankar-boro/avalanchego/tests/e2e/x/transfer"
 )
 
 func TestE2E(t *testing.T) {

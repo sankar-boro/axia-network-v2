@@ -6,9 +6,9 @@ package validators
 import (
 	"math"
 
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 
-	safemath "github.com/ava-labs/avalanchego/utils/math"
+	safemath "github.com/sankar-boro/avalanchego/utils/math"
 )
 
 var _ Validator = &validator{}

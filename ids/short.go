@@ -10,8 +10,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ava-labs/avalanchego/utils/formatting"
-	"github.com/ava-labs/avalanchego/utils/hashing"
+	"github.com/sankar-boro/avalanchego/utils/formatting"
+	"github.com/sankar-boro/avalanchego/utils/hashing"
 )
 
 // ShortEmpty is a useful all zero value

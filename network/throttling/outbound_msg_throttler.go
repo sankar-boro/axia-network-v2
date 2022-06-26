@@ -4,12 +4,12 @@
 package throttling
 
 import (
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/message"
-	"github.com/ava-labs/avalanchego/snow/validators"
-	"github.com/ava-labs/avalanchego/utils/logging"
-	"github.com/ava-labs/avalanchego/utils/math"
-	"github.com/ava-labs/avalanchego/utils/wrappers"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/message"
+	"github.com/sankar-boro/avalanchego/snow/validators"
+	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/avalanchego/utils/math"
+	"github.com/sankar-boro/avalanchego/utils/wrappers"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

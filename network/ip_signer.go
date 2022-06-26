@@ -7,9 +7,9 @@ import (
 	"crypto"
 	"sync"
 
-	"github.com/ava-labs/avalanchego/network/peer"
-	"github.com/ava-labs/avalanchego/utils/ips"
-	"github.com/ava-labs/avalanchego/utils/timer/mockable"
+	"github.com/sankar-boro/avalanchego/network/peer"
+	"github.com/sankar-boro/avalanchego/utils/ips"
+	"github.com/sankar-boro/avalanchego/utils/timer/mockable"
 )
 
 // ipSigner will return a signedIP for the current value of our dynamic IP.

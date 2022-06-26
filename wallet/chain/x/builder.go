@@ -9,15 +9,15 @@ import (
 
 	stdcontext "context"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/math"
-	"github.com/ava-labs/avalanchego/vms/avm/txs"
-	"github.com/ava-labs/avalanchego/vms/components/avax"
-	"github.com/ava-labs/avalanchego/vms/components/verify"
-	"github.com/ava-labs/avalanchego/vms/nftfx"
-	"github.com/ava-labs/avalanchego/vms/propertyfx"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
-	"github.com/ava-labs/avalanchego/wallet/subnet/primary/common"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/math"
+	"github.com/sankar-boro/avalanchego/vms/avm/txs"
+	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/avalanchego/vms/nftfx"
+	"github.com/sankar-boro/avalanchego/vms/propertyfx"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
 )
 
 var (

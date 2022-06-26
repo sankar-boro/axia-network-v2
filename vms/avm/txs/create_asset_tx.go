@@ -9,11 +9,11 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ava-labs/avalanchego/codec"
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow"
-	"github.com/ava-labs/avalanchego/utils"
-	"github.com/ava-labs/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow"
+	"github.com/sankar-boro/avalanchego/utils"
+	"github.com/sankar-boro/avalanchego/vms/components/avax"
 )
 
 const (

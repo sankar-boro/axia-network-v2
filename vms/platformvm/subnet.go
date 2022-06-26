@@ -4,8 +4,8 @@
 package platformvm
 
 import (
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/validators"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/validators"
 )
 
 // A Subnet is a set of validators that are validating a set of blockchains

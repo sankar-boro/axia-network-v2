@@ -7,7 +7,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	block "github.com/ava-labs/avalanchego/snow/engine/snowman/block"
+	block "github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
 	gomock "github.com/golang/mock/gomock"
 )
 

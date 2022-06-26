@@ -4,10 +4,10 @@
 package vertex
 
 import (
-	"github.com/ava-labs/avalanchego/codec"
-	"github.com/ava-labs/avalanchego/codec/linearcodec"
-	"github.com/ava-labs/avalanchego/codec/reflectcodec"
-	"github.com/ava-labs/avalanchego/utils/units"
+	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/avalanchego/codec/linearcodec"
+	"github.com/sankar-boro/avalanchego/codec/reflectcodec"
+	"github.com/sankar-boro/avalanchego/utils/units"
 )
 
 const (

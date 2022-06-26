@@ -7,9 +7,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/ava-labs/avalanchego/codec"
-	"github.com/ava-labs/avalanchego/codec/linearcodec"
-	"github.com/ava-labs/avalanchego/vms/components/verify"
+	"github.com/sankar-boro/avalanchego/codec"
+	"github.com/sankar-boro/avalanchego/codec/linearcodec"
+	"github.com/sankar-boro/avalanchego/vms/components/verify"
 )
 
 func TestTransferInputAmount(t *testing.T) {

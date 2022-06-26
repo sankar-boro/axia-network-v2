@@ -7,8 +7,8 @@ package vms
 import (
 	reflect "reflect"
 
-	ids "github.com/ava-labs/avalanchego/ids"
-	snow "github.com/ava-labs/avalanchego/snow"
+	ids "github.com/sankar-boro/avalanchego/ids"
+	snow "github.com/sankar-boro/avalanchego/snow"
 	gomock "github.com/golang/mock/gomock"
 )
 

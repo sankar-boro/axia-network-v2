@@ -10,12 +10,12 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/ava-labs/avalanchego/app"
-	"github.com/ava-labs/avalanchego/app/process"
-	"github.com/ava-labs/avalanchego/node"
-	"github.com/ava-labs/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/avalanchego/app"
+	"github.com/sankar-boro/avalanchego/app/process"
+	"github.com/sankar-boro/avalanchego/node"
+	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
 
-	appplugin "github.com/ava-labs/avalanchego/app/plugin"
+	appplugin "github.com/sankar-boro/avalanchego/app/plugin"
 )
 
 // Run an AvalancheGo node.

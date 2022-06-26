@@ -13,12 +13,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ava-labs/avalanchego/database"
-	"github.com/ava-labs/avalanchego/database/corruptabledb"
-	"github.com/ava-labs/avalanchego/database/memdb"
-	"github.com/ava-labs/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/avalanchego/database"
+	"github.com/sankar-boro/avalanchego/database/corruptabledb"
+	"github.com/sankar-boro/avalanchego/database/memdb"
+	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
 
-	rpcdbpb "github.com/ava-labs/avalanchego/proto/pb/rpcdb"
+	rpcdbpb "github.com/sankar-boro/avalanchego/proto/pb/rpcdb"
 )
 
 const (

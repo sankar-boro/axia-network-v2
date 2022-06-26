@@ -7,8 +7,8 @@ import (
 	"encoding/hex"
 	"errors"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/formatting/address"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/formatting/address"
 )
 
 var errInvalidETHAddress = errors.New("invalid eth address")

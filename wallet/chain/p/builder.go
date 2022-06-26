@@ -9,16 +9,16 @@ import (
 
 	stdcontext "context"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/constants"
-	"github.com/ava-labs/avalanchego/utils/math"
-	"github.com/ava-labs/avalanchego/vms/components/avax"
-	"github.com/ava-labs/avalanchego/vms/platformvm"
-	"github.com/ava-labs/avalanchego/vms/platformvm/stakeable"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
-	"github.com/ava-labs/avalanchego/wallet/subnet/primary/common"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/utils/math"
+	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/avalanchego/vms/platformvm/stakeable"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
 
-	coreChainValidator "github.com/ava-labs/avalanchego/vms/platformvm/validator"
+	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
 )
 
 var (

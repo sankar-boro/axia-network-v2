@@ -6,9 +6,9 @@ package ipcs
 import (
 	"context"
 
-	"github.com/ava-labs/avalanchego/api"
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/rpc"
+	"github.com/sankar-boro/avalanchego/api"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/rpc"
 )
 
 var _ Client = &client{}

@@ -6,14 +6,14 @@ package p
 import (
 	"errors"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/vms/components/avax"
-	"github.com/ava-labs/avalanchego/vms/platformvm"
-	"github.com/ava-labs/avalanchego/vms/platformvm/status"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
-	"github.com/ava-labs/avalanchego/wallet/subnet/primary/common"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/vms/components/avax"
+	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/avalanchego/vms/platformvm/status"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/wallet/subnet/primary/common"
 
-	coreChainValidator "github.com/ava-labs/avalanchego/vms/platformvm/validator"
+	coreChainValidator "github.com/sankar-boro/avalanchego/vms/platformvm/validator"
 )
 
 var (

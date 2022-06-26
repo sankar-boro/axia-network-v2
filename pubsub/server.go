@@ -10,8 +10,8 @@ import (
 
 	"github.com/gorilla/websocket"
 
-	"github.com/ava-labs/avalanchego/utils/logging"
-	"github.com/ava-labs/avalanchego/utils/units"
+	"github.com/sankar-boro/avalanchego/utils/logging"
+	"github.com/sankar-boro/avalanchego/utils/units"
 )
 
 const (

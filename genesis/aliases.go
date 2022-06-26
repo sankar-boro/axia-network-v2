@@ -6,12 +6,12 @@ package genesis
 import (
 	"path"
 
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/constants"
-	"github.com/ava-labs/avalanchego/vms/nftfx"
-	"github.com/ava-labs/avalanchego/vms/platformvm"
-	"github.com/ava-labs/avalanchego/vms/propertyfx"
-	"github.com/ava-labs/avalanchego/vms/secp256k1fx"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/vms/nftfx"
+	"github.com/sankar-boro/avalanchego/vms/platformvm"
+	"github.com/sankar-boro/avalanchego/vms/propertyfx"
+	"github.com/sankar-boro/avalanchego/vms/secp256k1fx"
 )
 
 // Aliases returns the default aliases based on the network ID

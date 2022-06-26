@@ -9,8 +9,8 @@ import (
 	"errors"
 	"math"
 
-	"github.com/ava-labs/avalanchego/utils/hashing"
-	"github.com/ava-labs/avalanchego/utils/ips"
+	"github.com/sankar-boro/avalanchego/utils/hashing"
+	"github.com/sankar-boro/avalanchego/utils/ips"
 )
 
 const (

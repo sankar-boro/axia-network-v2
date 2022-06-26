@@ -6,7 +6,7 @@ package choices
 import (
 	"fmt"
 
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 )
 
 var _ Decidable = &TestDecidable{}

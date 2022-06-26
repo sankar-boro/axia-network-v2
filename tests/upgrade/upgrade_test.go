@@ -15,9 +15,9 @@ import (
 
 	"github.com/onsi/gomega"
 
-	runner_client "github.com/ava-labs/avalanche-network-runner/client"
+	runner_client "github.com/sankar-boro/avalanche-network-runner/client"
 
-	"github.com/ava-labs/avalanchego/tests"
+	"github.com/sankar-boro/avalanchego/tests"
 )
 
 func TestUpgrade(t *testing.T) {

@@ -7,8 +7,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/ava-labs/avalanchego/database"
-	"github.com/ava-labs/avalanchego/database/memdb"
+	"github.com/sankar-boro/avalanchego/database"
+	"github.com/sankar-boro/avalanchego/database/memdb"
 )
 
 func TestInterface(t *testing.T) {

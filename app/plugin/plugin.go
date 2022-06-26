@@ -10,9 +10,9 @@ import (
 
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/ava-labs/avalanchego/app"
+	"github.com/sankar-boro/avalanchego/app"
 
-	pluginpb "github.com/ava-labs/avalanchego/proto/pb/plugin"
+	pluginpb "github.com/sankar-boro/avalanchego/proto/pb/plugin"
 )
 
 const Name = "nodeProcess"

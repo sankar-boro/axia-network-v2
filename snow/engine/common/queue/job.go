@@ -4,7 +4,7 @@
 package queue
 
 import (
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 )
 
 // Job defines the interface required to be placed on the job queue.

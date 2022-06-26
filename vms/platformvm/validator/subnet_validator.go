@@ -4,8 +4,8 @@
 package validator
 
 import (
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/utils/constants"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/utils/constants"
 )
 
 // SubnetValidator validates a subnet on the Avalanche network.

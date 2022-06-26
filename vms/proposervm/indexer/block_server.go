@@ -4,9 +4,9 @@
 package indexer
 
 import (
-	"github.com/ava-labs/avalanchego/database/versiondb"
-	"github.com/ava-labs/avalanchego/ids"
-	"github.com/ava-labs/avalanchego/snow/consensus/snowman"
+	"github.com/sankar-boro/avalanchego/database/versiondb"
+	"github.com/sankar-boro/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/snow/consensus/snowman"
 )
 
 // BlockServer represents all requests heightIndexer can issue

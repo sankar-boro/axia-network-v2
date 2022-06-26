@@ -3,7 +3,7 @@
 
 package dynamicip
 
-import "github.com/ava-labs/avalanchego/utils/logging"
+import "github.com/sankar-boro/avalanchego/utils/logging"
 
 var _ Updater = noUpdater{}
 

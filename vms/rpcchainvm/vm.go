@@ -10,10 +10,10 @@ import (
 
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/ava-labs/avalanchego/snow/engine/snowman/block"
-	"github.com/ava-labs/avalanchego/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/avalanchego/snow/engine/snowman/block"
+	"github.com/sankar-boro/avalanchego/vms/rpcchainvm/grpcutils"
 
-	vmpb "github.com/ava-labs/avalanchego/proto/pb/vm"
+	vmpb "github.com/sankar-boro/avalanchego/proto/pb/vm"
 )
 
 // protocolVersion should be bumped anytime changes are made which require

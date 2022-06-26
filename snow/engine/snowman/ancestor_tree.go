@@ -4,7 +4,7 @@
 package snowman
 
 import (
-	"github.com/ava-labs/avalanchego/ids"
+	"github.com/sankar-boro/avalanchego/ids"
 )
 
 type AncestorTree interface {
