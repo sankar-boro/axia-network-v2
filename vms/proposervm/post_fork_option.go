@@ -122,7 +122,7 @@ func (b *postForkOption) buildChild() (Block, error) {
 	)
 }
 
-// This block's P-Chain height is its parent's P-Chain height
+// This block's Core-Chain height is its parent's Core-Chain height
 func (b *postForkOption) coreChainHeight() (uint64, error) {
 	parent, err := b.vm.getBlock(b.ParentID())
 	if err != nil {

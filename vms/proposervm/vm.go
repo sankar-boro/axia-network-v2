@@ -238,8 +238,8 @@ func (vm *VM) SetPreference(preferred ids.ID) error {
 		vm.ctx.Log.Debug("failed to fetch the expected delay due to: %s", err)
 		// A nil error is returned here because it is possible that
 		// bootstrapping caused the last accepted block to move past the latest
-		// P-chain height. This will cause building blocks to return an error
-		// until the P-chain's height has advanced.
+		// Core-chain height. This will cause building blocks to return an error
+		// until the Core-chain's height has advanced.
 		return nil
 	}
 	if minDelay < minBlockDelay {

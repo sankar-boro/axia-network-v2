@@ -1298,7 +1298,7 @@ type ExportAVAXArgs struct {
 	To string `json:"to"`
 }
 
-// ExportAVAX exports AVAX from the P-Chain to the X-Chain
+// ExportAVAX exports AVAX from the Core-Chain to the X-Chain
 // It must be imported on the X-Chain to complete the transfer
 func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, response *api.JSONTxIDChangeAddr) error {
 	service.vm.ctx.Log.Debug("Platform: ExportAVAX called")

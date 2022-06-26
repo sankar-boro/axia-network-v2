@@ -12,16 +12,16 @@ import (
 var _ State = &lockedState{}
 
 // State allows the lookup of validator sets on specified subnets at the
-// requested P-chain height.
+// requested Core-chain height.
 type State interface {
 	// GetMinimumHeight returns the minimum height of the block still in the
 	// proposal window.
 	GetMinimumHeight() (uint64, error)
-	// GetCurrentHeight returns the current height of the P-chain.
+	// GetCurrentHeight returns the current height of the Core-chain.
 	GetCurrentHeight() (uint64, error)
 
 	// GetValidatorSet returns the weights of the nodeIDs for the provided
-	// subnet at the requested P-chain height.
+	// subnet at the requested Core-chain height.
 	// The returned map should not be modified.
 	GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error)
 }

@@ -239,8 +239,8 @@ func (m *manager) CreateChain(chain ChainParameters) {
 	}
 }
 
-// Create a chain, this is only called from the P-chain thread, except for
-// creating the P-chain.
+// Create a chain, this is only called from the Core-chain thread, except for
+// creating the Core-chain.
 func (m *manager) ForceCreateChain(chainParams ChainParameters) {
 	if m.StakingEnabled && chainParams.SubnetID != constants.PrimaryNetworkID && !m.WhitelistedSubnets.Contains(chainParams.SubnetID) {
 		m.Log.Debug("Skipped creating non-whitelisted chain:\n"+
@@ -754,7 +754,7 @@ func (m *manager) createSnowmanChain(
 		return nil, fmt.Errorf("problem initializing event dispatcher: %w", err)
 	}
 
-	// first vm to be init is P-Chain once, which provides validator interface to all ProposerVMs
+	// first vm to be init is Core-Chain once, which provides validator interface to all ProposerVMs
 	if m.validatorState == nil {
 		if m.ManagerConfig.StakingEnabled {
 			valState, ok := vm.(validators.State)
@@ -767,7 +767,7 @@ func (m *manager) createSnowmanChain(
 
 			// Notice that this context is left unlocked. This is because the
 			// lock will already be held when accessing these values on the
-			// P-chain.
+			// Core-chain.
 			ctx.ValidatorState = valState
 		} else {
 			m.validatorState = validators.NewNoState()

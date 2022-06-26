@@ -52,7 +52,7 @@ type Context struct {
 	Metrics      metrics.OptionalGatherer
 
 	// snowman++ attributes
-	ValidatorState    validators.State  // interface for P-Chain validators
+	ValidatorState    validators.State  // interface for Core-Chain validators
 	StakingLeafSigner crypto.Signer     // block signer
 	StakingCertLeaf   *x509.Certificate // block certificate
 }

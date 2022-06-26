@@ -74,10 +74,10 @@ type Server interface {
 	// RegisterChain registers the API endpoints associated with this chain. That is,
 	// add <route, handler> pairs to server so that API calls can be made to the VM.
 	// This method runs in a goroutine to avoid a deadlock in the event that the caller
-	// holds the engine's context lock. Namely, this could happen when the P-Chain is
-	// creating a new chain and holds the P-Chain's lock when this function is held,
+	// holds the engine's context lock. Namely, this could happen when the Core-Chain is
+	// creating a new chain and holds the Core-Chain's lock when this function is held,
 	// and at the same time the server's lock is held due to an API call and is trying
-	// to grab the P-Chain's lock.
+	// to grab the Core-Chain's lock.
 	RegisterChain(chainName string, engine common.Engine)
 	// AddChainRoute registers a route to a chain's handler
 	AddChainRoute(

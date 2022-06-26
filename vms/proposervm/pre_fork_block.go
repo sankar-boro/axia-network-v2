@@ -101,7 +101,7 @@ func (b *preForkBlock) verifyPostForkChild(child *postForkBlock) error {
 	childCoreChainHeight := child.CoreChainHeight()
 	currentCoreChainHeight, err := b.vm.ctx.ValidatorState.GetCurrentHeight()
 	if err != nil {
-		b.vm.ctx.Log.Error("couldn't retrieve current P-Chain height while verifying %s: %s", childID, err)
+		b.vm.ctx.Log.Error("couldn't retrieve current Core-Chain height while verifying %s: %s", childID, err)
 		return err
 	}
 	if childCoreChainHeight > currentCoreChainHeight {
@@ -177,7 +177,7 @@ func (b *preForkBlock) buildChild() (Block, error) {
 		newTimestamp = parentTimestamp
 	}
 
-	// The child's P-Chain height is proposed as the optimal P-Chain height that
+	// The child's Core-Chain height is proposed as the optimal Core-Chain height that
 	// is at least the minimum height
 	coreChainHeight, err := b.vm.optimalCoreChainHeight(b.vm.minimumCoreChainHeight)
 	if err != nil {

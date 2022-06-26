@@ -445,7 +445,7 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 		TimestampV: prntProBlk.Timestamp().Add(proposer.MaxDelay),
 	}
 
-	// child P-Chain height must not precede parent P-Chain height
+	// child Core-Chain height must not precede parent Core-Chain height
 	childSlb, err := block.Build(
 		prntProBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -468,12 +468,12 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 	}
 
 	if err := childProBlk.Verify(); err == nil {
-		t.Fatal("ProBlock's P-Chain-Height cannot be lower than parent ProBlock's one")
+		t.Fatal("ProBlock's Core-Chain-Height cannot be lower than parent ProBlock's one")
 	} else if err == nil {
 		t.Fatal("Proposer block has wrong height should have different error")
 	}
 
-	// child P-Chain height can be equal to parent P-Chain height
+	// child Core-Chain height can be equal to parent Core-Chain height
 	childSlb, err = block.BuildUnsigned(
 		prntProBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -487,10 +487,10 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 
 	proVM.Set(childCoreBlk.Timestamp())
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatalf("ProBlock's P-Chain-Height can be larger or equal than parent ProBlock's one: %s", err)
+		t.Fatalf("ProBlock's Core-Chain-Height can be larger or equal than parent ProBlock's one: %s", err)
 	}
 
-	// child P-Chain height may follow parent P-Chain height
+	// child Core-Chain height may follow parent Core-Chain height
 	coreChainHeight = prntBlkCoreChainHeight * 2 // move ahead coreChainHeight
 	childSlb, err = block.BuildUnsigned(
 		prntProBlk.ID(),
@@ -503,10 +503,10 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatal("ProBlock's P-Chain-Height can be larger or equal than parent ProBlock's one")
+		t.Fatal("ProBlock's Core-Chain-Height can be larger or equal than parent ProBlock's one")
 	}
 
-	// block P-Chain height can be equal to current P-Chain height
+	// block Core-Chain height can be equal to current Core-Chain height
 	currCoreChainHeight, _ := proVM.ctx.ValidatorState.GetCurrentHeight()
 	childSlb, err = block.BuildUnsigned(
 		prntProBlk.ID(),
@@ -519,10 +519,10 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatal("ProBlock's P-Chain-Height can be equal to current p chain height")
+		t.Fatal("ProBlock's Core-Chain-Height can be equal to current p chain height")
 	}
 
-	// block P-Chain height cannot be at higher than current P-Chain height
+	// block Core-Chain height cannot be at higher than current Core-Chain height
 	childSlb, err = block.BuildUnsigned(
 		prntProBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -534,7 +534,7 @@ func TestBlockVerify_PostForkBlock_CoreChainHeightChecks(t *testing.T) {
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != errCoreChainHeightNotReached {
-		t.Fatal("ProBlock's P-Chain-Height cannot be larger than current p chain height")
+		t.Fatal("ProBlock's Core-Chain-Height cannot be larger than current p chain height")
 	}
 }
 
@@ -649,7 +649,7 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 		TimestampV: parentBlk.Timestamp().Add(proposer.MaxDelay),
 	}
 
-	// child P-Chain height must not precede parent P-Chain height
+	// child Core-Chain height must not precede parent Core-Chain height
 	childSlb, err := block.Build(
 		parentBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -672,10 +672,10 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 	}
 
 	if err := childProBlk.Verify(); err == nil {
-		t.Fatal("ProBlock's P-Chain-Height cannot be lower than parent ProBlock's one")
+		t.Fatal("ProBlock's Core-Chain-Height cannot be lower than parent ProBlock's one")
 	}
 
-	// child P-Chain height can be equal to parent P-Chain height
+	// child Core-Chain height can be equal to parent Core-Chain height
 	childSlb, err = block.BuildUnsigned(
 		parentBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -689,10 +689,10 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 
 	proVM.Set(childCoreBlk.Timestamp())
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatalf("ProBlock's P-Chain-Height can be larger or equal than parent ProBlock's one: %s", err)
+		t.Fatalf("ProBlock's Core-Chain-Height can be larger or equal than parent ProBlock's one: %s", err)
 	}
 
-	// child P-Chain height may follow parent P-Chain height
+	// child Core-Chain height may follow parent Core-Chain height
 	coreChainHeight = prntBlkCoreChainHeight * 2 // move ahead coreChainHeight
 	childSlb, err = block.BuildUnsigned(
 		parentBlk.ID(),
@@ -705,10 +705,10 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatal("ProBlock's P-Chain-Height can be larger or equal than parent ProBlock's one")
+		t.Fatal("ProBlock's Core-Chain-Height can be larger or equal than parent ProBlock's one")
 	}
 
-	// block P-Chain height can be equal to current P-Chain height
+	// block Core-Chain height can be equal to current Core-Chain height
 	currCoreChainHeight, _ := proVM.ctx.ValidatorState.GetCurrentHeight()
 	childSlb, err = block.BuildUnsigned(
 		parentBlk.ID(),
@@ -721,10 +721,10 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != nil {
-		t.Fatal("ProBlock's P-Chain-Height can be equal to current p chain height")
+		t.Fatal("ProBlock's Core-Chain-Height can be equal to current p chain height")
 	}
 
-	// block P-Chain height cannot be at higher than current P-Chain height
+	// block Core-Chain height cannot be at higher than current Core-Chain height
 	childSlb, err = block.BuildUnsigned(
 		parentBlk.ID(),
 		childCoreBlk.Timestamp(),
@@ -736,7 +736,7 @@ func TestBlockVerify_PostForkBlockBuiltOnOption_CoreChainHeightChecks(t *testing
 	}
 	childProBlk.SignedBlock = childSlb
 	if err := childProBlk.Verify(); err != errCoreChainHeightNotReached {
-		t.Fatal("ProBlock's P-Chain-Height cannot be larger than current p chain height")
+		t.Fatal("ProBlock's Core-Chain-Height cannot be larger than current p chain height")
 	}
 }
 
