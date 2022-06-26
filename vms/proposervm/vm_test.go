@@ -627,7 +627,7 @@ func TestTwoProBlocksWithSameParentCanBothVerify(t *testing.T) {
 
 	coreChainHeight, err := proVM.ctx.ValidatorState.GetCurrentHeight()
 	if err != nil {
-		t.Fatal("could not retrieve pChain height")
+		t.Fatal("could not retrieve coreChain height")
 	}
 
 	netSlb, err := statelessblock.BuildUnsigned(

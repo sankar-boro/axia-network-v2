@@ -1075,7 +1075,7 @@ func TestBlockVerify_PostForkBlock_ShouldBePostForkOption(t *testing.T) {
 	}
 }
 
-func TestBlockVerify_PostForkBlock_PChainTooLow(t *testing.T) {
+func TestBlockVerify_PostForkBlock_CoreChainTooLow(t *testing.T) {
 	coreVM, _, proVM, coreGenBlk, _ := initTestProposerVM(t, time.Time{}, 5)
 	proVM.Set(coreGenBlk.Timestamp())
 
