@@ -22,7 +22,7 @@ import (
 
 var _ Client = &client{}
 
-// Client for interacting with an AVM (X-Chain) instance
+// Client for interacting with an AVM (Swap-Chain) instance
 type Client interface {
 	WalletClient
 	// GetTxStatus returns the status of [txID]

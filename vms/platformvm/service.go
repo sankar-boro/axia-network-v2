@@ -1298,8 +1298,8 @@ type ExportAVAXArgs struct {
 	To string `json:"to"`
 }
 
-// ExportAVAX exports AVAX from the Core-Chain to the X-Chain
-// It must be imported on the X-Chain to complete the transfer
+// ExportAVAX exports AVAX from the Core-Chain to the Swap-Chain
+// It must be imported on the Swap-Chain to complete the transfer
 func (service *Service) ExportAVAX(_ *http.Request, args *ExportAVAXArgs, response *api.JSONTxIDChangeAddr) error {
 	service.vm.ctx.Log.Debug("Platform: ExportAVAX called")
 
@@ -1386,8 +1386,8 @@ type ImportAVAXArgs struct {
 	To string `json:"to"`
 }
 
-// ImportAVAX issues a transaction to import AVAX from the X-chain. The AVAX
-// must have already been exported from the X-Chain.
+// ImportAVAX issues a transaction to import AVAX from the Swap-chain. The AVAX
+// must have already been exported from the Swap-Chain.
 func (service *Service) ImportAVAX(_ *http.Request, args *ImportAVAXArgs, response *api.JSONTxIDChangeAddr) error {
 	service.vm.ctx.Log.Debug("Platform: ImportAVAX called")
 

@@ -617,7 +617,7 @@ func (t *Transitive) issueBatch(txs []snowstorm.Tx) error {
 	return t.issue(vtx)
 }
 
-// to be triggered via X-Chain API
+// to be triggered via Swap-Chain API
 func (t *Transitive) issueStopVtx() error {
 	// use virtuous frontier (accepted) as parents
 	virtuousSet := t.Consensus.Virtuous()

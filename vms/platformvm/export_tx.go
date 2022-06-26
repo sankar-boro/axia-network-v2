@@ -206,7 +206,7 @@ func (vm *VM) newExportTx(
 			Outs:         outs, // Non-exported outputs
 		}},
 		DestinationChain: chainID,
-		ExportedOutputs: []*avax.TransferableOutput{{ // Exported to X-Chain
+		ExportedOutputs: []*avax.TransferableOutput{{ // Exported to Swap-Chain
 			Asset: avax.Asset{ID: vm.ctx.AVAXAssetID},
 			Out: &secp256k1fx.TransferOutput{
 				Amt: amount,

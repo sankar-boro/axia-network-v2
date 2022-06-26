@@ -67,8 +67,8 @@ PID=${!}
 # to run only ping tests:
 # --ginkgo.focus "\[Local\] \[Ping\]"
 #
-# to run only X-Chain whitelist vtx tests:
-# --ginkgo.focus "\[X-Chain\] \[WhitelistVtx\]"
+# to run only Swap-Chain whitelist vtx tests:
+# --ginkgo.focus "\[Swap-Chain\] \[WhitelistVtx\]"
 #
 # to skip all "Local" tests
 # --ginkgo.skip "\[Local\]"
