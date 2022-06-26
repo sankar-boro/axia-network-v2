@@ -8,7 +8,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/allychain/primary/common"
 
 	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
@@ -66,11 +66,11 @@ func (b *builderWithOptions) NewAddValidatorTx(
 	)
 }
 
-func (b *builderWithOptions) NewAddSubnetValidatorTx(
-	validator *coreChainValidator.SubnetValidator,
+func (b *builderWithOptions) NewAddAllychainValidatorTx(
+	validator *coreChainValidator.AllychainValidator,
 	options ...common.Option,
-) (*platformvm.UnsignedAddSubnetValidatorTx, error) {
-	return b.Builder.NewAddSubnetValidatorTx(
+) (*platformvm.UnsignedAddAllychainValidatorTx, error) {
+	return b.Builder.NewAddAllychainValidatorTx(
 		validator,
 		common.UnionOptions(b.options, options)...,
 	)
@@ -89,7 +89,7 @@ func (b *builderWithOptions) NewAddNominatorTx(
 }
 
 func (b *builderWithOptions) NewCreateChainTx(
-	subnetID ids.ID,
+	allychainID ids.ID,
 	genesis []byte,
 	vmID ids.ID,
 	fxIDs []ids.ID,
@@ -97,7 +97,7 @@ func (b *builderWithOptions) NewCreateChainTx(
 	options ...common.Option,
 ) (*platformvm.UnsignedCreateChainTx, error) {
 	return b.Builder.NewCreateChainTx(
-		subnetID,
+		allychainID,
 		genesis,
 		vmID,
 		fxIDs,
@@ -106,11 +106,11 @@ func (b *builderWithOptions) NewCreateChainTx(
 	)
 }
 
-func (b *builderWithOptions) NewCreateSubnetTx(
+func (b *builderWithOptions) NewCreateAllychainTx(
 	owner *secp256k1fx.OutputOwners,
 	options ...common.Option,
-) (*platformvm.UnsignedCreateSubnetTx, error) {
-	return b.Builder.NewCreateSubnetTx(
+) (*platformvm.UnsignedCreateAllychainTx, error) {
+	return b.Builder.NewCreateAllychainTx(
 		owner,
 		common.UnionOptions(b.options, options)...,
 	)

@@ -110,16 +110,16 @@ func (mr *MockInternalStateMockRecorder) AddRewardUTXO(txID, utxo interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddRewardUTXO", reflect.TypeOf((*MockInternalState)(nil).AddRewardUTXO), txID, utxo)
 }
 
-// AddSubnet mocks base method.
-func (m *MockInternalState) AddSubnet(createSubnetTx *Tx) {
+// AddAllychain mocks base method.
+func (m *MockInternalState) AddAllychain(createAllychainTx *Tx) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "AddSubnet", createSubnetTx)
+	m.ctrl.Call(m, "AddAllychain", createAllychainTx)
 }
 
-// AddSubnet indicates an expected call of AddSubnet.
-func (mr *MockInternalStateMockRecorder) AddSubnet(createSubnetTx interface{}) *gomock.Call {
+// AddAllychain indicates an expected call of AddAllychain.
+func (mr *MockInternalStateMockRecorder) AddAllychain(createAllychainTx interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddSubnet", reflect.TypeOf((*MockInternalState)(nil).AddSubnet), createSubnetTx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAllychain", reflect.TypeOf((*MockInternalState)(nil).AddAllychain), createAllychainTx)
 }
 
 // AddTx mocks base method.
@@ -255,18 +255,18 @@ func (mr *MockInternalStateMockRecorder) GetBlock(blockID interface{}) *gomock.C
 }
 
 // GetChains mocks base method.
-func (m *MockInternalState) GetChains(subnetID ids.ID) ([]*Tx, error) {
+func (m *MockInternalState) GetChains(allychainID ids.ID) ([]*Tx, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetChains", subnetID)
+	ret := m.ctrl.Call(m, "GetChains", allychainID)
 	ret0, _ := ret[0].([]*Tx)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetChains indicates an expected call of GetChains.
-func (mr *MockInternalStateMockRecorder) GetChains(subnetID interface{}) *gomock.Call {
+func (mr *MockInternalStateMockRecorder) GetChains(allychainID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetChains", reflect.TypeOf((*MockInternalState)(nil).GetChains), subnetID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetChains", reflect.TypeOf((*MockInternalState)(nil).GetChains), allychainID)
 }
 
 // GetCurrentSupply mocks base method.
@@ -327,19 +327,19 @@ func (mr *MockInternalStateMockRecorder) GetStartTime(nodeID interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetStartTime", reflect.TypeOf((*MockInternalState)(nil).GetStartTime), nodeID)
 }
 
-// GetSubnets mocks base method.
-func (m *MockInternalState) GetSubnets() ([]*Tx, error) {
+// GetAllychains mocks base method.
+func (m *MockInternalState) GetAllychains() ([]*Tx, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSubnets")
+	ret := m.ctrl.Call(m, "GetAllychains")
 	ret0, _ := ret[0].([]*Tx)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetSubnets indicates an expected call of GetSubnets.
-func (mr *MockInternalStateMockRecorder) GetSubnets() *gomock.Call {
+// GetAllychains indicates an expected call of GetAllychains.
+func (mr *MockInternalStateMockRecorder) GetAllychains() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSubnets", reflect.TypeOf((*MockInternalState)(nil).GetSubnets))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllychains", reflect.TypeOf((*MockInternalState)(nil).GetAllychains))
 }
 
 // GetTimestamp mocks base method.
@@ -404,18 +404,18 @@ func (mr *MockInternalStateMockRecorder) GetUptime(nodeID interface{}) *gomock.C
 }
 
 // GetValidatorWeightDiffs mocks base method.
-func (m *MockInternalState) GetValidatorWeightDiffs(height uint64, subnetID ids.ID) (map[ids.NodeID]*ValidatorWeightDiff, error) {
+func (m *MockInternalState) GetValidatorWeightDiffs(height uint64, allychainID ids.ID) (map[ids.NodeID]*ValidatorWeightDiff, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetValidatorWeightDiffs", height, subnetID)
+	ret := m.ctrl.Call(m, "GetValidatorWeightDiffs", height, allychainID)
 	ret0, _ := ret[0].(map[ids.NodeID]*ValidatorWeightDiff)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetValidatorWeightDiffs indicates an expected call of GetValidatorWeightDiffs.
-func (mr *MockInternalStateMockRecorder) GetValidatorWeightDiffs(height, subnetID interface{}) *gomock.Call {
+func (mr *MockInternalStateMockRecorder) GetValidatorWeightDiffs(height, allychainID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetValidatorWeightDiffs", reflect.TypeOf((*MockInternalState)(nil).GetValidatorWeightDiffs), height, subnetID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetValidatorWeightDiffs", reflect.TypeOf((*MockInternalState)(nil).GetValidatorWeightDiffs), height, allychainID)
 }
 
 // PendingStakerChainState mocks base method.

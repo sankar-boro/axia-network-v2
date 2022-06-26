@@ -29,7 +29,7 @@ type InitializeRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	NetworkId    uint32               `protobuf:"varint,1,opt,name=network_id,json=networkId,proto3" json:"network_id,omitempty"`
-	SubnetId     []byte               `protobuf:"bytes,2,opt,name=subnet_id,json=subnetId,proto3" json:"subnet_id,omitempty"`
+	AllychainId     []byte               `protobuf:"bytes,2,opt,name=allychain_id,json=allychainId,proto3" json:"allychain_id,omitempty"`
 	ChainId      []byte               `protobuf:"bytes,3,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
 	NodeId       []byte               `protobuf:"bytes,4,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	SwapChainId     []byte               `protobuf:"bytes,5,opt,name=x_chain_id,json=swapChainId,proto3" json:"x_chain_id,omitempty"`
@@ -40,7 +40,7 @@ type InitializeRequest struct {
 	DbServers    []*VersionedDBServer `protobuf:"bytes,10,rep,name=db_servers,json=dbServers,proto3" json:"db_servers,omitempty"`
 	// server_addr is the address of the gRPC server which serves
 	// the messenger, keystore, shared memory, blockchain alias,
-	// subnet alias, and appSender services
+	// allychain alias, and appSender services
 	ServerAddr string `protobuf:"bytes,20,opt,name=server_addr,json=serverAddr,proto3" json:"server_addr,omitempty"`
 }
 
@@ -83,9 +83,9 @@ func (x *InitializeRequest) GetNetworkId() uint32 {
 	return 0
 }
 
-func (x *InitializeRequest) GetSubnetId() []byte {
+func (x *InitializeRequest) GetAllychainId() []byte {
 	if x != nil {
-		return x.SubnetId
+		return x.AllychainId
 	}
 	return nil
 }

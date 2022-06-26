@@ -91,7 +91,7 @@ func makeRawTestPeers(t *testing.T) (*rawTestPeer, *rawTestPeer) {
 		InboundMsgThrottler:  throttling.NewNoInboundThrottler(),
 		VersionCompatibility: version.GetCompatibility(constants.LocalID),
 		VersionParser:        version.DefaultApplicationParser,
-		MySubnets:            ids.Set{},
+		MyAllychains:            ids.Set{},
 		Beacons:              validators.NewSet(),
 		NetworkID:            constants.LocalID,
 		PingFrequency:        constants.DefaultPingFrequency,
@@ -113,7 +113,7 @@ func makeRawTestPeers(t *testing.T) (*rawTestPeer, *rawTestPeer) {
 		},
 		version: version.CurrentApp,
 		signer:  tlsCert0.PrivateKey.(crypto.Signer),
-		subnets: ids.Set{},
+		allychains: ids.Set{},
 
 		uptime: 100,
 	}
@@ -132,7 +132,7 @@ func makeRawTestPeers(t *testing.T) (*rawTestPeer, *rawTestPeer) {
 		},
 		version: version.CurrentApp,
 		signer:  tlsCert1.PrivateKey.(crypto.Signer),
-		subnets: ids.Set{},
+		allychains: ids.Set{},
 
 		uptime: 100,
 	}

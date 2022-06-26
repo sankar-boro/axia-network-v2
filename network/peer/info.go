@@ -18,5 +18,5 @@ type Info struct {
 	LastSent       time.Time  `json:"lastSent"`
 	LastReceived   time.Time  `json:"lastReceived"`
 	ObservedUptime json.Uint8 `json:"observedUptime"`
-	TrackedSubnets []ids.ID   `json:"trackedSubnets"`
+	TrackedAllychains []ids.ID   `json:"trackedAllychains"`
 }

@@ -202,7 +202,7 @@ var (
 		TxFeeConfig: TxFeeConfig{
 			TxFee:                 units.MilliAxc,
 			CreateAssetTxFee:      10 * units.MilliAxc,
-			CreateSubnetTxFee:     100 * units.MilliAxc,
+			CreateAllychainTxFee:     100 * units.MilliAxc,
 			CreateBlockchainTxFee: 100 * units.MilliAxc,
 		},
 		StakingConfig: StakingConfig{

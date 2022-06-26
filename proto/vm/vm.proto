@@ -57,11 +57,11 @@ message InitializeRequest {
   // reserved for backward compatibility
   // axia <=v1.7.9 used the fields "11-19" as an id to
   // identify the gRPC server address which served the messenger,
-  // keystore, shared memory, blockchain alias, subnet alias, and
+  // keystore, shared memory, blockchain alias, allychain alias, and
   // appSender services via the now removed service broker
   reserved 11 to 19;
   uint32 network_id = 1;
-  bytes subnet_id = 2;
+  bytes allychain_id = 2;
   bytes chain_id = 3;
   bytes node_id = 4;
   bytes x_chain_id = 5;
@@ -72,7 +72,7 @@ message InitializeRequest {
   repeated VersionedDBServer db_servers = 10;
   // server_addr is the address of the gRPC server which serves
   // the messenger, keystore, shared memory, blockchain alias,
-  // subnet alias, and appSender services
+  // allychain alias, and appSender services
   string server_addr = 20;
 }
 

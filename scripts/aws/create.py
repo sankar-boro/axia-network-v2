@@ -17,7 +17,7 @@ def runInstances(ec2, num: int, name: str):
             InstanceType="c5.large",
             MaxCount=num,
             MinCount=num,
-            SubnetId="subnet-0c80cf240e54118c8",
+            AllychainId="allychain-0c80cf240e54118c8",
             TagSpecifications=[
                 {"ResourceType": "instance", "Tags": [{"Key": "Name", "Value": name}]}
             ],

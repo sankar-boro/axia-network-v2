@@ -103,8 +103,8 @@ type VM struct {
 	// Bootstrapped remembers if this chain has finished bootstrapping or not
 	bootstrapped utils.AtomicBool
 
-	// Maps caches for each subnet that is currently whitelisted.
-	// Key: Subnet ID
+	// Maps caches for each allychain that is currently whitelisted.
+	// Key: Allychain ID
 	// Value: cache mapping height -> validator set map
 	validatorSetCaches map[ids.ID]cache.Cacher
 
@@ -136,7 +136,7 @@ func (vm *VM) Initialize(
 	}
 
 	// Initialize metrics as soon as possible
-	if err := vm.metrics.Initialize("", registerer, vm.WhitelistedSubnets); err != nil {
+	if err := vm.metrics.Initialize("", registerer, vm.WhitelistedAllychains); err != nil {
 		return err
 	}
 
@@ -209,23 +209,23 @@ func (vm *VM) Initialize(
 
 // Create all chains that exist that this node validates.
 func (vm *VM) initBlockchains() error {
-	if err := vm.createSubnet(constants.PrimaryNetworkID); err != nil {
+	if err := vm.createAllychain(constants.PrimaryNetworkID); err != nil {
 		return err
 	}
 
 	if vm.StakingEnabled {
-		for subnetID := range vm.WhitelistedSubnets {
-			if err := vm.createSubnet(subnetID); err != nil {
+		for allychainID := range vm.WhitelistedAllychains {
+			if err := vm.createAllychain(allychainID); err != nil {
 				return err
 			}
 		}
 	} else {
-		subnets, err := vm.internalState.GetSubnets()
+		allychains, err := vm.internalState.GetAllychains()
 		if err != nil {
 			return err
 		}
-		for _, subnet := range subnets {
-			if err := vm.createSubnet(subnet.ID()); err != nil {
+		for _, allychain := range allychains {
+			if err := vm.createAllychain(allychain.ID()); err != nil {
 				return err
 			}
 		}
@@ -233,9 +233,9 @@ func (vm *VM) initBlockchains() error {
 	return nil
 }
 
-// Create the subnet with ID [subnetID]
-func (vm *VM) createSubnet(subnetID ids.ID) error {
-	chains, err := vm.internalState.GetChains(subnetID)
+// Create the allychain with ID [allychainID]
+func (vm *VM) createAllychain(allychainID ids.ID) error {
+	chains, err := vm.internalState.GetChains(allychainID)
 	if err != nil {
 		return err
 	}
@@ -248,7 +248,7 @@ func (vm *VM) createSubnet(subnetID ids.ID) error {
 }
 
 // Create the blockchain described in [tx], but only if this node is a member of
-// the subnet that validates the chain
+// the allychain that validates the chain
 func (vm *VM) createChain(tx *Tx) error {
 	unsignedTx, ok := tx.UnsignedTx.(*UnsignedCreateChainTx)
 	if !ok {
@@ -256,14 +256,14 @@ func (vm *VM) createChain(tx *Tx) error {
 	}
 
 	if vm.StakingEnabled && // Staking is enabled, so nodes might not validate all chains
-		constants.PrimaryNetworkID != unsignedTx.SubnetID && // All nodes must validate the primary network
-		!vm.WhitelistedSubnets.Contains(unsignedTx.SubnetID) { // This node doesn't validate this blockchain
+		constants.PrimaryNetworkID != unsignedTx.AllychainID && // All nodes must validate the primary network
+		!vm.WhitelistedAllychains.Contains(unsignedTx.AllychainID) { // This node doesn't validate this blockchain
 		return nil
 	}
 
 	chainParams := chains.ChainParameters{
 		ID:          tx.ID(),
-		SubnetID:    unsignedTx.SubnetID,
+		AllychainID:    unsignedTx.AllychainID,
 		GenesisData: unsignedTx.GenesisData,
 		VMAlias:     unsignedTx.VMID.String(),
 	}
@@ -461,14 +461,14 @@ func (vm *VM) Disconnected(vdrID ids.NodeID) error {
 }
 
 // GetValidatorSet returns the validator set at the specified height for the
-// provided subnetID.
-func (vm *VM) GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
-	validatorSetsCache, exists := vm.validatorSetCaches[subnetID]
+// provided allychainID.
+func (vm *VM) GetValidatorSet(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
+	validatorSetsCache, exists := vm.validatorSetCaches[allychainID]
 	if !exists {
 		validatorSetsCache = &cache.LRU{Size: validatorSetsCacheSize}
-		// Only cache whitelisted subnets
-		if vm.WhitelistedSubnets.Contains(subnetID) || subnetID == constants.PrimaryNetworkID {
-			vm.validatorSetCaches[subnetID] = validatorSetsCache
+		// Only cache whitelisted allychains
+		if vm.WhitelistedAllychains.Contains(allychainID) || allychainID == constants.PrimaryNetworkID {
+			vm.validatorSetCaches[allychainID] = validatorSetsCache
 		}
 	}
 
@@ -492,7 +492,7 @@ func (vm *VM) GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]ui
 	// get the start time to track metrics
 	startTime := vm.Clock().Time()
 
-	currentValidators, ok := vm.Validators.GetValidators(subnetID)
+	currentValidators, ok := vm.Validators.GetValidators(allychainID)
 	if !ok {
 		return nil, errNotEnoughValidators
 	}
@@ -504,7 +504,7 @@ func (vm *VM) GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]ui
 	}
 
 	for i := lastAcceptedHeight; i > height; i-- {
-		diffs, err := vm.internalState.GetValidatorWeightDiffs(i, subnetID)
+		diffs, err := vm.internalState.GetValidatorWeightDiffs(i, allychainID)
 		if err != nil {
 			return nil, err
 		}
@@ -593,12 +593,12 @@ func (vm *VM) updateValidators() error {
 	vm.localStake.Set(float64(weight))
 	vm.totalStake.Set(float64(primaryValidators.Weight()))
 
-	for subnetID := range vm.WhitelistedSubnets {
-		subnetValidators, err := currentValidators.ValidatorSet(subnetID)
+	for allychainID := range vm.WhitelistedAllychains {
+		allychainValidators, err := currentValidators.ValidatorSet(allychainID)
 		if err != nil {
 			return err
 		}
-		if err := vm.Validators.Set(subnetID, subnetValidators); err != nil {
+		if err := vm.Validators.Set(allychainID, allychainValidators); err != nil {
 			return err
 		}
 	}
@@ -611,10 +611,10 @@ func (vm *VM) Clock() *mockable.Clock { return &vm.clock }
 
 func (vm *VM) Logger() logging.Logger { return vm.ctx.Log }
 
-// Returns the percentage of the total stake of the subnet connected to this
+// Returns the percentage of the total stake of the allychain connected to this
 // node.
-func (vm *VM) getPercentConnected(subnetID ids.ID) (float64, error) {
-	vdrSet, exists := vm.Validators.GetValidators(subnetID)
+func (vm *VM) getPercentConnected(allychainID ids.ID) (float64, error) {
+	vdrSet, exists := vm.Validators.GetValidators(allychainID)
 	if !exists {
 		return 0, errNoValidators
 	}

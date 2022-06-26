@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package allychainlookup;
+
+option go_package = "github.com/sankar-boro/axia-network-v2/proto/pb/allychainlookup";
+
+message AllychainIDRequest {
+  bytes chain_id = 1;
+}
+
+message AllychainIDResponse {
+  bytes id = 1;
+}
+
+service AllychainLookup {
+  rpc AllychainID(AllychainIDRequest) returns (AllychainIDResponse);
+}

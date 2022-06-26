@@ -15,7 +15,7 @@ import (
 type metrics struct {
 	numTracked                prometheus.Gauge
 	numPeers                  prometheus.Gauge
-	numSubnetPeers            *prometheus.GaugeVec
+	numAllychainPeers            *prometheus.GaugeVec
 	timeSinceLastMsgSent      prometheus.Gauge
 	timeSinceLastMsgReceived  prometheus.Gauge
 	sendQueuePortionFull      prometheus.Gauge
@@ -28,7 +28,7 @@ type metrics struct {
 	nodeUptimeRewardingStake  prometheus.Gauge
 }
 
-func newMetrics(namespace string, registerer prometheus.Registerer, initialSubnetIDs ids.Set) (*metrics, error) {
+func newMetrics(namespace string, registerer prometheus.Registerer, initialAllychainIDs ids.Set) (*metrics, error) {
 	m := &metrics{
 		numPeers: prometheus.NewGauge(prometheus.GaugeOpts{
 			Namespace: namespace,
@@ -40,13 +40,13 @@ func newMetrics(namespace string, registerer prometheus.Registerer, initialSubne
 			Name:      "tracked",
 			Help:      "Number of currently tracked IPs attempting to be connected to",
 		}),
-		numSubnetPeers: prometheus.NewGaugeVec(
+		numAllychainPeers: prometheus.NewGaugeVec(
 			prometheus.GaugeOpts{
 				Namespace: namespace,
-				Name:      "peers_subnet",
-				Help:      "Number of peers that are validating a particular subnet",
+				Name:      "peers_allychain",
+				Help:      "Number of peers that are validating a particular allychain",
 			},
-			[]string{"subnetID"},
+			[]string{"allychainID"},
 		),
 		timeSinceLastMsgReceived: prometheus.NewGauge(prometheus.GaugeOpts{
 			Namespace: namespace,
@@ -104,7 +104,7 @@ func newMetrics(namespace string, registerer prometheus.Registerer, initialSubne
 	errs.Add(
 		registerer.Register(m.numTracked),
 		registerer.Register(m.numPeers),
-		registerer.Register(m.numSubnetPeers),
+		registerer.Register(m.numAllychainPeers),
 		registerer.Register(m.timeSinceLastMsgReceived),
 		registerer.Register(m.timeSinceLastMsgSent),
 		registerer.Register(m.sendQueuePortionFull),
@@ -117,14 +117,14 @@ func newMetrics(namespace string, registerer prometheus.Registerer, initialSubne
 		registerer.Register(m.nodeUptimeRewardingStake),
 	)
 
-	// init subnet tracker metrics with whitelisted subnets
-	for subnetID := range initialSubnetIDs {
+	// init allychain tracker metrics with whitelisted allychains
+	for allychainID := range initialAllychainIDs {
 		// no need to track primary network ID
-		if subnetID == constants.PrimaryNetworkID {
+		if allychainID == constants.PrimaryNetworkID {
 			continue
 		}
 		// initialize to 0
-		m.numSubnetPeers.WithLabelValues(subnetID.String()).Set(0)
+		m.numAllychainPeers.WithLabelValues(allychainID.String()).Set(0)
 	}
 	return m, errs.Err
 }
@@ -133,13 +133,13 @@ func (m *metrics) markConnected(peer peer.Peer) {
 	m.numPeers.Inc()
 	m.connected.Inc()
 
-	trackedSubnets := peer.TrackedSubnets()
-	for subnetID := range trackedSubnets {
+	trackedAllychains := peer.TrackedAllychains()
+	for allychainID := range trackedAllychains {
 		// no need to track primary network ID
-		if subnetID == constants.PrimaryNetworkID {
+		if allychainID == constants.PrimaryNetworkID {
 			continue
 		}
-		m.numSubnetPeers.WithLabelValues(subnetID.String()).Inc()
+		m.numAllychainPeers.WithLabelValues(allychainID.String()).Inc()
 	}
 }
 
@@ -147,12 +147,12 @@ func (m *metrics) markDisconnected(peer peer.Peer) {
 	m.numPeers.Dec()
 	m.disconnected.Inc()
 
-	trackedSubnets := peer.TrackedSubnets()
-	for subnetID := range trackedSubnets {
+	trackedAllychains := peer.TrackedAllychains()
+	for allychainID := range trackedAllychains {
 		// no need to track primary network ID
-		if subnetID == constants.PrimaryNetworkID {
+		if allychainID == constants.PrimaryNetworkID {
 			continue
 		}
-		m.numSubnetPeers.WithLabelValues(subnetID.String()).Dec()
+		m.numAllychainPeers.WithLabelValues(allychainID.String()).Dec()
 	}
 }

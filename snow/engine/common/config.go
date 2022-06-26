@@ -23,7 +23,7 @@ type Config struct {
 	StartupTracker tracker.Startup
 	Sender         Sender
 	Bootstrapable  Bootstrapable
-	Subnet         Subnet
+	Allychain         Allychain
 	Timer          Timer
 
 	// Should Bootstrap be retried

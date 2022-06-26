@@ -22,8 +22,8 @@ type ExternalSenderTest struct {
 
 	CantSend, CantGossip bool
 
-	SendF   func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, subnetID ids.ID, validatorOnly bool) ids.NodeIDSet
-	GossipF func(msg message.OutboundMessage, subnetID ids.ID, validatorOnly bool, numValidatorsToSend, numNonValidatorsToSend, numPeersToSend int) ids.NodeIDSet
+	SendF   func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, allychainID ids.ID, validatorOnly bool) ids.NodeIDSet
+	GossipF func(msg message.OutboundMessage, allychainID ids.ID, validatorOnly bool, numValidatorsToSend, numNonValidatorsToSend, numPeersToSend int) ids.NodeIDSet
 }
 
 // Default set the default callable value to [cant]
@@ -35,11 +35,11 @@ func (s *ExternalSenderTest) Default(cant bool) {
 func (s *ExternalSenderTest) Send(
 	msg message.OutboundMessage,
 	nodeIDs ids.NodeIDSet,
-	subnetID ids.ID,
+	allychainID ids.ID,
 	validatorOnly bool,
 ) ids.NodeIDSet {
 	if s.SendF != nil {
-		return s.SendF(msg, nodeIDs, subnetID, validatorOnly)
+		return s.SendF(msg, nodeIDs, allychainID, validatorOnly)
 	}
 	if s.CantSend {
 		if s.TB != nil {
@@ -55,14 +55,14 @@ func (s *ExternalSenderTest) Send(
 // initialized, then testing will fail.
 func (s *ExternalSenderTest) Gossip(
 	msg message.OutboundMessage,
-	subnetID ids.ID,
+	allychainID ids.ID,
 	validatorOnly bool,
 	numValidatorsToSend int,
 	numNonValidatorsToSend int,
 	numPeersToSend int,
 ) ids.NodeIDSet {
 	if s.GossipF != nil {
-		return s.GossipF(msg, subnetID, validatorOnly, numValidatorsToSend, numNonValidatorsToSend, numPeersToSend)
+		return s.GossipF(msg, allychainID, validatorOnly, numValidatorsToSend, numNonValidatorsToSend, numPeersToSend)
 	}
 	if s.CantGossip {
 		if s.TB != nil {

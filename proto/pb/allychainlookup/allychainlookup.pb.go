@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.28.0
 // 	protoc        (unknown)
-// source: subnetlookup/subnetlookup.proto
+// source: allychainlookup/allychainlookup.proto
 
-package subnetlookup
+package allychainlookup
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type SubnetIDRequest struct {
+type AllychainIDRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -28,23 +28,23 @@ type SubnetIDRequest struct {
 	ChainId []byte `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
 }
 
-func (x *SubnetIDRequest) Reset() {
-	*x = SubnetIDRequest{}
+func (x *AllychainIDRequest) Reset() {
+	*x = AllychainIDRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_subnetlookup_subnetlookup_proto_msgTypes[0]
+		mi := &file_allychainlookup_allychainlookup_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *SubnetIDRequest) String() string {
+func (x *AllychainIDRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SubnetIDRequest) ProtoMessage() {}
+func (*AllychainIDRequest) ProtoMessage() {}
 
-func (x *SubnetIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_subnetlookup_subnetlookup_proto_msgTypes[0]
+func (x *AllychainIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_allychainlookup_allychainlookup_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,19 +55,19 @@ func (x *SubnetIDRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SubnetIDRequest.ProtoReflect.Descriptor instead.
-func (*SubnetIDRequest) Descriptor() ([]byte, []int) {
-	return file_subnetlookup_subnetlookup_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use AllychainIDRequest.ProtoReflect.Descriptor instead.
+func (*AllychainIDRequest) Descriptor() ([]byte, []int) {
+	return file_allychainlookup_allychainlookup_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SubnetIDRequest) GetChainId() []byte {
+func (x *AllychainIDRequest) GetChainId() []byte {
 	if x != nil {
 		return x.ChainId
 	}
 	return nil
 }
 
-type SubnetIDResponse struct {
+type AllychainIDResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -75,23 +75,23 @@ type SubnetIDResponse struct {
 	Id []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *SubnetIDResponse) Reset() {
-	*x = SubnetIDResponse{}
+func (x *AllychainIDResponse) Reset() {
+	*x = AllychainIDResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_subnetlookup_subnetlookup_proto_msgTypes[1]
+		mi := &file_allychainlookup_allychainlookup_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *SubnetIDResponse) String() string {
+func (x *AllychainIDResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SubnetIDResponse) ProtoMessage() {}
+func (*AllychainIDResponse) ProtoMessage() {}
 
-func (x *SubnetIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_subnetlookup_subnetlookup_proto_msgTypes[1]
+func (x *AllychainIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_allychainlookup_allychainlookup_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -102,21 +102,21 @@ func (x *SubnetIDResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SubnetIDResponse.ProtoReflect.Descriptor instead.
-func (*SubnetIDResponse) Descriptor() ([]byte, []int) {
-	return file_subnetlookup_subnetlookup_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use AllychainIDResponse.ProtoReflect.Descriptor instead.
+func (*AllychainIDResponse) Descriptor() ([]byte, []int) {
+	return file_allychainlookup_allychainlookup_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SubnetIDResponse) GetId() []byte {
+func (x *AllychainIDResponse) GetId() []byte {
 	if x != nil {
 		return x.Id
 	}
 	return nil
 }
 
-var File_subnetlookup_subnetlookup_proto protoreflect.FileDescriptor
+var File_allychainlookup_allychainlookup_proto protoreflect.FileDescriptor
 
-var file_subnetlookup_subnetlookup_proto_rawDesc = []byte{
+var file_allychainlookup_allychainlookup_proto_rawDesc = []byte{
 	0x0a, 0x1f, 0x73, 0x75, 0x62, 0x6e, 0x65, 0x74, 0x6c, 0x6f, 0x6f, 0x6b, 0x75, 0x70, 0x2f, 0x73,
 	0x75, 0x62, 0x6e, 0x65, 0x74, 0x6c, 0x6f, 0x6f, 0x6b, 0x75, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x12, 0x0c, 0x73, 0x75, 0x62, 0x6e, 0x65, 0x74, 0x6c, 0x6f, 0x6f, 0x6b, 0x75, 0x70, 0x22,
@@ -138,25 +138,25 @@ var file_subnetlookup_subnetlookup_proto_rawDesc = []byte{
 }
 
 var (
-	file_subnetlookup_subnetlookup_proto_rawDescOnce sync.Once
-	file_subnetlookup_subnetlookup_proto_rawDescData = file_subnetlookup_subnetlookup_proto_rawDesc
+	file_allychainlookup_allychainlookup_proto_rawDescOnce sync.Once
+	file_allychainlookup_allychainlookup_proto_rawDescData = file_allychainlookup_allychainlookup_proto_rawDesc
 )
 
-func file_subnetlookup_subnetlookup_proto_rawDescGZIP() []byte {
-	file_subnetlookup_subnetlookup_proto_rawDescOnce.Do(func() {
-		file_subnetlookup_subnetlookup_proto_rawDescData = protoimpl.X.CompressGZIP(file_subnetlookup_subnetlookup_proto_rawDescData)
+func file_allychainlookup_allychainlookup_proto_rawDescGZIP() []byte {
+	file_allychainlookup_allychainlookup_proto_rawDescOnce.Do(func() {
+		file_allychainlookup_allychainlookup_proto_rawDescData = protoimpl.X.CompressGZIP(file_allychainlookup_allychainlookup_proto_rawDescData)
 	})
-	return file_subnetlookup_subnetlookup_proto_rawDescData
+	return file_allychainlookup_allychainlookup_proto_rawDescData
 }
 
-var file_subnetlookup_subnetlookup_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_subnetlookup_subnetlookup_proto_goTypes = []interface{}{
-	(*SubnetIDRequest)(nil),  // 0: subnetlookup.SubnetIDRequest
-	(*SubnetIDResponse)(nil), // 1: subnetlookup.SubnetIDResponse
+var file_allychainlookup_allychainlookup_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_allychainlookup_allychainlookup_proto_goTypes = []interface{}{
+	(*AllychainIDRequest)(nil),  // 0: allychainlookup.AllychainIDRequest
+	(*AllychainIDResponse)(nil), // 1: allychainlookup.AllychainIDResponse
 }
-var file_subnetlookup_subnetlookup_proto_depIdxs = []int32{
-	0, // 0: subnetlookup.SubnetLookup.SubnetID:input_type -> subnetlookup.SubnetIDRequest
-	1, // 1: subnetlookup.SubnetLookup.SubnetID:output_type -> subnetlookup.SubnetIDResponse
+var file_allychainlookup_allychainlookup_proto_depIdxs = []int32{
+	0, // 0: allychainlookup.AllychainLookup.AllychainID:input_type -> allychainlookup.AllychainIDRequest
+	1, // 1: allychainlookup.AllychainLookup.AllychainID:output_type -> allychainlookup.AllychainIDResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -164,14 +164,14 @@ var file_subnetlookup_subnetlookup_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_subnetlookup_subnetlookup_proto_init() }
-func file_subnetlookup_subnetlookup_proto_init() {
-	if File_subnetlookup_subnetlookup_proto != nil {
+func init() { file_allychainlookup_allychainlookup_proto_init() }
+func file_allychainlookup_allychainlookup_proto_init() {
+	if File_allychainlookup_allychainlookup_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_subnetlookup_subnetlookup_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SubnetIDRequest); i {
+		file_allychainlookup_allychainlookup_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AllychainIDRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -182,8 +182,8 @@ func file_subnetlookup_subnetlookup_proto_init() {
 				return nil
 			}
 		}
-		file_subnetlookup_subnetlookup_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SubnetIDResponse); i {
+		file_allychainlookup_allychainlookup_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AllychainIDResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -199,18 +199,18 @@ func file_subnetlookup_subnetlookup_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_subnetlookup_subnetlookup_proto_rawDesc,
+			RawDescriptor: file_allychainlookup_allychainlookup_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_subnetlookup_subnetlookup_proto_goTypes,
-		DependencyIndexes: file_subnetlookup_subnetlookup_proto_depIdxs,
-		MessageInfos:      file_subnetlookup_subnetlookup_proto_msgTypes,
+		GoTypes:           file_allychainlookup_allychainlookup_proto_goTypes,
+		DependencyIndexes: file_allychainlookup_allychainlookup_proto_depIdxs,
+		MessageInfos:      file_allychainlookup_allychainlookup_proto_msgTypes,
 	}.Build()
-	File_subnetlookup_subnetlookup_proto = out.File
-	file_subnetlookup_subnetlookup_proto_rawDesc = nil
-	file_subnetlookup_subnetlookup_proto_goTypes = nil
-	file_subnetlookup_subnetlookup_proto_depIdxs = nil
+	File_allychainlookup_allychainlookup_proto = out.File
+	file_allychainlookup_allychainlookup_proto_rawDesc = nil
+	file_allychainlookup_allychainlookup_proto_goTypes = nil
+	file_allychainlookup_allychainlookup_proto_depIdxs = nil
 }

@@ -70,9 +70,9 @@ type Peer interface {
 	// only be called after [Ready] returns true.
 	Version() version.Application
 
-	// TrackedSubnets returns the subnets this peer is running. It should only
+	// TrackedAllychains returns the allychains this peer is running. It should only
 	// be called after [Ready] returns true.
-	TrackedSubnets() ids.Set
+	TrackedAllychains() ids.Set
 
 	// ObservedUptime returns the local node's uptime according to the peer. The
 	// value ranges from [0, 100]. It should only be called after [Ready]
@@ -118,9 +118,9 @@ type peer struct {
 	// version is the claimed version the peer is running that we received in
 	// the Version message.
 	version version.Application
-	// trackedSubnets is the subset of subnetIDs the peer sent us in the Version
+	// trackedAllychains is the subset of allychainIDs the peer sent us in the Version
 	// message that we are also tracking.
-	trackedSubnets ids.Set
+	trackedAllychains ids.Set
 
 	observedUptimeLock sync.RWMutex
 	// [observedUptimeLock] must be held while accessing [observedUptime]
@@ -178,7 +178,7 @@ func Start(
 		onClosed:           make(chan struct{}),
 	}
 
-	p.trackedSubnets.Add(constants.PrimaryNetworkID)
+	p.trackedAllychains.Add(constants.PrimaryNetworkID)
 
 	go p.readMessages()
 	go p.writeMessages()
@@ -231,7 +231,7 @@ func (p *peer) Info() Info {
 		LastSent:       time.Unix(atomic.LoadInt64(&p.lastSent), 0),
 		LastReceived:   time.Unix(atomic.LoadInt64(&p.lastReceived), 0),
 		ObservedUptime: json.Uint8(p.ObservedUptime()),
-		TrackedSubnets: p.trackedSubnets.List(),
+		TrackedAllychains: p.trackedAllychains.List(),
 	}
 }
 
@@ -239,7 +239,7 @@ func (p *peer) IP() *SignedIP { return p.ip }
 
 func (p *peer) Version() version.Application { return p.version }
 
-func (p *peer) TrackedSubnets() ids.Set { return p.trackedSubnets }
+func (p *peer) TrackedAllychains() ids.Set { return p.trackedAllychains }
 
 func (p *peer) ObservedUptime() uint8 {
 	p.observedUptimeLock.RLock()
@@ -656,21 +656,21 @@ func (p *peer) handleVersion(msg message.InboundMessage) {
 
 	peerIP := msg.Get(message.IP).(ips.IPPort)
 
-	// handle subnet IDs
-	subnetIDsBytes := msg.Get(message.TrackedSubnets).([][]byte)
-	for _, subnetIDBytes := range subnetIDsBytes {
-		subnetID, err := ids.ToID(subnetIDBytes)
+	// handle allychain IDs
+	allychainIDsBytes := msg.Get(message.TrackedAllychains).([][]byte)
+	for _, allychainIDBytes := range allychainIDsBytes {
+		allychainID, err := ids.ToID(allychainIDBytes)
 		if err != nil {
 			p.Log.Debug(
-				"tracked subnet of %s could not be parsed: %s",
+				"tracked allychain of %s could not be parsed: %s",
 				p.id, err,
 			)
 			p.StartClose()
 			return
 		}
-		// add only if we also track this subnet
-		if p.MySubnets.Contains(subnetID) {
-			p.trackedSubnets.Add(subnetID)
+		// add only if we also track this allychain
+		if p.MyAllychains.Contains(allychainID) {
+			p.trackedAllychains.Add(allychainID)
 		}
 	}
 

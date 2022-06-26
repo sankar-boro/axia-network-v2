@@ -73,15 +73,15 @@ func init() {
 }
 
 type snLookup struct {
-	chainsToSubnet map[ids.ID]ids.ID
+	chainsToAllychain map[ids.ID]ids.ID
 }
 
-func (sn *snLookup) SubnetID(chainID ids.ID) (ids.ID, error) {
-	subnetID, ok := sn.chainsToSubnet[chainID]
+func (sn *snLookup) AllychainID(chainID ids.ID) (ids.ID, error) {
+	allychainID, ok := sn.chainsToAllychain[chainID]
 	if !ok {
 		return ids.ID{}, errors.New("")
 	}
-	return subnetID, nil
+	return allychainID, nil
 }
 
 func NewContext(tb testing.TB) *snow.Context {
@@ -108,10 +108,10 @@ func NewContext(tb testing.TB) *snow.Context {
 	}
 
 	sn := &snLookup{
-		chainsToSubnet: make(map[ids.ID]ids.ID),
+		chainsToAllychain: make(map[ids.ID]ids.ID),
 	}
-	sn.chainsToSubnet[chainID] = ctx.SubnetID
-	sn.chainsToSubnet[platformChainID] = ctx.SubnetID
+	sn.chainsToAllychain[chainID] = ctx.AllychainID
+	sn.chainsToAllychain[platformChainID] = ctx.AllychainID
 	ctx.SNLookup = sn
 	return ctx
 }

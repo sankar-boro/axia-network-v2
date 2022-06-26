@@ -31,7 +31,7 @@ func TestUnsignedCreateChainTxVerify(t *testing.T) {
 	type test struct {
 		description string
 		shouldErr   bool
-		subnetID    ids.ID
+		allychainID    ids.ID
 		genesisData []byte
 		vmID        ids.ID
 		fxIDs       []ids.ID
@@ -44,56 +44,56 @@ func TestUnsignedCreateChainTxVerify(t *testing.T) {
 		{
 			description: "tx is nil",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 			setup:       func(*UnsignedCreateChainTx) *UnsignedCreateChainTx { return nil },
 		},
 		{
 			description: "vm ID is empty",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 			setup:       func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx { tx.VMID = ids.ID{}; return tx },
 		},
 		{
-			description: "subnet ID is empty",
+			description: "allychain ID is empty",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
-			setup:       func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx { tx.SubnetID = ids.ID{}; return tx },
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
+			setup:       func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx { tx.AllychainID = ids.ID{}; return tx },
 		},
 		{
-			description: "subnet ID is platform chain's ID",
+			description: "allychain ID is platform chain's ID",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
-			setup:       func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx { tx.SubnetID = vm.ctx.ChainID; return tx },
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
+			setup:       func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx { tx.AllychainID = vm.ctx.ChainID; return tx },
 		},
 		{
 			description: "chain name is too long",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 			setup: func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx {
 				tx.ChainName = string(make([]byte, maxNameLen+1))
 				return tx
@@ -102,12 +102,12 @@ func TestUnsignedCreateChainTxVerify(t *testing.T) {
 		{
 			description: "chain name has invalid character",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 			setup: func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx {
 				tx.ChainName = "⌘"
 				return tx
@@ -116,12 +116,12 @@ func TestUnsignedCreateChainTxVerify(t *testing.T) {
 		{
 			description: "genesis data is too long",
 			shouldErr:   true,
-			subnetID:    testSubnet1.ID(),
+			allychainID:    testAllychain1.ID(),
 			genesisData: nil,
 			vmID:        constants.AVMID,
 			fxIDs:       nil,
 			chainName:   "yeet",
-			keys:        []*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+			keys:        []*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 			setup: func(tx *UnsignedCreateChainTx) *UnsignedCreateChainTx {
 				tx.GenesisData = make([]byte, maxGenesisLen+1)
 				return tx
@@ -131,7 +131,7 @@ func TestUnsignedCreateChainTxVerify(t *testing.T) {
 
 	for _, test := range tests {
 		tx, err := vm.newCreateChainTx(
-			test.subnetID,
+			test.allychainID,
 			test.genesisData,
 			test.vmID,
 			test.fxIDs,
@@ -164,7 +164,7 @@ func TestCreateChainTxInsufficientControlSigs(t *testing.T) {
 	}()
 
 	tx, err := vm.newCreateChainTx(
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		constants.AVMID,
 		nil,
@@ -201,12 +201,12 @@ func TestCreateChainTxWrongControlSig(t *testing.T) {
 	}()
 
 	tx, err := vm.newCreateChainTx( // create a tx
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		constants.AVMID,
 		nil,
 		"chain name",
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -237,9 +237,9 @@ func TestCreateChainTxWrongControlSig(t *testing.T) {
 	}
 }
 
-// Ensure Execute fails when the Subnet the blockchain specifies as
+// Ensure Execute fails when the Allychain the blockchain specifies as
 // its validator set doesn't exist
-func TestCreateChainTxNoSuchSubnet(t *testing.T) {
+func TestCreateChainTxNoSuchAllychain(t *testing.T) {
 	vm, _, _ := defaultVM()
 	vm.ctx.Lock.Lock()
 	defer func() {
@@ -250,12 +250,12 @@ func TestCreateChainTxNoSuchSubnet(t *testing.T) {
 	}()
 
 	tx, err := vm.newCreateChainTx(
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		constants.AVMID,
 		nil,
 		"chain name",
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -268,7 +268,7 @@ func TestCreateChainTxNoSuchSubnet(t *testing.T) {
 		vm.internalState.PendingStakerChainState(),
 	)
 
-	tx.UnsignedTx.(*UnsignedCreateChainTx).SubnetID = ids.GenerateTestID()
+	tx.UnsignedTx.(*UnsignedCreateChainTx).AllychainID = ids.GenerateTestID()
 	if _, err := tx.UnsignedTx.(UnsignedDecisionTx).Execute(vm, vs, tx); err == nil {
 		t.Fatal("should have failed because subent doesn't exist")
 	}
@@ -287,12 +287,12 @@ func TestCreateChainTxValid(t *testing.T) {
 
 	// create a valid tx
 	tx, err := vm.newCreateChainTx(
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		constants.AVMID,
 		nil,
 		"chain name",
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -355,10 +355,10 @@ func TestCreateChainTxAP3FeeChange(t *testing.T) {
 			ins, outs, _, signers, err := vm.stake(keys, 0, test.fee, ids.ShortEmpty)
 			assert.NoError(err)
 
-			subnetAuth, subnetSigners, err := vm.authorize(vm.internalState, testSubnet1.ID(), keys)
+			allychainAuth, allychainSigners, err := vm.authorize(vm.internalState, testAllychain1.ID(), keys)
 			assert.NoError(err)
 
-			signers = append(signers, subnetSigners)
+			signers = append(signers, allychainSigners)
 
 			// Create the tx
 
@@ -369,9 +369,9 @@ func TestCreateChainTxAP3FeeChange(t *testing.T) {
 					Ins:          ins,
 					Outs:         outs,
 				}},
-				SubnetID:   testSubnet1.ID(),
+				AllychainID:   testAllychain1.ID(),
 				VMID:       constants.AVMID,
-				SubnetAuth: subnetAuth,
+				AllychainAuth: allychainAuth,
 			}
 			tx := &Tx{UnsignedTx: utx}
 			err = tx.Sign(Codec, signers)

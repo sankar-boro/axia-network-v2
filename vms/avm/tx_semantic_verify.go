@@ -50,7 +50,7 @@ func (t *txSemanticVerify) ImportTx(tx *txs.ImportTx) error {
 		return nil
 	}
 
-	if err := verify.SameSubnet(t.vm.ctx, tx.SourceChain); err != nil {
+	if err := verify.SameAllychain(t.vm.ctx, tx.SourceChain); err != nil {
 		return err
 	}
 
@@ -85,7 +85,7 @@ func (t *txSemanticVerify) ImportTx(tx *txs.ImportTx) error {
 
 func (t *txSemanticVerify) ExportTx(tx *txs.ExportTx) error {
 	if t.vm.bootstrapped {
-		if err := verify.SameSubnet(t.vm.ctx, tx.DestinationChain); err != nil {
+		if err := verify.SameAllychain(t.vm.ctx, tx.DestinationChain); err != nil {
 			return err
 		}
 	}

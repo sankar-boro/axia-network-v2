@@ -45,8 +45,8 @@ func TestBuildVersion(t *testing.T) {
 	myVersion := version.NewDefaultVersion(1, 2, 3).String()
 	myVersionTime := uint64(time.Now().Unix())
 	sig := make([]byte, 65)
-	subnetID := ids.Empty.Prefix(1)
-	subnetIDs := [][]byte{subnetID[:]}
+	allychainID := ids.Empty.Prefix(1)
+	allychainIDs := [][]byte{allychainID[:]}
 	msg, err := UncompressingBuilder.Version(
 		networkID,
 		myTime,
@@ -54,7 +54,7 @@ func TestBuildVersion(t *testing.T) {
 		myVersion,
 		myVersionTime,
 		sig,
-		[]ids.ID{subnetID},
+		[]ids.ID{allychainID},
 	)
 	assert.NoError(t, err)
 	assert.NotNil(t, msg)
@@ -71,7 +71,7 @@ func TestBuildVersion(t *testing.T) {
 	assert.EqualValues(t, myVersion, parsedMsg.Get(VersionStr))
 	assert.EqualValues(t, myVersionTime, parsedMsg.Get(VersionTime))
 	assert.EqualValues(t, sig, parsedMsg.Get(SigBytes))
-	assert.EqualValues(t, subnetIDs, parsedMsg.Get(TrackedSubnets))
+	assert.EqualValues(t, allychainIDs, parsedMsg.Get(TrackedAllychains))
 }
 
 func TestBuildGetAcceptedFrontier(t *testing.T) {

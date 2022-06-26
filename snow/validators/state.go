@@ -11,7 +11,7 @@ import (
 
 var _ State = &lockedState{}
 
-// State allows the lookup of validator sets on specified subnets at the
+// State allows the lookup of validator sets on specified allychains at the
 // requested Core-chain height.
 type State interface {
 	// GetMinimumHeight returns the minimum height of the block still in the
@@ -21,9 +21,9 @@ type State interface {
 	GetCurrentHeight() (uint64, error)
 
 	// GetValidatorSet returns the weights of the nodeIDs for the provided
-	// subnet at the requested Core-chain height.
+	// allychain at the requested Core-chain height.
 	// The returned map should not be modified.
-	GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error)
+	GetValidatorSet(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error)
 }
 
 type lockedState struct {
@@ -52,11 +52,11 @@ func (s *lockedState) GetCurrentHeight() (uint64, error) {
 	return s.s.GetCurrentHeight()
 }
 
-func (s *lockedState) GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+func (s *lockedState) GetValidatorSet(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	return s.s.GetValidatorSet(height, subnetID)
+	return s.s.GetValidatorSet(height, allychainID)
 }
 
 type noState struct{}
@@ -73,6 +73,6 @@ func (s *noState) GetCurrentHeight() (uint64, error) {
 	return 0, nil
 }
 
-func (s *noState) GetValidatorSet(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+func (s *noState) GetValidatorSet(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 	return nil, nil
 }

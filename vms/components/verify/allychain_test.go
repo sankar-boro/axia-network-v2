@@ -16,20 +16,20 @@ import (
 var errMissing = errors.New("missing")
 
 type snLookup struct {
-	chainsToSubnet map[ids.ID]ids.ID
+	chainsToAllychain map[ids.ID]ids.ID
 }
 
-func (sn *snLookup) SubnetID(chainID ids.ID) (ids.ID, error) {
-	subnetID, ok := sn.chainsToSubnet[chainID]
+func (sn *snLookup) AllychainID(chainID ids.ID) (ids.ID, error) {
+	allychainID, ok := sn.chainsToAllychain[chainID]
 	if !ok {
 		return ids.ID{}, errMissing
 	}
-	return subnetID, nil
+	return allychainID, nil
 }
 
-func TestSameSubnet(t *testing.T) {
-	subnet0 := ids.GenerateTestID()
-	subnet1 := ids.GenerateTestID()
+func TestSameAllychain(t *testing.T) {
+	allychain0 := ids.GenerateTestID()
+	allychain1 := ids.GenerateTestID()
 	chain0 := ids.GenerateTestID()
 	chain1 := ids.GenerateTestID()
 
@@ -42,7 +42,7 @@ func TestSameSubnet(t *testing.T) {
 		{
 			name: "same chain",
 			ctx: &snow.Context{
-				SubnetID: subnet0,
+				AllychainID: allychain0,
 				ChainID:  chain0,
 				SNLookup: &snLookup{},
 			},
@@ -52,7 +52,7 @@ func TestSameSubnet(t *testing.T) {
 		{
 			name: "unknown chain",
 			ctx: &snow.Context{
-				SubnetID: subnet0,
+				AllychainID: allychain0,
 				ChainID:  chain0,
 				SNLookup: &snLookup{},
 			},
@@ -60,27 +60,27 @@ func TestSameSubnet(t *testing.T) {
 			result:  errMissing,
 		},
 		{
-			name: "wrong subnet",
+			name: "wrong allychain",
 			ctx: &snow.Context{
-				SubnetID: subnet0,
+				AllychainID: allychain0,
 				ChainID:  chain0,
 				SNLookup: &snLookup{
-					chainsToSubnet: map[ids.ID]ids.ID{
-						chain1: subnet1,
+					chainsToAllychain: map[ids.ID]ids.ID{
+						chain1: allychain1,
 					},
 				},
 			},
 			chainID: chain1,
-			result:  errMismatchedSubnetIDs,
+			result:  errMismatchedAllychainIDs,
 		},
 		{
-			name: "same subnet",
+			name: "same allychain",
 			ctx: &snow.Context{
-				SubnetID: subnet0,
+				AllychainID: allychain0,
 				ChainID:  chain0,
 				SNLookup: &snLookup{
-					chainsToSubnet: map[ids.ID]ids.ID{
-						chain1: subnet0,
+					chainsToAllychain: map[ids.ID]ids.ID{
+						chain1: allychain0,
 					},
 				},
 			},
@@ -90,7 +90,7 @@ func TestSameSubnet(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			result := SameSubnet(test.ctx, test.chainID)
+			result := SameAllychain(test.ctx, test.chainID)
 			assert.ErrorIs(t, result, test.result)
 		})
 	}

@@ -8,12 +8,12 @@ import (
 	"github.com/sankar-boro/axia-network-v2/snow/validators"
 )
 
-// A Subnet is a set of validators that are validating a set of blockchains
-// Each blockchain is validated by one subnet; one subnet may validate many blockchains
-type Subnet interface {
-	// ID returns this subnet's ID
+// A Allychain is a set of validators that are validating a set of blockchains
+// Each blockchain is validated by one allychain; one allychain may validate many blockchains
+type Allychain interface {
+	// ID returns this allychain's ID
 	ID() ids.ID
 
-	// Validators returns the validators that compose this subnet
+	// Validators returns the validators that compose this allychain
 	Validators() []validators.Validator
 }

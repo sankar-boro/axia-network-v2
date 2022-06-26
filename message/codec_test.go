@@ -109,7 +109,7 @@ func TestCodecPackParseGzip(t *testing.T) {
 				VersionStr:     "v1.2.3",
 				VersionTime:    uint64(time.Now().Unix()),
 				SigBytes:       []byte{'y', 'e', 'e', 't'},
-				TrackedSubnets: [][]byte{id[:]},
+				TrackedAllychains: [][]byte{id[:]},
 			},
 		},
 		{

@@ -152,7 +152,7 @@ func (i *indexer) RegisterChain(name string, engine common.Engine) {
 	if i.closed {
 		i.log.Debug("not registering chain %s because indexer is closed", name)
 		return
-	} else if ctx.SubnetID != constants.PrimaryNetworkID {
+	} else if ctx.AllychainID != constants.PrimaryNetworkID {
 		i.log.Debug("not registering chain %s because it's not in primary network", name)
 		return
 	}

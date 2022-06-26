@@ -15,15 +15,15 @@ type ExternalSender interface {
 	Send(
 		msg message.OutboundMessage,
 		nodeIDs ids.NodeIDSet,
-		subnetID ids.ID,
+		allychainID ids.ID,
 		validatorOnly bool,
 	) ids.NodeIDSet
 
-	// Send a message to a random group of nodes in a subnet.
+	// Send a message to a random group of nodes in a allychain.
 	// Nodes are sampled based on their validator status.
 	Gossip(
 		msg message.OutboundMessage,
-		subnetID ids.ID,
+		allychainID ids.ID,
 		validatorOnly bool,
 		numValidatorsToSend int,
 		numNonValidatorsToSend int,

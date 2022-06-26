@@ -206,7 +206,7 @@ var (
 	messages = map[Op][]Field{
 		// Handshake:
 		// TODO: remove NodeID from the Version message
-		Version:  {NetworkID, NodeID, MyTime, IP, VersionStr, VersionTime, SigBytes, TrackedSubnets},
+		Version:  {NetworkID, NodeID, MyTime, IP, VersionStr, VersionTime, SigBytes, TrackedAllychains},
 		PeerList: {Peers},
 		Ping:     {},
 		Pong:     {Uptime},

@@ -295,12 +295,12 @@ func TestGetTx(t *testing.T) {
 			"standard block",
 			func(service *Service) (*Tx, error) {
 				return service.vm.newCreateChainTx( // Test GetTx works for standard blocks
-					testSubnet1.ID(),
+					testAllychain1.ID(),
 					nil,
 					constants.AVMID,
 					nil,
 					"chain name",
-					[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+					[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 					keys[0].PublicKey().Address(), // change addr
 				)
 			},
@@ -606,7 +606,7 @@ func TestGetCurrentValidators(t *testing.T) {
 	genesis, _ := defaultGenesis()
 
 	// Call getValidators
-	args := GetCurrentValidatorsArgs{SubnetID: constants.PrimaryNetworkID}
+	args := GetCurrentValidatorsArgs{AllychainID: constants.PrimaryNetworkID}
 	response := GetCurrentValidatorsReply{}
 
 	err := service.GetCurrentValidators(nil, &args, &response)
@@ -683,7 +683,7 @@ func TestGetCurrentValidators(t *testing.T) {
 	}
 
 	// Call getCurrentValidators
-	args = GetCurrentValidatorsArgs{SubnetID: constants.PrimaryNetworkID}
+	args = GetCurrentValidatorsArgs{AllychainID: constants.PrimaryNetworkID}
 	err = service.GetCurrentValidators(nil, &args, &response)
 	switch {
 	case err != nil:

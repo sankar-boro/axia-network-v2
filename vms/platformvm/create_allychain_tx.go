@@ -16,33 +16,33 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
-var _ UnsignedDecisionTx = &UnsignedCreateSubnetTx{}
+var _ UnsignedDecisionTx = &UnsignedCreateAllychainTx{}
 
-// UnsignedCreateSubnetTx is an unsigned proposal to create a new subnet
-type UnsignedCreateSubnetTx struct {
+// UnsignedCreateAllychainTx is an unsigned proposal to create a new allychain
+type UnsignedCreateAllychainTx struct {
 	// Metadata, inputs and outputs
 	BaseTx `serialize:"true"`
-	// Who is authorized to manage this subnet
+	// Who is authorized to manage this allychain
 	Owner fx.Owner `serialize:"true" json:"owner"`
 }
 
 // InputUTXOs for [DecisionTxs] will return an empty set to diffrentiate from the [AtomicTxs] input UTXOs
-func (tx *UnsignedCreateSubnetTx) InputUTXOs() ids.Set { return nil }
+func (tx *UnsignedCreateAllychainTx) InputUTXOs() ids.Set { return nil }
 
-func (tx *UnsignedCreateSubnetTx) AtomicOperations() (ids.ID, *atomic.Requests, error) {
+func (tx *UnsignedCreateAllychainTx) AtomicOperations() (ids.ID, *atomic.Requests, error) {
 	return ids.ID{}, nil, nil
 }
 
 // InitCtx sets the FxID fields in the inputs and outputs of this
-// [UnsignedCreateSubnetTx]. Also sets the [ctx] to the given [vm.ctx] so that
+// [UnsignedCreateAllychainTx]. Also sets the [ctx] to the given [vm.ctx] so that
 // the addresses can be json marshalled into human readable format
-func (tx *UnsignedCreateSubnetTx) InitCtx(ctx *snow.Context) {
+func (tx *UnsignedCreateAllychainTx) InitCtx(ctx *snow.Context) {
 	tx.BaseTx.InitCtx(ctx)
 	tx.Owner.InitCtx(ctx)
 }
 
 // SyntacticVerify verifies that this transaction is well-formed
-func (tx *UnsignedCreateSubnetTx) SyntacticVerify(ctx *snow.Context) error {
+func (tx *UnsignedCreateAllychainTx) SyntacticVerify(ctx *snow.Context) error {
 	switch {
 	case tx == nil:
 		return errNilTx
@@ -62,7 +62,7 @@ func (tx *UnsignedCreateSubnetTx) SyntacticVerify(ctx *snow.Context) error {
 }
 
 // Attempts to verify this transaction with the provided state.
-func (tx *UnsignedCreateSubnetTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
+func (tx *UnsignedCreateAllychainTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
 	vs := newVersionedState(
 		parentState,
 		parentState.CurrentStakerChainState(),
@@ -73,7 +73,7 @@ func (tx *UnsignedCreateSubnetTx) SemanticVerify(vm *VM, parentState MutableStat
 }
 
 // Execute this transaction.
-func (tx *UnsignedCreateSubnetTx) Execute(
+func (tx *UnsignedCreateAllychainTx) Execute(
 	vm *VM,
 	vs VersionedState,
 	stx *Tx,
@@ -88,8 +88,8 @@ func (tx *UnsignedCreateSubnetTx) Execute(
 
 	// Verify the flowcheck
 	timestamp := vs.GetTimestamp()
-	createSubnetTxFee := vm.getCreateSubnetTxFee(timestamp)
-	if err := vm.semanticVerifySpend(vs, tx, tx.Ins, tx.Outs, stx.Creds, createSubnetTxFee, vm.ctx.AXCAssetID); err != nil {
+	createAllychainTxFee := vm.getCreateAllychainTxFee(timestamp)
+	if err := vm.semanticVerifySpend(vs, tx, tx.Ins, tx.Outs, stx.Creds, createAllychainTxFee, vm.ctx.AXCAssetID); err != nil {
 		return nil, err
 	}
 
@@ -99,22 +99,22 @@ func (tx *UnsignedCreateSubnetTx) Execute(
 	txID := tx.ID()
 	produceOutputs(vs, txID, vm.ctx.AXCAssetID, tx.Outs)
 	// Attempt to the new chain to the database
-	vs.AddSubnet(stx)
+	vs.AddAllychain(stx)
 
 	return nil, nil
 }
 
 // [controlKeys] must be unique. They will be sorted by this method.
 // If [controlKeys] is nil, [tx.Controlkeys] will be an empty list.
-func (vm *VM) newCreateSubnetTx(
-	threshold uint32, // [threshold] of [ownerAddrs] needed to manage this subnet
-	ownerAddrs []ids.ShortID, // control addresses for the new subnet
+func (vm *VM) newCreateAllychainTx(
+	threshold uint32, // [threshold] of [ownerAddrs] needed to manage this allychain
+	ownerAddrs []ids.ShortID, // control addresses for the new allychain
 	keys []*crypto.PrivateKeySECP256K1R, // pay the fee
 	changeAddr ids.ShortID, // Address to send change to, if there is any
 ) (*Tx, error) {
 	timestamp := vm.internalState.GetTimestamp()
-	createSubnetTxFee := vm.getCreateSubnetTxFee(timestamp)
-	ins, outs, _, signers, err := vm.stake(keys, 0, createSubnetTxFee, changeAddr)
+	createAllychainTxFee := vm.getCreateAllychainTxFee(timestamp)
+	ins, outs, _, signers, err := vm.stake(keys, 0, createAllychainTxFee, changeAddr)
 	if err != nil {
 		return nil, fmt.Errorf("couldn't generate tx inputs/outputs: %w", err)
 	}
@@ -123,7 +123,7 @@ func (vm *VM) newCreateSubnetTx(
 	ids.SortShortIDs(ownerAddrs)
 
 	// Create the tx
-	utx := &UnsignedCreateSubnetTx{
+	utx := &UnsignedCreateAllychainTx{
 		BaseTx: BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    vm.ctx.NetworkID,
 			BlockchainID: vm.ctx.ChainID,
@@ -143,9 +143,9 @@ func (vm *VM) newCreateSubnetTx(
 	return tx, utx.SyntacticVerify(vm.ctx)
 }
 
-func (vm *VM) getCreateSubnetTxFee(t time.Time) uint64 {
+func (vm *VM) getCreateAllychainTxFee(t time.Time) uint64 {
 	if t.Before(vm.ApricotPhase3Time) {
 		return vm.CreateAssetTxFee
 	}
-	return vm.CreateSubnetTxFee
+	return vm.CreateAllychainTxFee
 }

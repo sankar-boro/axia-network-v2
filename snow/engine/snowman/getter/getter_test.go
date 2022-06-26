@@ -46,7 +46,7 @@ func testSetup(
 	sender.Default(true)
 
 	isBootstrapped := false
-	subnet := &common.SubnetTest{
+	allychain := &common.AllychainTest{
 		T:               t,
 		IsBootstrappedF: func() bool { return isBootstrapped },
 		BootstrappedF:   func(ids.ID) { isBootstrapped = true },
@@ -66,7 +66,7 @@ func testSetup(
 		SampleK:                        peers.Len(),
 		Alpha:                          peers.Weight()/2 + 1,
 		Sender:                         sender,
-		Subnet:                         subnet,
+		Allychain:                         allychain,
 		Timer:                          &common.TimerTest{},
 		AncestorsMaxContainersSent:     2000,
 		AncestorsMaxContainersReceived: 2000,

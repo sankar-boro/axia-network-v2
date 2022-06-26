@@ -16,7 +16,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/axiawallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/allychain/primary/common"
 
 	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
@@ -51,14 +51,14 @@ type Builder interface {
 
 	// NewBaseTx creates a new simple value transfer. Because the Core-chain
 	// doesn't intend for balance transfers to occur, this method is expensive
-	// and abuses the creation of subnets.
+	// and abuses the creation of allychains.
 	//
 	// - [outputs] specifies all the recipients and amounts that should be sent
 	//   from this transaction.
 	NewBaseTx(
 		outputs []*axc.TransferableOutput,
 		options ...common.Option,
-	) (*platformvm.UnsignedCreateSubnetTx, error)
+	) (*platformvm.UnsignedCreateAllychainTx, error)
 
 	// NewAddValidatorTx creates a new validator of the primary network.
 	//
@@ -76,14 +76,14 @@ type Builder interface {
 		options ...common.Option,
 	) (*platformvm.UnsignedAddValidatorTx, error)
 
-	// NewAddSubnetValidatorTx creates a new validator of a subnet.
+	// NewAddAllychainValidatorTx creates a new validator of a allychain.
 	//
 	// - [validator] specifies all the details of the validation period such as
-	//   the startTime, endTime, sampling weight, nodeID, and subnetID.
-	NewAddSubnetValidatorTx(
-		validator *coreChainValidator.SubnetValidator,
+	//   the startTime, endTime, sampling weight, nodeID, and allychainID.
+	NewAddAllychainValidatorTx(
+		validator *coreChainValidator.AllychainValidator,
 		options ...common.Option,
-	) (*platformvm.UnsignedAddSubnetValidatorTx, error)
+	) (*platformvm.UnsignedAddAllychainValidatorTx, error)
 
 	// NewAddNominatorTx creates a new nominator to a validator on the primary
 	// network.
@@ -98,16 +98,16 @@ type Builder interface {
 		options ...common.Option,
 	) (*platformvm.UnsignedAddNominatorTx, error)
 
-	// NewCreateChainTx creates a new chain in the named subnet.
+	// NewCreateChainTx creates a new chain in the named allychain.
 	//
-	// - [subnetID] specifies the subnet to launch the chain in.
+	// - [allychainID] specifies the allychain to launch the chain in.
 	// - [genesis] specifies the initial state of the new chain.
 	// - [vmID] specifies the vm that the new chain will run.
 	// - [fxIDs] specifies all the feature extensions that the vm should be
 	//   running with.
 	// - [chainName] specifies a human readable name for the chain.
 	NewCreateChainTx(
-		subnetID ids.ID,
+		allychainID ids.ID,
 		genesis []byte,
 		vmID ids.ID,
 		fxIDs []ids.ID,
@@ -115,14 +115,14 @@ type Builder interface {
 		options ...common.Option,
 	) (*platformvm.UnsignedCreateChainTx, error)
 
-	// NewCreateSubnetTx creates a new subnet with the specified owner.
+	// NewCreateAllychainTx creates a new allychain with the specified owner.
 	//
 	// - [owner] specifies who has the ability to create new chains and add new
-	//   validators to the subnet.
-	NewCreateSubnetTx(
+	//   validators to the allychain.
+	NewCreateAllychainTx(
 		owner *secp256k1fx.OutputOwners,
 		options ...common.Option,
-	) (*platformvm.UnsignedCreateSubnetTx, error)
+	) (*platformvm.UnsignedCreateAllychainTx, error)
 
 	// NewImportTx creates an import transaction that attempts to consume all
 	// the available UTXOs and import the funds to [to].
@@ -191,9 +191,9 @@ func (b *builder) GetImportableBalance(
 func (b *builder) NewBaseTx(
 	outputs []*axc.TransferableOutput,
 	options ...common.Option,
-) (*platformvm.UnsignedCreateSubnetTx, error) {
+) (*platformvm.UnsignedCreateAllychainTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AXCAssetID(): b.backend.CreateSubnetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAllychainTxFee(),
 	}
 	for _, out := range outputs {
 		assetID := out.AssetID()
@@ -213,7 +213,7 @@ func (b *builder) NewBaseTx(
 	outputs = append(outputs, changeOutputs...)
 	axc.SortTransferableOutputs(outputs, platformvm.Codec) // sort the outputs
 
-	return &platformvm.UnsignedCreateSubnetTx{
+	return &platformvm.UnsignedCreateAllychainTx{
 		BaseTx: platformvm.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: constants.PlatformChainID,
@@ -257,12 +257,12 @@ func (b *builder) NewAddValidatorTx(
 	}, nil
 }
 
-func (b *builder) NewAddSubnetValidatorTx(
-	validator *coreChainValidator.SubnetValidator,
+func (b *builder) NewAddAllychainValidatorTx(
+	validator *coreChainValidator.AllychainValidator,
 	options ...common.Option,
-) (*platformvm.UnsignedAddSubnetValidatorTx, error) {
+) (*platformvm.UnsignedAddAllychainValidatorTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AXCAssetID(): b.backend.CreateSubnetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAllychainTxFee(),
 	}
 	toStake := map[ids.ID]uint64{}
 	ops := common.NewOptions(options)
@@ -271,12 +271,12 @@ func (b *builder) NewAddSubnetValidatorTx(
 		return nil, err
 	}
 
-	subnetAuth, err := b.authorizeSubnet(validator.Subnet, ops)
+	allychainAuth, err := b.authorizeAllychain(validator.Allychain, ops)
 	if err != nil {
 		return nil, err
 	}
 
-	return &platformvm.UnsignedAddSubnetValidatorTx{
+	return &platformvm.UnsignedAddAllychainValidatorTx{
 		BaseTx: platformvm.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: constants.PlatformChainID,
@@ -285,7 +285,7 @@ func (b *builder) NewAddSubnetValidatorTx(
 			Memo:         ops.Memo(),
 		}},
 		Validator:  *validator,
-		SubnetAuth: subnetAuth,
+		AllychainAuth: allychainAuth,
 	}, nil
 }
 
@@ -320,7 +320,7 @@ func (b *builder) NewAddNominatorTx(
 }
 
 func (b *builder) NewCreateChainTx(
-	subnetID ids.ID,
+	allychainID ids.ID,
 	genesis []byte,
 	vmID ids.ID,
 	fxIDs []ids.ID,
@@ -328,7 +328,7 @@ func (b *builder) NewCreateChainTx(
 	options ...common.Option,
 ) (*platformvm.UnsignedCreateChainTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AXCAssetID(): b.backend.CreateSubnetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAllychainTxFee(),
 	}
 	toStake := map[ids.ID]uint64{}
 	ops := common.NewOptions(options)
@@ -337,7 +337,7 @@ func (b *builder) NewCreateChainTx(
 		return nil, err
 	}
 
-	subnetAuth, err := b.authorizeSubnet(subnetID, ops)
+	allychainAuth, err := b.authorizeAllychain(allychainID, ops)
 	if err != nil {
 		return nil, err
 	}
@@ -351,21 +351,21 @@ func (b *builder) NewCreateChainTx(
 			Outs:         outputs,
 			Memo:         ops.Memo(),
 		}},
-		SubnetID:    subnetID,
+		AllychainID:    allychainID,
 		ChainName:   chainName,
 		VMID:        vmID,
 		FxIDs:       fxIDs,
 		GenesisData: genesis,
-		SubnetAuth:  subnetAuth,
+		AllychainAuth:  allychainAuth,
 	}, nil
 }
 
-func (b *builder) NewCreateSubnetTx(
+func (b *builder) NewCreateAllychainTx(
 	owner *secp256k1fx.OutputOwners,
 	options ...common.Option,
-) (*platformvm.UnsignedCreateSubnetTx, error) {
+) (*platformvm.UnsignedCreateAllychainTx, error) {
 	toBurn := map[ids.ID]uint64{
-		b.backend.AXCAssetID(): b.backend.CreateSubnetTxFee(),
+		b.backend.AXCAssetID(): b.backend.CreateAllychainTxFee(),
 	}
 	toStake := map[ids.ID]uint64{}
 	ops := common.NewOptions(options)
@@ -375,7 +375,7 @@ func (b *builder) NewCreateSubnetTx(
 	}
 
 	ids.SortShortIDs(owner.Addrs)
-	return &platformvm.UnsignedCreateSubnetTx{
+	return &platformvm.UnsignedCreateAllychainTx{
 		BaseTx: platformvm.BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
 			BlockchainID: constants.PlatformChainID,
@@ -801,21 +801,21 @@ func (b *builder) spend(
 	return inputs, changeOutputs, stakeOutputs, nil
 }
 
-func (b *builder) authorizeSubnet(subnetID ids.ID, options *common.Options) (*secp256k1fx.Input, error) {
-	subnetTx, err := b.backend.GetTx(options.Context(), subnetID)
+func (b *builder) authorizeAllychain(allychainID ids.ID, options *common.Options) (*secp256k1fx.Input, error) {
+	allychainTx, err := b.backend.GetTx(options.Context(), allychainID)
 	if err != nil {
 		return nil, fmt.Errorf(
-			"failed to fetch subnet %q: %w",
-			subnetID,
+			"failed to fetch allychain %q: %w",
+			allychainID,
 			err,
 		)
 	}
-	subnet, ok := subnetTx.UnsignedTx.(*platformvm.UnsignedCreateSubnetTx)
+	allychain, ok := allychainTx.UnsignedTx.(*platformvm.UnsignedCreateAllychainTx)
 	if !ok {
 		return nil, errWrongTxType
 	}
 
-	owner, ok := subnet.Owner.(*secp256k1fx.OutputOwners)
+	owner, ok := allychain.Owner.(*secp256k1fx.OutputOwners)
 	if !ok {
 		return nil, errUnknownOwnerType
 	}
@@ -824,7 +824,7 @@ func (b *builder) authorizeSubnet(subnetID ids.ID, options *common.Options) (*se
 	minIssuanceTime := options.MinIssuanceTime()
 	inputSigIndices, ok := common.MatchOwners(owner, addrs, minIssuanceTime)
 	if !ok {
-		// We can't authorize the subnet
+		// We can't authorize the allychain
 		return nil, errInsufficientAuthorization
 	}
 	return &secp256k1fx.Input{

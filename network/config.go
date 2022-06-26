@@ -122,8 +122,8 @@ type Config struct {
 	// TLSKey is this node's TLS key that is used to sign IPs.
 	TLSKey crypto.Signer `json:"-"`
 
-	// WhitelistedSubnets of the node.
-	WhitelistedSubnets ids.Set        `json:"whitelistedSubnets"`
+	// WhitelistedAllychains of the node.
+	WhitelistedAllychains ids.Set        `json:"whitelistedAllychains"`
 	Beacons            validators.Set `json:"beacons"`
 
 	// Validators are the current validators in the Axia network

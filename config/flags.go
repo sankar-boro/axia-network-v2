@@ -46,7 +46,7 @@ var (
 	defaultChainConfigDir  = filepath.Join(defaultConfigDir, "chains")
 	defaultVMConfigDir     = filepath.Join(defaultConfigDir, "vms")
 	defaultVMAliasFilePath = filepath.Join(defaultVMConfigDir, "aliases.json")
-	defaultSubnetConfigDir = filepath.Join(defaultConfigDir, "subnets")
+	defaultAllychainConfigDir = filepath.Join(defaultConfigDir, "allychains")
 
 	// Places to look for the build directory
 	defaultBuildDirs = []string{}
@@ -102,7 +102,7 @@ func addNodeFlags(fs *flag.FlagSet) {
 	// AXC fees
 	fs.Uint64(TxFeeKey, genesis.LocalParams.TxFee, "Transaction fee, in nAXC")
 	fs.Uint64(CreateAssetTxFeeKey, genesis.LocalParams.CreateAssetTxFee, "Transaction fee, in nAXC, for transactions that create new assets")
-	fs.Uint64(CreateSubnetTxFeeKey, genesis.LocalParams.CreateSubnetTxFee, "Transaction fee, in nAXC, for transactions that create new subnets")
+	fs.Uint64(CreateAllychainTxFeeKey, genesis.LocalParams.CreateAllychainTxFee, "Transaction fee, in nAXC, for transactions that create new allychains")
 	fs.Uint64(CreateBlockchainTxFeeKey, genesis.LocalParams.CreateBlockchainTxFee, "Transaction fee, in nAXC, for transactions that create new blockchains")
 
 	// Database
@@ -273,8 +273,8 @@ func addNodeFlags(fs *flag.FlagSet) {
 	fs.Uint64(StakeMinConsumptionRateKey, genesis.LocalParams.RewardConfig.MinConsumptionRate, "Minimum consumption rate of the remaining tokens to mint in the staking function")
 	fs.Duration(StakeMintingPeriodKey, genesis.LocalParams.RewardConfig.MintingPeriod, "Consumption period of the staking function")
 	fs.Uint64(StakeSupplyCapKey, genesis.LocalParams.RewardConfig.SupplyCap, "Supply cap of the staking function")
-	// Subnets
-	fs.String(WhitelistedSubnetsKey, "", "Whitelist of subnets to validate")
+	// Allychains
+	fs.String(WhitelistedAllychainsKey, "", "Whitelist of allychains to validate")
 
 	// State syncing
 	fs.String(StateSyncIPsKey, "", "Comma separated list of state sync peer ips to connect to. Example: 127.0.0.1:9630,127.0.0.1:9631")
@@ -319,8 +319,8 @@ func addNodeFlags(fs *flag.FlagSet) {
 	// Config Directories
 	fs.String(ChainConfigDirKey, defaultChainConfigDir, fmt.Sprintf("Chain specific configurations parent directory. Ignored if %s is specified", ChainConfigContentKey))
 	fs.String(ChainConfigContentKey, "", "Specifies base64 encoded chains configurations")
-	fs.String(SubnetConfigDirKey, defaultSubnetConfigDir, fmt.Sprintf("Subnet specific configurations parent directory. Ignored if %s is specified", SubnetConfigContentKey))
-	fs.String(SubnetConfigContentKey, "", "Specifies base64 encoded subnets configurations")
+	fs.String(AllychainConfigDirKey, defaultAllychainConfigDir, fmt.Sprintf("Allychain specific configurations parent directory. Ignored if %s is specified", AllychainConfigContentKey))
+	fs.String(AllychainConfigContentKey, "", "Specifies base64 encoded allychains configurations")
 
 	// Profiles
 	fs.String(ProfileDirKey, defaultProfileDir, "Path to the profile directory")

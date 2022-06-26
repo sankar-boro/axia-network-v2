@@ -58,7 +58,7 @@ func (b *backend) AcceptTx(ctx stdcontext.Context, tx *platformvm.Tx) error {
 	switch utx := tx.UnsignedTx.(type) {
 	case *platformvm.UnsignedAddNominatorTx:
 		baseTx = &utx.BaseTx
-	case *platformvm.UnsignedAddSubnetValidatorTx:
+	case *platformvm.UnsignedAddAllychainValidatorTx:
 		baseTx = &utx.BaseTx
 	case *platformvm.UnsignedAddValidatorTx:
 		baseTx = &utx.BaseTx
@@ -92,7 +92,7 @@ func (b *backend) AcceptTx(ctx stdcontext.Context, tx *platformvm.Tx) error {
 		}
 	case *platformvm.UnsignedCreateChainTx:
 		baseTx = &utx.BaseTx
-	case *platformvm.UnsignedCreateSubnetTx:
+	case *platformvm.UnsignedCreateAllychainTx:
 		baseTx = &utx.BaseTx
 	default:
 		return fmt.Errorf("%w: %T", errUnknownTxType, tx.UnsignedTx)

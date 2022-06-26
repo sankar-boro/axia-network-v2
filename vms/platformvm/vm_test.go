@@ -95,11 +95,11 @@ var (
 	// amount all genesis validators have in defaultVM
 	defaultBalance = 100 * defaultMinValidatorStake
 
-	// subnet that exists at genesis in defaultVM
+	// allychain that exists at genesis in defaultVM
 	// Its controlKeys are keys[0], keys[1], keys[2]
 	// Its threshold is 2
-	testSubnet1            *UnsignedCreateSubnetTx
-	testSubnet1ControlKeys = keys[0:3]
+	testAllychain1            *UnsignedCreateAllychainTx
+	testAllychain1ControlKeys = keys[0:3]
 
 	swapChainID = ids.Empty.Prefix(0)
 	axcChainID = ids.Empty.Prefix(1)
@@ -119,15 +119,15 @@ const (
 )
 
 type snLookup struct {
-	chainsToSubnet map[ids.ID]ids.ID
+	chainsToAllychain map[ids.ID]ids.ID
 }
 
-func (sn *snLookup) SubnetID(chainID ids.ID) (ids.ID, error) {
-	subnetID, ok := sn.chainsToSubnet[chainID]
+func (sn *snLookup) AllychainID(chainID ids.ID) (ids.ID, error) {
+	allychainID, ok := sn.chainsToAllychain[chainID]
 	if !ok {
 		return ids.ID{}, errors.New("")
 	}
-	return subnetID, nil
+	return allychainID, nil
 }
 
 func defaultContext() *snow.Context {
@@ -152,7 +152,7 @@ func defaultContext() *snow.Context {
 	ctx.BCLookup = aliaser
 
 	ctx.SNLookup = &snLookup{
-		chainsToSubnet: map[ids.ID]ids.ID{
+		chainsToAllychain: map[ids.ID]ids.ID{
 			constants.PlatformChainID: constants.PrimaryNetworkID,
 			swapChainID:                  constants.PrimaryNetworkID,
 			axcChainID:                  constants.PrimaryNetworkID,
@@ -315,7 +315,7 @@ func defaultVM() (*VM, database.Database, *common.SenderTest) {
 			UptimeLockedCalculator: uptime.NewLockedCalculator(),
 			Validators:             validators.NewManager(),
 			TxFee:                  defaultTxFee,
-			CreateSubnetTxFee:      100 * defaultTxFee,
+			CreateAllychainTxFee:      100 * defaultTxFee,
 			CreateBlockchainTxFee:  100 * defaultTxFee,
 			MinValidatorStake:      defaultMinValidatorStake,
 			MaxValidatorStake:      defaultMaxValidatorStake,
@@ -358,9 +358,9 @@ func defaultVM() (*VM, database.Database, *common.SenderTest) {
 		panic(err)
 	}
 
-	// Create a subnet and store it in testSubnet1
-	if tx, err := vm.newCreateSubnetTx(
-		2, // threshold; 2 sigs from keys[0], keys[1], keys[2] needed to add validator to this subnet
+	// Create a allychain and store it in testAllychain1
+	if tx, err := vm.newCreateAllychainTx(
+		2, // threshold; 2 sigs from keys[0], keys[1], keys[2] needed to add validator to this allychain
 		// control keys are keys[0], keys[1], keys[2]
 		[]ids.ShortID{keys[0].PublicKey().Address(), keys[1].PublicKey().Address(), keys[2].PublicKey().Address()},
 		[]*crypto.PrivateKeySECP256K1R{keys[0]}, // pays tx fee
@@ -376,7 +376,7 @@ func defaultVM() (*VM, database.Database, *common.SenderTest) {
 	} else if err := blk.Accept(); err != nil {
 		panic(err)
 	} else {
-		testSubnet1 = tx.UnsignedTx.(*UnsignedCreateSubnetTx)
+		testAllychain1 = tx.UnsignedTx.(*UnsignedCreateAllychainTx)
 	}
 
 	return vm, baseDBManager.Current().Database, appSender
@@ -434,9 +434,9 @@ func GenesisVMWithArgs(t *testing.T, args *BuildGenesisArgs) ([]byte, chan commo
 		panic(err)
 	}
 
-	// Create a subnet and store it in testSubnet1
-	if tx, err := vm.newCreateSubnetTx(
-		2, // threshold; 2 sigs from keys[0], keys[1], keys[2] needed to add validator to this subnet
+	// Create a allychain and store it in testAllychain1
+	if tx, err := vm.newCreateAllychainTx(
+		2, // threshold; 2 sigs from keys[0], keys[1], keys[2] needed to add validator to this allychain
 		// control keys are keys[0], keys[1], keys[2]
 		[]ids.ShortID{keys[0].PublicKey().Address(), keys[1].PublicKey().Address(), keys[2].PublicKey().Address()},
 		[]*crypto.PrivateKeySECP256K1R{keys[0]}, // pays tx fee
@@ -452,7 +452,7 @@ func GenesisVMWithArgs(t *testing.T, args *BuildGenesisArgs) ([]byte, chan commo
 	} else if err := blk.Accept(); err != nil {
 		panic(err)
 	} else {
-		testSubnet1 = tx.UnsignedTx.(*UnsignedCreateSubnetTx)
+		testAllychain1 = tx.UnsignedTx.(*UnsignedCreateAllychainTx)
 	}
 
 	return genesisBytes, msgChan, vm, m
@@ -507,7 +507,7 @@ func TestGenesis(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if utxo.Address == addr { // Address that paid tx fee to create testSubnet1 has less tokens
+			if utxo.Address == addr { // Address that paid tx fee to create testAllychain1 has less tokens
 				if out.Amount() != uint64(utxo.Amount)-vm.TxFee {
 					t.Fatalf("expected UTXO to have value %d but has value %d", uint64(utxo.Amount)-vm.TxFee, out.Amount())
 				}
@@ -537,9 +537,9 @@ func TestGenesis(t *testing.T) {
 		t.Fatalf("vm's time is incorrect. Expected %v got %v", genesisState.Time, timestamp)
 	}
 
-	// Ensure the new subnet we created exists
-	if _, _, err := vm.internalState.GetTx(testSubnet1.ID()); err != nil {
-		t.Fatalf("expected subnet %s to exist", testSubnet1.ID())
+	// Ensure the new allychain we created exists
+	if _, _, err := vm.internalState.GetTx(testAllychain1.ID()); err != nil {
+		t.Fatalf("expected allychain %s to exist", testAllychain1.ID())
 	}
 }
 
@@ -792,8 +792,8 @@ func TestAddValidatorInvalidNotReissued(t *testing.T) {
 	}
 }
 
-// Accept proposal to add validator to subnet
-func TestAddSubnetValidatorAccept(t *testing.T) {
+// Accept proposal to add validator to allychain
+func TestAddAllychainValidatorAccept(t *testing.T) {
 	vm, _, _ := defaultVM()
 	vm.ctx.Lock.Lock()
 	defer func() {
@@ -810,13 +810,13 @@ func TestAddSubnetValidatorAccept(t *testing.T) {
 	// create valid tx
 	// note that [startTime, endTime] is a subset of time that keys[0]
 	// validates primary network ([defaultValidateStartTime, defaultValidateEndTime])
-	tx, err := vm.newAddSubnetValidatorTx(
+	tx, err := vm.newAddAllychainValidatorTx(
 		defaultWeight,
 		uint64(startTime.Unix()),
 		uint64(endTime.Unix()),
 		nodeID,
-		testSubnet1.ID(),
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		testAllychain1.ID(),
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -867,7 +867,7 @@ func TestAddSubnetValidatorAccept(t *testing.T) {
 
 	pendingStakers := vm.internalState.PendingStakerChainState()
 	vdr := pendingStakers.GetValidator(nodeID)
-	_, exists := vdr.SubnetValidators()[testSubnet1.ID()]
+	_, exists := vdr.AllychainValidators()[testAllychain1.ID()]
 
 	// Verify that new validator is in pending validator set
 	if !exists {
@@ -875,8 +875,8 @@ func TestAddSubnetValidatorAccept(t *testing.T) {
 	}
 }
 
-// Reject proposal to add validator to subnet
-func TestAddSubnetValidatorReject(t *testing.T) {
+// Reject proposal to add validator to allychain
+func TestAddAllychainValidatorReject(t *testing.T) {
 	vm, _, _ := defaultVM()
 	vm.ctx.Lock.Lock()
 	defer func() {
@@ -893,13 +893,13 @@ func TestAddSubnetValidatorReject(t *testing.T) {
 	// create valid tx
 	// note that [startTime, endTime] is a subset of time that keys[0]
 	// validates primary network ([defaultValidateStartTime, defaultValidateEndTime])
-	tx, err := vm.newAddSubnetValidatorTx(
+	tx, err := vm.newAddAllychainValidatorTx(
 		defaultWeight,
 		uint64(startTime.Unix()),
 		uint64(endTime.Unix()),
 		nodeID,
-		testSubnet1.ID(),
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[1], testSubnet1ControlKeys[2]},
+		testAllychain1.ID(),
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[1], testAllychain1ControlKeys[2]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -950,7 +950,7 @@ func TestAddSubnetValidatorReject(t *testing.T) {
 
 	pendingStakers := vm.internalState.PendingStakerChainState()
 	vdr := pendingStakers.GetValidator(nodeID)
-	_, exists := vdr.SubnetValidators()[testSubnet1.ID()]
+	_, exists := vdr.AllychainValidators()[testAllychain1.ID()]
 
 	// Verify that new validator NOT in pending validator set
 	if exists {
@@ -1258,12 +1258,12 @@ func TestCreateChain(t *testing.T) {
 	}()
 
 	tx, err := vm.newCreateChainTx(
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		ids.ID{'t', 'e', 's', 't', 'v', 'm'},
 		nil,
 		"name",
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {
@@ -1283,7 +1283,7 @@ func TestCreateChain(t *testing.T) {
 	}
 
 	// Verify chain was created
-	chains, err := vm.internalState.GetChains(testSubnet1.ID())
+	chains, err := vm.internalState.GetChains(testAllychain1.ID())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1299,11 +1299,11 @@ func TestCreateChain(t *testing.T) {
 }
 
 // test where we:
-// 1) Create a subnet
-// 2) Add a validator to the subnet's pending validator set
+// 1) Create a allychain
+// 2) Add a validator to the allychain's pending validator set
 // 3) Advance timestamp to validator's start time (moving the validator from pending to current)
 // 4) Advance timestamp to validator's end time (removing validator from current)
-func TestCreateSubnet(t *testing.T) {
+func TestCreateAllychain(t *testing.T) {
 	vm, _, _ := defaultVM()
 	vm.ctx.Lock.Lock()
 	defer func() {
@@ -1315,7 +1315,7 @@ func TestCreateSubnet(t *testing.T) {
 
 	nodeID := ids.NodeID(keys[0].PublicKey().Address())
 
-	createSubnetTx, err := vm.newCreateSubnetTx(
+	createAllychainTx, err := vm.newCreateAllychainTx(
 		1, // threshold
 		[]ids.ShortID{ // control keys
 			keys[0].PublicKey().Address(),
@@ -1326,46 +1326,46 @@ func TestCreateSubnet(t *testing.T) {
 	)
 	if err != nil {
 		t.Fatal(err)
-	} else if err := vm.blockBuilder.AddUnverifiedTx(createSubnetTx); err != nil {
+	} else if err := vm.blockBuilder.AddUnverifiedTx(createAllychainTx); err != nil {
 		t.Fatal(err)
-	} else if blk, err := vm.BuildBlock(); err != nil { // should contain proposal to create subnet
+	} else if blk, err := vm.BuildBlock(); err != nil { // should contain proposal to create allychain
 		t.Fatal(err)
 	} else if err := blk.Verify(); err != nil {
 		t.Fatal(err)
 	} else if err := blk.Accept(); err != nil {
 		t.Fatal(err)
-	} else if _, txStatus, err := vm.internalState.GetTx(createSubnetTx.ID()); err != nil {
+	} else if _, txStatus, err := vm.internalState.GetTx(createAllychainTx.ID()); err != nil {
 		t.Fatal(err)
 	} else if txStatus != status.Committed {
 		t.Fatalf("status should be Committed but is %s", txStatus)
 	}
 
-	subnets, err := vm.internalState.GetSubnets()
+	allychains, err := vm.internalState.GetAllychains()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	found := false
-	for _, subnet := range subnets {
-		if subnet.ID() == createSubnetTx.ID() {
+	for _, allychain := range allychains {
+		if allychain.ID() == createAllychainTx.ID() {
 			found = true
 			break
 		}
 	}
 	if !found {
-		t.Fatalf("should have registered new subnet")
+		t.Fatalf("should have registered new allychain")
 	}
 
-	// Now that we've created a new subnet, add a validator to that subnet
+	// Now that we've created a new allychain, add a validator to that allychain
 	startTime := defaultValidateStartTime.Add(syncBound).Add(1 * time.Second)
 	endTime := startTime.Add(defaultMinStakingDuration)
 	// [startTime, endTime] is subset of time keys[0] validates default subent so tx is valid
-	if addValidatorTx, err := vm.newAddSubnetValidatorTx(
+	if addValidatorTx, err := vm.newAddAllychainValidatorTx(
 		defaultWeight,
 		uint64(startTime.Unix()),
 		uint64(endTime.Unix()),
 		nodeID,
-		createSubnetTx.ID(),
+		createAllychainTx.ID(),
 		[]*crypto.PrivateKeySECP256K1R{keys[0]},
 		ids.ShortEmpty, // change addr
 	); err != nil {
@@ -1374,7 +1374,7 @@ func TestCreateSubnet(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	blk, err := vm.BuildBlock() // should add validator to the new subnet
+	blk, err := vm.BuildBlock() // should add validator to the new allychain
 	if err != nil {
 		t.Fatal(err)
 	} else if err := blk.Verify(); err != nil {
@@ -1413,7 +1413,7 @@ func TestCreateSubnet(t *testing.T) {
 
 	pendingStakers := vm.internalState.PendingStakerChainState()
 	vdr := pendingStakers.GetValidator(nodeID)
-	_, exists := vdr.SubnetValidators()[createSubnetTx.ID()]
+	_, exists := vdr.AllychainValidators()[createAllychainTx.ID()]
 	if !exists {
 		t.Fatal("should have added a pending validator")
 	}
@@ -1461,7 +1461,7 @@ func TestCreateSubnet(t *testing.T) {
 
 	pendingStakers = vm.internalState.PendingStakerChainState()
 	vdr = pendingStakers.GetValidator(nodeID)
-	_, exists = vdr.SubnetValidators()[createSubnetTx.ID()]
+	_, exists = vdr.AllychainValidators()[createAllychainTx.ID()]
 	if exists {
 		t.Fatal("should have removed the pending validator")
 	}
@@ -1471,7 +1471,7 @@ func TestCreateSubnet(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, exists = cVDR.SubnetValidators()[createSubnetTx.ID()]
+	_, exists = cVDR.AllychainValidators()[createAllychainTx.ID()]
 	if !exists {
 		t.Fatal("should have been added to the validator set")
 	}
@@ -1517,7 +1517,7 @@ func TestCreateSubnet(t *testing.T) {
 
 	pendingStakers = vm.internalState.PendingStakerChainState()
 	vdr = pendingStakers.GetValidator(nodeID)
-	_, exists = vdr.SubnetValidators()[createSubnetTx.ID()]
+	_, exists = vdr.AllychainValidators()[createAllychainTx.ID()]
 	if exists {
 		t.Fatal("should have removed the pending validator")
 	}
@@ -1527,7 +1527,7 @@ func TestCreateSubnet(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, exists = cVDR.SubnetValidators()[createSubnetTx.ID()]
+	_, exists = cVDR.AllychainValidators()[createAllychainTx.ID()]
 	if exists {
 		t.Fatal("should have removed from the validator set")
 	}
@@ -2058,7 +2058,7 @@ func TestBootstrapPartiallyAccepted(t *testing.T) {
 	assert.NoError(t, err)
 
 	var reqID uint32
-	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, subnetID ids.ID, validatorOnly bool) ids.NodeIDSet {
+	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, allychainID ids.ID, validatorOnly bool) ids.NodeIDSet {
 		inMsg, err := mc.Parse(msg.Bytes(), ctx.NodeID, func() {})
 		assert.NoError(t, err)
 		assert.Equal(t, message.GetAcceptedFrontier, inMsg.Op())
@@ -2072,7 +2072,7 @@ func TestBootstrapPartiallyAccepted(t *testing.T) {
 	}
 
 	isBootstrapped := false
-	subnet := &common.SubnetTest{
+	allychain := &common.AllychainTest{
 		T:               t,
 		IsBootstrappedF: func() bool { return isBootstrapped },
 		BootstrappedF:   func(ids.ID) { isBootstrapped = true },
@@ -2092,7 +2092,7 @@ func TestBootstrapPartiallyAccepted(t *testing.T) {
 		StartupTracker:                 startup,
 		Alpha:                          (beacons.Weight() + 1) / 2,
 		Sender:                         sender,
-		Subnet:                         subnet,
+		Allychain:                         allychain,
 		AncestorsMaxContainersSent:     2000,
 		AncestorsMaxContainersReceived: 2000,
 		SharedCfg:                      &common.SharedConfig{},
@@ -2166,7 +2166,7 @@ func TestBootstrapPartiallyAccepted(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, subnetID ids.ID, validatorOnly bool) ids.NodeIDSet {
+	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, allychainID ids.ID, validatorOnly bool) ids.NodeIDSet {
 		inMsg, err := mc.Parse(msg.Bytes(), ctx.NodeID, func() {})
 		assert.NoError(t, err)
 		assert.Equal(t, message.GetAccepted, inMsg.Op())
@@ -2184,7 +2184,7 @@ func TestBootstrapPartiallyAccepted(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, subnetID ids.ID, validatorOnly bool) ids.NodeIDSet {
+	externalSender.SendF = func(msg message.OutboundMessage, nodeIDs ids.NodeIDSet, allychainID ids.ID, validatorOnly bool) ids.NodeIDSet {
 		inMsg, err := mc.Parse(msg.Bytes(), ctx.NodeID, func() {})
 		assert.NoError(t, err)
 		assert.Equal(t, message.GetAncestors, inMsg.Op())
@@ -2373,7 +2373,7 @@ func TestMaxStakeAmount(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.description, func(t *testing.T) {
-			amount, err := vm.maxStakeAmount(vm.ctx.SubnetID, test.validatorID, test.startTime, test.endTime)
+			amount, err := vm.maxStakeAmount(vm.ctx.AllychainID, test.validatorID, test.startTime, test.endTime)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -2429,15 +2429,15 @@ func TestUnverifiedParentPanic(t *testing.T) {
 	addr0 := key0.PublicKey().Address()
 	addr1 := key1.PublicKey().Address()
 
-	addSubnetTx0, err := vm.newCreateSubnetTx(1, []ids.ShortID{addr0}, []*crypto.PrivateKeySECP256K1R{key0}, addr0)
+	addAllychainTx0, err := vm.newCreateAllychainTx(1, []ids.ShortID{addr0}, []*crypto.PrivateKeySECP256K1R{key0}, addr0)
 	if err != nil {
 		t.Fatal(err)
 	}
-	addSubnetTx1, err := vm.newCreateSubnetTx(1, []ids.ShortID{addr1}, []*crypto.PrivateKeySECP256K1R{key1}, addr1)
+	addAllychainTx1, err := vm.newCreateAllychainTx(1, []ids.ShortID{addr1}, []*crypto.PrivateKeySECP256K1R{key1}, addr1)
 	if err != nil {
 		t.Fatal(err)
 	}
-	addSubnetTx2, err := vm.newCreateSubnetTx(1, []ids.ShortID{addr1}, []*crypto.PrivateKeySECP256K1R{key1}, addr0)
+	addAllychainTx2, err := vm.newCreateAllychainTx(1, []ids.ShortID{addr1}, []*crypto.PrivateKeySECP256K1R{key1}, addr0)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -2449,37 +2449,37 @@ func TestUnverifiedParentPanic(t *testing.T) {
 	preferredID := preferred.ID()
 	preferredHeight := preferred.Height()
 
-	addSubnetBlk0, err := vm.newStandardBlock(preferredID, preferredHeight+1, []*Tx{addSubnetTx0})
+	addAllychainBlk0, err := vm.newStandardBlock(preferredID, preferredHeight+1, []*Tx{addAllychainTx0})
 	if err != nil {
 		t.Fatal(err)
 	}
-	addSubnetBlk1, err := vm.newStandardBlock(preferredID, preferredHeight+1, []*Tx{addSubnetTx1})
+	addAllychainBlk1, err := vm.newStandardBlock(preferredID, preferredHeight+1, []*Tx{addAllychainTx1})
 	if err != nil {
 		t.Fatal(err)
 	}
-	addSubnetBlk2, err := vm.newStandardBlock(addSubnetBlk1.ID(), preferredHeight+2, []*Tx{addSubnetTx2})
+	addAllychainBlk2, err := vm.newStandardBlock(addAllychainBlk1.ID(), preferredHeight+2, []*Tx{addAllychainTx2})
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if _, err := vm.ParseBlock(addSubnetBlk0.Bytes()); err != nil {
+	if _, err := vm.ParseBlock(addAllychainBlk0.Bytes()); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := vm.ParseBlock(addSubnetBlk1.Bytes()); err != nil {
+	if _, err := vm.ParseBlock(addAllychainBlk1.Bytes()); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := vm.ParseBlock(addSubnetBlk2.Bytes()); err != nil {
+	if _, err := vm.ParseBlock(addAllychainBlk2.Bytes()); err != nil {
 		t.Fatal(err)
 	}
 
-	if err := addSubnetBlk0.Verify(); err != nil {
+	if err := addAllychainBlk0.Verify(); err != nil {
 		t.Fatal(err)
 	}
-	if err := addSubnetBlk0.Accept(); err != nil {
+	if err := addAllychainBlk0.Accept(); err != nil {
 		t.Fatal(err)
 	}
 	// Doesn't matter what verify returns as long as it's not panicking.
-	_ = addSubnetBlk2.Verify()
+	_ = addAllychainBlk2.Verify()
 }
 
 func TestRejectedStateRegressionInvalidValidatorTimestamp(t *testing.T) {

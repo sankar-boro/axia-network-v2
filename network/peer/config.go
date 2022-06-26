@@ -31,7 +31,7 @@ type Config struct {
 	Router               router.InboundHandler
 	VersionCompatibility version.Compatibility
 	VersionParser        version.ApplicationParser
-	MySubnets            ids.Set
+	MyAllychains            ids.Set
 	Beacons              validators.Set
 	NetworkID            uint32
 	PingFrequency        time.Duration

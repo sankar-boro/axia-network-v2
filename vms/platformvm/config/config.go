@@ -19,11 +19,11 @@ type Config struct {
 	// The node's chain manager
 	Chains chains.Manager
 
-	// Node's validator set maps subnetID -> validators of the subnet
+	// Node's validator set maps allychainID -> validators of the allychain
 	Validators validators.Manager
 
-	// Provides access to subnet tracking
-	SubnetTracker common.SubnetTracker
+	// Provides access to allychain tracking
+	AllychainTracker common.AllychainTracker
 
 	// Provides access to the uptime manager as a thread safe data structure
 	UptimeLockedCalculator uptime.LockedCalculator
@@ -31,8 +31,8 @@ type Config struct {
 	// True if the node is being run with staking enabled
 	StakingEnabled bool
 
-	// Set of subnets that this node is validating
-	WhitelistedSubnets ids.Set
+	// Set of allychains that this node is validating
+	WhitelistedAllychains ids.Set
 
 	// Fee that must be burned by every create staker transaction
 	AddStakerTxFee uint64
@@ -43,8 +43,8 @@ type Config struct {
 	// Fee that must be burned by every state creating transaction before AP3
 	CreateAssetTxFee uint64
 
-	// Fee that must be burned by every subnet creating transaction after AP3
-	CreateSubnetTxFee uint64
+	// Fee that must be burned by every allychain creating transaction after AP3
+	CreateAllychainTxFee uint64
 
 	// Fee that must be burned by every blockchain creating transaction after AP3
 	CreateBlockchainTxFee uint64

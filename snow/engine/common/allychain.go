@@ -7,9 +7,9 @@ import (
 	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
-// Subnet describes the standard interface of a subnet description
-type Subnet interface {
-	// Returns true iff the subnet is done bootstrapping
+// Allychain describes the standard interface of a allychain description
+type Allychain interface {
+	// Returns true iff the allychain is done bootstrapping
 	IsBootstrapped() bool
 
 	// Bootstrapped marks the named chain as being bootstrapped

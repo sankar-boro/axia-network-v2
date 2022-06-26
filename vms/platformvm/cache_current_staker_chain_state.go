@@ -27,7 +27,7 @@ var (
 type currentStakerChainState interface {
 	// The NextStaker value returns the next staker that is going to be removed
 	// using a RewardValidatorTx. Therefore, only AddValidatorTxs and
-	// AddNominatorTxs will be returned. AddSubnetValidatorTxs are removed using
+	// AddNominatorTxs will be returned. AddAllychainValidatorTxs are removed using
 	// AdvanceTimestampTxs.
 	GetNextStaker() (addStakerTx *Tx, potentialReward uint64, err error)
 	GetStaker(txID ids.ID) (tx *Tx, potentialReward uint64, err error)
@@ -36,7 +36,7 @@ type currentStakerChainState interface {
 	UpdateStakers(
 		addValidators []*validatorReward,
 		addNominators []*validatorReward,
-		addSubnetValidators []*Tx,
+		addAllychainValidators []*Tx,
 		numTxsToRemove int,
 	) (currentStakerChainState, error)
 	DeleteNextStaker() (currentStakerChainState, error)
@@ -47,8 +47,8 @@ type currentStakerChainState interface {
 
 	Apply(InternalState)
 
-	// Return the current validator set of [subnetID].
-	ValidatorSet(subnetID ids.ID) (validators.Set, error)
+	// Return the current validator set of [allychainID].
+	ValidatorSet(allychainID ids.ID) (validators.Set, error)
 }
 
 // currentStakerChainStateImpl is a copy on write implementation for versioning
@@ -94,7 +94,7 @@ func (cs *currentStakerChainStateImpl) GetValidator(nodeID ids.NodeID) (currentV
 func (cs *currentStakerChainStateImpl) UpdateStakers(
 	addValidatorTxs []*validatorReward,
 	addNominatorTxs []*validatorReward,
-	addSubnetValidatorTxs []*Tx,
+	addAllychainValidatorTxs []*Tx,
 	numTxsToRemove int,
 ) (currentStakerChainState, error) {
 	if numTxsToRemove > len(cs.validators) {
@@ -102,7 +102,7 @@ func (cs *currentStakerChainStateImpl) UpdateStakers(
 	}
 	newCS := &currentStakerChainStateImpl{
 		validatorsByNodeID: make(map[ids.NodeID]*currentValidatorImpl, len(cs.validatorsByNodeID)+len(addValidatorTxs)),
-		validatorsByTxID:   make(map[ids.ID]*validatorReward, len(cs.validatorsByTxID)+len(addValidatorTxs)+len(addNominatorTxs)+len(addSubnetValidatorTxs)),
+		validatorsByTxID:   make(map[ids.ID]*validatorReward, len(cs.validatorsByTxID)+len(addValidatorTxs)+len(addNominatorTxs)+len(addAllychainValidatorTxs)),
 		validators:         cs.validators[numTxsToRemove:], // sorted in order of removal
 
 		addedStakers:   append(addValidatorTxs, addNominatorTxs...),
@@ -117,19 +117,19 @@ func (cs *currentStakerChainStateImpl) UpdateStakers(
 		newCS.validatorsByTxID[txID] = vdr
 	}
 
-	if numAdded := len(addValidatorTxs) + len(addNominatorTxs) + len(addSubnetValidatorTxs); numAdded != 0 {
+	if numAdded := len(addValidatorTxs) + len(addNominatorTxs) + len(addAllychainValidatorTxs); numAdded != 0 {
 		numCurrent := len(newCS.validators)
 		newSize := numCurrent + numAdded
 		newValidators := make([]*Tx, newSize)
 		copy(newValidators, newCS.validators)
-		copy(newValidators[numCurrent:], addSubnetValidatorTxs)
+		copy(newValidators[numCurrent:], addAllychainValidatorTxs)
 
-		numStart := numCurrent + len(addSubnetValidatorTxs)
+		numStart := numCurrent + len(addAllychainValidatorTxs)
 		for i, tx := range addValidatorTxs {
 			newValidators[numStart+i] = tx.addStakerTx
 		}
 
-		numStart = numCurrent + len(addSubnetValidatorTxs) + len(addValidatorTxs)
+		numStart = numCurrent + len(addAllychainValidatorTxs) + len(addValidatorTxs)
 		for i, tx := range addNominatorTxs {
 			newValidators[numStart+i] = tx.addStakerTx
 		}
@@ -167,16 +167,16 @@ func (cs *currentStakerChainStateImpl) UpdateStakers(
 			}
 		}
 
-		for _, vdr := range addSubnetValidatorTxs {
+		for _, vdr := range addAllychainValidatorTxs {
 			switch tx := vdr.UnsignedTx.(type) {
-			case *UnsignedAddSubnetValidatorTx:
+			case *UnsignedAddAllychainValidatorTx:
 				oldVdr := newCS.validatorsByNodeID[tx.Validator.NodeID]
 				newVdr := *oldVdr
-				newVdr.subnets = make(map[ids.ID]*UnsignedAddSubnetValidatorTx, len(oldVdr.subnets)+1)
-				for subnetID, addTx := range oldVdr.subnets {
-					newVdr.subnets[subnetID] = addTx
+				newVdr.allychains = make(map[ids.ID]*UnsignedAddAllychainValidatorTx, len(oldVdr.allychains)+1)
+				for allychainID, addTx := range oldVdr.allychains {
+					newVdr.allychains[allychainID] = addTx
 				}
-				newVdr.subnets[tx.Validator.Subnet] = tx
+				newVdr.allychains[tx.Validator.Allychain] = tx
 				newCS.validatorsByNodeID[tx.Validator.NodeID] = &newVdr
 			default:
 				return nil, errWrongTxType
@@ -196,13 +196,13 @@ func (cs *currentStakerChainStateImpl) UpdateStakers(
 		delete(newCS.validatorsByTxID, removedID)
 
 		switch tx := removed.UnsignedTx.(type) {
-		case *UnsignedAddSubnetValidatorTx:
+		case *UnsignedAddAllychainValidatorTx:
 			oldVdr := newCS.validatorsByNodeID[tx.Validator.NodeID]
 			newVdr := *oldVdr
-			newVdr.subnets = make(map[ids.ID]*UnsignedAddSubnetValidatorTx, len(oldVdr.subnets)-1)
-			for subnetID, addTx := range oldVdr.subnets {
+			newVdr.allychains = make(map[ids.ID]*UnsignedAddAllychainValidatorTx, len(oldVdr.allychains)-1)
+			for allychainID, addTx := range oldVdr.allychains {
 				if removedID != addTx.ID() {
-					newVdr.subnets[subnetID] = addTx
+					newVdr.allychains[allychainID] = addTx
 				}
 			}
 			newCS.validatorsByNodeID[tx.Validator.NodeID] = &newVdr
@@ -245,7 +245,7 @@ func (cs *currentStakerChainStateImpl) DeleteNextStaker() (currentStakerChainSta
 				newCS.validatorsByNodeID[nodeID] = &currentValidatorImpl{
 					validatorImpl: validatorImpl{
 						nominators: vdr.nominators[1:], // sorted in order of removal
-						subnets:    vdr.subnets,
+						allychains:    vdr.allychains,
 					},
 					addValidatorTx:  vdr.addValidatorTx,
 					nominatorWeight: vdr.nominatorWeight - tx.Validator.Wght,
@@ -285,11 +285,11 @@ func (cs *currentStakerChainStateImpl) Apply(is InternalState) {
 	cs.deletedStakers = nil
 }
 
-func (cs *currentStakerChainStateImpl) ValidatorSet(subnetID ids.ID) (validators.Set, error) {
-	if subnetID == constants.PrimaryNetworkID {
+func (cs *currentStakerChainStateImpl) ValidatorSet(allychainID ids.ID) (validators.Set, error) {
+	if allychainID == constants.PrimaryNetworkID {
 		return cs.primaryValidatorSet()
 	}
-	return cs.subnetValidatorSet(subnetID)
+	return cs.allychainValidatorSet(allychainID)
 }
 
 func (cs *currentStakerChainStateImpl) primaryValidatorSet() (validators.Set, error) {
@@ -310,15 +310,15 @@ func (cs *currentStakerChainStateImpl) primaryValidatorSet() (validators.Set, er
 	return vdrs, nil
 }
 
-func (cs *currentStakerChainStateImpl) subnetValidatorSet(subnetID ids.ID) (validators.Set, error) {
+func (cs *currentStakerChainStateImpl) allychainValidatorSet(allychainID ids.ID) (validators.Set, error) {
 	vdrs := validators.NewSet()
 
 	for nodeID, vdr := range cs.validatorsByNodeID {
-		subnetVDR, exists := vdr.subnets[subnetID]
+		allychainVDR, exists := vdr.allychains[allychainID]
 		if !exists {
 			continue
 		}
-		if err := vdrs.AddWeight(nodeID, subnetVDR.Validator.Wght); err != nil {
+		if err := vdrs.AddWeight(nodeID, allychainVDR.Validator.Wght); err != nil {
 			return nil, err
 		}
 	}
@@ -363,7 +363,7 @@ func (s innerSortValidatorsByRemoval) Less(i, j int) bool {
 	case *UnsignedAddNominatorTx:
 		iEndTime = tx.EndTime()
 		iPriority = mediumPriority
-	case *UnsignedAddSubnetValidatorTx:
+	case *UnsignedAddAllychainValidatorTx:
 		iEndTime = tx.EndTime()
 		iPriority = topPriority
 	default:
@@ -381,7 +381,7 @@ func (s innerSortValidatorsByRemoval) Less(i, j int) bool {
 	case *UnsignedAddNominatorTx:
 		jEndTime = tx.EndTime()
 		jPriority = mediumPriority
-	case *UnsignedAddSubnetValidatorTx:
+	case *UnsignedAddAllychainValidatorTx:
 		jEndTime = tx.EndTime()
 		jPriority = topPriority
 	default:
@@ -396,7 +396,7 @@ func (s innerSortValidatorsByRemoval) Less(i, j int) bool {
 	}
 
 	// If the end times are the same, then we sort by the tx type. First we
-	// remove UnsignedAddSubnetValidatorTxs, then UnsignedAddNominatorTx, then
+	// remove UnsignedAddAllychainValidatorTxs, then UnsignedAddNominatorTx, then
 	// UnsignedAddValidatorTx.
 	if iPriority > jPriority {
 		return true

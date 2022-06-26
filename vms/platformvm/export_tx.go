@@ -104,7 +104,7 @@ func (tx *UnsignedExportTx) Execute(
 	copy(outs[len(tx.Outs):], tx.ExportedOutputs)
 
 	if vm.bootstrapped.GetValue() {
-		if err := verify.SameSubnet(vm.ctx, tx.DestinationChain); err != nil {
+		if err := verify.SameAllychain(vm.ctx, tx.DestinationChain); err != nil {
 			return nil, err
 		}
 	}

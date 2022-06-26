@@ -277,31 +277,31 @@ func (vm *VM) stake(
 	return ins, returnedOuts, stakedOuts, signers, nil
 }
 
-// authorize an operation on behalf of the named subnet with the provided keys.
+// authorize an operation on behalf of the named allychain with the provided keys.
 func (vm *VM) authorize(
 	vs MutableState,
-	subnetID ids.ID,
+	allychainID ids.ID,
 	keys []*crypto.PrivateKeySECP256K1R,
 ) (
 	verify.Verifiable, // Input that names owners
 	[]*crypto.PrivateKeySECP256K1R, // Keys that prove ownership
 	error,
 ) {
-	subnetTx, _, err := vs.GetTx(subnetID)
+	allychainTx, _, err := vs.GetTx(allychainID)
 	if err != nil {
 		return nil, nil, fmt.Errorf(
-			"failed to fetch subnet %s: %w",
-			subnetID,
+			"failed to fetch allychain %s: %w",
+			allychainID,
 			err,
 		)
 	}
-	subnet, ok := subnetTx.UnsignedTx.(*UnsignedCreateSubnetTx)
+	allychain, ok := allychainTx.UnsignedTx.(*UnsignedCreateAllychainTx)
 	if !ok {
 		return nil, nil, errWrongTxType
 	}
 
-	// Make sure the owners of the subnet match the provided keys
-	owner, ok := subnet.Owner.(*secp256k1fx.OutputOwners)
+	// Make sure the owners of the allychain match the provided keys
+	owner, ok := allychain.Owner.(*secp256k1fx.OutputOwners)
 	if !ok {
 		return nil, nil, errUnknownOwners
 	}
@@ -312,7 +312,7 @@ func (vm *VM) authorize(
 	// Make sure that the operation is valid after a minimum time
 	now := uint64(vm.clock.Time().Unix())
 
-	// Attempt to prove ownership of the subnet
+	// Attempt to prove ownership of the allychain
 	indices, signers, matches := kc.Match(owner, now)
 	if !matches {
 		return nil, nil, errCantSign

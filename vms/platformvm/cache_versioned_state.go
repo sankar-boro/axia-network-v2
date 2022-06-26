@@ -45,10 +45,10 @@ type MutableState interface {
 	GetCurrentSupply() uint64
 	SetCurrentSupply(uint64)
 
-	GetSubnets() ([]*Tx, error)
-	AddSubnet(createSubnetTx *Tx)
+	GetAllychains() ([]*Tx, error)
+	AddAllychain(createAllychainTx *Tx)
 
-	GetChains(subnetID ids.ID) ([]*Tx, error)
+	GetChains(allychainID ids.ID) ([]*Tx, error)
 	AddChain(createChainTx *Tx)
 
 	GetTx(txID ids.ID) (*Tx, status.Status, error)
@@ -72,8 +72,8 @@ type versionedStateImpl struct {
 
 	currentSupply uint64
 
-	addedSubnets  []*Tx
-	cachedSubnets []*Tx
+	addedAllychains  []*Tx
+	cachedAllychains []*Tx
 
 	addedChains  map[ids.ID][]*Tx
 	cachedChains map[ids.ID][]*Tx
@@ -128,58 +128,58 @@ func (vs *versionedStateImpl) SetCurrentSupply(currentSupply uint64) {
 	vs.currentSupply = currentSupply
 }
 
-func (vs *versionedStateImpl) GetSubnets() ([]*Tx, error) {
-	if len(vs.addedSubnets) == 0 {
-		return vs.parentState.GetSubnets()
+func (vs *versionedStateImpl) GetAllychains() ([]*Tx, error) {
+	if len(vs.addedAllychains) == 0 {
+		return vs.parentState.GetAllychains()
 	}
-	if len(vs.cachedSubnets) != 0 {
-		return vs.cachedSubnets, nil
+	if len(vs.cachedAllychains) != 0 {
+		return vs.cachedAllychains, nil
 	}
-	subnets, err := vs.parentState.GetSubnets()
+	allychains, err := vs.parentState.GetAllychains()
 	if err != nil {
 		return nil, err
 	}
-	newSubnets := make([]*Tx, len(subnets)+len(vs.addedSubnets))
-	copy(newSubnets, subnets)
-	for i, subnet := range vs.addedSubnets {
-		newSubnets[i+len(subnets)] = subnet
+	newAllychains := make([]*Tx, len(allychains)+len(vs.addedAllychains))
+	copy(newAllychains, allychains)
+	for i, allychain := range vs.addedAllychains {
+		newAllychains[i+len(allychains)] = allychain
 	}
-	vs.cachedSubnets = newSubnets
-	return newSubnets, nil
+	vs.cachedAllychains = newAllychains
+	return newAllychains, nil
 }
 
-func (vs *versionedStateImpl) AddSubnet(createSubnetTx *Tx) {
-	vs.addedSubnets = append(vs.addedSubnets, createSubnetTx)
-	if vs.cachedSubnets != nil {
-		vs.cachedSubnets = append(vs.cachedSubnets, createSubnetTx)
+func (vs *versionedStateImpl) AddAllychain(createAllychainTx *Tx) {
+	vs.addedAllychains = append(vs.addedAllychains, createAllychainTx)
+	if vs.cachedAllychains != nil {
+		vs.cachedAllychains = append(vs.cachedAllychains, createAllychainTx)
 	}
 }
 
-func (vs *versionedStateImpl) GetChains(subnetID ids.ID) ([]*Tx, error) {
+func (vs *versionedStateImpl) GetChains(allychainID ids.ID) ([]*Tx, error) {
 	if len(vs.addedChains) == 0 {
 		// No chains have been added
-		return vs.parentState.GetChains(subnetID)
+		return vs.parentState.GetChains(allychainID)
 	}
-	addedChains := vs.addedChains[subnetID]
+	addedChains := vs.addedChains[allychainID]
 	if len(addedChains) == 0 {
-		// No chains have been added to this subnet
-		return vs.parentState.GetChains(subnetID)
+		// No chains have been added to this allychain
+		return vs.parentState.GetChains(allychainID)
 	}
 
-	// There have been chains added to the requested subnet
+	// There have been chains added to the requested allychain
 
 	if vs.cachedChains == nil {
-		// This is the first time we are going to be caching the subnet chains
+		// This is the first time we are going to be caching the allychain chains
 		vs.cachedChains = make(map[ids.ID][]*Tx)
 	}
 
-	cachedChains, cached := vs.cachedChains[subnetID]
+	cachedChains, cached := vs.cachedChains[allychainID]
 	if cached {
 		return cachedChains, nil
 	}
 
 	// This chain wasn't cached yet
-	chains, err := vs.parentState.GetChains(subnetID)
+	chains, err := vs.parentState.GetChains(allychainID)
 	if err != nil {
 		return nil, err
 	}
@@ -189,7 +189,7 @@ func (vs *versionedStateImpl) GetChains(subnetID ids.ID) ([]*Tx, error) {
 	for i, chain := range addedChains {
 		newChains[i+len(chains)] = chain
 	}
-	vs.cachedChains[subnetID] = newChains
+	vs.cachedChains[allychainID] = newChains
 	return newChains, nil
 }
 
@@ -197,17 +197,17 @@ func (vs *versionedStateImpl) AddChain(createChainTx *Tx) {
 	tx := createChainTx.UnsignedTx.(*UnsignedCreateChainTx)
 	if vs.addedChains == nil {
 		vs.addedChains = map[ids.ID][]*Tx{
-			tx.SubnetID: {createChainTx},
+			tx.AllychainID: {createChainTx},
 		}
 	} else {
-		vs.addedChains[tx.SubnetID] = append(vs.addedChains[tx.SubnetID], createChainTx)
+		vs.addedChains[tx.AllychainID] = append(vs.addedChains[tx.AllychainID], createChainTx)
 	}
 
-	cachedChains, cached := vs.cachedChains[tx.SubnetID]
+	cachedChains, cached := vs.cachedChains[tx.AllychainID]
 	if !cached {
 		return
 	}
-	vs.cachedChains[tx.SubnetID] = append(cachedChains, createChainTx)
+	vs.cachedChains[tx.AllychainID] = append(cachedChains, createChainTx)
 }
 
 func (vs *versionedStateImpl) GetTx(txID ids.ID) (*Tx, status.Status, error) {
@@ -300,8 +300,8 @@ func (vs *versionedStateImpl) SetBase(parentState MutableState) {
 func (vs *versionedStateImpl) Apply(is InternalState) {
 	is.SetTimestamp(vs.timestamp)
 	is.SetCurrentSupply(vs.currentSupply)
-	for _, subnet := range vs.addedSubnets {
-		is.AddSubnet(subnet)
+	for _, allychain := range vs.addedAllychains {
+		is.AddAllychain(allychain)
 	}
 	for _, chains := range vs.addedChains {
 		for _, chain := range chains {

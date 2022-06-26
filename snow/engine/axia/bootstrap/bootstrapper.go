@@ -245,7 +245,7 @@ func (b *bootstrapper) Timeout() error {
 	}
 	b.awaitingTimeout = false
 
-	if !b.Config.Subnet.IsBootstrapped() {
+	if !b.Config.Allychain.IsBootstrapped() {
 		return b.Restart(true)
 	}
 	return b.OnFinished(b.Config.SharedCfg.RequestID)
@@ -505,17 +505,17 @@ func (b *bootstrapper) checkFinish() error {
 		return b.Restart(true)
 	}
 
-	// Notify the subnet that this chain is synced
-	b.Config.Subnet.Bootstrapped(b.Ctx.ChainID)
+	// Notify the allychain that this chain is synced
+	b.Config.Allychain.Bootstrapped(b.Ctx.ChainID)
 	b.processedCache.Flush()
 
-	// If the subnet hasn't finished bootstrapping, this chain should remain
+	// If the allychain hasn't finished bootstrapping, this chain should remain
 	// syncing.
-	if !b.Config.Subnet.IsBootstrapped() {
+	if !b.Config.Allychain.IsBootstrapped() {
 		if !b.Config.SharedCfg.Restarted {
-			b.Ctx.Log.Info("waiting for the remaining chains in this subnet to finish syncing")
+			b.Ctx.Log.Info("waiting for the remaining chains in this allychain to finish syncing")
 		} else {
-			b.Ctx.Log.Debug("waiting for the remaining chains in this subnet to finish syncing")
+			b.Ctx.Log.Debug("waiting for the remaining chains in this allychain to finish syncing")
 		}
 		// Restart bootstrapping after [bootstrappingDelay] to keep up to date
 		// on the latest tip.

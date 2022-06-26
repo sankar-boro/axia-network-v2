@@ -51,11 +51,11 @@ func init() {
 			c.RegisterType(&secp256k1fx.OutputOwners{}),
 
 			c.RegisterType(&UnsignedAddValidatorTx{}),
-			c.RegisterType(&UnsignedAddSubnetValidatorTx{}),
+			c.RegisterType(&UnsignedAddAllychainValidatorTx{}),
 			c.RegisterType(&UnsignedAddNominatorTx{}),
 
 			c.RegisterType(&UnsignedCreateChainTx{}),
-			c.RegisterType(&UnsignedCreateSubnetTx{}),
+			c.RegisterType(&UnsignedCreateAllychainTx{}),
 
 			c.RegisterType(&UnsignedImportTx{}),
 			c.RegisterType(&UnsignedExportTx{}),

@@ -309,7 +309,7 @@ func (cr *ChainRouter) Connected(nodeID ids.NodeID, nodeVersion version.Applicat
 	msg := cr.msgCreator.InternalConnected(nodeID, nodeVersion)
 
 	// TODO: fire up an event when validator state changes i.e when they leave set, disconnect.
-	// we cannot put a subnet-only validator check here since Disconnected would not be handled properly.
+	// we cannot put a allychain-only validator check here since Disconnected would not be handled properly.
 	for _, chain := range cr.chains {
 		chain.Push(msg)
 	}
@@ -328,7 +328,7 @@ func (cr *ChainRouter) Disconnected(nodeID ids.NodeID) {
 	msg := cr.msgCreator.InternalDisconnected(nodeID)
 
 	// TODO: fire up an event when validator state changes i.e when they leave set, disconnect.
-	// we cannot put a subnet-only validator check here since if a validator connects then it leaves validator-set, it would not be disconnected properly.
+	// we cannot put a allychain-only validator check here since if a validator connects then it leaves validator-set, it would not be disconnected properly.
 	for _, chain := range cr.chains {
 		chain.Push(msg)
 	}

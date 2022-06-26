@@ -118,7 +118,7 @@ func (tx *UnsignedImportTx) Execute(
 	}
 
 	if vm.bootstrapped.GetValue() {
-		if err := verify.SameSubnet(vm.ctx, tx.SourceChain); err != nil {
+		if err := verify.SameAllychain(vm.ctx, tx.SourceChain); err != nil {
 			return nil, err
 		}
 

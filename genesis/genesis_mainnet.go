@@ -175775,7 +175775,7 @@ var (
 		TxFeeConfig: TxFeeConfig{
 			TxFee:                 units.MilliAxc,
 			CreateAssetTxFee:      10 * units.MilliAxc,
-			CreateSubnetTxFee:     1 * units.Axc,
+			CreateAllychainTxFee:     1 * units.Axc,
 			CreateBlockchainTxFee: 1 * units.Axc,
 		},
 		StakingConfig: StakingConfig{

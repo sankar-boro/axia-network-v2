@@ -16,12 +16,12 @@ import (
 
 func getValidTx(vm *VM, t *testing.T) *Tx {
 	res, err := vm.newCreateChainTx(
-		testSubnet1.ID(),
+		testAllychain1.ID(),
 		nil,
 		constants.AVMID,
 		nil,
 		"chain name",
-		[]*crypto.PrivateKeySECP256K1R{testSubnet1ControlKeys[0], testSubnet1ControlKeys[1]},
+		[]*crypto.PrivateKeySECP256K1R{testAllychain1ControlKeys[0], testAllychain1ControlKeys[1]},
 		ids.ShortEmpty, // change addr
 	)
 	if err != nil {

@@ -12,13 +12,13 @@ import (
 	"github.com/sankar-boro/axia-network-v2/snow/networking/sender"
 )
 
-var _ Subnet = &subnet{}
+var _ Allychain = &allychain{}
 
-// Subnet keeps track of the currently bootstrapping chains in a subnet. If no
-// chains in the subnet are currently bootstrapping, the subnet is considered
+// Allychain keeps track of the currently bootstrapping chains in a allychain. If no
+// chains in the allychain are currently bootstrapping, the allychain is considered
 // bootstrapped.
-type Subnet interface {
-	common.Subnet
+type Allychain interface {
+	common.Allychain
 
 	afterBootstrapped() chan struct{}
 
@@ -26,35 +26,35 @@ type Subnet interface {
 	removeChain(chainID ids.ID)
 }
 
-type SubnetConfig struct {
+type AllychainConfig struct {
 	sender.GossipConfig
 
-	// ValidatorOnly indicates that this Subnet's Chains are available to only subnet validators.
+	// ValidatorOnly indicates that this Allychain's Chains are available to only allychain validators.
 	ValidatorOnly       bool                 `json:"validatorOnly"`
 	ConsensusParameters axia.Parameters `json:"consensusParameters"`
 }
 
-type subnet struct {
+type allychain struct {
 	lock             sync.RWMutex
 	bootstrapping    ids.Set
 	once             sync.Once
 	bootstrappedSema chan struct{}
 }
 
-func newSubnet() Subnet {
-	return &subnet{
+func newAllychain() Allychain {
+	return &allychain{
 		bootstrappedSema: make(chan struct{}),
 	}
 }
 
-func (s *subnet) IsBootstrapped() bool {
+func (s *allychain) IsBootstrapped() bool {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
 	return s.bootstrapping.Len() == 0
 }
 
-func (s *subnet) Bootstrapped(chainID ids.ID) {
+func (s *allychain) Bootstrapped(chainID ids.ID) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -68,18 +68,18 @@ func (s *subnet) Bootstrapped(chainID ids.ID) {
 	})
 }
 
-func (s *subnet) afterBootstrapped() chan struct{} {
+func (s *allychain) afterBootstrapped() chan struct{} {
 	return s.bootstrappedSema
 }
 
-func (s *subnet) addChain(chainID ids.ID) {
+func (s *allychain) addChain(chainID ids.ID) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	s.bootstrapping.Add(chainID)
 }
 
-func (s *subnet) removeChain(chainID ids.ID) {
+func (s *allychain) removeChain(chainID ids.ID) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 

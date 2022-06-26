@@ -27,7 +27,7 @@ const (
 	SigBytes                         // Used in handshake / peer gossiping
 	VersionTime                      // Used in handshake / peer gossiping
 	Peers                            // Used in peer gossiping
-	TrackedSubnets                   // Used in handshake / peer gossiping
+	TrackedAllychains                   // Used in handshake / peer gossiping
 	AppBytes                         // Used at application level
 	VMMessage                        // Used internally
 	Uptime                           // Used for Pong
@@ -72,7 +72,7 @@ func (f Field) Packer() func(*wrappers.Packer, interface{}) {
 		return wrappers.TryPackLong
 	case Peers:
 		return wrappers.TryPackClaimedIPPortList
-	case TrackedSubnets:
+	case TrackedAllychains:
 		return wrappers.TryPackHashes
 	case Uptime:
 		return wrappers.TryPackByte
@@ -122,7 +122,7 @@ func (f Field) Unpacker() func(*wrappers.Packer) interface{} {
 		return wrappers.TryUnpackLong
 	case Peers:
 		return wrappers.TryUnpackClaimedIPPortList
-	case TrackedSubnets:
+	case TrackedAllychains:
 		return wrappers.TryUnpackHashes
 	case Uptime:
 		return wrappers.TryUnpackByte
@@ -171,8 +171,8 @@ func (f Field) String() string {
 		return "VersionTime"
 	case Peers:
 		return "Peers"
-	case TrackedSubnets:
-		return "TrackedSubnets"
+	case TrackedAllychains:
+		return "TrackedAllychains"
 	case VMMessage:
 		return "VMMessage"
 	case Uptime:

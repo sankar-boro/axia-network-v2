@@ -190,11 +190,11 @@ type Config struct {
 	// Gossip a container in the accepted frontier every [ConsensusGossipFrequency]
 	ConsensusGossipFrequency time.Duration `json:"consensusGossipFreq"`
 
-	// Subnet Whitelist
-	WhitelistedSubnets ids.Set `json:"whitelistedSubnets"`
+	// Allychain Whitelist
+	WhitelistedAllychains ids.Set `json:"whitelistedAllychains"`
 
-	// SubnetConfigs
-	SubnetConfigs map[ids.ID]chains.SubnetConfig `json:"subnetConfigs"`
+	// AllychainConfigs
+	AllychainConfigs map[ids.ID]chains.AllychainConfig `json:"allychainConfigs"`
 
 	// ChainConfigs
 	ChainConfigs map[string]chains.ChainConfig `json:"-"`

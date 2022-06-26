@@ -129,7 +129,7 @@ func initTestProposerVM(
 	}
 	valState.GetMinimumHeightF = func() (uint64, error) { return coreGenBlk.HeightV, nil }
 	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		res := make(map[ids.NodeID]uint64)
 		res[proVM.ctx.NodeID] = uint64(10)
 		res[ids.NodeID{1}] = uint64(5)
@@ -868,7 +868,7 @@ func TestExpiredBuildBlock(t *testing.T) {
 	}
 	valState.GetMinimumHeightF = func() (uint64, error) { return coreGenBlk.Height(), nil }
 	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		return map[ids.NodeID]uint64{
 			{1}: 100,
 		}, nil
@@ -1143,7 +1143,7 @@ func TestInnerVMRollback(t *testing.T) {
 		T: t,
 	}
 	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		return map[ids.NodeID]uint64{
 			{1}: 100,
 		}, nil
@@ -1310,7 +1310,7 @@ func TestInnerVMRollback(t *testing.T) {
 func TestBuildBlockDuringWindow(t *testing.T) {
 	coreVM, valState, proVM, coreGenBlk, _ := initTestProposerVM(t, time.Time{}, 0) // enable ProBlks
 
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		return map[ids.NodeID]uint64{
 			proVM.ctx.NodeID: 10,
 		}, nil
@@ -1813,7 +1813,7 @@ func TestRejectedHeightNotIndexed(t *testing.T) {
 	}
 	valState.GetMinimumHeightF = func() (uint64, error) { return coreGenBlk.HeightV, nil }
 	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		res := make(map[ids.NodeID]uint64)
 		res[proVM.ctx.NodeID] = uint64(10)
 		res[ids.NodeID{1}] = uint64(5)
@@ -1991,7 +1991,7 @@ func TestRejectedOptionHeightNotIndexed(t *testing.T) {
 	}
 	valState.GetMinimumHeightF = func() (uint64, error) { return coreGenBlk.HeightV, nil }
 	valState.GetCurrentHeightF = func() (uint64, error) { return defaultCoreChainHeight, nil }
-	valState.GetValidatorSetF = func(height uint64, subnetID ids.ID) (map[ids.NodeID]uint64, error) {
+	valState.GetValidatorSetF = func(height uint64, allychainID ids.ID) (map[ids.NodeID]uint64, error) {
 		res := make(map[ids.NodeID]uint64)
 		res[proVM.ctx.NodeID] = uint64(10)
 		res[ids.NodeID{1}] = uint64(5)

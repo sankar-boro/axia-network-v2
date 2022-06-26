@@ -23,7 +23,7 @@ type testNetwork struct {
 	ip        ips.IPPort
 	version   version.Application
 	signer    crypto.Signer
-	subnets   ids.Set
+	allychains   ids.Set
 
 	uptime uint8
 }
@@ -35,7 +35,7 @@ func NewTestNetwork(
 	ipPort ips.IPPort,
 	version version.Application,
 	signer crypto.Signer,
-	subnets ids.Set,
+	allychains ids.Set,
 	uptime uint8,
 ) Network {
 	return &testNetwork{
@@ -44,7 +44,7 @@ func NewTestNetwork(
 		ip:        ipPort,
 		version:   version,
 		signer:    signer,
-		subnets:   subnets,
+		allychains:   allychains,
 		uptime:    uptime,
 	}
 }
@@ -74,7 +74,7 @@ func (n *testNetwork) Version() (message.OutboundMessage, error) {
 		n.version.String(),
 		now,
 		signedIP.Signature,
-		n.subnets.List(),
+		n.allychains.List(),
 	)
 }
 

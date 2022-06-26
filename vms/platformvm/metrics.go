@@ -19,7 +19,7 @@ var errUnknownBlockType = errors.New("unknown block type")
 
 type metrics struct {
 	percentConnected       prometheus.Gauge
-	subnetPercentConnected *prometheus.GaugeVec
+	allychainPercentConnected *prometheus.GaugeVec
 	localStake             prometheus.Gauge
 	totalStake             prometheus.Gauge
 
@@ -32,11 +32,11 @@ type metrics struct {
 	numVotesWon, numVotesLost prometheus.Counter
 
 	numAddNominatorTxs,
-	numAddSubnetValidatorTxs,
+	numAddAllychainValidatorTxs,
 	numAddValidatorTxs,
 	numAdvanceTimeTxs,
 	numCreateChainTxs,
-	numCreateSubnetTxs,
+	numCreateAllychainTxs,
 	numExportTxs,
 	numImportTxs,
 	numRewardValidatorTxs prometheus.Counter
@@ -69,20 +69,20 @@ func newTxMetrics(namespace string, name string) prometheus.Counter {
 func (m *metrics) Initialize(
 	namespace string,
 	registerer prometheus.Registerer,
-	whitelistedSubnets ids.Set,
+	whitelistedAllychains ids.Set,
 ) error {
 	m.percentConnected = prometheus.NewGauge(prometheus.GaugeOpts{
 		Namespace: namespace,
 		Name:      "percent_connected",
 		Help:      "Percent of connected stake",
 	})
-	m.subnetPercentConnected = prometheus.NewGaugeVec(
+	m.allychainPercentConnected = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Namespace: namespace,
-			Name:      "percent_connected_subnet",
-			Help:      "Percent of connected subnet weight",
+			Name:      "percent_connected_allychain",
+			Help:      "Percent of connected allychain weight",
 		},
-		[]string{"subnetID"},
+		[]string{"allychainID"},
 	)
 	m.localStake = prometheus.NewGauge(prometheus.GaugeOpts{
 		Namespace: namespace,
@@ -113,11 +113,11 @@ func (m *metrics) Initialize(
 	})
 
 	m.numAddNominatorTxs = newTxMetrics(namespace, "add_nominator")
-	m.numAddSubnetValidatorTxs = newTxMetrics(namespace, "add_subnet_validator")
+	m.numAddAllychainValidatorTxs = newTxMetrics(namespace, "add_allychain_validator")
 	m.numAddValidatorTxs = newTxMetrics(namespace, "add_validator")
 	m.numAdvanceTimeTxs = newTxMetrics(namespace, "advance_time")
 	m.numCreateChainTxs = newTxMetrics(namespace, "create_chain")
-	m.numCreateSubnetTxs = newTxMetrics(namespace, "create_subnet")
+	m.numCreateAllychainTxs = newTxMetrics(namespace, "create_allychain")
 	m.numExportTxs = newTxMetrics(namespace, "export")
 	m.numImportTxs = newTxMetrics(namespace, "import")
 	m.numRewardValidatorTxs = newTxMetrics(namespace, "reward_validator")
@@ -150,7 +150,7 @@ func (m *metrics) Initialize(
 		err,
 
 		registerer.Register(m.percentConnected),
-		registerer.Register(m.subnetPercentConnected),
+		registerer.Register(m.allychainPercentConnected),
 		registerer.Register(m.localStake),
 		registerer.Register(m.totalStake),
 
@@ -164,11 +164,11 @@ func (m *metrics) Initialize(
 		registerer.Register(m.numVotesLost),
 
 		registerer.Register(m.numAddNominatorTxs),
-		registerer.Register(m.numAddSubnetValidatorTxs),
+		registerer.Register(m.numAddAllychainValidatorTxs),
 		registerer.Register(m.numAddValidatorTxs),
 		registerer.Register(m.numAdvanceTimeTxs),
 		registerer.Register(m.numCreateChainTxs),
-		registerer.Register(m.numCreateSubnetTxs),
+		registerer.Register(m.numCreateAllychainTxs),
 		registerer.Register(m.numExportTxs),
 		registerer.Register(m.numImportTxs),
 		registerer.Register(m.numRewardValidatorTxs),
@@ -179,10 +179,10 @@ func (m *metrics) Initialize(
 		registerer.Register(m.validatorSetsDuration),
 	)
 
-	// init subnet tracker metrics with whitelisted subnets
-	for subnetID := range whitelistedSubnets {
+	// init allychain tracker metrics with whitelisted allychains
+	for allychainID := range whitelistedAllychains {
 		// initialize to 0
-		m.subnetPercentConnected.WithLabelValues(subnetID.String()).Set(0)
+		m.allychainPercentConnected.WithLabelValues(allychainID.String()).Set(0)
 	}
 	return errs.Err
 }
@@ -216,16 +216,16 @@ func (m *metrics) AcceptTx(tx *Tx) error {
 	switch tx.UnsignedTx.(type) {
 	case *UnsignedAddNominatorTx:
 		m.numAddNominatorTxs.Inc()
-	case *UnsignedAddSubnetValidatorTx:
-		m.numAddSubnetValidatorTxs.Inc()
+	case *UnsignedAddAllychainValidatorTx:
+		m.numAddAllychainValidatorTxs.Inc()
 	case *UnsignedAddValidatorTx:
 		m.numAddValidatorTxs.Inc()
 	case *UnsignedAdvanceTimeTx:
 		m.numAdvanceTimeTxs.Inc()
 	case *UnsignedCreateChainTx:
 		m.numCreateChainTxs.Inc()
-	case *UnsignedCreateSubnetTx:
-		m.numCreateSubnetTxs.Inc()
+	case *UnsignedCreateAllychainTx:
+		m.numCreateAllychainTxs.Inc()
 	case *UnsignedImportTx:
 		m.numImportTxs.Inc()
 	case *UnsignedExportTx:

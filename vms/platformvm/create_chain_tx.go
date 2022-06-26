@@ -39,8 +39,8 @@ const (
 type UnsignedCreateChainTx struct {
 	// Metadata, inputs and outputs
 	BaseTx `serialize:"true"`
-	// ID of the Subnet that validates this blockchain
-	SubnetID ids.ID `serialize:"true" json:"subnetID"`
+	// ID of the Allychain that validates this blockchain
+	AllychainID ids.ID `serialize:"true" json:"allychainID"`
 	// A human readable name for the chain; need not be unique
 	ChainName string `serialize:"true" json:"chainName"`
 	// ID of the VM running on the new chain
@@ -49,8 +49,8 @@ type UnsignedCreateChainTx struct {
 	FxIDs []ids.ID `serialize:"true" json:"fxIDs"`
 	// Byte representation of genesis state of the new chain
 	GenesisData []byte `serialize:"true" json:"genesisData"`
-	// Authorizes this blockchain to be added to this subnet
-	SubnetAuth verify.Verifiable `serialize:"true" json:"subnetAuthorization"`
+	// Authorizes this blockchain to be added to this allychain
+	AllychainAuth verify.Verifiable `serialize:"true" json:"allychainAuthorization"`
 }
 
 func (tx *UnsignedCreateChainTx) InputUTXOs() ids.Set { return nil }
@@ -65,7 +65,7 @@ func (tx *UnsignedCreateChainTx) SyntacticVerify(ctx *snow.Context) error {
 		return errNilTx
 	case tx.syntacticallyVerified: // already passed syntactic verification
 		return nil
-	case tx.SubnetID == constants.PrimaryNetworkID:
+	case tx.AllychainID == constants.PrimaryNetworkID:
 		return errDSCantValidate
 	case len(tx.ChainName) > maxNameLen:
 		return errNameTooLong
@@ -86,7 +86,7 @@ func (tx *UnsignedCreateChainTx) SyntacticVerify(ctx *snow.Context) error {
 	if err := tx.BaseTx.SyntacticVerify(ctx); err != nil {
 		return err
 	}
-	if err := tx.SubnetAuth.Verify(); err != nil {
+	if err := tx.AllychainAuth.Verify(); err != nil {
 		return err
 	}
 
@@ -126,7 +126,7 @@ func (tx *UnsignedCreateChainTx) Execute(
 	// Select the credentials for each purpose
 	baseTxCredsLen := len(stx.Creds) - 1
 	baseTxCreds := stx.Creds[:baseTxCredsLen]
-	subnetCred := stx.Creds[baseTxCredsLen]
+	allychainCred := stx.Creds[baseTxCredsLen]
 
 	// Verify the flowcheck
 	timestamp := vs.GetTimestamp()
@@ -135,21 +135,21 @@ func (tx *UnsignedCreateChainTx) Execute(
 		return nil, err
 	}
 
-	subnetIntf, _, err := vs.GetTx(tx.SubnetID)
+	allychainIntf, _, err := vs.GetTx(tx.AllychainID)
 	if err == database.ErrNotFound {
-		return nil, fmt.Errorf("%s isn't a known subnet", tx.SubnetID)
+		return nil, fmt.Errorf("%s isn't a known allychain", tx.AllychainID)
 	}
 	if err != nil {
 		return nil, err
 	}
 
-	subnet, ok := subnetIntf.UnsignedTx.(*UnsignedCreateSubnetTx)
+	allychain, ok := allychainIntf.UnsignedTx.(*UnsignedCreateAllychainTx)
 	if !ok {
-		return nil, fmt.Errorf("%s isn't a subnet", tx.SubnetID)
+		return nil, fmt.Errorf("%s isn't a allychain", tx.AllychainID)
 	}
 
-	// Verify that this chain is authorized by the subnet
-	if err := vm.fx.VerifyPermission(tx, tx.SubnetAuth, subnetCred, subnet.Owner); err != nil {
+	// Verify that this chain is authorized by the allychain
+	if err := vm.fx.VerifyPermission(tx, tx.AllychainAuth, allychainCred, allychain.Owner); err != nil {
 		return nil, err
 	}
 
@@ -162,14 +162,14 @@ func (tx *UnsignedCreateChainTx) Execute(
 	vs.AddChain(stx)
 
 	// If this proposal is committed and this node is a member of the
-	// subnet that validates the blockchain, create the blockchain
+	// allychain that validates the blockchain, create the blockchain
 	onAccept := func() error { return vm.createChain(stx) }
 	return onAccept, nil
 }
 
 // Create a new transaction
 func (vm *VM) newCreateChainTx(
-	subnetID ids.ID, // ID of the subnet that validates the new chain
+	allychainID ids.ID, // ID of the allychain that validates the new chain
 	genesisData []byte, // Byte repr. of genesis state of the new chain
 	vmID ids.ID, // VM this chain runs
 	fxIDs []ids.ID, // fxs this chain supports
@@ -184,11 +184,11 @@ func (vm *VM) newCreateChainTx(
 		return nil, fmt.Errorf("couldn't generate tx inputs/outputs: %w", err)
 	}
 
-	subnetAuth, subnetSigners, err := vm.authorize(vm.internalState, subnetID, keys)
+	allychainAuth, allychainSigners, err := vm.authorize(vm.internalState, allychainID, keys)
 	if err != nil {
-		return nil, fmt.Errorf("couldn't authorize tx's subnet restrictions: %w", err)
+		return nil, fmt.Errorf("couldn't authorize tx's allychain restrictions: %w", err)
 	}
-	signers = append(signers, subnetSigners)
+	signers = append(signers, allychainSigners)
 
 	// Sort the provided fxIDs
 	ids.SortIDs(fxIDs)
@@ -201,12 +201,12 @@ func (vm *VM) newCreateChainTx(
 			Ins:          ins,
 			Outs:         outs,
 		}},
-		SubnetID:    subnetID,
+		AllychainID:    allychainID,
 		ChainName:   chainName,
 		VMID:        vmID,
 		FxIDs:       fxIDs,
 		GenesisData: genesisData,
-		SubnetAuth:  subnetAuth,
+		AllychainAuth:  allychainAuth,
 	}
 	tx := &Tx{UnsignedTx: utx}
 	if err := tx.Sign(Codec, signers); err != nil {

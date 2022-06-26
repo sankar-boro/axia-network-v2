@@ -19,39 +19,39 @@ import (
 )
 
 var (
-	errDSValidatorSubset = errors.New("all subnets' staking period must be a subset of the primary network")
+	errDSValidatorSubset = errors.New("all allychains' staking period must be a subset of the primary network")
 
-	_ UnsignedProposalTx = &UnsignedAddSubnetValidatorTx{}
-	_ TimedTx            = &UnsignedAddSubnetValidatorTx{}
+	_ UnsignedProposalTx = &UnsignedAddAllychainValidatorTx{}
+	_ TimedTx            = &UnsignedAddAllychainValidatorTx{}
 )
 
-// UnsignedAddSubnetValidatorTx is an unsigned addSubnetValidatorTx
-type UnsignedAddSubnetValidatorTx struct {
+// UnsignedAddAllychainValidatorTx is an unsigned addAllychainValidatorTx
+type UnsignedAddAllychainValidatorTx struct {
 	// Metadata, inputs and outputs
 	BaseTx `serialize:"true"`
 	// The validator
-	Validator coreChainValidator.SubnetValidator `serialize:"true" json:"validator"`
+	Validator coreChainValidator.AllychainValidator `serialize:"true" json:"validator"`
 	// Auth that will be allowing this validator into the network
-	SubnetAuth verify.Verifiable `serialize:"true" json:"subnetAuthorization"`
+	AllychainAuth verify.Verifiable `serialize:"true" json:"allychainAuthorization"`
 }
 
 // StartTime of this validator
-func (tx *UnsignedAddSubnetValidatorTx) StartTime() time.Time {
+func (tx *UnsignedAddAllychainValidatorTx) StartTime() time.Time {
 	return tx.Validator.StartTime()
 }
 
 // EndTime of this validator
-func (tx *UnsignedAddSubnetValidatorTx) EndTime() time.Time {
+func (tx *UnsignedAddAllychainValidatorTx) EndTime() time.Time {
 	return tx.Validator.EndTime()
 }
 
 // Weight of this validator
-func (tx *UnsignedAddSubnetValidatorTx) Weight() uint64 {
+func (tx *UnsignedAddAllychainValidatorTx) Weight() uint64 {
 	return tx.Validator.Weight()
 }
 
 // SyntacticVerify returns nil iff [tx] is valid
-func (tx *UnsignedAddSubnetValidatorTx) SyntacticVerify(ctx *snow.Context) error {
+func (tx *UnsignedAddAllychainValidatorTx) SyntacticVerify(ctx *snow.Context) error {
 	switch {
 	case tx == nil:
 		return errNilTx
@@ -62,7 +62,7 @@ func (tx *UnsignedAddSubnetValidatorTx) SyntacticVerify(ctx *snow.Context) error
 	if err := tx.BaseTx.SyntacticVerify(ctx); err != nil {
 		return err
 	}
-	if err := verify.All(&tx.Validator, tx.SubnetAuth); err != nil {
+	if err := verify.All(&tx.Validator, tx.AllychainAuth); err != nil {
 		return err
 	}
 
@@ -72,7 +72,7 @@ func (tx *UnsignedAddSubnetValidatorTx) SyntacticVerify(ctx *snow.Context) error
 }
 
 // Attempts to verify this transaction with the provided state.
-func (tx *UnsignedAddSubnetValidatorTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
+func (tx *UnsignedAddAllychainValidatorTx) SemanticVerify(vm *VM, parentState MutableState, stx *Tx) error {
 	startTime := tx.StartTime()
 	maxLocalStartTime := vm.clock.Time().Add(maxFutureStartTime)
 	if startTime.After(maxLocalStartTime) {
@@ -89,7 +89,7 @@ func (tx *UnsignedAddSubnetValidatorTx) SemanticVerify(vm *VM, parentState Mutab
 }
 
 // Execute this transaction.
-func (tx *UnsignedAddSubnetValidatorTx) Execute(
+func (tx *UnsignedAddAllychainValidatorTx) Execute(
 	vm *VM,
 	parentState MutableState,
 	stx *Tx,
@@ -144,11 +144,11 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 			vdrTx = currentValidator.AddValidatorTx()
 
 			// Ensure that this transaction isn't a duplicate add validator tx.
-			subnets := currentValidator.SubnetValidators()
-			if _, validates := subnets[tx.Validator.Subnet]; validates {
+			allychains := currentValidator.AllychainValidators()
+			if _, validates := allychains[tx.Validator.Allychain]; validates {
 				return nil, nil, fmt.Errorf(
-					"already validating subnet %s",
-					tx.Validator.Subnet,
+					"already validating allychain %s",
+					tx.Validator.Allychain,
 				)
 			}
 		} else {
@@ -167,7 +167,7 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 			}
 		}
 
-		// Ensure that the period this validator validates the specified subnet
+		// Ensure that the period this validator validates the specified allychain
 		// is a subset of the time they validate the primary network.
 		if !tx.Validator.BoundedBy(vdrTx.StartTime(), vdrTx.EndTime()) {
 			return nil, nil, errDSValidatorSubset
@@ -175,39 +175,39 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 
 		// Ensure that this transaction isn't a duplicate add validator tx.
 		pendingValidator := pendingStakers.GetValidator(tx.Validator.NodeID)
-		subnets := pendingValidator.SubnetValidators()
-		if _, validates := subnets[tx.Validator.Subnet]; validates {
+		allychains := pendingValidator.AllychainValidators()
+		if _, validates := allychains[tx.Validator.Allychain]; validates {
 			return nil, nil, fmt.Errorf(
-				"already validating subnet %s",
-				tx.Validator.Subnet,
+				"already validating allychain %s",
+				tx.Validator.Allychain,
 			)
 		}
 
 		baseTxCredsLen := len(stx.Creds) - 1
 		baseTxCreds := stx.Creds[:baseTxCredsLen]
-		subnetCred := stx.Creds[baseTxCredsLen]
+		allychainCred := stx.Creds[baseTxCredsLen]
 
-		subnetIntf, _, err := parentState.GetTx(tx.Validator.Subnet)
+		allychainIntf, _, err := parentState.GetTx(tx.Validator.Allychain)
 		if err != nil {
 			if err == database.ErrNotFound {
 				return nil, nil, errDSValidatorSubset
 			}
 			return nil, nil, fmt.Errorf(
-				"couldn't find subnet %s with %w",
-				tx.Validator.Subnet,
+				"couldn't find allychain %s with %w",
+				tx.Validator.Allychain,
 				err,
 			)
 		}
 
-		subnet, ok := subnetIntf.UnsignedTx.(*UnsignedCreateSubnetTx)
+		allychain, ok := allychainIntf.UnsignedTx.(*UnsignedCreateAllychainTx)
 		if !ok {
 			return nil, nil, fmt.Errorf(
-				"%s is not a subnet",
-				tx.Validator.Subnet,
+				"%s is not a allychain",
+				tx.Validator.Allychain,
 			)
 		}
 
-		if err := vm.fx.VerifyPermission(tx, tx.SubnetAuth, subnetCred, subnet.Owner); err != nil {
+		if err := vm.fx.VerifyPermission(tx, tx.AllychainAuth, allychainCred, allychain.Owner); err != nil {
 			return nil, nil, err
 		}
 
@@ -247,17 +247,17 @@ func (tx *UnsignedAddSubnetValidatorTx) Execute(
 
 // InitiallyPrefersCommit returns true if the proposed validators start time is
 // after the current wall clock time,
-func (tx *UnsignedAddSubnetValidatorTx) InitiallyPrefersCommit(vm *VM) bool {
+func (tx *UnsignedAddAllychainValidatorTx) InitiallyPrefersCommit(vm *VM) bool {
 	return tx.StartTime().After(vm.clock.Time())
 }
 
 // Create a new transaction
-func (vm *VM) newAddSubnetValidatorTx(
+func (vm *VM) newAddAllychainValidatorTx(
 	weight, // Sampling weight of the new validator
 	startTime, // Unix time they start delegating
 	endTime uint64, // Unix time they top delegating
 	nodeID ids.NodeID, // ID of the node validating
-	subnetID ids.ID, // ID of the subnet the validator will validate
+	allychainID ids.ID, // ID of the allychain the validator will validate
 	keys []*crypto.PrivateKeySECP256K1R, // Keys to use for adding the validator
 	changeAddr ids.ShortID, // Address to send change to, if there is any
 ) (*Tx, error) {
@@ -266,30 +266,30 @@ func (vm *VM) newAddSubnetValidatorTx(
 		return nil, fmt.Errorf("couldn't generate tx inputs/outputs: %w", err)
 	}
 
-	subnetAuth, subnetSigners, err := vm.authorize(vm.internalState, subnetID, keys)
+	allychainAuth, allychainSigners, err := vm.authorize(vm.internalState, allychainID, keys)
 	if err != nil {
-		return nil, fmt.Errorf("couldn't authorize tx's subnet restrictions: %w", err)
+		return nil, fmt.Errorf("couldn't authorize tx's allychain restrictions: %w", err)
 	}
-	signers = append(signers, subnetSigners)
+	signers = append(signers, allychainSigners)
 
 	// Create the tx
-	utx := &UnsignedAddSubnetValidatorTx{
+	utx := &UnsignedAddAllychainValidatorTx{
 		BaseTx: BaseTx{BaseTx: axc.BaseTx{
 			NetworkID:    vm.ctx.NetworkID,
 			BlockchainID: vm.ctx.ChainID,
 			Ins:          ins,
 			Outs:         outs,
 		}},
-		Validator: coreChainValidator.SubnetValidator{
+		Validator: coreChainValidator.AllychainValidator{
 			Validator: coreChainValidator.Validator{
 				NodeID: nodeID,
 				Start:  startTime,
 				End:    endTime,
 				Wght:   weight,
 			},
-			Subnet: subnetID,
+			Allychain: allychainID,
 		},
-		SubnetAuth: subnetAuth,
+		AllychainAuth: allychainAuth,
 	}
 	tx := &Tx{UnsignedTx: utx}
 	if err := tx.Sign(Codec, signers); err != nil {

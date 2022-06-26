@@ -421,7 +421,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 	platformvmArgs.Chains = []platformvm.APIChain{
 		{
 			GenesisData: avmReply.Bytes,
-			SubnetID:    constants.PrimaryNetworkID,
+			AllychainID:    constants.PrimaryNetworkID,
 			VMID:        constants.AVMID,
 			FxIDs: []ids.ID{
 				secp256k1fx.ID,
@@ -432,7 +432,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 		},
 		{
 			GenesisData: genesisStr,
-			SubnetID:    constants.PrimaryNetworkID,
+			AllychainID:    constants.PrimaryNetworkID,
 			VMID:        constants.EVMID,
 			Name:        "AXC-Chain",
 		},

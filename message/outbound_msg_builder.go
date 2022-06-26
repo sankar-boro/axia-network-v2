@@ -23,7 +23,7 @@ type OutboundMsgBuilder interface {
 		myVersion string,
 		myVersionTime uint64,
 		sig []byte,
-		trackedSubnets []ids.ID,
+		trackedAllychains []ids.ID,
 	) (OutboundMessage, error)
 
 	PeerList(
@@ -171,12 +171,12 @@ func (b *outMsgBuilder) Version(
 	myVersion string,
 	myVersionTime uint64,
 	sig []byte,
-	trackedSubnets []ids.ID,
+	trackedAllychains []ids.ID,
 ) (OutboundMessage, error) {
-	subnetIDBytes := make([][]byte, len(trackedSubnets))
-	for i, containerID := range trackedSubnets {
+	allychainIDBytes := make([][]byte, len(trackedAllychains))
+	for i, containerID := range trackedAllychains {
 		copy := containerID
-		subnetIDBytes[i] = copy[:]
+		allychainIDBytes[i] = copy[:]
 	}
 	return b.c.Pack(
 		Version,
@@ -188,7 +188,7 @@ func (b *outMsgBuilder) Version(
 			VersionStr:     myVersion,
 			VersionTime:    myVersionTime,
 			SigBytes:       sig,
-			TrackedSubnets: subnetIDBytes,
+			TrackedAllychains: allychainIDBytes,
 		},
 		Version.Compressible(), // Version Messages can't be compressed
 		true,

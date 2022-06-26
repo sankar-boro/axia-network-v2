@@ -97,7 +97,7 @@ func (ps *pendingStakerChainStateImpl) AddStaker(addStakerTx *Tx) pendingStakerC
 
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
 				nominators: newNominators,
-				subnets:    vdr.subnets,
+				allychains:    vdr.allychains,
 			}
 		} else {
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
@@ -106,7 +106,7 @@ func (ps *pendingStakerChainStateImpl) AddStaker(addStakerTx *Tx) pendingStakerC
 				},
 			}
 		}
-	case *UnsignedAddSubnetValidatorTx:
+	case *UnsignedAddAllychainValidatorTx:
 		newPS.validatorsByNodeID = ps.validatorsByNodeID
 
 		newPS.validatorExtrasByNodeID = make(map[ids.NodeID]*validatorImpl, len(ps.validatorExtrasByNodeID)+1)
@@ -116,20 +116,20 @@ func (ps *pendingStakerChainStateImpl) AddStaker(addStakerTx *Tx) pendingStakerC
 			}
 		}
 		if vdr, exists := ps.validatorExtrasByNodeID[tx.Validator.NodeID]; exists {
-			newSubnets := make(map[ids.ID]*UnsignedAddSubnetValidatorTx, len(vdr.subnets)+1)
-			for subnet, subnetTx := range vdr.subnets {
-				newSubnets[subnet] = subnetTx
+			newAllychains := make(map[ids.ID]*UnsignedAddAllychainValidatorTx, len(vdr.allychains)+1)
+			for allychain, allychainTx := range vdr.allychains {
+				newAllychains[allychain] = allychainTx
 			}
-			newSubnets[tx.Validator.Subnet] = tx
+			newAllychains[tx.Validator.Allychain] = tx
 
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
 				nominators: vdr.nominators,
-				subnets:    newSubnets,
+				allychains:    newAllychains,
 			}
 		} else {
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
-				subnets: map[ids.ID]*UnsignedAddSubnetValidatorTx{
-					tx.Validator.Subnet: tx,
+				allychains: map[ids.ID]*UnsignedAddAllychainValidatorTx{
+					tx.Validator.Allychain: tx,
 				},
 			}
 		}
@@ -162,29 +162,29 @@ func (ps *pendingStakerChainStateImpl) DeleteStakers(numToRemove int) pendingSta
 			delete(newPS.validatorsByNodeID, tx.Validator.NodeID)
 		case *UnsignedAddNominatorTx:
 			vdr := newPS.validatorExtrasByNodeID[tx.Validator.NodeID]
-			if len(vdr.nominators) == 1 && len(vdr.subnets) == 0 {
+			if len(vdr.nominators) == 1 && len(vdr.allychains) == 0 {
 				delete(newPS.validatorExtrasByNodeID, tx.Validator.NodeID)
 				break
 			}
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
 				nominators: vdr.nominators[1:], // sorted in order of removal
-				subnets:    vdr.subnets,
+				allychains:    vdr.allychains,
 			}
-		case *UnsignedAddSubnetValidatorTx:
+		case *UnsignedAddAllychainValidatorTx:
 			vdr := newPS.validatorExtrasByNodeID[tx.Validator.NodeID]
-			if len(vdr.nominators) == 0 && len(vdr.subnets) == 1 {
+			if len(vdr.nominators) == 0 && len(vdr.allychains) == 1 {
 				delete(newPS.validatorExtrasByNodeID, tx.Validator.NodeID)
 				break
 			}
-			newSubnets := make(map[ids.ID]*UnsignedAddSubnetValidatorTx, len(vdr.subnets)-1)
-			for subnetID, subnetTx := range vdr.subnets {
-				if subnetID != tx.Validator.Subnet {
-					newSubnets[subnetID] = subnetTx
+			newAllychains := make(map[ids.ID]*UnsignedAddAllychainValidatorTx, len(vdr.allychains)-1)
+			for allychainID, allychainTx := range vdr.allychains {
+				if allychainID != tx.Validator.Allychain {
+					newAllychains[allychainID] = allychainTx
 				}
 			}
 			newPS.validatorExtrasByNodeID[tx.Validator.NodeID] = &validatorImpl{
 				nominators: vdr.nominators,
-				subnets:    newSubnets,
+				allychains:    newAllychains,
 			}
 		default:
 			panic(fmt.Errorf("expected staker tx type but got %T", removedTx.UnsignedTx))
@@ -229,7 +229,7 @@ func (s innerSortValidatorsByAddition) Less(i, j int) bool {
 	case *UnsignedAddNominatorTx:
 		iStartTime = tx.StartTime()
 		iPriority = topPriority
-	case *UnsignedAddSubnetValidatorTx:
+	case *UnsignedAddAllychainValidatorTx:
 		iStartTime = tx.StartTime()
 		iPriority = lowPriority
 	default:
@@ -247,7 +247,7 @@ func (s innerSortValidatorsByAddition) Less(i, j int) bool {
 	case *UnsignedAddNominatorTx:
 		jStartTime = tx.StartTime()
 		jPriority = topPriority
-	case *UnsignedAddSubnetValidatorTx:
+	case *UnsignedAddAllychainValidatorTx:
 		jStartTime = tx.StartTime()
 		jPriority = lowPriority
 	default:
@@ -263,7 +263,7 @@ func (s innerSortValidatorsByAddition) Less(i, j int) bool {
 
 	// If the end times are the same, then we sort by the tx type. First we
 	// add UnsignedAddValidatorTx, then UnsignedAddNominatorTx, then
-	// UnsignedAddSubnetValidatorTxs.
+	// UnsignedAddAllychainValidatorTxs.
 	if iPriority > jPriority {
 		return true
 	}

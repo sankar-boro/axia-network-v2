@@ -15,7 +15,7 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
-func TestCreateSubnetTxAP3FeeChange(t *testing.T) {
+func TestCreateAllychainTxAP3FeeChange(t *testing.T) {
 	ap3Time := defaultGenesisTime.Add(time.Hour)
 	tests := []struct {
 		name         string
@@ -60,7 +60,7 @@ func TestCreateSubnetTxAP3FeeChange(t *testing.T) {
 			assert.NoError(err)
 
 			// Create the tx
-			utx := &UnsignedCreateSubnetTx{
+			utx := &UnsignedCreateAllychainTx{
 				BaseTx: BaseTx{BaseTx: axc.BaseTx{
 					NetworkID:    vm.ctx.NetworkID,
 					BlockchainID: vm.ctx.ChainID,

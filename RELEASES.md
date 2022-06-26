@@ -85,8 +85,8 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 - Supported client implementations pointing to non-standard URIs
 - Introduced `ids.NodeID` type to standardize logging and simplify API service and client implementations
 - Changed client implementations to use standard types rather than `string`s wherever possible
-- Added `subnetID` as an argument to `platform.getTotalStake`
-- Added `connected` to the subnet validators in responses to `platform.getCurrentValidators` and `platform.getPendingValidators`
+- Added `allychainID` as an argument to `platform.getTotalStake`
+- Added `connected` to the allychain validators in responses to `platform.getCurrentValidators` and `platform.getPendingValidators`
 - Add missing `admin` API client methods
 - Improved `indexer` API client implementation to avoid encoding edge cases
 
@@ -137,8 +137,8 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 ### Networking
 
 - Improved vertex and block gossiping for validators with low stake weight.
-- Added peers metric by subnet.
-- Added percentage of stake connected metric by subnet.
+- Added peers metric by allychain.
+- Added percentage of stake connected metric by allychain.
 
 ### APIs
 
@@ -167,7 +167,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 
 ### Logging
 
-- Added piping of subnet logs to stdout.
+- Added piping of allychain logs to stdout.
 - Lazily initialized logs to avoid opening files that are never written to.
 - Added support for arbitrarily deleted log files while axia is running.
 - Removed redundant logging configs.
@@ -175,7 +175,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 ### Miscellaneous
 
 - Updated minimum go version to `v1.17.9`.
-- Added subnet bootstrapping health checks.
+- Added allychain bootstrapping health checks.
 - Supported multiple tags per codec instantiation.
 - Added minor fail-fast optimization to string packing.
 - Removed dead code.
@@ -189,7 +189,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 
 ### Updates
 
-- Improved subnet gossip to only send messages to nodes participating in that subnet.
+- Improved allychain gossip to only send messages to nodes participating in that allychain.
 - Fixed inlined VM initialization to correctly register static APIs.
 - Added logging for file descriptor limit errors.
 - Removed dead code from network packer.
@@ -222,7 +222,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 - Fixed incorrect `OutputOwners` in the Core-chain `ImportTx` builder.
 - Improved FD limit error logging and warnings.
 - Rounded bootstrapping ETAs to the nearest second.
-- Added gossip config support to the subnet configs.
+- Added gossip config support to the allychain configs.
 - Optimized various queue removals for improved memory freeing.
 - Added a basic Swap-chain E2E usage test to the new testing framework.
 
@@ -324,7 +324,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/sankar-boro/
 
 ### Miscellaneous
 
-- Added tracked subnets to be reported in calls to the `info.peers` API.
+- Added tracked allychains to be reported in calls to the `info.peers` API.
 - Updated gRPC implementations to use `buf` tooling and standardized naming and locations.
 - Added a consistent hashing implementation to be used in future improvements.
 - Fixed database iteration invariants to report `ErrClosed` rather than silently exiting.
@@ -566,7 +566,7 @@ This version is backwards compatible to [v1.6.0](https://github.com/sankar-boro/
 - Added a new admin API for updating the log level and measuring performance.
 - Added a new `--allow-unprotected-txs` flag to allow issuance of transactions without EIP-155 replay protection.
 
-### Subnet & Custom VMs
+### Allychain & Custom VMs
 
 - Ensured that all possible chains are run in `--staking-enabled=false` networks.
 

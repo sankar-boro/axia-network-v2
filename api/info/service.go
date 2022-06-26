@@ -49,7 +49,7 @@ type Parameters struct {
 	NetworkID             uint32
 	TxFee                 uint64
 	CreateAssetTxFee      uint64
-	CreateSubnetTxFee     uint64
+	CreateAllychainTxFee     uint64
 	CreateBlockchainTxFee uint64
 	VMManager             vms.Manager
 }
@@ -280,7 +280,7 @@ type GetTxFeeResponse struct {
 	// TODO: remove [CreationTxFee] after enough time for dependencies to update
 	CreationTxFee         json.Uint64 `json:"creationTxFee"`
 	CreateAssetTxFee      json.Uint64 `json:"createAssetTxFee"`
-	CreateSubnetTxFee     json.Uint64 `json:"createSubnetTxFee"`
+	CreateAllychainTxFee     json.Uint64 `json:"createAllychainTxFee"`
 	CreateBlockchainTxFee json.Uint64 `json:"createBlockchainTxFee"`
 }
 
@@ -289,7 +289,7 @@ func (service *Info) GetTxFee(_ *http.Request, args *struct{}, reply *GetTxFeeRe
 	reply.TxFee = json.Uint64(service.TxFee)
 	reply.CreationTxFee = json.Uint64(service.CreateAssetTxFee)
 	reply.CreateAssetTxFee = json.Uint64(service.CreateAssetTxFee)
-	reply.CreateSubnetTxFee = json.Uint64(service.CreateSubnetTxFee)
+	reply.CreateAllychainTxFee = json.Uint64(service.CreateAllychainTxFee)
 	reply.CreateBlockchainTxFee = json.Uint64(service.CreateBlockchainTxFee)
 	return nil
 }

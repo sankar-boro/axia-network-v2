@@ -155,7 +155,7 @@ pendingStakerLoop:
 				potentialReward: r,
 			})
 			numToRemoveFromPending++
-		case *UnsignedAddSubnetValidatorTx:
+		case *UnsignedAddAllychainValidatorTx:
 			if staker.StartTime().After(txTimestamp) {
 				break pendingStakerLoop
 			}
@@ -175,12 +175,12 @@ pendingStakerLoop:
 	currentStakers := parentState.CurrentStakerChainState()
 	numToRemoveFromCurrent := 0
 
-	// Remove from the staker set any subnet validators whose endTime is at or
+	// Remove from the staker set any allychain validators whose endTime is at or
 	// before the new timestamp
 currentStakerLoop:
 	for _, tx := range currentStakers.Stakers() {
 		switch staker := tx.UnsignedTx.(type) {
-		case *UnsignedAddSubnetValidatorTx:
+		case *UnsignedAddAllychainValidatorTx:
 			if staker.EndTime().After(txTimestamp) {
 				break currentStakerLoop
 			}

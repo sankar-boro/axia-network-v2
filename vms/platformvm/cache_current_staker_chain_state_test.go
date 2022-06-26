@@ -96,17 +96,17 @@ func TestPrimaryValidatorSet(t *testing.T) {
 	}
 }
 
-func TestSubnetValidatorSet(t *testing.T) {
-	subnetID := ids.GenerateTestID()
+func TestAllychainValidatorSet(t *testing.T) {
+	allychainID := ids.GenerateTestID()
 
 	// Initialize the chain state
 	nodeID0 := ids.GenerateTestNodeID()
 	node0Weight := uint64(1)
 	vdr0 := &currentValidatorImpl{
 		validatorImpl: validatorImpl{
-			subnets: map[ids.ID]*UnsignedAddSubnetValidatorTx{
-				subnetID: {
-					Validator: coreChainValidator.SubnetValidator{
+			allychains: map[ids.ID]*UnsignedAddAllychainValidatorTx{
+				allychainID: {
+					Validator: coreChainValidator.AllychainValidator{
 						Validator: coreChainValidator.Validator{
 							Wght: node0Weight,
 						},
@@ -120,9 +120,9 @@ func TestSubnetValidatorSet(t *testing.T) {
 	node1Weight := uint64(2)
 	vdr1 := &currentValidatorImpl{
 		validatorImpl: validatorImpl{
-			subnets: map[ids.ID]*UnsignedAddSubnetValidatorTx{
-				subnetID: {
-					Validator: coreChainValidator.SubnetValidator{
+			allychains: map[ids.ID]*UnsignedAddAllychainValidatorTx{
+				allychainID: {
+					Validator: coreChainValidator.AllychainValidator{
 						Validator: coreChainValidator.Validator{
 							Wght: node1Weight,
 						},
@@ -136,9 +136,9 @@ func TestSubnetValidatorSet(t *testing.T) {
 	node2Weight := uint64(2)
 	vdr2 := &currentValidatorImpl{
 		validatorImpl: validatorImpl{
-			subnets: map[ids.ID]*UnsignedAddSubnetValidatorTx{
-				subnetID: {
-					Validator: coreChainValidator.SubnetValidator{
+			allychains: map[ids.ID]*UnsignedAddAllychainValidatorTx{
+				allychainID: {
+					Validator: coreChainValidator.AllychainValidator{
 						Validator: coreChainValidator.Validator{
 							Wght: node2Weight,
 						},
@@ -160,7 +160,7 @@ func TestSubnetValidatorSet(t *testing.T) {
 
 	{
 		// Apply the on-chain validator set to [vdrs]
-		vdrs, err := cs.ValidatorSet(subnetID)
+		vdrs, err := cs.ValidatorSet(allychainID)
 		assert.NoError(t, err)
 
 		// Validate that the state was applied and the old state was cleared
@@ -181,7 +181,7 @@ func TestSubnetValidatorSet(t *testing.T) {
 
 	{
 		// Apply the on-chain validator set again
-		vdrs, err := cs.ValidatorSet(subnetID)
+		vdrs, err := cs.ValidatorSet(allychainID)
 		assert.NoError(t, err)
 
 		// The state should be the same

@@ -72,7 +72,7 @@ func chainVMTestPlugin(t *testing.T, _ bool) (plugin.Plugin, *gomock.Controller)
 	// test key is "chainVMTest"
 	ctrl := gomock.NewController(t)
 
-	return NewTestVM(&TestSubnetVM{
+	return NewTestVM(&TestAllychainVM{
 		logger: hclog.New(&hclog.LoggerOptions{
 			Level:      hclog.Trace,
 			Output:     os.Stderr,
@@ -82,13 +82,13 @@ func chainVMTestPlugin(t *testing.T, _ bool) (plugin.Plugin, *gomock.Controller)
 }
 
 // Test_VMCreateHandlers tests the Handle and HandleSimple RPCs by creating a plugin and
-// serving the handlers exposed by the subnet. The test then will exercise the service
+// serving the handlers exposed by the allychain. The test then will exercise the service
 // as a regression test.
 func Test_VMCreateHandlers(t *testing.T) {
 	assert := assert.New(t)
 	pr := &pingRequest{
 		Version: "2.0",
-		Method:  "subnet.ping",
+		Method:  "allychain.ping",
 		Params:  []string{},
 		ID:      "1",
 	}
@@ -134,7 +134,7 @@ func Test_VMCreateHandlers(t *testing.T) {
 			vm, ok := raw.(*TestVMClient)
 			assert.True(ok)
 
-			// Get the handlers exposed by the subnet vm.
+			// Get the handlers exposed by the allychain vm.
 			handlers, err := vm.CreateHandlers()
 			assert.NoErrorf(err, "failed to get handlers: %v", err)
 
@@ -322,7 +322,7 @@ type testVMPlugin struct {
 	vm TestVM
 }
 
-func NewTestVM(vm *TestSubnetVM) plugin.Plugin {
+func NewTestVM(vm *TestAllychainVM) plugin.Plugin {
 	return &testVMPlugin{vm: vm}
 }
 
@@ -335,11 +335,11 @@ func (p *testVMPlugin) GRPCClient(_ context.Context, _ *plugin.GRPCBroker, c *gr
 	return NewTestClient(vmpb.NewVMClient(c)), nil
 }
 
-type TestSubnetVM struct {
+type TestAllychainVM struct {
 	logger hclog.Logger
 }
 
-func (vm *TestSubnetVM) CreateHandlers() (map[string]*common.HTTPHandler, error) {
+func (vm *TestAllychainVM) CreateHandlers() (map[string]*common.HTTPHandler, error) {
 	apis := make(map[string]*common.HTTPHandler)
 
 	testEchoMsgCount := 5
@@ -383,7 +383,7 @@ func getTestRPCServer() (*gorillarpc.Server, error) {
 	server := gorillarpc.NewServer()
 	server.RegisterCodec(json.NewCodec(), "application/json")
 	server.RegisterCodec(json.NewCodec(), "application/json;charset=UTF-8")
-	if err := server.RegisterService(&PingService{}, "subnet"); err != nil {
+	if err := server.RegisterService(&PingService{}, "allychain"); err != nil {
 		return nil, fmt.Errorf("failed to create rpc server %v", err)
 	}
 	return server, nil

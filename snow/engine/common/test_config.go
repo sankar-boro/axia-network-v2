@@ -13,7 +13,7 @@ import (
 // DefaultConfigTest returns a test configuration
 func DefaultConfigTest() Config {
 	isBootstrapped := false
-	subnet := &SubnetTest{
+	allychain := &AllychainTest{
 		IsBootstrappedF: func() bool { return isBootstrapped },
 		BootstrappedF:   func(ids.ID) { isBootstrapped = true },
 	}
@@ -31,7 +31,7 @@ func DefaultConfigTest() Config {
 		StartupTracker:                 startupTracker,
 		Sender:                         &SenderTest{},
 		Bootstrapable:                  &BootstrapableTest{},
-		Subnet:                         subnet,
+		Allychain:                         allychain,
 		Timer:                          &TimerTest{},
 		AncestorsMaxContainersSent:     2000,
 		AncestorsMaxContainersReceived: 2000,

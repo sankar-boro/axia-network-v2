@@ -25,7 +25,7 @@ type rcLock struct {
 	count int
 }
 
-// Memory is the interface for shared memory inside a subnet
+// Memory is the interface for shared memory inside a allychain
 type Memory struct {
 	lock  sync.Mutex
 	log   logging.Logger
