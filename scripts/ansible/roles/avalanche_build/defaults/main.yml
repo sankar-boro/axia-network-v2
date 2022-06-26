@@ -1,5 +1,5 @@
 axia_binaries_dir: "{{ repo_folder }}/build"
 repo_folder: "~{{ ansible_facts.user_id }}/go/src/github.com/sankar-boro/axia"
-repo_name: ava-labs/axia
+repo_name: axia-systems/axia
 repo_url: https://github.com/{{ repo_name }}
 repo_branch: dev

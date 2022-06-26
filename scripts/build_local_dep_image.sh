@@ -6,19 +6,19 @@ set -o pipefail
 
 echo "Building docker image based off of most recent local commits of axia and coreth"
 
-AXIA_REMOTE="git@github.com:ava-labs/axia.git"
-CORETH_REMOTE="git@github.com:ava-labs/coreth.git"
+AXIA_REMOTE="git@github.com:axia-systems/axia.git"
+CORETH_REMOTE="git@github.com:axia-systems/coreth.git"
 DOCKERHUB_REPO="avaplatform/axia"
 
 DOCKER="${DOCKER:-docker}"
 SCRIPT_DIRPATH=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 ROOT_DIRPATH="$(dirname "${SCRIPT_DIRPATH}")"
 
-AVA_LABS_RELATIVE_PATH="src/github.com/ava-labs"
+AVA_LABS_RELATIVE_PATH="src/github.com/axia-systems"
 EXISTING_GOPATH="$GOPATH"
 
 export GOPATH="$SCRIPT_DIRPATH/.build_image_gopath"
-WORKPREFIX="$GOPATH/src/github.com/ava-labs"
+WORKPREFIX="$GOPATH/src/github.com/axia-systems"
 
 # Clone the remotes and checkout the desired branch/commits
 AXIA_CLONE="$WORKPREFIX/axia"

@@ -99,7 +99,7 @@ jobs:
       - name: Checkout devops repo
         uses: actions/checkout@v3
         with:
-          repository: ava-labs/devops
+          repository: axia-systems/devops
           token: ${{ secrets.AXIA_PAT }}
 
       - name: Run Ansible
@@ -128,7 +128,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Deployment tmpnet
-          repo: ava-labs/devops
+          repo: axia-systems/devops
           token: ${{ secrets.DEVOPS_SNOWBOT_PAT }}
           ref: main
           inputs: '{ "version": "${{ steps.get_version.outputs.VERSION }}" }'

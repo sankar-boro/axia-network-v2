@@ -12,9 +12,9 @@
 # go.mod
 FROM golang:1.17.9-buster
 
-RUN mkdir -p /go/src/github.com/ava-labs
+RUN mkdir -p /go/src/github.com/axia-systems
 
-WORKDIR $GOPATH/src/github.com/ava-labs
+WORKDIR $GOPATH/src/github.com/axia-systems
 COPY axia axia
 COPY coreth coreth
 
