@@ -21,15 +21,15 @@ ENABLE_WHITELIST_VTX_TESTS=${ENABLE_WHITELIST_VTX_TESTS:-false}
 
 #################################
 # download axia-network-runner
-# https://github.com/sankar-boro/axia-network-runner
+# https://github.com/ava-labs/avalanche-network-runner
 # TODO: migrate to upstream axia-network-runner
 GOARCH=$(go env GOARCH)
 GOOS=$(go env GOOS)
 NETWORK_RUNNER_VERSION=1.0.6
 DOWNLOAD_PATH=/tmp/axia-network-runner.tar.gz
-DOWNLOAD_URL=https://github.com/sankar-boro/axia-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
+DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
 if [[ ${GOOS} == "darwin" ]]; then
-  DOWNLOAD_URL=https://github.com/sankar-boro/axia-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
+  DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
 fi
 
 rm -f ${DOWNLOAD_PATH}
