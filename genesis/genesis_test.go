@@ -118,7 +118,7 @@ func TestValidateConfig(t *testing.T) {
 			networkID: 12345,
 			config: func() *Config {
 				thisConfig := LocalConfig
-				thisConfig.CChainGenesis = ""
+				thisConfig.AXCChainGenesis = ""
 				return &thisConfig
 			}(),
 			err: "C-Chain genesis cannot be empty",
