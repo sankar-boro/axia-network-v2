@@ -10,17 +10,17 @@ import (
 
 	stdjson "encoding/json"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/formatting/address"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/vms/avm/fxs"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/nftfx"
-	"github.com/sankar-boro/axia/vms/propertyfx"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/fxs"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/nftfx"
+	"github.com/sankar-boro/axia-network-v2/vms/propertyfx"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 var (

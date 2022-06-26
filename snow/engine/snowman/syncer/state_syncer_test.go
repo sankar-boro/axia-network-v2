@@ -11,16 +11,16 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/engine/common/tracker"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/snow/engine/snowman/getter"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/getter"
+	"github.com/sankar-boro/axia-network-v2/version"
 
-	safeMath "github.com/sankar-boro/axia/utils/math"
+	safeMath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 func TestStateSyncerIsEnabledIfVMSupportsStateSyncing(t *testing.T) {

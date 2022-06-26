@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"syscall"
 
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 const DefaultFDLimit = 10 * 1024

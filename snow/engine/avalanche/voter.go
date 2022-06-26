@@ -4,9 +4,9 @@
 package axia
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
 )
 
 // Voter records chits received from [vdr] once its dependencies are met.

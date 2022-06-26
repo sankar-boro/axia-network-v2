@@ -8,13 +8,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 func TestUTXOState(t *testing.T) {

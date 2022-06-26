@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/versiondb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/timer"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/versiondb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/timer"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

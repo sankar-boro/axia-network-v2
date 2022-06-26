@@ -6,10 +6,10 @@ package platformvm
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/vms/platformvm/status"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/status"
 )
 
 var _ Block = &ProposalBlock{}

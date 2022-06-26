@@ -8,9 +8,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 func testChainState(a *assert.Assertions, cs ChainState) {

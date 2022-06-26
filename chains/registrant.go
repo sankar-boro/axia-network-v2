@@ -4,7 +4,7 @@
 package chains
 
 import (
-	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
 )
 
 // Registrant can register the existence of a chain

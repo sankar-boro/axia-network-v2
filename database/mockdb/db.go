@@ -6,7 +6,7 @@ package mockdb
 import (
 	"errors"
 
-	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia-network-v2/database"
 )
 
 var (

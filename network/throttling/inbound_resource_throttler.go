@@ -11,11 +11,11 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/networking/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 const epsilon = time.Millisecond

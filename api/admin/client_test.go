@@ -10,10 +10,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 )
 
 // SuccessResponseTest defines the expected result of an API call that returns SuccessResponse

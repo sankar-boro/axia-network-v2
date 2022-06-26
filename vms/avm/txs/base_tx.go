@@ -4,10 +4,10 @@
 package txs
 
 import (
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 var _ UnsignedTx = &BaseTx{}

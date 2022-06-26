@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/networking/benchlist"
-	"github.com/sankar-boro/axia/utils/timer"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/benchlist"
+	"github.com/sankar-boro/axia-network-v2/utils/timer"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

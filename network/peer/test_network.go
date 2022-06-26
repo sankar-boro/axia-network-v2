@@ -7,10 +7,10 @@ import (
 	"crypto"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 var _ Network = &testNetwork{}

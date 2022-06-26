@@ -7,15 +7,15 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/utils/hashing"
-	"github.com/sankar-boro/axia/utils/math"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/platformvm/fx"
-	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/math"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/fx"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 var (

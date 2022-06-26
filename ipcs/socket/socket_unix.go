@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
 )
 
 var staleSocketTimeout = 100 * time.Millisecond

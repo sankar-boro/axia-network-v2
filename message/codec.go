@@ -12,12 +12,12 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/compression"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/metric"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/compression"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/metric"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 var (

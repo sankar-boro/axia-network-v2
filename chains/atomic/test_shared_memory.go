@@ -7,9 +7,9 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 	"github.com/stretchr/testify/assert"
 )
 

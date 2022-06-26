@@ -7,8 +7,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
 	"github.com/stretchr/testify/assert"
 )
 

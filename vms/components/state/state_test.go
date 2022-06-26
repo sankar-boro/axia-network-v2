@@ -6,10 +6,10 @@ package state
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/hashing"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 // toy example of a block, just used for testing

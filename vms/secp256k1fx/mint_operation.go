@@ -6,8 +6,8 @@ package secp256k1fx
 import (
 	"errors"
 
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
 )
 
 var errNilMintOperation = errors.New("nil mint operation")

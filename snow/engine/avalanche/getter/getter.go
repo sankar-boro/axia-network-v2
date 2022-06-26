@@ -6,15 +6,15 @@ package getter
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/axia"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/metric"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/metric"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 // Get requests are always served, regardless node state (bootstrapping or normal operations).

@@ -8,13 +8,13 @@ import (
 	"math"
 	"reflect"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/codec/reflectcodec"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/vms/avm/fxs"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/codec/reflectcodec"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/fxs"
 )
 
 const CodecVersion = 0

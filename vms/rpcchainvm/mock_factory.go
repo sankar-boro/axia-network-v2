@@ -7,7 +7,7 @@ package rpcchainvm
 import (
 	reflect "reflect"
 
-	snow "github.com/sankar-boro/axia/snow"
+	snow "github.com/sankar-boro/axia-network-v2/snow"
 	gomock "github.com/golang/mock/gomock"
 )
 

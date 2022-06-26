@@ -6,7 +6,7 @@ package cache
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 // CacherTests is a list of all Cacher tests

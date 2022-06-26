@@ -6,7 +6,7 @@ package bloom
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 	"github.com/stretchr/testify/assert"
 )
 

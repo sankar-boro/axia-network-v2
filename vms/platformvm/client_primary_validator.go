@@ -6,8 +6,8 @@ package platformvm
 import (
 	"encoding/json"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
 )
 
 // ClientStaker is the representation of a staker sent via client.

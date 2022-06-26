@@ -10,19 +10,19 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/axia/chains"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/network"
-	"github.com/sankar-boro/axia/network/peer"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/networking/benchlist"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/version"
-	"github.com/sankar-boro/axia/vms"
+	"github.com/sankar-boro/axia-network-v2/chains"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/network"
+	"github.com/sankar-boro/axia-network-v2/network/peer"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/benchlist"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/version"
+	"github.com/sankar-boro/axia-network-v2/vms"
 )
 
 var (

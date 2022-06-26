@@ -8,18 +8,18 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/platformvm/fx"
-	"github.com/sankar-boro/axia/vms/platformvm/reward"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/fx"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/reward"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
-	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
+	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
 
 var (

@@ -7,12 +7,12 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/vms/proposervm/block"
-	"github.com/sankar-boro/axia/vms/proposervm/proposer"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/block"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/proposer"
 )
 
 const (

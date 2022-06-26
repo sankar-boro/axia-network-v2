@@ -6,10 +6,10 @@ package common
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/api/health"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/api/health"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
 )
 
 // Engine describes the standard interface of a consensus engine

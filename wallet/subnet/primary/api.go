@@ -6,16 +6,16 @@ package primary
 import (
 	"context"
 
-	"github.com/sankar-boro/axia/api/info"
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/rpc"
-	"github.com/sankar-boro/axia/vms/avm"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/platformvm"
-	"github.com/sankar-boro/axia/wallet/chain/p"
-	"github.com/sankar-boro/axia/wallet/chain/x"
+	"github.com/sankar-boro/axia-network-v2/api/info"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/vms/avm"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
+	"github.com/sankar-boro/axia-network-v2/wallet/chain/p"
+	"github.com/sankar-boro/axia-network-v2/wallet/chain/x"
 )
 
 const (

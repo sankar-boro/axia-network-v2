@@ -4,8 +4,8 @@
 package vertex
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
 )
 
 // Storage defines the persistent storage that is required by the consensus

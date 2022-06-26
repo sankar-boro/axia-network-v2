@@ -6,7 +6,7 @@ package platformvm
 import (
 	"container/heap"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var _ TxHeap = &txHeap{}

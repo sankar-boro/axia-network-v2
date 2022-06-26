@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 	time "time"
 
-	ids "github.com/sankar-boro/axia/ids"
+	ids "github.com/sankar-boro/axia-network-v2/ids"
 	gomock "github.com/golang/mock/gomock"
 )
 

@@ -6,9 +6,9 @@ package proposervm
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/vms/proposervm/block"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/block"
 )
 
 var _ PostForkBlock = &postForkOption{}

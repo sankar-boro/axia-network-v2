@@ -10,16 +10,16 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/api/health"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/networking/tracker"
-	"github.com/sankar-boro/axia/snow/networking/worker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/api/health"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/worker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 const (

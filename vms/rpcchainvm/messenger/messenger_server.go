@@ -7,9 +7,9 @@ import (
 	"context"
 	"errors"
 
-	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
 
-	messengerpb "github.com/sankar-boro/axia/proto/pb/messenger"
+	messengerpb "github.com/sankar-boro/axia-network-v2/proto/pb/messenger"
 )
 
 var (

@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
 )
 
 type Genesis struct {

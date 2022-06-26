@@ -4,9 +4,9 @@
 package keystore
 
 import (
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/encdb"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/encdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var _ BlockchainKeystore = &blockchainKeystore{}

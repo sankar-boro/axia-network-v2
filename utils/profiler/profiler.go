@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"runtime/pprof"
 
-	"github.com/sankar-boro/axia/utils/perms"
+	"github.com/sankar-boro/axia-network-v2/utils/perms"
 )
 
 const (

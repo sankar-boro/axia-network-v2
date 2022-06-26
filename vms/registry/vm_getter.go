@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/filesystem"
-	"github.com/sankar-boro/axia/utils/resource"
-	"github.com/sankar-boro/axia/vms"
-	"github.com/sankar-boro/axia/vms/rpcchainvm"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/filesystem"
+	"github.com/sankar-boro/axia-network-v2/utils/resource"
+	"github.com/sankar-boro/axia-network-v2/vms"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm"
 )
 
 var _ VMGetter = &vmGetter{}

@@ -6,10 +6,10 @@ package states
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 var (

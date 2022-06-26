@@ -7,11 +7,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/sankar-boro/axia/chains/atomic"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/chains/atomic"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
 
-	sharedmemorypb "github.com/sankar-boro/axia/proto/pb/sharedmemory"
+	sharedmemorypb "github.com/sankar-boro/axia-network-v2/proto/pb/sharedmemory"
 )
 
 var _ sharedmemorypb.SharedMemoryServer = &Server{}

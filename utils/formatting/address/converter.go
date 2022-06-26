@@ -4,7 +4,7 @@
 package address
 
 import (
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 func ParseToID(addrStr string) (ids.ShortID, error) {

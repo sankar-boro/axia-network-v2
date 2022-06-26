@@ -9,11 +9,11 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/sankar-boro/axia/vms/rpcchainvm/ghttp/gresponsewriter"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/ghttp/gresponsewriter"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	httppb "github.com/sankar-boro/axia/proto/pb/http"
-	responsewriterpb "github.com/sankar-boro/axia/proto/pb/http/responsewriter"
+	httppb "github.com/sankar-boro/axia-network-v2/proto/pb/http"
+	responsewriterpb "github.com/sankar-boro/axia-network-v2/proto/pb/http/responsewriter"
 )
 
 var _ http.Handler = &Client{}

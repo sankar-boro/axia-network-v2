@@ -6,9 +6,9 @@ package nftfx
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 func TestTransferOutputVerifyNil(t *testing.T) {

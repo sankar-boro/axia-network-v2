@@ -3,7 +3,7 @@
 
 package codec
 
-import "github.com/sankar-boro/axia/utils/wrappers"
+import "github.com/sankar-boro/axia-network-v2/utils/wrappers"
 
 // Codec marshals and unmarshals
 type Codec interface {

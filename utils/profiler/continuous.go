@@ -9,7 +9,7 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/sankar-boro/axia/utils/filesystem"
+	"github.com/sankar-boro/axia-network-v2/utils/filesystem"
 )
 
 // Config that is used to describe the options of the continuous profiler.

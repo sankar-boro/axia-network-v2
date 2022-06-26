@@ -7,9 +7,9 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 var (

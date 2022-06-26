@@ -8,7 +8,7 @@ import (
 	"errors"
 	"io"
 
-	readerpb "github.com/sankar-boro/axia/proto/pb/io/reader"
+	readerpb "github.com/sankar-boro/axia-network-v2/proto/pb/io/reader"
 )
 
 var _ io.Reader = &Client{}

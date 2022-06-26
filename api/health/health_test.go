@@ -14,8 +14,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 const (

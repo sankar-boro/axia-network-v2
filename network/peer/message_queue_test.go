@@ -9,8 +9,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 func TestBlockingMessageQueue(t *testing.T) {

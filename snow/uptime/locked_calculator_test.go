@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/uptime/mocks"
-	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/uptime/mocks"
+	"github.com/sankar-boro/axia-network-v2/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

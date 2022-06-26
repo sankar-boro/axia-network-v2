@@ -11,8 +11,8 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 var errUnsupportedDatabase = errors.New("database isn't suppported")

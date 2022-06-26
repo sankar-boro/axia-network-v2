@@ -4,12 +4,12 @@
 package snowstorm
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/utils/sampler"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/utils/sampler"
 
-	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
 )
 
 type Network struct {

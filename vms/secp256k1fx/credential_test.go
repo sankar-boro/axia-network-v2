@@ -7,10 +7,10 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
 )
 
 func TestCredentialVerify(t *testing.T) {

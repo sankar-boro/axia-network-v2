@@ -6,14 +6,14 @@ package proposervm
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 
-	statelessblock "github.com/sankar-boro/axia/vms/proposervm/block"
+	statelessblock "github.com/sankar-boro/axia-network-v2/vms/proposervm/block"
 )
 
 var _ block.BatchedChainVM = &VM{}

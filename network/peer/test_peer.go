@@ -11,19 +11,19 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/network/throttling"
-	"github.com/sankar-boro/axia/snow/networking/router"
-	"github.com/sankar-boro/axia/snow/networking/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/staking"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/math/meter"
-	"github.com/sankar-boro/axia/utils/resource"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/network/throttling"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/router"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/staking"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/math/meter"
+	"github.com/sankar-boro/axia-network-v2/utils/resource"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 const maxMessageToSend = 1024

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 func TestBaseTxMarshalJSON(t *testing.T) {

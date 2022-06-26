@@ -6,15 +6,15 @@ package indexer
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/database/versiondb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database/versiondb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
 	"github.com/stretchr/testify/assert"
 )
 

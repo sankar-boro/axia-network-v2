@@ -9,16 +9,16 @@ import (
 
 	stdcontext "context"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/math"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/platformvm"
-	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
-	"github.com/sankar-boro/axia/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/math"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
 
-	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
+	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
 
 var (

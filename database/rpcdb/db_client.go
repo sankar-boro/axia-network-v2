@@ -10,13 +10,13 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/nodb"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/units"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/nodb"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 
-	rpcdbpb "github.com/sankar-boro/axia/proto/pb/rpcdb"
+	rpcdbpb "github.com/sankar-boro/axia-network-v2/proto/pb/rpcdb"
 )
 
 const (

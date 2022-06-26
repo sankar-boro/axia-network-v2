@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/sankar-boro/axia/api/keystore"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/encdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/api/keystore"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/encdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 // Max number of addresses allowed for a single keystore user

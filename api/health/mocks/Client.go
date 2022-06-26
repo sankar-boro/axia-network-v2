@@ -5,10 +5,10 @@ package mocks
 import (
 	context "context"
 
-	health "github.com/sankar-boro/axia/api/health"
+	health "github.com/sankar-boro/axia-network-v2/api/health"
 	mock "github.com/stretchr/testify/mock"
 
-	rpc "github.com/sankar-boro/axia/utils/rpc"
+	rpc "github.com/sankar-boro/axia-network-v2/utils/rpc"
 
 	time "time"
 )

@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/staking"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/staking"
 )
 
 func TestBuild(t *testing.T) {

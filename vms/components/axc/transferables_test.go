@@ -7,11 +7,11 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 func TestTransferableOutputVerifyNil(t *testing.T) {

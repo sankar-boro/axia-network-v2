@@ -4,8 +4,8 @@
 package validators
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 // Connector represents a handler that is called when a connection is marked as

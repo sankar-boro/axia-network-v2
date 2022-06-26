@@ -6,7 +6,7 @@ package throttling
 import (
 	"context"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var _ InboundMsgThrottler = &noInboundMsgThrottler{}

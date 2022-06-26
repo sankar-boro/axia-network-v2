@@ -12,17 +12,17 @@ import (
 
 	ginkgo "github.com/onsi/ginkgo/v2"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/tests/e2e"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/formatting/address"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/utils/units"
-	"github.com/sankar-boro/axia/vms/avm"
-	"github.com/sankar-boro/axia/vms/platformvm"
-	"github.com/sankar-boro/axia/vms/platformvm/reward"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/tests/e2e"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
+	"github.com/sankar-boro/axia-network-v2/vms/avm"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/reward"
 )
 
 var _ = ginkgo.Describe("[StaticHandlers]", func() {

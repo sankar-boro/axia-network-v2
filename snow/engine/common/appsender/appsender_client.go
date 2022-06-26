@@ -6,10 +6,10 @@ package appsender
 import (
 	"context"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
 
-	appsenderpb "github.com/sankar-boro/axia/proto/pb/appsender"
+	appsenderpb "github.com/sankar-boro/axia-network-v2/proto/pb/appsender"
 )
 
 var _ common.AppSender = &Client{}

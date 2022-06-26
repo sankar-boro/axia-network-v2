@@ -8,12 +8,12 @@ import (
 
 	stdatomic "sync/atomic"
 
-	"github.com/sankar-boro/axia/chains/atomic"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/chains/atomic"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 
-	sharedmemorypb "github.com/sankar-boro/axia/proto/pb/sharedmemory"
+	sharedmemorypb "github.com/sankar-boro/axia-network-v2/proto/pb/sharedmemory"
 )
 
 const (

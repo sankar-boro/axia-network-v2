@@ -13,11 +13,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/snow/networking/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 func TestQueue(t *testing.T) {

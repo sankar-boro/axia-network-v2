@@ -8,10 +8,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 func TestSharedMemory(t *testing.T) {

@@ -4,10 +4,10 @@
 package state
 
 import (
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
 )
 
 const (

@@ -10,10 +10,10 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/hashing"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 const (

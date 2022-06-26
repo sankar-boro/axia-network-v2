@@ -10,12 +10,12 @@ import (
 
 	"golang.org/x/crypto/chacha20poly1305"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/nodb"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/nodb"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 const (

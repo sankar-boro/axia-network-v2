@@ -6,7 +6,7 @@ package platformvm
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
 )
 
 type ValidatorState interface {

@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 var _ UnsignedProposalTx = &UnsignedAdvanceTimeTx{}

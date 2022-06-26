@@ -6,10 +6,10 @@ package network
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/network/peer"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/network/peer"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 type metrics struct {

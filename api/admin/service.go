@@ -10,18 +10,18 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/api/server"
-	"github.com/sankar-boro/axia/chains"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/perms"
-	"github.com/sankar-boro/axia/utils/profiler"
-	"github.com/sankar-boro/axia/vms"
-	"github.com/sankar-boro/axia/vms/registry"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/api/server"
+	"github.com/sankar-boro/axia-network-v2/chains"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/perms"
+	"github.com/sankar-boro/axia-network-v2/utils/profiler"
+	"github.com/sankar-boro/axia-network-v2/vms"
+	"github.com/sankar-boro/axia-network-v2/vms/registry"
 )
 
 const (

@@ -4,8 +4,8 @@
 package snowstorm
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
 )
 
 // Whitelister defines the interface for specifying whitelisted operations.

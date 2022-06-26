@@ -12,13 +12,13 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/timer"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/timer"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 var _ heap.Interface = &benchedQueue{}

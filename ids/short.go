@@ -10,8 +10,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 // ShortEmpty is a useful all zero value

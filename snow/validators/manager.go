@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var _ Manager = &manager{}

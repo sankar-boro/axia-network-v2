@@ -16,13 +16,13 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/sankar-boro/axia/database/leveldb"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/database/rocksdb"
-	"github.com/sankar-boro/axia/genesis"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/ulimit"
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/database/leveldb"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database/rocksdb"
+	"github.com/sankar-boro/axia-network-v2/genesis"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/ulimit"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 )
 
 const (

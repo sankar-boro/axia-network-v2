@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/vms/platformvm/message"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/message"
 )
 
 const (

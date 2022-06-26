@@ -6,7 +6,7 @@ package stakeable
 import (
 	"errors"
 
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 var (

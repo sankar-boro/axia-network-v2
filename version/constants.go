@@ -6,7 +6,7 @@ package version
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
 )
 
 // These are globals that describe network upgrades and node versions

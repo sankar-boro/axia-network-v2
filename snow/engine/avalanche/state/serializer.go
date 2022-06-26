@@ -9,16 +9,16 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/versiondb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/axia"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/math"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/versiondb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 const (

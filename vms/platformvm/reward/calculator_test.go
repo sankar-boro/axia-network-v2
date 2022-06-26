@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 )
 
 const (

@@ -4,11 +4,11 @@
 package axia
 
 import (
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/consensus/axia"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
 )
 
 // Config wraps all the parameters needed for an axia engine

@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var errWrongSize = errors.New("value has unexpected size")

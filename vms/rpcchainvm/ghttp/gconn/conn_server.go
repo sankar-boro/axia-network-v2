@@ -10,9 +10,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	connpb "github.com/sankar-boro/axia/proto/pb/net/conn"
+	connpb "github.com/sankar-boro/axia-network-v2/proto/pb/net/conn"
 )
 
 var _ connpb.ConnServer = &Server{}

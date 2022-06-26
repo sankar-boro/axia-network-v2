@@ -6,7 +6,7 @@
 
 package ulimit
 
-import "github.com/sankar-boro/axia/utils/logging"
+import "github.com/sankar-boro/axia-network-v2/utils/logging"
 
 const DefaultFDLimit = 16384
 

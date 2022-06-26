@@ -9,16 +9,16 @@ import (
 
 	stdcontext "context"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/utils/hashing"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/platformvm"
-	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 var (

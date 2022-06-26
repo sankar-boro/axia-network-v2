@@ -17,14 +17,14 @@ import (
 
 	runner_client "github.com/sankar-boro/axia-network-runner/client"
 
-	"github.com/sankar-boro/axia/tests"
-	"github.com/sankar-boro/axia/tests/e2e"
+	"github.com/sankar-boro/axia-network-v2/tests"
+	"github.com/sankar-boro/axia-network-v2/tests/e2e"
 
 	// ensure test packages are scanned by ginkgo
-	_ "github.com/sankar-boro/axia/tests/e2e/ping"
-	_ "github.com/sankar-boro/axia/tests/e2e/static-handlers"
-	_ "github.com/sankar-boro/axia/tests/e2e/whitelist-vtx"
-	_ "github.com/sankar-boro/axia/tests/e2e/x/transfer"
+	_ "github.com/sankar-boro/axia-network-v2/tests/e2e/ping"
+	_ "github.com/sankar-boro/axia-network-v2/tests/e2e/static-handlers"
+	_ "github.com/sankar-boro/axia-network-v2/tests/e2e/whitelist-vtx"
+	_ "github.com/sankar-boro/axia-network-v2/tests/e2e/x/transfer"
 )
 
 func TestE2E(t *testing.T) {

@@ -4,8 +4,8 @@
 package snowman
 
 import (
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
 )
 
 // Engine describes the events that can occur to a Snowman instance.

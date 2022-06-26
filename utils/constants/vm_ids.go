@@ -3,7 +3,7 @@
 
 package constants
 
-import "github.com/sankar-boro/axia/ids"
+import "github.com/sankar-boro/axia-network-v2/ids"
 
 var (
 	PlatformVMID = ids.ID{'p', 'l', 'a', 't', 'f', 'o', 'r', 'm', 'v', 'm'}

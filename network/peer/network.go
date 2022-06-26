@@ -4,9 +4,9 @@
 package peer
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
 )
 
 // Network defines the interface that is used by a peer to help establish a well

@@ -4,7 +4,7 @@
 package block
 
 import (
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 // StateSummary represents all the information needed to download, verify, and

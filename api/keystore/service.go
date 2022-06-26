@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/database/manager"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/database/manager"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 type service struct {

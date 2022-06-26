@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/metrics"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/metrics"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
 )
 
 const minMapSize = 16

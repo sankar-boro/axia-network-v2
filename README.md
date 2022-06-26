@@ -84,7 +84,7 @@ sudo apt install axia
 
 ### Binary Install
 
-Download the [latest build](https://github.com/sankar-boro/axia/releases/latest) for your operating system and architecture.
+Download the [latest build](https://github.com/sankar-boro/axia-network-v2/releases/latest) for your operating system and architecture.
 
 The Axia binary to be executed is named `axia`.
 

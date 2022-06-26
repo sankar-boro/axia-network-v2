@@ -6,11 +6,11 @@ package axia
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 func TestVotingFinishesWithAbandonedDep(t *testing.T) {

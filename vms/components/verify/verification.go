@@ -3,7 +3,7 @@
 
 package verify
 
-import "github.com/sankar-boro/axia/snow"
+import "github.com/sankar-boro/axia-network-v2/snow"
 
 // Verifiable can be verified
 type Verifiable interface {

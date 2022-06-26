@@ -7,9 +7,9 @@ import (
 	"crypto"
 	"sync"
 
-	"github.com/sankar-boro/axia/network/peer"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/network/peer"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
 )
 
 // ipSigner will return a signedIP for the current value of our dynamic IP.

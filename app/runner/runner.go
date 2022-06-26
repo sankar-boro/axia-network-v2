@@ -10,12 +10,12 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/axia/app"
-	"github.com/sankar-boro/axia/app/process"
-	"github.com/sankar-boro/axia/node"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/app"
+	"github.com/sankar-boro/axia-network-v2/app/process"
+	"github.com/sankar-boro/axia-network-v2/node"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	appplugin "github.com/sankar-boro/axia/app/plugin"
+	appplugin "github.com/sankar-boro/axia-network-v2/app/plugin"
 )
 
 // Run an Axia node.

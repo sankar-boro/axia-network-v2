@@ -7,11 +7,11 @@ import (
 	"sort"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/math"
-	"github.com/sankar-boro/axia/utils/sampler"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/math"
+	"github.com/sankar-boro/axia-network-v2/utils/sampler"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 // Proposer list constants

@@ -10,13 +10,13 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/api/keystore"
-	"github.com/sankar-boro/axia/api/metrics"
-	"github.com/sankar-boro/axia/chains/atomic"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/api/keystore"
+	"github.com/sankar-boro/axia-network-v2/api/metrics"
+	"github.com/sankar-boro/axia-network-v2/chains/atomic"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 type SubnetLookup interface {

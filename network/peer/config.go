@@ -6,15 +6,15 @@ package peer
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/message"
-	"github.com/sankar-boro/axia/network/throttling"
-	"github.com/sankar-boro/axia/snow/networking/router"
-	"github.com/sankar-boro/axia/snow/networking/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/message"
+	"github.com/sankar-boro/axia-network-v2/network/throttling"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/router"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 type Config struct {

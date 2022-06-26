@@ -4,11 +4,11 @@
 package x
 
 import (
-	"github.com/sankar-boro/axia/vms/avm/fxs"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/nftfx"
-	"github.com/sankar-boro/axia/vms/propertyfx"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/fxs"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/nftfx"
+	"github.com/sankar-boro/axia-network-v2/vms/propertyfx"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 const (

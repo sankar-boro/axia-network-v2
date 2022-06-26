@@ -13,11 +13,11 @@ import (
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/utils/resource"
-	"github.com/sankar-boro/axia/utils/subprocess"
-	"github.com/sankar-boro/axia/vms"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/utils/resource"
+	"github.com/sankar-boro/axia-network-v2/utils/subprocess"
+	"github.com/sankar-boro/axia-network-v2/vms"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 )
 
 var (

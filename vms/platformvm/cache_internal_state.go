@@ -10,22 +10,22 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/cache/metercacher"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/linkeddb"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/database/versiondb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/uptime"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/hashing"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/platformvm/status"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/cache/metercacher"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/linkeddb"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/database/versiondb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/uptime"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/status"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 var (

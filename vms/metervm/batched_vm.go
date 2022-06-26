@@ -6,9 +6,9 @@ package metervm
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
 )
 
 func (vm *blockVM) GetAncestors(

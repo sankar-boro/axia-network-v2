@@ -7,7 +7,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sankar-boro/axia/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
 )
 
 var (

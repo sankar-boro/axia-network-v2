@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
 )
 
 // MinConnectedStake is the minimum percentage of the Primary Network's that

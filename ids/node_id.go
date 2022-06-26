@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 const NodeIDPrefix = "NodeID-"

@@ -6,11 +6,11 @@ package states
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/cache/metercacher"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/cache/metercacher"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
 )
 
 const txCacheSize = 8192

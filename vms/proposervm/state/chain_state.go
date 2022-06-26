@@ -4,8 +4,8 @@
 package state
 
 import (
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 const (

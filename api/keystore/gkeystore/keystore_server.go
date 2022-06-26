@@ -8,13 +8,13 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/sankar-boro/axia/api/keystore"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/rpcdb"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/api/keystore"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/rpcdb"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	keystorepb "github.com/sankar-boro/axia/proto/pb/keystore"
-	rpcdbpb "github.com/sankar-boro/axia/proto/pb/rpcdb"
+	keystorepb "github.com/sankar-boro/axia-network-v2/proto/pb/keystore"
+	rpcdbpb "github.com/sankar-boro/axia-network-v2/proto/pb/rpcdb"
 )
 
 var _ keystorepb.KeystoreServer = &Server{}

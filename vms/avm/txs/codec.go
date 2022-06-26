@@ -6,11 +6,11 @@ package txs
 import (
 	"reflect"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 var (

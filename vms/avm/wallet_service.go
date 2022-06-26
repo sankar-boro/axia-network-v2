@@ -8,14 +8,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 type WalletService struct {

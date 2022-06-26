@@ -4,10 +4,10 @@
 package avm
 
 import (
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/pubsub"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/pubsub"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 var _ pubsub.Filterer = &filterer{}

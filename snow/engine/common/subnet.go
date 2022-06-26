@@ -4,7 +4,7 @@
 package common
 
 import (
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 // Subnet describes the standard interface of a subnet description

@@ -4,7 +4,7 @@
 package events
 
 import (
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var offset = uint64(0)

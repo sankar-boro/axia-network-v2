@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 // GetBalance returns the current balance of [addrs]

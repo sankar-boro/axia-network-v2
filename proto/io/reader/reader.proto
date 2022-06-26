@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package io.reader;
 
-option go_package = "github.com/sankar-boro/axia/proto/pb/io/reader";
+option go_package = "github.com/sankar-boro/axia-network-v2/proto/pb/io/reader";
 
 // Reader is an io.Reader see: https://pkg.go.dev/io#Reader
 service Reader {

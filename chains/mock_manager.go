@@ -4,8 +4,8 @@
 package chains
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/networking/router"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/networking/router"
 )
 
 var _ Manager = MockManager{}

@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
 )
 
 type snowballNode struct {

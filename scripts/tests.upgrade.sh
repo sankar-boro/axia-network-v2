@@ -25,13 +25,13 @@ fi
 
 #################################
 # download axia
-# https://github.com/sankar-boro/axia/releases
+# https://github.com/sankar-boro/axia-network-v2/releases
 GOARCH=$(go env GOARCH)
 GOOS=$(go env GOOS)
-DOWNLOAD_URL=https://github.com/sankar-boro/axia/releases/download/v${VERSION}/axia-linux-${GOARCH}-v${VERSION}.tar.gz
+DOWNLOAD_URL=https://github.com/sankar-boro/axia-network-v2/releases/download/v${VERSION}/axia-linux-${GOARCH}-v${VERSION}.tar.gz
 DOWNLOAD_PATH=/tmp/axia.tar.gz
 if [[ ${GOOS} == "darwin" ]]; then
-  DOWNLOAD_URL=https://github.com/sankar-boro/axia/releases/download/v${VERSION}/axia-macos-v${VERSION}.zip
+  DOWNLOAD_URL=https://github.com/sankar-boro/axia-network-v2/releases/download/v${VERSION}/axia-macos-v${VERSION}.zip
   DOWNLOAD_PATH=/tmp/axia.zip
 fi
 

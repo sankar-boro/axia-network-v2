@@ -7,8 +7,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
 )
 
 var (

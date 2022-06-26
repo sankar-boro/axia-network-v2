@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	manager "github.com/sankar-boro/axia/database/manager"
+	manager "github.com/sankar-boro/axia-network-v2/database/manager"
 	mock "github.com/stretchr/testify/mock"
 
 	prometheus "github.com/prometheus/client_golang/prometheus"

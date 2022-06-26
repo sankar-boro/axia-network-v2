@@ -7,11 +7,11 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/sankar-boro/axia/vms/types"
+	"github.com/sankar-boro/axia-network-v2/vms/types"
 
-	"github.com/sankar-boro/axia/utils/units"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 const (

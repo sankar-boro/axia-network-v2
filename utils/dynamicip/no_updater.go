@@ -3,7 +3,7 @@
 
 package dynamicip
 
-import "github.com/sankar-boro/axia/utils/logging"
+import "github.com/sankar-boro/axia-network-v2/utils/logging"
 
 var _ Updater = noUpdater{}
 

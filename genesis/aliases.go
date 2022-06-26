@@ -6,12 +6,12 @@ package genesis
 import (
 	"path"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/vms/nftfx"
-	"github.com/sankar-boro/axia/vms/platformvm"
-	"github.com/sankar-boro/axia/vms/propertyfx"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/vms/nftfx"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
+	"github.com/sankar-boro/axia-network-v2/vms/propertyfx"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 // Aliases returns the default aliases based on the network ID

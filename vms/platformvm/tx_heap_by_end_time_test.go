@@ -6,8 +6,8 @@ package platformvm
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
 )
 
 func TestTxHeapStop(t *testing.T) {

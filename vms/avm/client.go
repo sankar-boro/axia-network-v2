@@ -8,16 +8,16 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/formatting/address"
-	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 
-	cjson "github.com/sankar-boro/axia/utils/json"
+	cjson "github.com/sankar-boro/axia-network-v2/utils/json"
 )
 
 var _ Client = &client{}

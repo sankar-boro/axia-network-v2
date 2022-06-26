@@ -9,12 +9,12 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
-	"github.com/sankar-boro/axia/snow/engine/common/queue"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common/queue"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 var errMissingTxDependenciesOnAccept = errors.New("attempting to accept a transaction with missing dependencies")

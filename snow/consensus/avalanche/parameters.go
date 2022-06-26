@@ -6,7 +6,7 @@ package axia
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/snow/consensus/snowball"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
 )
 
 // Parameters the axia parameters include the snowball parameters and the

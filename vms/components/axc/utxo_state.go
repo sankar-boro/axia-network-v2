@@ -6,13 +6,13 @@ package axc
 import (
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/cache/metercacher"
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/linkeddb"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/cache/metercacher"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/linkeddb"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 	"github.com/golang/mock/gomock"
 )
 

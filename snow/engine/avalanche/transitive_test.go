@@ -13,22 +13,22 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/axia"
-	"github.com/sankar-boro/axia/snow/consensus/snowball"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
-	"github.com/sankar-boro/axia/snow/engine/axia/bootstrap"
-	"github.com/sankar-boro/axia/snow/engine/axia/vertex"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/engine/common/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/axia"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/bootstrap"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/axia/vertex"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/version"
 
-	avagetter "github.com/sankar-boro/axia/snow/engine/axia/getter"
+	avagetter "github.com/sankar-boro/axia-network-v2/snow/engine/axia/getter"
 )
 
 var (

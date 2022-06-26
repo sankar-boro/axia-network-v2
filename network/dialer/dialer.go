@@ -9,9 +9,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/sankar-boro/axia/network/throttling"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/network/throttling"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 var _ Dialer = &dialer{}

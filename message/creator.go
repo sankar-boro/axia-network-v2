@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

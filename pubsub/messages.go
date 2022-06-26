@@ -4,9 +4,9 @@
 package pubsub
 
 import (
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/utils/formatting/address"
-	"github.com/sankar-boro/axia/utils/json"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
 )
 
 // NewBloom command for a new bloom filter

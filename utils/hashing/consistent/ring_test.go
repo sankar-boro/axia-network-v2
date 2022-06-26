@@ -6,7 +6,7 @@ package consistent
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 
 	"github.com/stretchr/testify/assert"
 

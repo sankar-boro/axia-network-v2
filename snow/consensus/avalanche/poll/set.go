@@ -8,13 +8,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/linkedhashmap"
+	"github.com/sankar-boro/axia-network-v2/utils/linkedhashmap"
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/metric"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/metric"
 )
 
 var (

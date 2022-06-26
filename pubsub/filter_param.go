@@ -6,7 +6,7 @@ package pubsub
 import (
 	"sync"
 
-	"github.com/sankar-boro/axia/utils/bloom"
+	"github.com/sankar-boro/axia-network-v2/utils/bloom"
 )
 
 type FilterParam struct {

@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/metric"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/metric"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 	"github.com/prometheus/client_golang/prometheus"
 	"golang.org/x/time/rate"
 )

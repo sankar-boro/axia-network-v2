@@ -8,8 +8,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
 )
 
 var errNilCredential = errors.New("nil credential")

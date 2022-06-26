@@ -4,10 +4,10 @@
 package vertex
 
 import (
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/codec/linearcodec"
-	"github.com/sankar-boro/axia/codec/reflectcodec"
-	"github.com/sankar-boro/axia/utils/units"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/codec/linearcodec"
+	"github.com/sankar-boro/axia-network-v2/codec/reflectcodec"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
 )
 
 const (

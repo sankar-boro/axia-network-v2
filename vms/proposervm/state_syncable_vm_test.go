@@ -12,20 +12,20 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/manager"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/database/versiondb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/version"
-	"github.com/sankar-boro/axia/vms/proposervm/state"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/manager"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/database/versiondb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/version"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/state"
 
-	statelessblock "github.com/sankar-boro/axia/vms/proposervm/block"
+	statelessblock "github.com/sankar-boro/axia-network-v2/vms/proposervm/block"
 )
 
 func stopHeightReindexing(t *testing.T, coreVM *fullVM, dbMan manager.Manager) {

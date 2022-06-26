@@ -4,8 +4,8 @@
 package platformvm
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
 )
 
 // A Subnet is a set of validators that are validating a set of blockchains

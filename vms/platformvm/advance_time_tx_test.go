@@ -10,11 +10,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/vms/platformvm/reward"
-	"github.com/sankar-boro/axia/vms/platformvm/status"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/reward"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/status"
 )
 
 // Ensure semantic verification fails when proposed timestamp is at or before current timestamp
@@ -365,7 +365,7 @@ func TestAdvanceTimeTxUpdateStakers(t *testing.T) {
 	}
 }
 
-// Regression test for https://github.com/sankar-boro/axia/pull/584
+// Regression test for https://github.com/sankar-boro/axia-network-v2/pull/584
 // that ensures it fixes a bug where subnet validators are not removed
 // when timestamp is advanced and there is a pending staker whose start time
 // is after the new timestamp

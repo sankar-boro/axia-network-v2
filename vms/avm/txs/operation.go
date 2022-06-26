@@ -8,13 +8,13 @@ import (
 	"errors"
 	"sort"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/crypto"
-	"github.com/sankar-boro/axia/vms/avm/fxs"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/crypto"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/fxs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
 )
 
 var (

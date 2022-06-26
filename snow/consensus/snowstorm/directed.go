@@ -6,14 +6,14 @@ package snowstorm
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/metrics"
-	"github.com/sankar-boro/axia/snow/events"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/metrics"
+	"github.com/sankar-boro/axia-network-v2/snow/events"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 
-	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
 )
 
 var (

@@ -4,8 +4,8 @@
 package genesis
 
 import (
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/sampler"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/sampler"
 )
 
 // getIPs returns the beacon IPs for each network

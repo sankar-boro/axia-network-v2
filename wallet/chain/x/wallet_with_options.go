@@ -4,12 +4,12 @@
 package x
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/verify"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
-	"github.com/sankar-boro/axia/wallet/subnet/primary/common"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/wallet/subnet/primary/common"
 )
 
 var _ Wallet = &walletWithOptions{}

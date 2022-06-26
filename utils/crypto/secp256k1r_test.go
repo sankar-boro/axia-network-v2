@@ -11,9 +11,9 @@ import (
 
 	secp256k1 "github.com/decred/dcrd/dcrec/secp256k1/v3"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 func TestRecover(t *testing.T) {

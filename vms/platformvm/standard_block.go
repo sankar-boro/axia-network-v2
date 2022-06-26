@@ -7,10 +7,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sankar-boro/axia/chains/atomic"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/vms/platformvm/status"
+	"github.com/sankar-boro/axia-network-v2/chains/atomic"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/status"
 )
 
 var (

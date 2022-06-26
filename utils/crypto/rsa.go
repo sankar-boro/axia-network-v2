@@ -10,8 +10,8 @@ import (
 	"crypto/x509"
 	"errors"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 var (

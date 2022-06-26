@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sankar-boro/axia/utils/units"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 const (

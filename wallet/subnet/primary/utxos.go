@@ -7,11 +7,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/wallet/chain/p"
-	"github.com/sankar-boro/axia/wallet/chain/x"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/wallet/chain/p"
+	"github.com/sankar-boro/axia-network-v2/wallet/chain/x"
 )
 
 var (

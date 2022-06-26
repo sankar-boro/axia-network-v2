@@ -16,7 +16,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/perms"
+	"github.com/sankar-boro/axia-network-v2/utils/perms"
 )
 
 // InitNodeStakingKeyPair generates a self-signed TLS key/cert pair to use in

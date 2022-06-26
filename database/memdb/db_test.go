@@ -6,7 +6,7 @@ package memdb
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia-network-v2/database"
 )
 
 func TestInterface(t *testing.T) {

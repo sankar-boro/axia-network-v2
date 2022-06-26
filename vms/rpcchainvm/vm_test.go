@@ -32,13 +32,13 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/ghttp"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/ghttp"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	httppb "github.com/sankar-boro/axia/proto/pb/http"
-	vmpb "github.com/sankar-boro/axia/proto/pb/vm"
+	httppb "github.com/sankar-boro/axia-network-v2/proto/pb/http"
+	vmpb "github.com/sankar-boro/axia-network-v2/proto/pb/vm"
 )
 
 var (

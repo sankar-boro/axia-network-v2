@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
 )
 
 func TestSingletonState(t *testing.T) {

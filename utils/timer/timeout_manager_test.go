@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 func TestTimeoutManager(t *testing.T) {

@@ -10,10 +10,10 @@ import (
 	sync "sync"
 	time "time"
 
-	ids "github.com/sankar-boro/axia/ids"
-	snow "github.com/sankar-boro/axia/snow"
-	common "github.com/sankar-boro/axia/snow/engine/common"
-	logging "github.com/sankar-boro/axia/utils/logging"
+	ids "github.com/sankar-boro/axia-network-v2/ids"
+	snow "github.com/sankar-boro/axia-network-v2/snow"
+	common "github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	logging "github.com/sankar-boro/axia-network-v2/utils/logging"
 	gomock "github.com/golang/mock/gomock"
 )
 

@@ -6,7 +6,7 @@ package snowball
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 // Consensus represents a general snow instance that can be used directly to

@@ -10,10 +10,10 @@ import (
 
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	vmpb "github.com/sankar-boro/axia/proto/pb/vm"
+	vmpb "github.com/sankar-boro/axia-network-v2/proto/pb/vm"
 )
 
 // protocolVersion should be bumped anytime changes are made which require

@@ -3,7 +3,7 @@
 
 package common
 
-import "github.com/sankar-boro/axia/ids"
+import "github.com/sankar-boro/axia-network-v2/ids"
 
 // Send a query composed partially of push queries and partially of pull queries.
 // The validators in [vdrs] will be queried.

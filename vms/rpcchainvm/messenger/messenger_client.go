@@ -6,9 +6,9 @@ package messenger
 import (
 	"context"
 
-	"github.com/sankar-boro/axia/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
 
-	messengerpb "github.com/sankar-boro/axia/proto/pb/messenger"
+	messengerpb "github.com/sankar-boro/axia-network-v2/proto/pb/messenger"
 )
 
 // Client is an implementation of a messenger channel that talks over RPC.

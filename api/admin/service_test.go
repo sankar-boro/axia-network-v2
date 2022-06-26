@@ -11,10 +11,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/vms"
-	"github.com/sankar-boro/axia/vms/registry"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/vms"
+	"github.com/sankar-boro/axia-network-v2/vms/registry"
 )
 
 var errOops = errors.New("oops")

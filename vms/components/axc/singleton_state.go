@@ -4,7 +4,7 @@
 package axc
 
 import (
-	"github.com/sankar-boro/axia/database"
+	"github.com/sankar-boro/axia-network-v2/database"
 )
 
 const (

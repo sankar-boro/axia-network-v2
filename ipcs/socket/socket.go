@@ -14,8 +14,8 @@ import (
 	"sync/atomic"
 	"syscall"
 
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 var (

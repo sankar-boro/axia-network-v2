@@ -9,7 +9,7 @@ import (
 	"math"
 	"testing"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
 )
 
 // BenchmarkAllWeightedSampling

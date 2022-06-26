@@ -15,9 +15,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database/rocksdb"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/database/rocksdb"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 func TestNewSingleRocksDB(t *testing.T) {

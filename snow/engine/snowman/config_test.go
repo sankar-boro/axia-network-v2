@@ -4,10 +4,10 @@
 package snowman
 
 import (
-	"github.com/sankar-boro/axia/snow/consensus/snowball"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
 )
 
 func DefaultConfigs() Config {

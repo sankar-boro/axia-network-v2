@@ -8,9 +8,9 @@ import (
 
 	stdcontext "context"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
 )
 
 var _ Backend = &backend{}

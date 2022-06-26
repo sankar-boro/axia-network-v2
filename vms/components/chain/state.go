@@ -6,12 +6,12 @@ package chain
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/cache"
-	"github.com/sankar-boro/axia/cache/metercacher"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowman"
+	"github.com/sankar-boro/axia-network-v2/cache"
+	"github.com/sankar-boro/axia-network-v2/cache/metercacher"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowman"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

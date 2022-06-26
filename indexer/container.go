@@ -3,7 +3,7 @@
 
 package indexer
 
-import "github.com/sankar-boro/axia/ids"
+import "github.com/sankar-boro/axia-network-v2/ids"
 
 // Container is something that gets accepted
 // (a block, transaction or vertex)

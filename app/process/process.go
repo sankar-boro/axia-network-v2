@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sankar-boro/axia/app"
-	"github.com/sankar-boro/axia/nat"
-	"github.com/sankar-boro/axia/node"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/perms"
-	"github.com/sankar-boro/axia/utils/ulimit"
+	"github.com/sankar-boro/axia-network-v2/app"
+	"github.com/sankar-boro/axia-network-v2/nat"
+	"github.com/sankar-boro/axia-network-v2/node"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/perms"
+	"github.com/sankar-boro/axia-network-v2/utils/ulimit"
 )
 
 const (

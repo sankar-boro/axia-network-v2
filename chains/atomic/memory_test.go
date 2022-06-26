@@ -6,9 +6,9 @@ package atomic
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 var (

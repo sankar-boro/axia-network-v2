@@ -8,10 +8,10 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/components/keystore"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/components/keystore"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 )
 
 func BenchmarkLoadUser(b *testing.B) {

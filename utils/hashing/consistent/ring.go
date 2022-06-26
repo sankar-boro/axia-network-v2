@@ -7,7 +7,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 	"github.com/google/btree"
 )
 

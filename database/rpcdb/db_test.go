@@ -13,12 +13,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/corruptabledb"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/vms/rpcchainvm/grpcutils"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/corruptabledb"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/vms/rpcchainvm/grpcutils"
 
-	rpcdbpb "github.com/sankar-boro/axia/proto/pb/rpcdb"
+	rpcdbpb "github.com/sankar-boro/axia-network-v2/proto/pb/rpcdb"
 )
 
 const (

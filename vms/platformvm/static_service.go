@@ -10,16 +10,16 @@ import (
 	"net/http"
 	"sort"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/formatting"
-	"github.com/sankar-boro/axia/utils/formatting/address"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/vms/components/axc"
-	"github.com/sankar-boro/axia/vms/platformvm/stakeable"
-	"github.com/sankar-boro/axia/vms/secp256k1fx"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting"
+	"github.com/sankar-boro/axia-network-v2/utils/formatting/address"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/vms/components/axc"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/stakeable"
+	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
 
-	safemath "github.com/sankar-boro/axia/utils/math"
-	coreChainValidator "github.com/sankar-boro/axia/vms/platformvm/validator"
+	safemath "github.com/sankar-boro/axia-network-v2/utils/math"
+	coreChainValidator "github.com/sankar-boro/axia-network-v2/vms/platformvm/validator"
 )
 
 // Note that since an Axia network has exactly one Platform Chain,

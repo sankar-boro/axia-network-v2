@@ -21,7 +21,7 @@ import (
 
 	tspb "google.golang.org/protobuf/types/known/timestamppb"
 
-	httppb "github.com/sankar-boro/axia/proto/pb/http"
+	httppb "github.com/sankar-boro/axia-network-v2/proto/pb/http"
 )
 
 const (

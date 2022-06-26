@@ -10,8 +10,8 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 // NewGetAndPostHandler returns a health handler that supports GET and jsonrpc

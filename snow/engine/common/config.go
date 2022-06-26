@@ -6,9 +6,9 @@ package common
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/engine/common/tracker"
-	"github.com/sankar-boro/axia/snow/validators"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common/tracker"
+	"github.com/sankar-boro/axia-network-v2/snow/validators"
 )
 
 // Config wraps the common configurations that are needed by a Snow consensus

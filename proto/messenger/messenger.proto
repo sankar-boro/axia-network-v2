@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package messenger;
 
-option go_package = "github.com/sankar-boro/axia/proto/pb/messenger";
+option go_package = "github.com/sankar-boro/axia-network-v2/proto/pb/messenger";
 
 message NotifyRequest {
   uint32 message = 1;

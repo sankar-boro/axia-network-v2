@@ -12,17 +12,17 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/corruptabledb"
-	"github.com/sankar-boro/axia/database/leveldb"
-	"github.com/sankar-boro/axia/database/memdb"
-	"github.com/sankar-boro/axia/database/meterdb"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/database/rocksdb"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/wrappers"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/corruptabledb"
+	"github.com/sankar-boro/axia-network-v2/database/leveldb"
+	"github.com/sankar-boro/axia-network-v2/database/memdb"
+	"github.com/sankar-boro/axia-network-v2/database/meterdb"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/database/rocksdb"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 var (

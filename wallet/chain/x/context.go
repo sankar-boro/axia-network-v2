@@ -6,10 +6,10 @@ package x
 import (
 	stdcontext "context"
 
-	"github.com/sankar-boro/axia/api/info"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
-	"github.com/sankar-boro/axia/vms/avm"
+	"github.com/sankar-boro/axia-network-v2/api/info"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/vms/avm"
 )
 
 var _ Context = &context{}

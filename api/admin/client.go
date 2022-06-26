@@ -7,10 +7,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 )
 
 var _ Client = &client{}

@@ -6,7 +6,7 @@ package secp256k1fx
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/vms/components/verify"
+	"github.com/sankar-boro/axia-network-v2/vms/components/verify"
 )
 
 func TestMintOutputVerifyNil(t *testing.T) {

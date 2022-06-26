@@ -1,2 +1,2 @@
 log_level: info
-axia_binary: ~/go/src/github.com/sankar-boro/axia/build/axia
+axia_binary: ~/go/src/github.com/sankar-boro/axia-network-v2/build/axia

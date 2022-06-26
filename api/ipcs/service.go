@@ -9,14 +9,14 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/api/server"
-	"github.com/sankar-boro/axia/chains"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/ipcs"
-	"github.com/sankar-boro/axia/snow/engine/common"
-	"github.com/sankar-boro/axia/utils/json"
-	"github.com/sankar-boro/axia/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/api/server"
+	"github.com/sankar-boro/axia-network-v2/chains"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/ipcs"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/common"
+	"github.com/sankar-boro/axia-network-v2/utils/json"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
 )
 
 // IPCServer maintains the IPCs

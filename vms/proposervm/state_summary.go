@@ -4,8 +4,8 @@
 package proposervm
 
 import (
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/vms/proposervm/summary"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/summary"
 )
 
 var _ block.StateSummary = &stateSummary{}

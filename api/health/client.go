@@ -7,7 +7,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 )
 
 var _ Client = &client{}

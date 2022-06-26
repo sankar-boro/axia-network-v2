@@ -6,7 +6,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/sankar-boro/axia/api"
+	"github.com/sankar-boro/axia-network-v2/api"
 )
 
 // Service that serves the Auth API functionality.

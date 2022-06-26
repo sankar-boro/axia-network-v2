@@ -11,9 +11,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/staking"
-	"github.com/sankar-boro/axia/utils/ips"
-	"github.com/sankar-boro/axia/utils/timer/mockable"
+	"github.com/sankar-boro/axia-network-v2/staking"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/timer/mockable"
 )
 
 func TestIPSigner(t *testing.T) {

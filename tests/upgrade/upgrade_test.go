@@ -17,7 +17,7 @@ import (
 
 	runner_client "github.com/sankar-boro/axia-network-runner/client"
 
-	"github.com/sankar-boro/axia/tests"
+	"github.com/sankar-boro/axia-network-v2/tests"
 )
 
 func TestUpgrade(t *testing.T) {

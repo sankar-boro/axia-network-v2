@@ -7,7 +7,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var (

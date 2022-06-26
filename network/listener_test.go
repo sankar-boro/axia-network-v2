@@ -7,7 +7,7 @@ import (
 	"errors"
 	"net"
 
-	"github.com/sankar-boro/axia/utils/ips"
+	"github.com/sankar-boro/axia-network-v2/utils/ips"
 )
 
 var (

@@ -4,8 +4,8 @@
 package peer
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/sampler"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/sampler"
 )
 
 var _ Set = &set{}

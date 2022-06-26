@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	pluginpb "github.com/sankar-boro/axia/proto/pb/plugin"
+	pluginpb "github.com/sankar-boro/axia-network-v2/proto/pb/plugin"
 )
 
 type Client struct {

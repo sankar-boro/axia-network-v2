@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 var Tests = []func(c GeneralCodec, t testing.TB){

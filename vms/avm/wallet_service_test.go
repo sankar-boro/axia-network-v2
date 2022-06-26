@@ -7,11 +7,11 @@ import (
 	"container/list"
 	"testing"
 
-	"github.com/sankar-boro/axia/api"
-	"github.com/sankar-boro/axia/chains/atomic"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/vms/avm/txs"
-	"github.com/sankar-boro/axia/vms/components/keystore"
+	"github.com/sankar-boro/axia-network-v2/api"
+	"github.com/sankar-boro/axia-network-v2/chains/atomic"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/vms/avm/txs"
+	"github.com/sankar-boro/axia-network-v2/vms/components/keystore"
 )
 
 // Returns:

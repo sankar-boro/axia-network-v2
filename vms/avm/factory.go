@@ -4,8 +4,8 @@
 package avm
 
 import (
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/vms"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/vms"
 )
 
 var _ vms.Factory = &Factory{}

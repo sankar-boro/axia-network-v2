@@ -6,8 +6,8 @@ package crypto
 import (
 	"testing"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 // NumVerifies is the number of verifications to run per operation

@@ -8,7 +8,7 @@ import (
 	"errors"
 	"io"
 
-	writerpb "github.com/sankar-boro/axia/proto/pb/io/writer"
+	writerpb "github.com/sankar-boro/axia-network-v2/proto/pb/io/writer"
 )
 
 var _ io.Writer = &Client{}

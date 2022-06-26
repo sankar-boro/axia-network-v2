@@ -10,7 +10,7 @@ import (
 
 	"github.com/syndtr/goleveldb/leveldb"
 
-	"github.com/sankar-boro/axia/utils/wrappers"
+	"github.com/sankar-boro/axia-network-v2/utils/wrappers"
 )
 
 var levelLabels = []string{"level"}

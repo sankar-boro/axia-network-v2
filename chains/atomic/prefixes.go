@@ -6,9 +6,9 @@ package atomic
 import (
 	"bytes"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 var (

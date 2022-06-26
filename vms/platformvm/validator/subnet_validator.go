@@ -4,8 +4,8 @@
 package validator
 
 import (
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils/constants"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils/constants"
 )
 
 // SubnetValidator validates a subnet on the Axia network.

@@ -6,8 +6,8 @@ package genesis
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/utils/units"
-	"github.com/sankar-boro/axia/vms/platformvm/reward"
+	"github.com/sankar-boro/axia-network-v2/utils/units"
+	"github.com/sankar-boro/axia-network-v2/vms/platformvm/reward"
 )
 
 var (

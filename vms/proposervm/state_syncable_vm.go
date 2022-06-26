@@ -6,9 +6,9 @@ package proposervm
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/snow/engine/snowman/block"
-	"github.com/sankar-boro/axia/vms/proposervm/summary"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/snow/engine/snowman/block"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/summary"
 )
 
 func (vm *VM) StateSyncEnabled() (bool, error) {

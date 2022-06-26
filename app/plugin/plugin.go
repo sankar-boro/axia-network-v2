@@ -10,9 +10,9 @@ import (
 
 	"github.com/hashicorp/go-plugin"
 
-	"github.com/sankar-boro/axia/app"
+	"github.com/sankar-boro/axia-network-v2/app"
 
-	pluginpb "github.com/sankar-boro/axia/proto/pb/plugin"
+	pluginpb "github.com/sankar-boro/axia-network-v2/proto/pb/plugin"
 )
 
 const Name = "nodeProcess"

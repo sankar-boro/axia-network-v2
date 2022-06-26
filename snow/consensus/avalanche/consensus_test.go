@@ -14,11 +14,11 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
-	"github.com/sankar-boro/axia/snow/choices"
-	"github.com/sankar-boro/axia/snow/consensus/snowball"
-	"github.com/sankar-boro/axia/snow/consensus/snowstorm"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
+	"github.com/sankar-boro/axia-network-v2/snow/choices"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
+	"github.com/sankar-boro/axia-network-v2/snow/consensus/snowstorm"
 )
 
 type testFunc func(*testing.T, Factory)

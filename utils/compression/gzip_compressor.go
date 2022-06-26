@@ -10,7 +10,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/sankar-boro/axia/utils"
+	"github.com/sankar-boro/axia-network-v2/utils"
 )
 
 var _ Compressor = &gzipCompressor{}

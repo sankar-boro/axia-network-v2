@@ -6,7 +6,7 @@ package uptime
 import (
 	"time"
 
-	"github.com/sankar-boro/axia/ids"
+	"github.com/sankar-boro/axia-network-v2/ids"
 )
 
 type State interface {

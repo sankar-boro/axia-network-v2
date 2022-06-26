@@ -4,7 +4,7 @@
 package gsharedmemory
 
 import (
-	sharedmemorypb "github.com/sankar-boro/axia/proto/pb/sharedmemory"
+	sharedmemorypb "github.com/sankar-boro/axia-network-v2/proto/pb/sharedmemory"
 )
 
 type filteredBatch struct {

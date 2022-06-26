@@ -6,8 +6,8 @@ package manager
 import (
 	"sort"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/version"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/version"
 )
 
 type VersionedDatabase struct {

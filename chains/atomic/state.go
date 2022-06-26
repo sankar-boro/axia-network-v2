@@ -7,13 +7,13 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/sankar-boro/axia/codec"
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/database/linkeddb"
-	"github.com/sankar-boro/axia/database/prefixdb"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/hashing"
+	"github.com/sankar-boro/axia-network-v2/codec"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/database/linkeddb"
+	"github.com/sankar-boro/axia-network-v2/database/prefixdb"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/hashing"
 )
 
 var errDuplicatedOperation = errors.New("duplicated operation on provided value")

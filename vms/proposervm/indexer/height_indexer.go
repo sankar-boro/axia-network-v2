@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/sankar-boro/axia/database"
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/utils"
-	"github.com/sankar-boro/axia/utils/logging"
-	"github.com/sankar-boro/axia/vms/proposervm/state"
+	"github.com/sankar-boro/axia-network-v2/database"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/utils"
+	"github.com/sankar-boro/axia-network-v2/utils/logging"
+	"github.com/sankar-boro/axia-network-v2/vms/proposervm/state"
 )
 
 // default number of heights to index before committing

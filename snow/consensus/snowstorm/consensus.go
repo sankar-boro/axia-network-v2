@@ -6,10 +6,10 @@ package snowstorm
 import (
 	"fmt"
 
-	"github.com/sankar-boro/axia/ids"
-	"github.com/sankar-boro/axia/snow"
+	"github.com/sankar-boro/axia-network-v2/ids"
+	"github.com/sankar-boro/axia-network-v2/snow"
 
-	sbcon "github.com/sankar-boro/axia/snow/consensus/snowball"
+	sbcon "github.com/sankar-boro/axia-network-v2/snow/consensus/snowball"
 )
 
 // Consensus is a snowball instance deciding between an unbounded number of

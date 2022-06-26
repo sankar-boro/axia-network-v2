@@ -6,7 +6,7 @@ package avm
 import (
 	"context"
 
-	"github.com/sankar-boro/axia/utils/rpc"
+	"github.com/sankar-boro/axia-network-v2/utils/rpc"
 )
 
 var _ StaticClient = &staticClient{}
