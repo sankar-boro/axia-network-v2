@@ -36,7 +36,7 @@ func TestNewExportTx(t *testing.T) {
 
 	tests := []test{
 		{
-			description:        "P->X export",
+			description:        "Core->X export",
 			destinationChainID: swapChainID,
 			sourceKeys:         []*crypto.PrivateKeySECP256K1R{sourceKey},
 			timestamp:          defaultValidateStartTime,
@@ -44,7 +44,7 @@ func TestNewExportTx(t *testing.T) {
 			shouldVerify:       true,
 		},
 		{
-			description:        "P->C export",
+			description:        "Core->C export",
 			destinationChainID: axcChainID,
 			sourceKeys:         []*crypto.PrivateKeySECP256K1R{sourceKey},
 			timestamp:          vm.ApricotPhase5Time,

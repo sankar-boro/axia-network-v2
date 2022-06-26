@@ -14,10 +14,10 @@ import (
 func TestShortString(t *testing.T) {
 	id := ShortID{1}
 
-	xPrefixedID := id.PrefixedString("X-")
-	pPrefixedID := id.PrefixedString("P-")
+	xPrefixedID := id.PrefixedString("Swap-")
+	pPrefixedID := id.PrefixedString("Core-")
 
-	newID, err := ShortFromPrefixedString(xPrefixedID, "X-")
+	newID, err := ShortFromPrefixedString(xPrefixedID, "Swap-")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -25,7 +25,7 @@ func TestShortString(t *testing.T) {
 		t.Fatalf("ShortFromPrefixedString did not produce the identical ID")
 	}
 
-	_, err = ShortFromPrefixedString(pPrefixedID, "X-")
+	_, err = ShortFromPrefixedString(pPrefixedID, "Swap-")
 	if err == nil {
 		t.Fatal("Using the incorrect prefix did not cause an error")
 	}

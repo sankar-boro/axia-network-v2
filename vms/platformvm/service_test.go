@@ -52,7 +52,7 @@ var (
 
 	// 3cb7d3842e8cee6a0ebd09f1fe884f6861e1b29c
 	// Platform address resulting from the above private key
-	testAddress = "P-testing18jma8ppw3nhx5r4ap8clazz0dps7rv5umpc36y"
+	testAddress = "Core-testing18jma8ppw3nhx5r4ap8clazz0dps7rv5umpc36y"
 
 	encodings = []formatting.Encoding{
 		formatting.JSON, formatting.Hex, formatting.CB58,
@@ -414,7 +414,7 @@ func TestGetBalance(t *testing.T) {
 	for _, utxo := range genesis.UTXOs {
 		request := GetBalanceRequest{
 			Addresses: []string{
-				fmt.Sprintf("P-%s", utxo.Address),
+				fmt.Sprintf("Core-%s", utxo.Address),
 			},
 		}
 		reply := GetBalanceResponse{}
@@ -452,7 +452,7 @@ func TestGetStake(t *testing.T) {
 	genesis, _ := defaultGenesis()
 	addrsStrs := []string{}
 	for i, validator := range genesis.Validators {
-		addr := fmt.Sprintf("P-%s", validator.RewardOwner.Addresses[0])
+		addr := fmt.Sprintf("Core-%s", validator.RewardOwner.Addresses[0])
 		addrsStrs = append(addrsStrs, addr)
 		args := GetStakeArgs{
 			api.JSONAddresses{

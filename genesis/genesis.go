@@ -428,7 +428,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 				nftfx.ID,
 				propertyfx.ID,
 			},
-			Name: "X-Chain",
+			Name: "Swap-Chain",
 		},
 		{
 			GenesisData: genesisStr,
