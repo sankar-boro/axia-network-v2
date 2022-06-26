@@ -1421,8 +1421,8 @@ type ImportArgs struct {
 	To string `json:"to"`
 }
 
-// Import imports an asset to this chain from the P/C-Chain.
-// The AVAX must have already been exported from the P/C-Chain.
+// Import imports an asset to this chain from the P/AXC-Chain.
+// The AVAX must have already been exported from the P/AXC-Chain.
 // Returns the ID of the newly created atomic transaction
 func (service *Service) Import(_ *http.Request, args *ImportArgs, reply *api.JSONTxID) error {
 	service.vm.ctx.Log.Debug("AVM: Import called with username: %s", args.Username)
@@ -1540,8 +1540,8 @@ type ExportArgs struct {
 	AssetID string `json:"assetID"`
 }
 
-// Export sends an asset from this chain to the P/C-Chain.
-// After this tx is accepted, the AVAX must be imported to the P/C-chain with an importTx.
+// Export sends an asset from this chain to the P/AXC-Chain.
+// After this tx is accepted, the AVAX must be imported to the P/AXC-chain with an importTx.
 // Returns the ID of the newly created atomic transaction
 func (service *Service) Export(_ *http.Request, args *ExportArgs, reply *api.JSONTxIDChangeAddr) error {
 	service.vm.ctx.Log.Debug("AVM: Export called with username: %s", args.Username)

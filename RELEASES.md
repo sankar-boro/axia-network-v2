@@ -8,8 +8,8 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 - Fixed proposervm state summary acceptance to only accept state summaries with heights higher than the locally last accepted block
 - Fixed proposervm state summary serving to only respond to requests after height indexing has finished
-- Improved C-chain state sync leaf request serving by optimistically reading leaves from snapshot
-- Refactored C-chain state sync block fetching
+- Improved AXC-chain state sync leaf request serving by optimistically reading leaves from snapshot
+- Refactored AXC-chain state sync block fetching
 
 ### Networking
 
@@ -22,13 +22,13 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 - Added process and golang metrics for the avalanchego binary
 - Added available disk space health check
   - Ensured that the disk space will not be fully utilized by shutting down the node if there is a critically low amount of free space remaining
-- Improved C-chain state sync metrics
+- Improved AXC-chain state sync metrics
 
 ### Performance
 
-- Added C-chain acceptor queue within `core/blockchain.go`
+- Added AXC-chain acceptor queue within `core/blockchain.go`
 - Removed rpcdb locking when committing batches and using iterators
-- Capped C-chain TrieDB dirties cache size during block acceptance to reduce commit size at 4096 block interval
+- Capped AXC-chain TrieDB dirties cache size during block acceptance to reduce commit size at 4096 block interval
 
 ### Cleanup
 
@@ -47,7 +47,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
-**The first startup of the C-Chain will cause an increase in CPU and IO usage due to an index update. This index update runs in the background and does not impact restart time.**
+**The first startup of the AXC-Chain will cause an increase in CPU and IO usage due to an index update. This index update runs in the background and does not impact restart time.**
 
 ### State Sync
 
@@ -293,7 +293,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 ### Coreth
 
-- Increased `FeeHistory` maximum historical limit to improve MetaMask UI on the C-Chain.
+- Increased `FeeHistory` maximum historical limit to improve MetaMask UI on the AXC-Chain.
 - Enabled chain state metrics.
 - Migrated go-ethereum v1.10.16 changes.
 
@@ -345,7 +345,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0). It is optional, but encouraged.
 
-**The first startup of the C-Chain will take a few minutes longer due to an index update.**
+**The first startup of the AXC-Chain will take a few minutes longer due to an index update.**
 
 ### Consensus
 
@@ -358,7 +358,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 ### Coreth
 
-- Added an index mapping height to the list of accepted atomic operations at that height in a trie. Generating this index will cause the node to take a few minutes longer to startup the C-Chain for the first restart.
+- Added an index mapping height to the list of accepted atomic operations at that height in a trie. Generating this index will cause the node to take a few minutes longer to startup the AXC-Chain for the first restart.
 - Updated Geth dependency to `v1.10.15`.
 - Updated `networkID` to match `chainID`.
 
@@ -405,7 +405,7 @@ This version is backwards compatible to [v1.7.0](https://github.com/ava-labs/ava
 
 ### Coreth
 
-- Added an index mapping height to the list of accepted atomic transactions at that height. Generating this index will cause the node to take approximately 2 minutes longer to startup the C-Chain for the first restart.
+- Added an index mapping height to the list of accepted atomic transactions at that height. Generating this index will cause the node to take approximately 2 minutes longer to startup the AXC-Chain for the first restart.
 - Fixed bug in base fee estimation API that impacted custom defined networks.
 - Decreased minimum transaction re-gossiping interval from 1s to 500ms.
 - Removed websocket handler from the static vm APIs.
@@ -471,7 +471,7 @@ This update is backwards compatible with [v1.7.0](https://github.com/ava-labs/av
 
 ## [v1.7.0](https://github.com/ava-labs/avalanchego/releases/tag/v1.7.0)
 
-This upgrade adds support for issuing multiple atomic transactions into a single block and directly transferring assets between the P-chain and the C-chain.
+This upgrade adds support for issuing multiple atomic transactions into a single block and directly transferring assets between the P-chain and the AXC-chain.
 
 The changes in the upgrade go into effect at 1 PM EST, December 2nd 2021 on Mainnet. One should upgrade their node before the changes go into effect, otherwise they may experience loss of uptime.
 
@@ -485,7 +485,7 @@ The changes in the upgrade go into effect at 1 PM EST, December 2nd 2021 on Main
 ### PlatformVM
 
 - Enabled `AtomicTx`s to be issued into `StandardBlock`s and deprecated `AtomicBlock`s.
-- Added the ability to export/import AVAX to/from the C-chain.
+- Added the ability to export/import AVAX to/from the AXC-chain.
 
 ### Coreth
 
@@ -560,7 +560,7 @@ This version is backwards compatible to [v1.6.0](https://github.com/ava-labs/ava
 - Added method `GetContainerByID` to client implementation.
 - Client methods now return `[]byte` rather than `string` representations of a container.
 
-### C-Chain
+### AXC-Chain
 
 - Updated Geth dependency to 1.10.11.
 - Added a new admin API for updating the log level and measuring performance.

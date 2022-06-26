@@ -114,14 +114,14 @@ func TestValidateConfig(t *testing.T) {
 			}(),
 			err: "does not have an allocation to stake",
 		},
-		"empty C-Chain genesis": {
+		"empty AXC-Chain genesis": {
 			networkID: 12345,
 			config: func() *Config {
 				thisConfig := LocalConfig
 				thisConfig.AXCChainGenesis = ""
 				return &thisConfig
 			}(),
-			err: "C-Chain genesis cannot be empty",
+			err: "AXC-Chain genesis cannot be empty",
 		},
 		"empty message": {
 			networkID: 12345,
