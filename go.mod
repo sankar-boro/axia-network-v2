@@ -1,4 +1,4 @@
-module github.com/sankar-boro/axia
+module github.com/sankar-boro/axia-network-v2
 
 // Changes to the minimum golang version must also be replicated in
 // scripts/ansible/roles/golang_base/defaults/main.yml
