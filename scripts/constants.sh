@@ -9,7 +9,7 @@ AXIA_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd .. && pwd ) # Directory a
 
 # Set the PATHS
 GOPATH="$(go env GOPATH)"
-coreth_path="$GOPATH/pkg/mod/github.com/sankar-boro/coreth@$coreth_version"
+coreth_path="$GOPATH/pkg/mod/github.com/sankar-boro/axia-network-v2-coreth@$coreth_version"
 
 # Where Axia binary goes
 build_dir="$AXIA_PATH/build"
