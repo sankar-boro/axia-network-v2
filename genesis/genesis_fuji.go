@@ -11,12 +11,12 @@ import (
 )
 
 var (
-	fujiGenesisConfigJSON = `{
+	testGenesisConfigJSON = `{
 		"networkID": 5,
 		"allocations": [
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"avaxAddr": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"initialAmount": 0,
 				"unlockSchedule": [
 					{
@@ -26,61 +26,61 @@ var (
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1xpmx0ljrpvqexrvrj26fnggvr0ax9wm32gaxmx",
+				"avaxAddr": "Swap-test1xpmx0ljrpvqexrvrj26fnggvr0ax9wm32gaxmx",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1wrv92qg5x3dsqrtukdc8qxnpqust3qdakxgm4s",
+				"avaxAddr": "Swap-test1wrv92qg5x3dsqrtukdc8qxnpqust3qdakxgm4s",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1qrmj7u9pquyy3mahzxeq0nnlnj2aceedjfqqrq",
+				"avaxAddr": "Swap-test1qrmj7u9pquyy3mahzxeq0nnlnj2aceedjfqqrq",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1cap3ru2ghc3jtdnuyey738ru8u5ekdadcvrtyk",
+				"avaxAddr": "Swap-test1cap3ru2ghc3jtdnuyey738ru8u5ekdadcvrtyk",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji18g2m7483k6swe46cpfmq96t09sp63pgv7judr4",
+				"avaxAddr": "Swap-test18g2m7483k6swe46cpfmq96t09sp63pgv7judr4",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1zwe0kxhg73x3ehgtkkz24k9czlfgztc45hgrg3",
+				"avaxAddr": "Swap-test1zwe0kxhg73x3ehgtkkz24k9czlfgztc45hgrg3",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji1fqcs4m9p8gdp7gckk30n8u68d55jk0hdumx30f",
+				"avaxAddr": "Swap-test1fqcs4m9p8gdp7gckk30n8u68d55jk0hdumx30f",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
+				"avaxAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
+				"avaxAddr": "Swap-test18lany6fjlzxc7vuqfd9x4k9wqp0yhk074p283d",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			},
 			{
 				"ethAddr": "0xb3d82b1367d362de99ab59a658165aff520cbd4d",
-				"avaxAddr": "Swap-fuji10d2fqjfl3ghl73z2ez65ufanxwwhccxugq8z2t",
+				"avaxAddr": "Swap-test10d2fqjfl3ghl73z2ez65ufanxwwhccxugq8z2t",
 				"initialAmount": 32000000000000000,
 				"unlockSchedule": []
 			}
@@ -89,107 +89,107 @@ var (
 		"initialStakeDuration": 31536000,
 		"initialStakeDurationOffset": 54000,
 		"initialStakedFunds": [
-			"Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw"
+			"Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw"
 		],
 		"initialStakers": [
 			{
 				"nodeID": "NodeID-NpagUxt6KQiwPch9Sd4osv8kD1TZnkjdk",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 1000000
 			},
 			{
 				"nodeID": "NodeID-2m38qc95mhHXtrhjyGbe7r2NhniqHHJRB",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 500000
 			},
 			{
 				"nodeID": "NodeID-LQwRLm4cbJ7T2kxcxp4uXCU5XD8DFrE1C",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 250000
 			},
 			{
 				"nodeID": "NodeID-hArafGhY2HFTbwaaVh1CSCUCUCiJ2Vfb",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 125000
 			},
 			{
 				"nodeID": "NodeID-4QBwET5o8kUhvt9xArhir4d3R25CtmZho",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 62500
 			},
 			{
 				"nodeID": "NodeID-HGZ8ae74J3odT8ESreAdCtdnvWG1J4X5n",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 31250
 			},
 			{
 				"nodeID": "NodeID-4KXitMCoE9p2BHA6VzXtaTxLoEjNDo2Pt",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-JyE4P8f4cTryNV8DCz2M81bMtGhFFHexG",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-EzGaipqomyK9UKx9DBHV6Ky3y68hoknrF",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-CYKruAjwH1BmV3m37sXNuprbr7dGQuJwG",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-LegbVf6qaMKcsXPnLStkdc1JVktmmiDxy",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-FesGqwKq7z5nPFHa5iwZctHE5EZV9Lpdq",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-BFa1padLXBj7VHa2JYvYGzcTBPQGjPhUy",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-4B4rc5vdD1758JSBYL1xyvE5NHGzz6xzH",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-EDESh4DfZFC15i613pMtWniQ9arbBZRnL",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-CZmZ9xpCzkWqjAyS7L4htzh5Lg6kf1k18",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-CTtkcXvVdhpNp6f97LEUXPwsRD3A2ZHqP",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-84KbQHSDnojroCVY7vQ7u9Tx7pUonPaS",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-JjvzhxnLHLUQ5HjVRkvG827ivbLXPwA9u",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			},
 			{
 				"nodeID": "NodeID-4CWTbdvgXHY1CLXqQNAp22nJDo5nAmts6",
-				"rewardAddress": "Swap-fuji1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
+				"rewardAddress": "Swap-test1wycv8n7d2fg9aq6unp23pnj4q0arv03ysya8jw",
 				"delegationFee": 20000
 			}
 		],
@@ -197,8 +197,8 @@ var (
 		"message": "hi mom"
 	}`
 
-	// FujiParams are the params used for the fuji testnet
-	FujiParams = Params{
+	// TestParams are the params used for the test testnet
+	TestParams = Params{
 		TxFeeConfig: TxFeeConfig{
 			TxFee:                 units.MilliAvax,
 			CreateAssetTxFee:      10 * units.MilliAvax,

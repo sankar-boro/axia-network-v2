@@ -29,9 +29,9 @@ func TestValidateConfig(t *testing.T) {
 			networkID: 1,
 			config:    &MainnetConfig,
 		},
-		"fuji": {
+		"test": {
 			networkID: 5,
-			config:    &FujiConfig,
+			config:    &TestConfig,
 		},
 		"local": {
 			networkID: 12345,
@@ -108,7 +108,7 @@ func TestValidateConfig(t *testing.T) {
 		"initial staked funds not in allocations": {
 			networkID: 5,
 			config: func() *Config {
-				thisConfig := FujiConfig
+				thisConfig := TestConfig
 				thisConfig.InitialStakedFunds = append(thisConfig.InitialStakedFunds, LocalConfig.InitialStakedFunds[0])
 				return &thisConfig
 			}(),
@@ -243,15 +243,15 @@ func TestGenesisFromFile(t *testing.T) {
 			customConfig: customGenesisConfigJSON,
 			err:          "cannot override genesis config for standard network mainnet (1)",
 		},
-		"fuji": {
-			networkID:    constants.FujiID,
+		"test": {
+			networkID:    constants.TestID,
 			customConfig: customGenesisConfigJSON,
-			err:          "cannot override genesis config for standard network fuji (5)",
+			err:          "cannot override genesis config for standard network test (5)",
 		},
-		"fuji (with custom specified)": {
-			networkID:    constants.FujiID,
+		"test (with custom specified)": {
+			networkID:    constants.TestID,
 			customConfig: localGenesisConfigJSON, // won't load
-			err:          "cannot override genesis config for standard network fuji (5)",
+			err:          "cannot override genesis config for standard network test (5)",
 		},
 		"local": {
 			networkID:    constants.LocalID,
@@ -329,9 +329,9 @@ func TestGenesisFromFlag(t *testing.T) {
 			networkID: constants.MainnetID,
 			err:       "cannot override genesis config for standard network mainnet (1)",
 		},
-		"fuji": {
-			networkID: constants.FujiID,
-			err:       "cannot override genesis config for standard network fuji (5)",
+		"test": {
+			networkID: constants.TestID,
+			err:       "cannot override genesis config for standard network test (5)",
 		},
 		"local": {
 			networkID: constants.LocalID,
@@ -377,7 +377,7 @@ func TestGenesisFromFlag(t *testing.T) {
 					genBytes, err = json.Marshal(&MainnetConfig)
 					assert.NoError(err)
 				case constants.TestnetID:
-					genBytes, err = json.Marshal(&FujiConfig)
+					genBytes, err = json.Marshal(&TestConfig)
 					assert.NoError(err)
 				case constants.LocalID:
 					genBytes, err = json.Marshal(&LocalConfig)
@@ -431,7 +431,7 @@ func TestVMGenesis(t *testing.T) {
 			},
 		},
 		{
-			networkID: constants.FujiID,
+			networkID: constants.TestID,
 			vmTest: []vmTest{
 				{
 					vmID:       constants.AVMID,
@@ -496,7 +496,7 @@ func TestAVAXAssetID(t *testing.T) {
 			expectedID: "FvwEAhmxKfeiG8SnEvq42hc6whRyY3EFYAvebMqDNDGCgxN5Z",
 		},
 		{
-			networkID:  constants.FujiID,
+			networkID:  constants.TestID,
 			expectedID: "U8iRqJoiJm8xZHAacmvYyZVwqQx6uDNtQeP3CQ6fcgQk3JqnK",
 		},
 		{

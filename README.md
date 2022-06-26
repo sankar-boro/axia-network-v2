@@ -124,12 +124,12 @@ You should see some pretty ASCII art and log messages.
 
 You can use `Ctrl+C` to kill the node.
 
-### Connecting to Fuji
+### Connecting to Test
 
-To connect to the Fuji Testnet, run:
+To connect to the Test Testnet, run:
 
 ```sh
-./build/avalanchego --network-id=fuji
+./build/avalanchego --network-id=test
 ```
 
 ### Creating a Local Testnet
