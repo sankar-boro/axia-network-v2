@@ -53,13 +53,13 @@ find /tmp/axia-v${VERSION}
 
 #################################
 # download axia-network-runner
-# https://github.com/ava-labs/avalanche-network-runner
+# https://github.com/ava-labs/axia-network-runner
 # TODO: migrate to upstream axia-network-runner
 NETWORK_RUNNER_VERSION=1.0.6
 DOWNLOAD_PATH=/tmp/axia-network-runner.tar.gz
-DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
+DOWNLOAD_URL=https://github.com/ava-labs/axia-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_linux_amd64.tar.gz
 if [[ ${GOOS} == "darwin" ]]; then
-  DOWNLOAD_URL=https://github.com/ava-labs/avalanche-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
+  DOWNLOAD_URL=https://github.com/ava-labs/axia-network-runner/releases/download/v${NETWORK_RUNNER_VERSION}/axia-network-runner_${NETWORK_RUNNER_VERSION}_darwin_amd64.tar.gz
 fi
 
 rm -f ${DOWNLOAD_PATH}

@@ -44,8 +44,8 @@ source "$AXIA_PATH"/scripts/constants.sh
 # Build with rocksdb allowed only if the environment variable ROCKSDBALLOWED is set
 if [ -z ${ROCKSDBALLOWED+x} ]; then
     echo "Building Axia..."
-    go build -ldflags "-X github.com/sankar-boro/axia-network-v2-coreth/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
+    go build -ldflags "-X github.com/sankar-boro/axia-network-v2/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
 else
     echo "Building Axia with rocksdb enabled..."
-    go build -tags rocksdballowed -ldflags "-X github.com/sankar-boro/axia-network-v2-coreth/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
+    go build -tags rocksdballowed -ldflags "-X github.com/sankar-boro/axia-network-v2/version.GitCommit=$git_commit $static_ld_flags" -o "$axia_path" "$AXIA_PATH/main/"*.go
 fi

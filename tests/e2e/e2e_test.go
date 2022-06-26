@@ -15,7 +15,7 @@ import (
 
 	"github.com/onsi/gomega"
 
-	runner_client "github.com/ava-labs/avalanche-network-runner/client"
+	runner_client "github.com/ava-labs/axia-network-runner/client"
 
 	"github.com/sankar-boro/axia-network-v2/tests"
 	"github.com/sankar-boro/axia-network-v2/tests/e2e"
