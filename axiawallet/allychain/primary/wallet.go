@@ -11,8 +11,8 @@ import (
 	"github.com/sankar-boro/axia-network-v2/vms/avm"
 	"github.com/sankar-boro/axia-network-v2/vms/platformvm"
 	"github.com/sankar-boro/axia-network-v2/vms/secp256k1fx"
-	"github.com/sankar-boro/axia-network-v2/axiawallet/chain/p"
-	"github.com/sankar-boro/axia-network-v2/axiawallet/chain/x"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/chain/core"
+	"github.com/sankar-boro/axia-network-v2/axiawallet/chain/swap"
 	"github.com/sankar-boro/axia-network-v2/axiawallet/allychain/primary/common"
 )
 
