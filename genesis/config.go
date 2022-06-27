@@ -370,9 +370,10 @@ func init() {
 	errs.Add(err)
 	LocalConfig = localConfig
 
-	if errs.Errored() {
-		panic(errs.Err)
-	}
+	// TODO:Zeeve
+	// if errs.Errored() {
+	// 	panic(errs.Err)
+	// }
 }
 
 func GetConfig(networkID uint32) *Config {

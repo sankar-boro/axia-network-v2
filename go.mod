@@ -37,7 +37,7 @@ require (
 	github.com/prometheus/client_golang v1.12.2
 	github.com/prometheus/client_model v0.2.0
 	github.com/rs/cors v1.7.0
-	github.com/sankar-boro/axia-network-v2-coreth v0.0.0-20220627004141-e49f694789c4
+	github.com/sankar-boro/axia-network-v2-coreth v0.0.0-20220627010631-c9311e0f97e6
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/pflag v1.0.5
