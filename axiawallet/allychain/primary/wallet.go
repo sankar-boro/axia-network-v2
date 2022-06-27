@@ -20,17 +20,17 @@ var _ AxiaWallet = &axiawallet{}
 
 // AxiaWallet provides chain axiawallets for the primary network.
 type AxiaWallet interface {
-	P() p.AxiaWallet
-	X() x.AxiaWallet
+	Core() core.AxiaWallet
+	Swap() swap.AxiaWallet
 }
 
 type axiawallet struct {
-	p p.AxiaWallet
-	x x.AxiaWallet
+	core core.AxiaWallet
+	swap swap.AxiaWallet
 }
 
-func (w *axiawallet) P() p.AxiaWallet { return w.p }
-func (w *axiawallet) X() x.AxiaWallet { return w.x }
+func (w *axiawallet) Core() core.AxiaWallet { return w.core }
+func (w *axiawallet) Swap() swap.AxiaWallet { return w.swap }
 
 // NewAxiaWalletFromURI returns a axiawallet that supports issuing transactions to the
 // chains living in the primary network to a provided [uri].
@@ -51,41 +51,41 @@ func NewAxiaWalletFromURI(ctx context.Context, uri string, kc *secp256k1fx.Keych
 
 func NewAxiaWalletWithState(
 	uri string,
-	pCTX p.Context,
-	xCTX x.Context,
+	pCTX core.Context,
+	xCTX swap.Context,
 	utxos UTXOs,
 	kc *secp256k1fx.Keychain,
 ) AxiaWallet {
 	pUTXOs := NewChainUTXOs(constants.PlatformChainID, utxos)
 	pTXs := make(map[ids.ID]*platformvm.Tx)
-	pBackend := p.NewBackend(pCTX, pUTXOs, pTXs)
-	pBuilder := p.NewBuilder(kc.Addrs, pBackend)
-	pSigner := p.NewSigner(kc, pBackend)
+	pBackend := core.NewBackend(pCTX, pUTXOs, pTXs)
+	pBuilder := core.NewBuilder(kc.Addrs, pBackend)
+	pSigner := core.NewSigner(kc, pBackend)
 	pClient := platformvm.NewClient(uri)
 
 	swapChainID := xCTX.BlockchainID()
 	xUTXOs := NewChainUTXOs(swapChainID, utxos)
-	xBackend := x.NewBackend(xCTX, swapChainID, xUTXOs)
-	xBuilder := x.NewBuilder(kc.Addrs, xBackend)
-	xSigner := x.NewSigner(kc, xBackend)
+	xBackend := swap.NewBackend(xCTX, swapChainID, xUTXOs)
+	xBuilder := swap.NewBuilder(kc.Addrs, xBackend)
+	xSigner := swap.NewSigner(kc, xBackend)
 	xClient := avm.NewClient(uri, "Swap")
 
 	return NewAxiaWallet(
-		p.NewAxiaWallet(pBuilder, pSigner, pClient, pBackend),
-		x.NewAxiaWallet(xBuilder, xSigner, xClient, xBackend),
+		core.NewAxiaWallet(pBuilder, pSigner, pClient, pBackend),
+		swap.NewAxiaWallet(xBuilder, xSigner, xClient, xBackend),
 	)
 }
 
 func NewAxiaWalletWithOptions(w AxiaWallet, options ...common.Option) AxiaWallet {
 	return NewAxiaWallet(
-		p.NewAxiaWalletWithOptions(w.P(), options...),
-		x.NewAxiaWalletWithOptions(w.X(), options...),
+		p.NewAxiaWalletWithOptions(w.Core(), options...),
+		x.NewAxiaWalletWithOptions(w.Swap(), options...),
 	)
 }
 
-func NewAxiaWallet(p p.AxiaWallet, x x.AxiaWallet) AxiaWallet {
+func NewAxiaWallet(core core.AxiaWallet, swap swap.AxiaWallet) AxiaWallet {
 	return &axiawallet{
-		p: p,
-		x: x,
+		core: core,
+		swap: swap,
 	}
 }

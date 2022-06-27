@@ -20,8 +20,8 @@ var (
 
 	// TODO: refactor ChainUTXOs definition to allow the client implementations
 	//       to perform their own assertions.
-	_ ChainUTXOs = p.ChainUTXOs(nil)
-	_ ChainUTXOs = x.ChainUTXOs(nil)
+	_ ChainUTXOs = core.ChainUTXOs(nil)
+	_ ChainUTXOs = swap.ChainUTXOs(nil)
 )
 
 type UTXOs interface {

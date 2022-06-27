@@ -98,14 +98,14 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 		)
 		var txID ids.ID
 		ginkgo.By("issue regular, virtuous Swap-Chain tx should succeed", func() {
-			balances, err := ewoqAxiaWallet.X().Builder().GetFTBalance()
+			balances, err := ewoqAxiaWallet.Swap().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			axcAssetID := baseAxiaWallet.X().AXCAssetID()
+			axcAssetID := baseAxiaWallet.Swap().AXCAssetID()
 			ewoqPrevBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", ewoqPrevBalX)
 
-			balances, err = randAxiaWallet.X().Builder().GetFTBalance()
+			balances, err = randAxiaWallet.Swap().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 
 			randPrevBalX := balances[axcAssetID]
@@ -120,7 +120,7 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 			// transfer "amount" from "ewoq" to "random"
 			tests.Outf("{{blue}}transferring %d from 'ewoq' to 'random' at %q{{/}}\n", amount, uris[0])
 			ctx, cancel := context.WithTimeout(context.Background(), e2e.DefaultConfirmTxTimeout)
-			txID, err = ewoqAxiaWallet.X().IssueBaseTx(
+			txID, err = ewoqAxiaWallet.Swap().IssueBaseTx(
 				[]*axc.TransferableOutput{{
 					Asset: axc.Asset{
 						ID: axcAssetID,
@@ -138,17 +138,17 @@ var _ = e2e.DescribeSwapChain("[Virtuous Transfer Tx AXC]", func() {
 			cancel()
 			gomega.Expect(err).Should(gomega.BeNil())
 
-			balances, err = ewoqAxiaWallet.X().Builder().GetFTBalance()
+			balances, err = ewoqAxiaWallet.Swap().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 			ewoqCurBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", ewoqCurBalX)
 
-			balances, err = randAxiaWallet.X().Builder().GetFTBalance()
+			balances, err = randAxiaWallet.Swap().Builder().GetFTBalance()
 			gomega.Expect(err).Should(gomega.BeNil())
 			randCurBalX := balances[axcAssetID]
 			tests.Outf("{{green}}ewoq axiawallet balance:{{/}} %d\n", randCurBalX)
 
-			gomega.Expect(ewoqCurBalX).Should(gomega.Equal(ewoqPrevBalX - amount - baseAxiaWallet.X().BaseTxFee()))
+			gomega.Expect(ewoqCurBalX).Should(gomega.Equal(ewoqPrevBalX - amount - baseAxiaWallet.Swap().BaseTxFee()))
 			gomega.Expect(randCurBalX).Should(gomega.Equal(randPrevBalX + amount))
 		})
 
